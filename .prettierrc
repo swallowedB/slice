@@ -9,7 +9,7 @@
   "bracketSpacing": true,
   "bracketSameLine": true,
   "arrowParens": "always",
-  "jsxSingleQuote": true,
+  "jsxSingleQuote": false,
   "singleAttributePerLine": true,
   "importOrder": [
     "^@api/(.*)$",
