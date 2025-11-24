@@ -13,7 +13,6 @@ export default function Button({
   children,
   variant = "primary",
   isFullWidth = true,
-
   isRounded = false,
   isDisabled = false,
   onClick,
@@ -33,6 +32,7 @@ export default function Button({
     isDisabled &&
       "pointer-events-none cursor-not-allowed bg-gray-300 text-white",
   );
+
   return (
     <button
       className={buttonClasses}
