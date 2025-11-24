@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
+import { fn } from 'storybook/test';
 import InputModal from "./InputModal";
 
 const meta = {
@@ -18,6 +19,9 @@ export const Default: Story = {
   args: {
     title: "링크 업로드",
     confirmText: "확인",
+    onClose: fn(),
+    onConfirm: fn(),
+    isOpen: true,
     children: (
       <div className='flex w-full flex-col gap-4'>
         {/* 제목 */}

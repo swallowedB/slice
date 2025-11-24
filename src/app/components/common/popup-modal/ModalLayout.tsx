@@ -1,5 +1,5 @@
 "use client";
-import {  } from "@heroicons/react/16/solid";
+import {} from "@heroicons/react/16/solid";
 import { ExclamationCircleIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import clsx from "clsx";
 
@@ -10,6 +10,7 @@ interface ModalLayoutProps {
   children?: React.ReactNode;
   footer: React.ReactNode;
   titleAlign?: "center" | "left";
+  onClose?: () => void;
 }
 
 export default function ModalLayout({
@@ -19,11 +20,13 @@ export default function ModalLayout({
   isClosable = false,
   children,
   footer,
+  onClose,
 }: ModalLayoutProps) {
   return (
     <div className='relative flex flex-col items-center'>
       {isClosable && (
         <button
+          onClick={onClose}
           type='button'
           aria-label='닫기'
           className='absolute top-0 right-0'>
@@ -32,11 +35,10 @@ export default function ModalLayout({
       )}
       <div
         className={clsx(
-          "flex w-full flex-col gap-1 ",
-          titleAlign === "center" && "px-8 py-3 items-center",
-          titleAlign === "left" && "px-1 items-start",
-        )}
-      >
+          "flex w-full flex-col gap-1",
+          titleAlign === "center" && "items-center px-8 py-3",
+          titleAlign === "left" && "items-start px-1",
+        )}>
         <h2
           className={clsx(
             "font-medium text-black",
@@ -48,15 +50,13 @@ export default function ModalLayout({
         {message && (
           <div className='flex items-center gap-1'>
             <ExclamationCircleIcon className='h-4 w-4 text-orange-500' />
-            <p className='text-orange-350 text-xs  md:text-sm'>
-              {message}
-            </p>
+            <p className='text-orange-350 text-xs md:text-sm'>{message}</p>
           </div>
         )}
       </div>
-      {children && <section
-      className="mt-5 md:mt-8 w-full min-w-70"
-      >{children}</section>}
+      {children && (
+        <section className='mt-5 w-full min-w-70 md:mt-8'>{children}</section>
+      )}
       <div className='mt-4 flex w-full gap-3'>{footer}</div>
     </div>
   );
