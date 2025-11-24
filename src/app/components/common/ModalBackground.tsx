@@ -1,3 +1,4 @@
+"use client"
 export default function ModalBackground({onClick}:{onClick?: () => void}) {
   return (
     <div 
