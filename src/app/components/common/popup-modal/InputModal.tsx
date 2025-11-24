@@ -1,5 +1,4 @@
 "use client";
-import { useState } from "react";
 import BaseModal from "./BaseModal";
 import ModalLayout from "./ModalLayout";
 
