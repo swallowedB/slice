@@ -1,3 +1,4 @@
+//main.ts
 import type { StorybookConfig } from "@storybook/nextjs-vite";
 import path, { dirname } from "path";
 import { fileURLToPath } from "url";
