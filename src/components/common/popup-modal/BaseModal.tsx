@@ -1,5 +1,5 @@
 "use client";
-import ModalBackground from "../ModalBackground";
+import ModalBackground from "./ModalBackground";
 
 interface BaseModalProps {
   children: React.ReactNode;

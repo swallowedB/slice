@@ -1,4 +1,3 @@
-//input/AuthInput.tsx
 "use client";
 
 import BaseInput from "../base-input/BaseInput";

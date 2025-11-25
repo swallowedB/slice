@@ -1,4 +1,3 @@
-// components/common/dropdown/sidebar-dropdown/SidebarDropdown.tsx
 "use client";
 
 import clsx from "clsx";
