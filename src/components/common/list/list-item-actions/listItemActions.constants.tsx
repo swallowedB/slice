@@ -26,7 +26,6 @@ export const ACTION_ICON_MAP: Record<
   },
   more: {
     icon: <EllipsisVerticalIcon className={BASE_ICON_CLASS} />,
-    buttonClassName:
-      "bg-white hidden group-hover:flex scale-90 transition-transform group-hover:scale-100",
+    buttonClassName: "bg-white cursor-pointer ",
   },
 };

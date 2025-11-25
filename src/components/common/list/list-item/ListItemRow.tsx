@@ -1,6 +1,3 @@
-"use client";
-
-import { useState } from "react";
 import clsx from "clsx";
 import Checkbox from "../../checkbox/Checkbox";
 import ListItemActions from "../list-item-actions/ListItemActions";
@@ -17,8 +14,6 @@ type Props = {
 };
 
 const ListItemRow = ({ item, onChange, variant }: Props) => {
-  const [showActions, setShowActions] = useState(false);
-
   const getTextColor = (checked: boolean, variant: ListItemVariant) => {
     if (checked) return "text-gray-600";
     if (variant === "white") return "text-white";
@@ -32,52 +27,39 @@ const ListItemRow = ({ item, onChange, variant }: Props) => {
     if (item.file) actions.push({ type: "file" });
     if (item.note) actions.push({ type: "note" });
 
-    if (item.link || item.file || item.note) {
-      actions.push({ type: "more" });
-    }
+    actions.push({ type: "more" });
 
     return actions;
   };
 
   const textColor = getTextColor(item.checked, variant);
 
-  const handleTextClick = () => {
-    // 모바일에서만 케밥 토글하고 싶으면 여기서 분기 태워도 됨
-    setShowActions((prev) => !prev);
-  };
-
   return (
     <li className="group flex w-full items-center justify-between rounded-2xl p-2.5 transition-all hover:bg-orange-400/20">
-      {/* 왼쪽: 체크박스 + 텍스트 */}
       <div className="flex min-w-0 flex-1 items-center gap-2.5 pr-10">
-        {/* 체크박스: 오직 체크만 담당 */}
-        <Checkbox
-          id={`checkbox-${item.id}`}
-          checked={item.checked}
-          onChange={() => onChange(item.id)}
-          variant={variant}
-        />
-
-        {/* 텍스트: 모바일에서 케밥 토글 담당 */}
-        <button
-          type="button"
-          className="min-w-0 flex-1 text-left md:pointer-events-none"
-          onClick={handleTextClick}>
+        <label
+          className="flex min-w-0 flex-1 cursor-pointer items-center gap-2.5 pr-10"
+          htmlFor={`checkbox-${item.id}`}>
+          <Checkbox
+            id={`checkbox-${item.id}`}
+            checked={item.checked}
+            onChange={() => onChange(item.id)}
+            variant={variant}
+          />
           <span
+            id={`item-label-${item.id}`}
             className={clsx(
-              "flex-1 truncate text-sm transition-colors group-hover:font-semibold group-hover:text-orange-400 sm:text-base",
+              "flex-1 truncate text-sm transition-colors sm:text-base",
               textColor,
             )}>
             {item.label}
           </span>
-        </button>
+        </label>
       </div>
 
-      {/* 오른쪽: 액션 영역 (케밥 포함) */}
       <ListItemActions
         variant={variant}
         actions={getActionsFromItem(item)}
-        isVisible={showActions}
       />
     </li>
   );
