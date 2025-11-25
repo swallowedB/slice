@@ -4,14 +4,23 @@ import BaseInput from "../base-input/BaseInput";
 import clsx from "clsx";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
 
-export type InputStatus = "default" | "filled" | "success" | "error";
+
+const INPUTMESSAGE = {
+  email: {
+    placeholder: "이메일을 입력해주세요",
+  },
+  password: {
+    placeholder: "비밀번호를 입력해주세요",
+  },
+} as const;
+
+export type InputStatus = "default" | "filled" | "error";
 
 export interface InputProps {
   type?: "email" | "password";
   value: string;
   status?: InputStatus;
   placeholder?: string;
-  errorMessage?: string;
   isPasswordVisible?: boolean;
   icon?: React.ReactNode;
 
@@ -19,51 +28,38 @@ export interface InputProps {
   onClickTogglePassword?: () => void;
 }
 
-const INPUTMESSAGE = {
-  email: {
-    placeholder: "이메일을 입력해주세요",
-    errorMessage: "잘못된 이메일입니다.",
-  },
-  password: {
-    placeholder: "비밀번호를 입력해주세요",
-    errorMessage: "비밀번호가 일치하지 않습니다.",
-  },
-} as const;
 
 export default function AuthInput({
   type = "email",
   value,
   status = "default",
   placeholder,
-  errorMessage,
   isPasswordVisible = false,
   onChangeInput,
   onClickTogglePassword,
 }: InputProps) {
+
   const isPasswordField = type === "password";
 
-  const inputType = isPasswordField
-    ? isPasswordVisible
-      ? "text"
-      : "password"
-    : "text";
+  let inputType: "text" | "password" = "text";
+  if(type === "password"){
+    inputType = isPasswordVisible ? "text" : "password";
+  }
 
   const resolvedPlaceholder = placeholder ?? INPUTMESSAGE[type].placeholder;
-  const resolvedErrorMsg = errorMessage ?? INPUTMESSAGE[type].errorMessage;
 
   return (
     <div className="flex flex-col gap-1 w-full">
       <BaseInput
         value={value}
         type={inputType}
-        background="sky"
         onChange={onChangeInput}
         placeholder={resolvedPlaceholder}
         className={clsx(
           "border px-4 rounded-xl h-[52px] flex items-center",
           {
-            "border-gray-300 bg-white": status === "default" || status === "filled",
-            "bg-orange-50 border-orange-300": status === "success",
+            "border-gray-300 bg-white": status === "default",
+            "bg-orange-50 border-orange-300": status === "filled",
             "border-red-400 bg-white": status === "error",
           }
         )}
@@ -79,11 +75,6 @@ export default function AuthInput({
           )
         }
       />
-
-      {/* 에러 메시지 */}
-      {status === "error" && (
-        <p className="text-xs text-red-500">{resolvedErrorMsg}</p>
-      )}
     </div>
   );
 }
