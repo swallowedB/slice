@@ -49,7 +49,7 @@ const ListItemRow = ({ item, onChange, variant }: Props) => {
           <span
             id={`item-label-${item.id}`}
             className={clsx(
-              "flex-1 truncate text-sm transition-colors sm:text-base",
+              "flex-1 truncate text-sm transition-colors group-hover:font-semibold group-hover:text-orange-400 sm:text-base",
               textColor,
             )}>
             {item.label}
