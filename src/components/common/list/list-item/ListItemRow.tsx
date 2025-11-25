@@ -38,7 +38,7 @@ const ListItemRow = ({ item, onChange, variant }: Props) => {
     <li className="group flex w-full items-center justify-between rounded-2xl p-2.5 transition-all hover:bg-orange-400/20">
       <div className="flex min-w-0 flex-1 items-center gap-2.5 pr-10">
         <label
-          className="flex min-w-0 flex-1 cursor-pointer items-center gap-2.5 pr-10"
+          className="flex min-w-0 flex-1 cursor-pointer items-center gap-2.5 pr-2 sm:pr-10"
           htmlFor={`checkbox-${item.id}`}>
           <Checkbox
             id={`checkbox-${item.id}`}
@@ -49,7 +49,7 @@ const ListItemRow = ({ item, onChange, variant }: Props) => {
           <span
             id={`item-label-${item.id}`}
             className={clsx(
-              "flex-1 truncate text-sm transition-colors group-hover:font-semibold group-hover:text-orange-400 sm:text-base",
+              "max-w-fit flex-1 truncate text-sm transition-colors group-hover:font-semibold group-hover:text-orange-400 sm:text-base",
               textColor,
             )}>
             {item.label}

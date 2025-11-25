@@ -1,7 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
+import type { ComponentProps } from "react";
+import { useState } from "react";
+
 import ListItem from "./ListItem";
-import { ListItemType } from "./listItem.types";
-import { useArgs } from "storybook/internal/preview-api";
+import type { ListItemType } from "./listItem.types";
 
 const meta: Meta<typeof ListItem> = {
   title: "Common/List/ListItem",
@@ -25,58 +27,91 @@ const meta: Meta<typeof ListItem> = {
 export default meta;
 type Story = StoryObj<typeof ListItem>;
 
-const getMockItems = (): ListItemType[] => [
-  { id: 1, label: "영어 단어 외우기", checked: false },
-  { id: 2, label: "운동 30분", checked: true },
-  { id: 3, label: "이력서 업데이트", checked: false },
+type ListItemStoryProps = ComponentProps<typeof ListItem>;
+
+const mockItems: ListItemType[] = [
+  { id: 1, label: "Next.js 공부", checked: false, link: true },
+  { id: 2, label: "타입스크립트", checked: true, file: true },
+  {
+    id: 3,
+    label: "청소하기",
+    checked: false,
+    note: true,
+    link: true,
+    file: true,
+  },
+  { id: 4, label: "아무것도 없음", checked: false },
 ];
 
-export const Default: Story = {
-  args: {
-    variant: "default",
-    items: getMockItems(),
-  },
-  render: (args) => {
-    const [, updateArgs] = useArgs();
+const Interactive = (args: ListItemStoryProps) => {
+  const [items, setItems] = useState<ListItemType[]>(args.items);
 
-    const handleChange = (id: number) => {
-      updateArgs({
-        items: args.items.map((item) =>
-          item.id === id ? { ...item, checked: !item.checked } : item,
-        ),
-      });
-    };
-
-    return (
-      <ListItem
-        {...args}
-        onChange={handleChange}
-      />
+  const handleChange = (id: number) => {
+    setItems((prev) =>
+      prev.map((item) =>
+        item.id === id ? { ...item, checked: !item.checked } : item,
+      ),
     );
+  };
+
+  return (
+    <ListItem
+      {...args}
+      items={items}
+      onChange={handleChange}
+    />
+  );
+};
+
+export const Default: Story = {
+  render: (args) => <Interactive {...args} />,
+  args: {
+    items: mockItems,
+    variant: "default",
   },
 };
 
 export const White: Story = {
+  render: (args) => <Interactive {...args} />,
   args: {
+    items: mockItems,
     variant: "white",
-    items: getMockItems(),
   },
-  render: (args) => {
-    const [, updateArgs] = useArgs();
+};
 
-    const handleChange = (id: number) => {
-      updateArgs({
-        items: args.items.map((item) =>
-          item.id === id ? { ...item, checked: !item.checked } : item,
-        ),
-      });
-    };
+export const NoActions: Story = {
+  render: (args) => <Interactive {...args} />,
+  args: {
+    items: mockItems.map((item) => ({
+      id: item.id,
+      label: item.label,
+      checked: item.checked,
+    })),
+  },
+};
 
-    return (
-      <ListItem
-        {...args}
-        onChange={handleChange}
-      />
-    );
+export const OnlyMore: Story = {
+  render: (args) => <Interactive {...args} />,
+  args: {
+    items: mockItems.map((item) => ({
+      ...item,
+      link: false,
+      file: false,
+      note: false,
+    })),
+  },
+};
+
+export const LongText: Story = {
+  render: (args) => <Interactive {...args} />,
+  args: {
+    items: mockItems.map((item) => ({
+      ...item,
+      label:
+        "이건 일부러 엄청 길게 늘려서 truncate / max-width / hover / flex / icon 겹침 여부를 테스트하는 초장문 라벨입니다. 여기서 레이아웃 안 깨지면 그냥 승리 선언해도 됩니다. overkill of overkill.",
+      link: true,
+      file: true,
+      note: false,
+    })),
   },
 };

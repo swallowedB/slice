@@ -4,9 +4,9 @@ export type ListItemType = {
   id: number;
   label: string;
   checked: boolean;
-  link?: string;
-  file?: string;
-  note?: string;
+  link?: boolean;
+  file?: boolean;
+  note?: boolean;
 };
 
 export type ListActionType = {
