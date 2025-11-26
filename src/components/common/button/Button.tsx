@@ -1,10 +1,11 @@
+"use client";
+
 import clsx from "clsx";
 
 type ButtonProps = {
   children: React.ReactNode;
-  variant?: "primary" | "outline";
+  variant?: "primary" | "outline-orange" | "outline-gray";
   isFullWidth?: boolean;
-  isRounded?: boolean;
   isDisabled?: boolean;
   onClick: () => void;
 };
@@ -13,24 +14,50 @@ export default function Button({
   children,
   variant = "primary",
   isFullWidth = true,
-  isRounded = false,
   isDisabled = false,
   onClick,
 }: ButtonProps) {
-  const buttonClasses = clsx(
-    "cursor-pointer rounded-2xl px-3 pt-2.5 pb-2.5 text-sm font-semibold sm:px-6",
+  const isPrimary = variant === "primary";
+  const isOutlineOrange = variant === "outline-orange";
+  const isOutlineGray = variant === "outline-gray";
 
-    isFullWidth && "w-full pt-4.5 pb-4.5 text-xl font-bold",
+  const baseStyles = "cursor-pointer rounded-full font-semibold";
 
-    !isDisabled && {
-      "bg-orange-300 text-white hover:bg-orange-400": variant === "primary",
-      "border border-orange-300 text-orange-400 hover:border-orange-400 hover:text-orange-500":
-        variant === "outline",
-    },
+  const sizeStyles = isFullWidth
+    ? "box-border h-14 w-full text-base sm:text-lg"
+    : "text-sm sm:box-border sm:h-10 sm:w-28";
 
-    isRounded && "rounded-4xl",
+  const variantStyles =
+    !isDisabled &&
+    clsx({
+      "bg-orange-250 text-white hover:bg-orange-400": isFullWidth && isPrimary,
+
+      "border border-gray-200 text-gray-600 hover:border-gray-300 hover:text-gray-650":
+        isFullWidth && isOutlineGray,
+
+      "text-gray-600 hover:text-gray-650 sm:bg-orange-250 sm:text-white sm:hover:bg-orange-400 sm:hover:text-white":
+        !isFullWidth && isPrimary,
+
+      "text-orange-250 hover:border-orange-400 hover:text-orange-400 sm:border sm:border-orange-250":
+        !isFullWidth && isOutlineOrange,
+
+      "text-orange-250 hover:border-gray-300 hover:text-orange-400 sm:border sm:border-gray-200 sm:text-gray-600 sm:hover:text-gray-650":
+        !isFullWidth && isOutlineGray,
+    });
+
+  const disabledStyles =
     isDisabled &&
-      "pointer-events-none cursor-not-allowed bg-gray-300 text-white",
+    clsx({
+      "pointer-events-none cursor-not-allowed": true,
+      "bg-gray-300 text-white": isFullWidth,
+      "text-gray-400 sm:bg-gray-300 sm:text-white": !isFullWidth,
+    });
+
+  const buttonClasses = clsx(
+    baseStyles,
+    sizeStyles,
+    variantStyles,
+    disabledStyles,
   );
 
   return (
