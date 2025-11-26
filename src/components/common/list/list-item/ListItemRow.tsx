@@ -13,7 +13,7 @@ type Props = {
   variant: ListItemVariant;
 };
 
-const ListItemRow = ({ item, onChange, variant }: Props) => {
+export default function ListItemRow({ item, onChange, variant }: Props) {
   const getTextColor = (checked: boolean, variant: ListItemVariant) => {
     if (checked) return "text-gray-600";
     if (variant === "white") return "text-white";
@@ -63,6 +63,4 @@ const ListItemRow = ({ item, onChange, variant }: Props) => {
       />
     </li>
   );
-};
-
-export default ListItemRow;
+}

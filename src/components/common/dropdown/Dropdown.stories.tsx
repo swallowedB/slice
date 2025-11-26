@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 import SidebarDropdown from "./Dropdown";
 
 const meta: Meta<typeof SidebarDropdown> = {
-  title: "Common/Dropdown/SidebarDropdown",
+  title: "Dropdown/SidebarDropdown",
   component: SidebarDropdown,
   tags: ["autodocs"],
 };
@@ -12,10 +12,7 @@ type Story = StoryObj<typeof SidebarDropdown>;
 
 export const Default: Story = {
   args: {
-    items: [
-      "자바스크립트로 웹서비스 만들기",
-      "디자인 시스템 강의 듣기",
-    ],
+    items: ["자바스크립트로 웹서비스 만들기", "디자인 시스템 강의 듣기"],
   },
 };
 

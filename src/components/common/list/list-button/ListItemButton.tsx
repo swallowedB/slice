@@ -6,12 +6,11 @@ type ListItemButtonProps = {
   variant?: ListItemVariant;
   className?: string;
 };
-
-const ListItemButton = ({
+export default function ListItemButton({
   icon,
   variant = "default",
   className,
-}: ListItemButtonProps) => {
+}: ListItemButtonProps) {
   const listButtonClasses = clsx(
     "flex h-6 w-6 items-center justify-center rounded-full",
     variant === "white" ? "bg-white/40" : "bg-orange-400/20",
@@ -25,6 +24,4 @@ const ListItemButton = ({
       {icon}
     </button>
   );
-};
-
-export default ListItemButton;
+}

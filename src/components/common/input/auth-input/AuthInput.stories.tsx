@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 import AuthInput from "./AuthInput";
 
 const meta = {
-  title: "Components/Input/AuthInput",
+  title: "Input/AuthInput",
   component: AuthInput,
   tags: ["autodocs"],
 } satisfies Meta<typeof AuthInput>;
