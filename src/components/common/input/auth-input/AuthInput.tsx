@@ -1,9 +1,11 @@
 "use client";
 
-import BaseInput from "../base-input/BaseInput";
+import BaseInput, { InputType as BaseInputType } from "../base-input/BaseInput";
 import clsx from "clsx";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
 
+export type AuthInputType = "email" | "password";
+export type InputStatus = "default" | "filled" | "error";
 
 const INPUTMESSAGE = {
   email: {
@@ -14,10 +16,8 @@ const INPUTMESSAGE = {
   },
 } as const;
 
-export type InputStatus = "default" | "filled" | "error";
-
 export interface InputProps {
-  type?: "email" | "password";
+  type?: AuthInputType;
   value: string;
   status?: InputStatus;
   placeholder?: string;
@@ -27,7 +27,6 @@ export interface InputProps {
   onChangeInput: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onClickTogglePassword?: () => void;
 }
-
 
 export default function AuthInput({
   type = "email",
@@ -41,9 +40,11 @@ export default function AuthInput({
 
   const isPasswordField = type === "password";
 
-  let inputType: "text" | "password" = "text";
-  if(type === "password"){
+  let inputType: BaseInputType;
+  if (isPasswordField) {
     inputType = isPasswordVisible ? "text" : "password";
+  } else {
+    inputType = "email";
   }
 
   const resolvedPlaceholder = placeholder ?? INPUTMESSAGE[type].placeholder;
