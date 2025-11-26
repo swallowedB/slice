@@ -22,12 +22,12 @@ const VARIANT_CONFIG: Record<ButtonVariant, Record<ButtonSize, string>> = {
   "outline-orange": {
     full: "", // 디자인 x
     compact:
-      "text-orange-250 hover:border-orange-400 hover:text-orange-400 sm:border sm:border-orange-250",
+      "text-orange-250 hover:text-orange-400 sm:border sm:border-orange-250 sm:hover:border-orange-400",
   },
   "outline-gray": {
     full: "border border-gray-200 text-gray-600 hover:border-gray-300 hover:text-gray-650",
     compact:
-      "text-orange-250 hover:border-gray-300 hover:text-orange-400 sm:border sm:border-gray-200 sm:text-gray-600 sm:hover:text-gray-650",
+      "text-orange-250 hover:text-orange-400 sm:border sm:border-gray-200 sm:text-gray-600 sm:hover:border-gray-300 sm:hover:text-gray-650",
   },
 };
 
