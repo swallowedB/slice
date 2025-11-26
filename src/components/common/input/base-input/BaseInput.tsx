@@ -2,11 +2,18 @@
 
 import clsx from "clsx";
 
+export type InputType =
+  | "text"
+  | "email"
+  | "password"
+  | "url"
+  | "file";
+
 export interface BaseInputProps {
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   placeholder?: string;
-  type?: string;
+  type?: InputType;
   className?: string;
   Icon?: React.ReactNode;
 }
