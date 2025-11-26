@@ -1,5 +1,6 @@
 "use client";
 
+import Button from "../button/Button";
 import BaseModal from "./BaseModal";
 import ModalLayout from "./ModalLayout";
 
@@ -29,16 +30,18 @@ export default function ConfirmModal({
         onClose={onClose}
         footer={
           <>
-            <button
+          <Button
               onClick={onClose}
-              className='flex-1 rounded-md bg-orange-300 py-3 text-white'>
-              취소
-            </button>
-            <button
+              variant="outline-gray"
+          >
+            취소
+          </Button>
+          <Button
               onClick={onConfirm} 
-              className='flex-1 rounded-md bg-orange-300 text-white'>
+              variant="primary"
+          >
               {confirmText}
-            </button>
+          </Button>
           </>
         }></ModalLayout>
     </BaseModal>

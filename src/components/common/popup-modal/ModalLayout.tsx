@@ -57,7 +57,7 @@ export default function ModalLayout({
       {children && (
         <section className='mt-5 w-full min-w-70 md:mt-8'>{children}</section>
       )}
-      <div className='mt-4 flex w-full gap-3'>{footer}</div>
+      <div className='mt-3 flex w-full gap-3'>{footer}</div>
     </div>
   );
 }

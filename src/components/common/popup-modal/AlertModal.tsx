@@ -1,5 +1,6 @@
 "use client";
 
+import Button from "../button/Button";
 import BaseModal from "./BaseModal";
 import ModalLayout from "./ModalLayout";
 
@@ -18,20 +19,20 @@ export default function AlertModal({
   isOpen,
   onClose,
 }: AlertModalProps) {
-  if(!isOpen) return null;
+  if (!isOpen) return null;
   return (
     <BaseModal onClose={onClose}>
       <ModalLayout
         title={title}
-        titleAlign='center'
+        titleAlign="center"
         message={message}
         footer={
           <>
-            <button
-              onClick={onClose} 
-              className='flex-1 rounded-md bg-orange-300 py-2 text-white'>
+            <Button
+              onClick={onClose}
+              variant="primary">
               {confirmText}
-            </button>
+            </Button>
           </>
         }></ModalLayout>
     </BaseModal>

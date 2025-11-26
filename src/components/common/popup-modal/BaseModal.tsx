@@ -13,7 +13,7 @@ export default function BaseModal({ children, onClose }: BaseModalProps) {
       role='dialog'
       aria-modal='true'>
       <ModalBackground onClick={onClose} />
-      <div className='bg-bg relative z-1000 min-w-56 rounded-2xl p-4 md:rounded-3xl md:p-8'>
+      <div className='bg-bg relative z-1000 min-w-56 rounded-2xl p-4 md:rounded-3xl md:p-6'>
         {children}
       </div>
     </div>
