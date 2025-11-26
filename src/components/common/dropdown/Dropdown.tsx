@@ -8,12 +8,12 @@ export interface DropdownProps {
 
 const DROPDOWN_STYLES = {
     sidebar: {
-        wrapper: "w-full p-4",
-        item: "px-3 py-3 text-sm",
+        wrapper: "w-full p-2 bg-white",
+        item: "px-3 py-3 text-sm cursor-pointer",
     },
     menu: {
-        wrapper:"w-36 p-2",
-        item: "px-2 py-2 text-sm",
+        wrapper:"w-32 p-1 bg-white",
+        item: "px-0.5 py-2 text-sm cursor-pointer",
     },
 } as const;
 

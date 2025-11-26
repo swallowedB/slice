@@ -1,14 +1,14 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
-import SidebarDropdown from "./Dropdown";
+import Dropdown from "./Dropdown";
 
-const meta: Meta<typeof SidebarDropdown> = {
-  title: "Dropdown/SidebarDropdown",
-  component: SidebarDropdown,
+const meta: Meta<typeof Dropdown> = {
+  title: "Dropdown/Dropdown",
+  component: Dropdown,
   tags: ["autodocs"],
 };
 
 export default meta;
-type Story = StoryObj<typeof SidebarDropdown>;
+type Story = StoryObj<typeof Dropdown>;
 
 export const Default: Story = {
   args: {
@@ -16,21 +16,9 @@ export const Default: Story = {
   },
 };
 
-export const WithManyItems: Story = {
+export const MenuVariant: Story = {
   args: {
-    items: [
-      "자바스크립트로 웹서비스 만들기",
-      "디자인 시스템 강의 듣기",
-      "Figma 오토 레이아웃 학습하기",
-      "로그인/회원가입 구현하기",
-      "배포 자동화 CI/CD 세팅하기",
-    ],
-  },
-};
-
-export const CustomClassName: Story = {
-  args: {
-    items: ["커스텀 클래스 적용 예시"],
-    className: "bg-blue-50",
+    items: ["노트 작성하기", "수정하기", "삭제하기"],
+    variant: "menu"
   },
 };
