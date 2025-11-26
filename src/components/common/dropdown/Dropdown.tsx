@@ -12,8 +12,8 @@ const DROPDOWN_STYLES = {
         item: "px-3 py-3 text-sm cursor-pointer",
     },
     menu: {
-        wrapper:"w-32 p-1 bg-white",
-        item: "px-0.5 py-2 text-sm cursor-pointer",
+        wrapper:"w-32 px-3 py-2 bg-white",
+        item: "px-1 py-2 text-sm cursor-pointer",
     },
 } as const;
 
