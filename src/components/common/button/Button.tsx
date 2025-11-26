@@ -30,18 +30,18 @@ export default function Button({
   const variantStyles =
     !isDisabled &&
     clsx({
-      "bg-orange-300 text-white hover:bg-orange-400": isFullWidth && isPrimary,
+      "bg-orange-250 text-white hover:bg-orange-400": isFullWidth && isPrimary,
 
       "border border-gray-200 text-gray-600 hover:border-gray-300 hover:text-gray-650":
         isFullWidth && isOutlineGray,
 
-      "text-gray-600 hover:text-gray-650 sm:bg-orange-300 sm:text-white sm:hover:bg-orange-400 sm:hover:text-white":
+      "text-gray-600 hover:text-gray-650 sm:bg-orange-250 sm:text-white sm:hover:bg-orange-400 sm:hover:text-white":
         !isFullWidth && isPrimary,
 
-      "text-orange-300 hover:border-orange-400 hover:text-orange-400 sm:border sm:border-orange-300":
+      "text-orange-250 hover:border-orange-400 hover:text-orange-400 sm:border sm:border-orange-250":
         !isFullWidth && isOutlineOrange,
 
-      "text-orange-300 hover:border-gray-300 hover:text-orange-400 sm:border sm:border-gray-200 sm:text-gray-600 sm:hover:text-gray-650":
+      "text-orange-250 hover:border-gray-300 hover:text-orange-400 sm:border sm:border-gray-200 sm:text-gray-600 sm:hover:text-gray-650":
         !isFullWidth && isOutlineGray,
     });
 
