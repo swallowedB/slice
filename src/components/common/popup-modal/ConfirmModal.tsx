@@ -1,7 +1,8 @@
 "use client";
 
-import BaseModal from "./BaseModal";
-import ModalLayout from "./ModalLayout";
+import Button from "../button/Button";
+import BaseLayout from "./BaseLayout";
+import ModalContent from "./ModalContent";
 
 interface ConfirModalProps {
   title: string;
@@ -20,27 +21,27 @@ export default function ConfirmModal({
   onClose,
   onConfirm,
 }: ConfirModalProps) {
-  if(!isOpen) return null;
+  if (!isOpen) return null;
   return (
-    <BaseModal onClose={onClose}>
-      <ModalLayout
+    <BaseLayout onClose={onClose}>
+      <ModalContent
         title={title}
         message={message}
         onClose={onClose}
         footer={
           <>
-            <button
+            <Button
               onClick={onClose}
-              className='flex-1 rounded-md bg-orange-300 py-3 text-white'>
+              variant="outline-gray">
               취소
-            </button>
-            <button
-              onClick={onConfirm} 
-              className='flex-1 rounded-md bg-orange-300 text-white'>
+            </Button>
+            <Button
+              onClick={onConfirm}
+              variant="primary">
               {confirmText}
-            </button>
+            </Button>
           </>
-        }></ModalLayout>
-    </BaseModal>
+        }></ModalContent>
+    </BaseLayout>
   );
 }

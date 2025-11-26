@@ -1,14 +1,16 @@
 "use client";
-import BaseModal from "./BaseModal";
-import ModalLayout from "./ModalLayout";
+import Button from "../button/Button";
+import BaseLayout from "./BaseLayout";
+import ModalContent from "./ModalContent";
 
 interface InputModalProps {
   title: string;
   confirmText?: string;
   isOpen: boolean;
   onClose: () => void;
-  onConfirm: () => void; 
+  onConfirm: () => void;
   children: React.ReactNode;
+  isConfirmDisabled?: boolean;
 }
 
 export default function InputModal({
@@ -18,26 +20,28 @@ export default function InputModal({
   isOpen,
   onClose,
   onConfirm,
+  isConfirmDisabled = true,
 }: InputModalProps) {
   if (!isOpen) return null;
   return (
-    <BaseModal onClose={onClose}>
-      <ModalLayout
+    <BaseLayout onClose={onClose}>
+      <ModalContent
         title={title}
-        titleAlign='left'
+        titleAlign="left"
         isClosable={true}
         onClose={onClose}
         footer={
           <>
-            <button
+            <Button
               onClick={onConfirm}
-              className='flex-1 rounded-md bg-orange-300 py-2 text-white'>
+              variant="primary"
+              isDisabled={isConfirmDisabled}>
               {confirmText}
-            </button>
+            </Button>
           </>
         }>
         {children}
-      </ModalLayout>
-    </BaseModal>
+      </ModalContent>
+    </BaseLayout>
   );
 }

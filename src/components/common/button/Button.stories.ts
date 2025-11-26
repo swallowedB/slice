@@ -6,7 +6,7 @@ const meta = {
   title: "Component/Button",
   component: Button,
   parameters: {
-    layout: "centered",
+    layout: "padded",
   },
   tags: ["autodocs"],
 } satisfies Meta<typeof Button>;
@@ -17,21 +17,39 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    children: "로그인하기",
+    children: "확인",
     variant: "primary",
     isFullWidth: true,
-    isRounded: false,
     isDisabled: false,
     onClick: fn(),
   },
 };
 
-export const Outline: Story = {
+export const NonFullWidth: Story = {
   args: {
-    children: "회원가입",
-    variant: "outline",
-    isFullWidth: true,
-    isRounded: false,
+    children: "등록하기",
+    variant: "primary",
+    isFullWidth: false,
+    isDisabled: false,
+    onClick: fn(),
+  },
+};
+
+export const OutlineOrange: Story = {
+  args: {
+    children: "임시저장",
+    variant: "outline-orange",
+    isFullWidth: false,
+    isDisabled: false,
+    onClick: fn(),
+  },
+};
+
+export const OutlineGray: Story = {
+  args: {
+    children: "취소",
+    variant: "outline-gray",
+    isFullWidth: false,
     isDisabled: false,
     onClick: fn(),
   },
@@ -39,10 +57,9 @@ export const Outline: Story = {
 
 export const Disabled: Story = {
   args: {
-    children: "비활성화",
+    children: "작성완료",
     variant: "primary",
     isFullWidth: true,
-    isRounded: false,
     isDisabled: true,
     onClick: fn(),
   },
