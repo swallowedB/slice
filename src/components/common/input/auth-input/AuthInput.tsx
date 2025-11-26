@@ -52,9 +52,10 @@ export default function AuthInput({
   const inputClassName = clsx(
     "border px-4 rounded-xl h-[52px] flex items-center",
     {
-      "border-gray-300 bg-white": status === "default",
-      "bg-orange-50 border-orange-300": status === "filled",
-      "border-red-400 bg-white": status === "error",
+      "bg-white": true,
+      "border-gray-100": status === "default",
+      "border-gray-200": status === "filled",
+      "border-red-500": status === "error",
     }
   )
 
