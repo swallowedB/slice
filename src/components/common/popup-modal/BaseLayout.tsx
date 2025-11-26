@@ -1,12 +1,12 @@
 "use client";
 import ModalBackground from "./ModalBackground";
 
-interface BaseModalProps {
+interface BaseLayoutProps {
   children: React.ReactNode;
   onClose: () => void;
 }
 
-export default function BaseModal({ children, onClose }: BaseModalProps) {
+export default function BaseLayout({ children, onClose }: BaseLayoutProps) {
   return (
     <div
       className='fixed inset-0 flex items-center justify-center'

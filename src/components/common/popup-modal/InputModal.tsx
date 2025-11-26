@@ -1,7 +1,7 @@
 "use client";
 import Button from "../button/Button";
-import BaseModal from "./BaseModal";
-import ModalLayout from "./ModalLayout";
+import BaseLayout from "./BaseLayout";
+import ModalContent from "./ModalContent";
 
 interface InputModalProps {
   title: string;
@@ -24,8 +24,8 @@ export default function InputModal({
 }: InputModalProps) {
   if (!isOpen) return null;
   return (
-    <BaseModal onClose={onClose}>
-      <ModalLayout
+    <BaseLayout onClose={onClose}>
+      <ModalContent
         title={title}
         titleAlign="left"
         isClosable={true}
@@ -35,12 +35,13 @@ export default function InputModal({
             <Button
               onClick={onConfirm}
               variant="primary"
-              isDisabled={isConfirmDisabled}
-            >{confirmText}</Button>
+              isDisabled={isConfirmDisabled}>
+              {confirmText}
+            </Button>
           </>
         }>
         {children}
-      </ModalLayout>
-    </BaseModal>
+      </ModalContent>
+    </BaseLayout>
   );
 }

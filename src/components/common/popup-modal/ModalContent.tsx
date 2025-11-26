@@ -1,9 +1,8 @@
 "use client";
-import {} from "@heroicons/react/16/solid";
 import { ExclamationCircleIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import clsx from "clsx";
 
-interface ModalLayoutProps {
+interface ModalContentProps {
   title: string;
   message?: string;
   isClosable?: boolean;
@@ -13,7 +12,7 @@ interface ModalLayoutProps {
   onClose?: () => void;
 }
 
-export default function ModalLayout({
+export default function ModalContent({
   title,
   titleAlign = "center",
   message,
@@ -21,7 +20,7 @@ export default function ModalLayout({
   children,
   footer,
   onClose,
-}: ModalLayoutProps) {
+}: ModalContentProps) {
   return (
     <div className='relative flex flex-col items-center'>
       {isClosable && (

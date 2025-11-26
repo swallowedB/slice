@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
-import ModalLayout from "./ModalLayout";
 import { fn } from "storybook/test";
 import Button from "../button/Button";
+import ModalLayout from "./ModalContent";
 
 const meta = {
   title: "Modal/ModalLayout",
@@ -27,10 +27,9 @@ export const Default: Story = {
     footer: (
       <Button
         variant="primary"
-        onClick={fn()}
-      >
+        onClick={fn()}>
         확인
       </Button>
-    )
-  }
-}
+    ),
+  },
+};
