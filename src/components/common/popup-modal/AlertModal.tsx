@@ -1,7 +1,7 @@
 "use client";
-
-import BaseModal from "./BaseModal";
-import ModalLayout from "./ModalLayout";
+import Button from "../button/Button";
+import BaseLayout from "./BaseLayout";
+import ModalContent from "./ModalContent";
 
 interface AlertModalProps {
   title: string;
@@ -18,22 +18,22 @@ export default function AlertModal({
   isOpen,
   onClose,
 }: AlertModalProps) {
-  if(!isOpen) return null;
+  if (!isOpen) return null;
   return (
-    <BaseModal onClose={onClose}>
-      <ModalLayout
+    <BaseLayout onClose={onClose}>
+      <ModalContent
         title={title}
-        titleAlign='center'
+        titleAlign="center"
         message={message}
         footer={
           <>
-            <button
-              onClick={onClose} 
-              className='flex-1 rounded-md bg-orange-300 py-2 text-white'>
+            <Button
+              onClick={onClose}
+              variant="primary">
               {confirmText}
-            </button>
+            </Button>
           </>
-        }></ModalLayout>
-    </BaseModal>
+        }></ModalContent>
+    </BaseLayout>
   );
 }
