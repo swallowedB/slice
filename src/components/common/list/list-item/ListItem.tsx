@@ -9,7 +9,11 @@ type ListItemProps = {
   variant?: ListItemVariant;
 };
 
-const ListItem = ({ items, onChange, variant = "default" }: ListItemProps) => {
+export default function ListItem({
+  items,
+  onChange,
+  variant = "default",
+}: ListItemProps) {
   return (
     <div className="w-full">
       <ul>
@@ -24,6 +28,4 @@ const ListItem = ({ items, onChange, variant = "default" }: ListItemProps) => {
       </ul>
     </div>
   );
-};
-
-export default ListItem;
+}

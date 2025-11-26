@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 import BaseInput from "./BaseInput";
 
 const meta: Meta<typeof BaseInput> = {
-  title: "Components/Input/BaseInput",
+  title: "Input/BaseInput",
   component: BaseInput,
   tags: ["autodocs"],
   argTypes: {
@@ -39,6 +39,6 @@ export const WithIcon: Story = {
     value: "",
     placeholder: "아이콘 있는 인풋",
     background: "orange",
-    Icon: <span className='text-gray-500'>★</span>,
+    Icon: <span className="text-gray-500">★</span>,
   },
 };

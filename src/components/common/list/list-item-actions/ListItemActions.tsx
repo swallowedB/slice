@@ -7,10 +7,10 @@ type ListItemActionsProps = {
   actions?: ListActionType[];
 };
 
-const ListItemActions = ({
+export default function ListItemActions({
   variant = "default",
   actions = [],
-}: ListItemActionsProps) => {
+}: ListItemActionsProps) {
   if (!actions.length) return null;
 
   const iconActions = actions.filter((action) => action.type !== "more");
@@ -45,6 +45,4 @@ const ListItemActions = ({
       )}
     </div>
   );
-};
-
-export default ListItemActions;
+}

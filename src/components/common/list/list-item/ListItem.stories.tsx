@@ -6,7 +6,7 @@ import ListItem from "./ListItem";
 import type { ListItemType } from "./listItem.types";
 
 const meta: Meta<typeof ListItem> = {
-  title: "Common/List/ListItem",
+  title: "ListItem/ListItem",
   component: ListItem,
   tags: ["autodocs"],
   argTypes: {
