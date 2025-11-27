@@ -10,6 +10,8 @@ export type InputType =
   | "file";
 
 export interface BaseInputProps {
+  name?: string;
+  id?: string;
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   placeholder?: string;
@@ -19,6 +21,8 @@ export interface BaseInputProps {
 }
 
 export default function BaseInput({
+  name,
+  id,
   value,
   onChange,
   placeholder = "",
@@ -42,6 +46,8 @@ export default function BaseInput({
   return (
     <div className="relative w-full">
       <input
+        name={name}
+        id={id}
         type={type}
         value={value}
         placeholder={placeholder}
