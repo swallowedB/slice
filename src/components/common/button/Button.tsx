@@ -1,5 +1,3 @@
-"use client";
-
 import clsx from "clsx";
 
 type ButtonVariant = "primary" | "outline-orange" | "outline-gray";
@@ -42,8 +40,8 @@ export default function Button({
 
   const sizeStyles =
     size === "full"
-      ? "h-14 w-full text-base sm:text-lg"
-      : "text-sm sm:h-10 sm:w-28";
+      ? "w-full py-3 text-base sm:py-3.5 sm:text-lg"
+      : "text-sm sm:w-28 sm:py-2.5";
 
   const variantStyles = !isDisabled && VARIANT_CONFIG[variant][size];
 
