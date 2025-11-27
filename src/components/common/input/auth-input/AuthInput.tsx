@@ -64,11 +64,13 @@ export default function AuthInput({
   )
 
   const rightIcon = isPasswordField && (
-    <button type="button" onClick={onClickTogglePassword}>
+    <button 
+    className="pt-1.5 cursor-pointer"
+    type="button" onClick={onClickTogglePassword}>
       {isPasswordVisible ? (
-        <EyeIcon className="w-5 h-5 text-gray-500" />
+        <EyeIcon className=" w-5 h-5 text-gray-400" strokeWidth={2} />
       ) : (
-        <EyeSlashIcon className="w-5 h-5 text-gray-500" />
+        <EyeSlashIcon className="w-5 h-5 text-gray-400" strokeWidth={2} />
       )}
     </button>
   )
