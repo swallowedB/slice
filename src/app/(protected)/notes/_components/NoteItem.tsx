@@ -1,3 +1,6 @@
+"use client";
+
+import { EllipsisVerticalIcon } from "@heroicons/react/24/outline";
 import Badge from "./Badge";
 
 interface NoteItemProps {
@@ -29,13 +32,20 @@ export default function NoteItem({
   teamId,
 }: NoteItemProps) {
   return (
-    <div className="rounded-2xl bg-white p-4 sm:px-8 sm:py-7">
+    <div className="transition-[box-shadow, transform] rounded-2xl bg-white p-4 shadow-sm duration-200 hover:-translate-y-0.5 hover:shadow-lg sm:px-8 sm:py-7">
       <div className="mb-2 flex items-center justify-between border-b border-b-gray-100 pb-2 sm:mb-3.5 sm:pb-4 lg:mb-4 lg:pb-5">
         <div className="flex min-w-0 items-center gap-2">
           <div className="h-8 w-8 border"></div>
           <div className="flex-1 truncate text-sm font-semibold">{title}</div>
         </div>
-        <div className="ml-2 h-6 w-6 shrink-0 border"></div>
+        <button
+          type="button"
+          onClick={() => {
+            console.log("버튼 눌림!");
+          }}
+          className="ml-2 h-6 w-6 shrink-0 cursor-pointer text-gray-400">
+          <EllipsisVerticalIcon className="h-6 w-6" />
+        </button>
       </div>
       <div className="flex items-center justify-between">
         <div className="flex min-w-0 items-center gap-2">
