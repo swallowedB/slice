@@ -1,11 +1,12 @@
-"use client"
+"use client";
+import clsx from "clsx";
 import { useState } from "react";
 import AuthInput from "../../../components/common/input/auth-input/AuthInput";
 import BaseInput from "../../../components/common/input/base-input/BaseInput";
 
 interface FormFieldProps {
   label: string;
-  hideLabel?: boolean
+  hideLabel?: boolean;
   name: string;
   type?: "email" | "password" | "text";
   value: string;
@@ -13,6 +14,7 @@ interface FormFieldProps {
   error?: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
+
 
 export default function FormField({
   label,
@@ -25,18 +27,30 @@ export default function FormField({
   onChange,
 }: FormFieldProps) {
   const errorId = `${name}-Error`;
+  const hasError = Boolean(error);
+  const isFilled = !hasError && value.length > 0;
+
+  const inputClassName = clsx(
+    "border px-4 rounded-xl h-[52px] flex items-center bg-white",
+    {
+      "border-gray-100": !isFilled && !hasError,
+      "border-gray-200": isFilled,
+      "border-red-500": hasError,
+    },
+  );
 
   const [showPassword, setShowPassword] = useState(false);
-
-  const togglePassword = () => setShowPassword(prev => !prev)
+  const togglePassword = () => setShowPassword((prev) => !prev);
 
   return (
     <div className="flex flex-col">
-      {!hideLabel && <label
-        htmlFor={name}
-        className="text-sm font-medium mb-2 text-black pl-1 ">
-        {label}
-      </label>}
+      {!hideLabel && (
+        <label
+          htmlFor={name}
+          className="mb-2 pl-1 text-sm font-medium text-black">
+          {label}
+        </label>
+      )}
 
       {type !== "text" ? (
         <AuthInput
@@ -60,10 +74,13 @@ export default function FormField({
           onChange={onChange}
           aria-invalid={!!error}
           aria-describedby={error ? errorId : undefined}
+          className={inputClassName}
         />
       )}
 
-      {error && <p className="mt-2 pl-1 text-xs text-[#FF3434] font-medium ">{error}</p>}
+      {error && (
+        <p className="mt-2 pl-1 text-xs font-medium text-[#FF3434]">{error}</p>
+      )}
     </div>
   );
 }
