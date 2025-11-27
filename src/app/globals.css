@@ -33,7 +33,7 @@
 
 @layer base {
   body {
-    @apply font-sans text-base;
+    @apply font-sans text-base text-black ;
     background: var(--color-bg);
   }
 }
