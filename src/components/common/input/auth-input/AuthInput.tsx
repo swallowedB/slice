@@ -17,6 +17,8 @@ const INPUTMESSAGE = {
 } as const;
 
 export interface InputProps {
+  id?: string;
+  name?: string;
   type?: AuthInputType;
   value: string;
   status?: InputStatus;
@@ -29,6 +31,8 @@ export interface InputProps {
 }
 
 export default function AuthInput({
+  id,
+  name,
   type = "email",
   value,
   status = "default",
@@ -72,6 +76,8 @@ export default function AuthInput({
   return (
     <div className="flex flex-col gap-1 w-full">
       <BaseInput
+        id={id}
+        name={name}
         value={value}
         type={inputType}
         onChange={onChangeInput}
