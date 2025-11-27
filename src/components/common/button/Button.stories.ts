@@ -19,7 +19,7 @@ export const Default: Story = {
   args: {
     children: "확인",
     variant: "primary",
-    isFullWidth: true,
+    size: "full",
     isDisabled: false,
     onClick: fn(),
   },
@@ -29,7 +29,7 @@ export const NonFullWidth: Story = {
   args: {
     children: "등록하기",
     variant: "primary",
-    isFullWidth: false,
+    size: "compact",
     isDisabled: false,
     onClick: fn(),
   },
@@ -39,7 +39,7 @@ export const OutlineOrange: Story = {
   args: {
     children: "임시저장",
     variant: "outline-orange",
-    isFullWidth: false,
+    size: "compact",
     isDisabled: false,
     onClick: fn(),
   },
@@ -49,7 +49,7 @@ export const OutlineGray: Story = {
   args: {
     children: "취소",
     variant: "outline-gray",
-    isFullWidth: false,
+    size: "compact",
     isDisabled: false,
     onClick: fn(),
   },
@@ -59,7 +59,7 @@ export const Disabled: Story = {
   args: {
     children: "작성완료",
     variant: "primary",
-    isFullWidth: true,
+    size: "full",
     isDisabled: true,
     onClick: fn(),
   },
