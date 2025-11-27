@@ -6,11 +6,7 @@ import Link from "next/link";
 import Progress from "../../components/progress/Progress";
 import ProgressBar from "./_components/ProgressBar";
 import Button from "@/components/common/button/Button";
-import {
-  ChartPieIcon,
-  ChevronDownIcon,
-  ClipboardDocumentListIcon,
-} from "@heroicons/react/24/outline";
+import { ChevronDownIcon } from "@heroicons/react/24/outline";
 
 // 최근 등록한 할일
 const mockRecentItem: ListItemType[] = [
@@ -57,10 +53,10 @@ export default function DashBoardPage() {
           <div>
             <h3 className="flex items-center pl-2">
               <i className="mr-3 flex h-10 w-10 rounded-xl bg-[#ffd0aa]">
-                <ClipboardDocumentListIcon
+                {/* <ClipboardDocumentListIcon
                   width={24}
                   className="m-auto"
-                />
+                /> */}
               </i>
               최근 등록한 할일
             </h3>
@@ -78,10 +74,10 @@ export default function DashBoardPage() {
             {/* 내 진행 상황 title */}
             <h3 className="flex items-center pl-2">
               <i className="mr-3 flex h-10 w-10 rounded-xl bg-blue-100">
-                <ChartPieIcon
+                {/* <ChartPieIcon
                   width={24}
                   className="m-auto"
-                />
+                /> */}
               </i>
               내 진행 상황
             </h3>
@@ -101,10 +97,10 @@ export default function DashBoardPage() {
           {/* 목표별 할 일 title */}
           <h3 className="flex items-center pl-2">
             <i className="mr-3 flex h-10 w-10 rounded-xl bg-blue-100">
-              <ChartPieIcon
+              {/* <ChartPieIcon
                 width={24}
                 className="m-auto"
-              />
+              /> */}
             </i>
             목표별 할일
           </h3>
