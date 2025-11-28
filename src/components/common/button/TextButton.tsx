@@ -1,12 +1,20 @@
 import clsx from "clsx";
+import { twMerge } from "tailwind-merge";
+
+type TextButtonVariant = "primary" | "secondary";
 
 interface TextButtonProps {
   children: React.ReactNode;
-  variant?: "primary" | "secondary";
+  variant?: TextButtonVariant;
   isDisabled?: boolean;
   className?: string;
   onClick: () => void;
 }
+
+const VARIANT_CONFIG: Record<TextButtonVariant, string> = {
+  primary: "text-orange-250 hover:text-orange-400",
+  secondary: "text-gray-600 hover:text-gray-650",
+};
 
 export default function TextButton({
   children,
@@ -15,19 +23,18 @@ export default function TextButton({
   className,
   onClick,
 }: TextButtonProps) {
-  const buttonClasses = clsx(
-    "cursor-pointer text-xs font-semibold whitespace-nowrap sm:text-sm lg:text-base",
+  const baseStyles =
+    "cursor-pointer text-xs font-semibold whitespace-nowrap sm:text-sm lg:text-base";
 
-    !isDisabled && {
-      "text-orange-250 hover:text-orange-400": variant === "primary",
-      "text-gray-600 hover:text-gray-650": variant === "secondary",
-    },
+  const variantStyles = !isDisabled && VARIANT_CONFIG[variant];
 
-    isDisabled && "pointer-events-none cursor-not-allowed text-gray-400",
+  const disabledStyles =
+    isDisabled && "pointer-events-none cursor-not-allowed text-gray-400";
 
+  const buttonClasses = twMerge(
+    clsx(baseStyles, variantStyles, disabledStyles),
     className,
   );
-
   return (
     <button
       className={buttonClasses}
