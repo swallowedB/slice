@@ -3,29 +3,29 @@ import clsx from "clsx";
 type ButtonVariant = "primary" | "outline-orange" | "outline-gray";
 type ButtonSize = "full" | "compact";
 
-type ButtonProps = {
+interface ButtonProps {
   children: React.ReactNode;
   variant?: ButtonVariant;
   size?: ButtonSize;
   isDisabled?: boolean;
+  className?: string;
   onClick: () => void;
-};
+}
 
 const VARIANT_CONFIG: Record<ButtonVariant, Record<ButtonSize, string>> = {
   primary: {
     full: "bg-orange-250 text-white hover:bg-orange-400",
-    compact:
-      "text-gray-600 hover:text-gray-650 sm:bg-orange-250 sm:text-white sm:hover:bg-orange-400 sm:hover:text-white",
+    compact: "bg-orange-250 text-white hover:bg-orange-400",
   },
   "outline-orange": {
     full: "", // 디자인 x
     compact:
-      "text-orange-250 hover:text-orange-400 sm:border sm:border-orange-250 sm:hover:border-orange-400",
+      "text-orange-250 border-orange-250 border hover:border-orange-400 hover:text-orange-400",
   },
   "outline-gray": {
     full: "border border-gray-200 text-gray-600 hover:border-gray-300 hover:text-gray-650",
     compact:
-      "text-orange-250 hover:text-orange-400 sm:border sm:border-gray-200 sm:text-gray-600 sm:hover:border-gray-300 sm:hover:text-gray-650",
+      "hover:text-gray-65 border border-gray-200 text-gray-600 hover:border-gray-300",
   },
 };
 
@@ -34,6 +34,7 @@ export default function Button({
   variant = "primary",
   size = "full",
   isDisabled = false,
+  className,
   onClick,
 }: ButtonProps) {
   const baseStyles = "cursor-pointer rounded-full font-semibold";
@@ -41,7 +42,7 @@ export default function Button({
   const sizeStyles =
     size === "full"
       ? "w-full py-3 text-base sm:py-3.5 sm:text-lg"
-      : "text-sm sm:w-28 sm:py-2.5";
+      : "min-w-26 py-2.5 text-sm";
 
   const variantStyles = !isDisabled && VARIANT_CONFIG[variant][size];
 
@@ -49,9 +50,9 @@ export default function Button({
     isDisabled &&
     clsx(
       "pointer-events-none cursor-not-allowed",
-      size === "full"
+      variant === "primary"
         ? "bg-gray-300 text-white"
-        : "text-gray-400 sm:bg-gray-300 sm:text-white",
+        : "border border-gray-200 text-gray-300",
     );
 
   const buttonClasses = clsx(
@@ -59,6 +60,7 @@ export default function Button({
     sizeStyles,
     variantStyles,
     disabledStyles,
+    className,
   );
 
   return (
