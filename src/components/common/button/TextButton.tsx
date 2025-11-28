@@ -35,6 +35,7 @@ export default function TextButton({
     clsx(baseStyles, variantStyles, disabledStyles),
     className,
   );
+
   return (
     <button
       className={buttonClasses}
