@@ -10,7 +10,6 @@ export default function CircularProgress({
   const radius = size / 2 - strokeWidth / 2;
   const circumference = 2 * Math.PI * radius;
   const offset = circumference - (percent / 100) * circumference;
-
   return (
     <svg
       width={size}
@@ -23,8 +22,7 @@ export default function CircularProgress({
         strokeWidth={strokeWidth}
         fill="none"
       />
-
-      <g transform={`rotate(90deg)`}>
+      <g transform={`rotate(-90 ${size / 2} ${size / 2})`}>
         <circle
           cx={size / 2}
           cy={size / 2}
@@ -33,8 +31,9 @@ export default function CircularProgress({
           strokeWidth={strokeWidth}
           fill="none"
           strokeDasharray={circumference}
-          strokeDashoffset={offset}
+          strokeDashoffset={-offset} // ✅ 여기!!
           strokeLinecap="round"
+          //   strokeLinecap="butt"
           style={{ transition: "stroke-dashoffset 1s ease-out" }}
         />
       </g>

@@ -20,7 +20,7 @@ export default function Progress({
 }: ProgressProps) {
   const styles = VARIANT_MAP[variant];
   return (
-    <div className="flex h-full flex-wrap items-center pl-4">
+    <div className="flex h-full flex-wrap items-center sm:pl-3.75 lg:pl-4">
       <CircularProgress
         percent={percent}
         size={styles.size}
