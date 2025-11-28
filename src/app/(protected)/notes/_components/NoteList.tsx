@@ -1,0 +1,55 @@
+import NoteItem from "./NoteItem";
+
+const mockNotes = {
+  nextCursor: 0,
+  totalCount: 0,
+  notes: [
+    {
+      id: 1,
+      title: "체계적인 폴더 구조 세팅하기",
+      goal: {
+        id: 100,
+        title: "자바스크립트로 웹 서비스 만들기",
+      },
+      todo: {
+        id: 1001,
+        title: "자바스크립트 기초 챕터4 듣기",
+        done: false,
+      },
+      updatedAt: "2025-11-26T10:08:39.408Z",
+      createdAt: "2025-11-26T10:08:39.408Z",
+      userId: 1,
+      teamId: "team-abc",
+    },
+    {
+      id: 2,
+      title: "자바스크립트로 서버 연동하기",
+      goal: {
+        id: 100,
+        title: "자바스크립트로 웹 서비스 만들기",
+      },
+      todo: {
+        id: 1002,
+        title: "자바스크립트 기초 챕터5 듣기",
+        done: true,
+      },
+      updatedAt: "2025-11-27T10:08:39.408Z",
+      createdAt: "2025-11-27T10:08:39.408Z",
+      userId: 1,
+      teamId: "team-abc",
+    },
+  ],
+};
+
+export default function NoteList() {
+  return (
+    <div className="grid grid-cols-1 gap-2 lg:grid-cols-2">
+      {mockNotes.notes.map((note) => (
+        <NoteItem
+          key={note.id}
+          {...note}
+        />
+      ))}
+    </div>
+  );
+}
