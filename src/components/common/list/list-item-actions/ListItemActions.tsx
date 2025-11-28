@@ -18,7 +18,7 @@ export default function ListItemActions({
   const hasMore = actions.some((action) => action.type === "more");
 
   return (
-    <div className="flex shrink-0 items-center gap-2">
+    <>
       {/* ✅ link / file / note → 모바일 숨김 */}
       <div className="hidden gap-2 sm:flex">
         {iconActions.map((action) => {
@@ -43,6 +43,6 @@ export default function ListItemActions({
           variant={variant}
         />
       )}
-    </div>
+    </>
   );
 }

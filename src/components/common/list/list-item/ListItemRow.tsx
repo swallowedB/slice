@@ -35,8 +35,8 @@ export default function ListItemRow({ item, onChange, variant }: Props) {
   const textColor = getTextColor(item.checked, variant);
 
   return (
-    <li className="group flex w-full items-center justify-between rounded-2xl p-2.5 transition-all hover:bg-orange-400/20">
-      <div className="flex min-w-0 flex-1 items-center gap-2.5 pr-10">
+    <li className="group flex w-full items-center justify-between overflow-hidden rounded-2xl p-2.5 transition-all hover:bg-orange-400/20">
+      <div className="flex min-w-0 flex-1 items-center gap-2.5">
         <label
           className="flex min-w-0 flex-1 cursor-pointer items-center gap-2.5 pr-2 sm:pr-10"
           htmlFor={`checkbox-${item.id}`}>
@@ -49,18 +49,19 @@ export default function ListItemRow({ item, onChange, variant }: Props) {
           <span
             id={`item-label-${item.id}`}
             className={clsx(
-              "max-w-fit flex-1 truncate text-sm transition-colors group-hover:font-semibold group-hover:text-orange-400 sm:text-base",
+              "min-w-0 flex-1 truncate overflow-hidden text-sm whitespace-nowrap transition-colors group-hover:font-semibold group-hover:text-orange-400 sm:text-base",
               textColor,
             )}>
             {item.label}
           </span>
         </label>
       </div>
-
-      <ListItemActions
-        variant={variant}
-        actions={getActionsFromItem(item)}
-      />
+      <div className="flex shrink-0 items-center gap-2">
+        <ListItemActions
+          variant={variant}
+          actions={getActionsFromItem(item)}
+        />
+      </div>
     </li>
   );
 }
