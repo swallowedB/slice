@@ -9,22 +9,23 @@ import { ListItemType } from "@/components/common/list/list-item/listItem.types"
 import ListItem from "@/components/common/list/list-item/ListItem";
 import Progress from "../../../components/progress/Progress";
 import ProgressBar from "./_components/ProgressBar";
-import Button from "@/components/common/button/Button";
 import { useEffect, useState } from "react";
+import TextButton from "@/components/common/button/TextButton";
+import Button from "@/components/common/button/Button";
 
 // 최근 등록한 할일
 const mockRecentItem: ListItemType[] = [
   { id: 1, label: "사용자 데이터 렌더링 구현", checked: false, link: true },
   {
     id: 2,
-    label: "2사용자 데이터 렌더링 구현",
+    label: "기능 구현",
     checked: true,
     link: true,
     file: true,
   },
   {
     id: 3,
-    label: "33사용자 데이터 렌더링 구현",
+    label: "UI 구현",
     checked: true,
     link: true,
     note: true,
@@ -42,7 +43,7 @@ const mockGoalItem: ListItemType[] = [
   },
   {
     id: 2,
-    label: "사용자 데이터 렌더링 보다는 다른게 더 중요해",
+    label: "사용자 데이터 렌더링 & UI 와 기능 구현",
     checked: true,
     note: true,
     link: true,
@@ -75,8 +76,8 @@ export default function DashBoardPage() {
         <div className="grid w-full grid-cols-1 sm:grid-cols-2 sm:gap-3 lg:gap-8">
           {/* 최근 등록한 할일 title */}
           <div className="w-full">
-            <h3 className="flex flex-wrap items-center justify-between pr-3.5 pl-2 text-base font-medium lg:text-lg">
-              <p className="mb-2.5 flex flex-wrap items-center">
+            <h3 className="mb-2.5 flex flex-wrap items-center justify-between pr-3.5 pl-2 text-base font-medium lg:text-lg">
+              <p className="flex flex-wrap items-center">
                 <img
                   src="/icons/icon-todo.svg"
                   alt="할일 아이콘"
@@ -149,22 +150,21 @@ export default function DashBoardPage() {
                   className={
                     "w-full pl-2.5 sm:w-auto lg:flex lg:items-center lg:pl-3.5"
                   }>
-                  <h4 className="mb-3 truncate pr-20 font-semibold break-keep sm:w-105 sm:pr-5 sm:text-sm lg:mb-0 lg:w-60 lg:pr-7.5 lg:text-base">
+                  <h4 className="mb-3 line-clamp-2 pr-20 font-semibold sm:w-105 sm:text-sm lg:mb-0 lg:w-60 lg:pr-7.5 lg:text-base">
                     자바스크립트로 웹 서비스 만들기
                   </h4>
                   <ProgressBar percent={60} />
                 </div>
                 <div className="flex pr-2.5">
-                  <Button
-                    onClick={() => onclick}
-                    variant="outline-gray"
-                    size="compact"
-                    isDisabled={false}>
-                    <p className="absolute top-6.75 right-6.25 flex w-18.5 items-center justify-center font-semibold sm:static sm:w-full">
+                  <button
+                    className={
+                      "text-orange-250 sm:hover:text-gray-65 cursor-pointer rounded-full py-2.5 text-xs font-semibold sm:min-w-29 sm:border sm:border-gray-200 sm:text-sm sm:text-gray-600 sm:hover:border-gray-300"
+                    }>
+                    <p className="absolute top-7.25 right-5 flex w-18.5 items-center justify-center font-semibold sm:static sm:w-full">
                       <PlusIcon className="mr-1 h-4 w-4 sm:mr-1.5 sm:h-4.5 sm:w-4.5" />
                       할일추가
                     </p>
-                  </Button>
+                  </button>
                   <button
                     className={` ${isOpen[0] ? "rotate-180" : ""} hover:text-gray-650 absolute bottom-3.5 left-1/2 mt-2.5 ml-0 h-8 w-8 -translate-x-1/2 transform cursor-pointer rounded-full border border-gray-200 text-gray-600 hover:border-gray-300 sm:static sm:mt-0 sm:ml-4 sm:h-10 sm:w-10 sm:translate-x-0 sm:transform-none`}>
                     <ChevronDownIcon
@@ -208,25 +208,26 @@ export default function DashBoardPage() {
                   className={
                     "w-full pl-2.5 sm:w-auto lg:flex lg:items-center lg:pl-3.5"
                   }>
-                  <h4 className="mb-3 truncate pr-20 font-semibold break-keep sm:w-105 sm:pr-5 sm:text-sm lg:mb-0 lg:w-60 lg:pr-7.5 lg:text-base">
-                    자바스크립트로 웹 서비스 만들기 길면 너가 어쩔건데 어쩔건데
-                    어쩔건데 어절건데 ! ! !! ! ! ! !! !!
+                  <h4 className="mb-3 line-clamp-2 pr-20 font-semibold sm:line-clamp-1 sm:w-105 sm:text-sm lg:mb-0 lg:w-60 lg:pr-7.5 lg:text-base">
+                    자바스크립트로 웹 서비스 만들기 자바스크립트로 웹 서비스
+                    만들기 자바스크립트로 웹 서비스 만들기 자바스크립트로 웹
+                    서비스 만들기 자바스크립트로 웹 서비스 만들기 자바스크립트로
+                    웹 서비스 만들기
                   </h4>
                   <ProgressBar percent={60} />
                 </div>
                 <div className="flex pr-2.5">
-                  <Button
-                    onClick={() => onclick}
-                    variant="outline-gray"
-                    size="compact"
-                    isDisabled={false}>
-                    <p className="absolute top-6.75 right-6.25 flex w-18.5 items-center justify-center font-semibold sm:static sm:w-full">
+                  <button
+                    className={
+                      "text-orange-250 sm:hover:text-gray-65 cursor-pointer rounded-full py-2.5 text-xs font-semibold sm:min-w-29 sm:border sm:border-gray-200 sm:text-sm sm:text-gray-600 sm:hover:border-gray-300"
+                    }>
+                    <p className="absolute top-7.25 right-5 flex w-18.5 items-center justify-center font-semibold sm:static sm:w-full">
                       <PlusIcon className="mr-1 h-4 w-4 sm:mr-1.5 sm:h-4.5 sm:w-4.5" />
                       할일추가
                     </p>
-                  </Button>
+                  </button>
                   <button
-                    className={` ${isOpen ? "rotate-180" : ""} hover:text-gray-650 absolute bottom-3.5 left-1/2 mt-2.5 ml-0 h-8 w-8 -translate-x-1/2 transform cursor-pointer rounded-full border border-gray-200 text-gray-600 hover:border-gray-300 sm:static sm:mt-0 sm:ml-4 sm:h-10 sm:w-10 sm:translate-x-0 sm:transform-none`}>
+                    className={` ${isOpen[1] ? "rotate-180" : ""} hover:text-gray-650 absolute bottom-3.5 left-1/2 mt-2.5 ml-0 h-8 w-8 -translate-x-1/2 transform cursor-pointer rounded-full border border-gray-200 text-gray-600 hover:border-gray-300 sm:static sm:mt-0 sm:ml-4 sm:h-10 sm:w-10 sm:translate-x-0 sm:transform-none`}>
                     <ChevronDownIcon
                       width={20}
                       className="m-auto"
