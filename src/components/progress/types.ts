@@ -1,5 +1,5 @@
 type ProgressProps = {
   title: string;
   percent: number;
-  className?: string;
+  variant?: "default" | "large";
 };

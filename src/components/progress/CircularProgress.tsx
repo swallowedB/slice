@@ -1,38 +1,43 @@
-export default function CircularProgress({ percent }: { percent: number }) {
-  const radius = 60;
+type CircularProgressProps = {
+  percent: number;
+  size: number; // ✅ 그냥 px로 받기
+};
+export default function CircularProgress({
+  percent,
+  size,
+}: CircularProgressProps) {
+  const strokeWidth = 24;
+  const radius = size / 2 - strokeWidth / 2;
   const circumference = 2 * Math.PI * radius;
-
   const offset = circumference - (percent / 100) * circumference;
 
   return (
     <svg
-      width="150"
-      height="150">
-      {/* 배경 원 */}
+      width={size}
+      height={size}>
       <circle
-        cx="75"
-        cy="75"
+        cx={size / 2}
+        cy={size / 2}
         r={radius}
-        stroke="#E5E7EB"
-        strokeWidth="12"
+        className="stroke-blue-300"
+        strokeWidth={strokeWidth}
         fill="none"
       />
 
-      {/* 진행 원 */}
-      <circle
-        cx="75"
-        cy="75"
-        r={radius}
-        stroke="#0AC5A8"
-        strokeWidth="12"
-        fill="none"
-        strokeLinecap="round"
-        strokeDasharray={circumference}
-        strokeDashoffset={offset}
-        style={{
-          transition: "stroke-dashoffset 1s ease-out",
-        }}
-      />
+      <g transform={`rotate(90deg)`}>
+        <circle
+          cx={size / 2}
+          cy={size / 2}
+          r={radius}
+          stroke="#fff"
+          strokeWidth={strokeWidth}
+          fill="none"
+          strokeDasharray={circumference}
+          strokeDashoffset={offset}
+          strokeLinecap="round"
+          style={{ transition: "stroke-dashoffset 1s ease-out" }}
+        />
+      </g>
     </svg>
   );
 }

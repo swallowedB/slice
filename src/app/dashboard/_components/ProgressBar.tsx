@@ -5,16 +5,18 @@ type ProgressBarProps = {
 export default function ProgressBar({ percent }: ProgressBarProps) {
   return (
     <>
-      <div className="w-full max-w-[240px]">
-        <div className="h-[6px] w-full overflow-hidden rounded-full bg-gray-200">
+      <div className="w-full min-w-76">
+        <div className="h-[8px] w-full overflow-hidden rounded-full bg-[#e9e9e9]">
           <div
-            className="h-full rounded-full bg-orange-400 transition-all duration-500 ease-out"
+            className="bg-orange-250 h-full rounded-full transition-all duration-500 ease-out"
             style={{ width: `${percent}%` }}
           />
         </div>
       </div>
 
-      <span className="text-sm font-bold text-orange-500">{percent}%</span>
+      <span className="text-orange-250 ml-2.5 text-base font-bold">
+        {percent}%
+      </span>
     </>
   );
 }
