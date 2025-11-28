@@ -150,7 +150,7 @@ export default function DashBoardPage() {
                   className={
                     "w-full pl-2.5 sm:w-auto lg:flex lg:items-center lg:pl-3.5"
                   }>
-                  <h4 className="mb-3 line-clamp-2 pr-20 font-semibold sm:w-105 sm:text-sm lg:mb-0 lg:w-60 lg:pr-7.5 lg:text-base">
+                  <h4 className="mb-3 line-clamp-2 pr-20 font-semibold break-keep sm:w-105 sm:text-sm lg:mb-0 lg:w-60 lg:pr-7.5 lg:text-base">
                     자바스크립트로 웹 서비스 만들기
                   </h4>
                   <ProgressBar percent={60} />
@@ -208,7 +208,7 @@ export default function DashBoardPage() {
                   className={
                     "w-full pl-2.5 sm:w-auto lg:flex lg:items-center lg:pl-3.5"
                   }>
-                  <h4 className="mb-3 line-clamp-2 pr-20 font-semibold sm:line-clamp-1 sm:w-105 sm:text-sm lg:mb-0 lg:w-60 lg:pr-7.5 lg:text-base">
+                  <h4 className="mb-3 line-clamp-2 pr-20 font-semibold break-keep sm:line-clamp-1 sm:w-105 sm:text-sm lg:mb-0 lg:w-60 lg:pr-7.5 lg:text-base">
                     자바스크립트로 웹 서비스 만들기 자바스크립트로 웹 서비스
                     만들기 자바스크립트로 웹 서비스 만들기 자바스크립트로 웹
                     서비스 만들기 자바스크립트로 웹 서비스 만들기 자바스크립트로
