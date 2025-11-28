@@ -35,8 +35,14 @@ export default function NoteItem({
     <div className="transition-[box-shadow, transform] rounded-2xl bg-white p-4 shadow-sm duration-200 hover:-translate-y-0.5 hover:shadow-lg sm:px-8 sm:py-7">
       <div className="mb-2 flex items-center justify-between border-b border-b-gray-100 pb-2 sm:mb-3.5 sm:pb-4 lg:mb-4 lg:pb-5">
         <div className="flex min-w-0 items-center gap-2">
-          <div className="h-8 w-8 border"></div>
-          <div className="flex-1 truncate text-sm font-semibold">{title}</div>
+          <img
+            src="/icons/icon-note.svg"
+            alt="노트 아이콘"
+            className="h-8 w-8 lg:h-10 lg:w-10"
+          />
+          <div className="flex-1 truncate text-sm font-semibold sm:text-lg lg:text-xl">
+            {title}
+          </div>
         </div>
         <button
           type="button"
