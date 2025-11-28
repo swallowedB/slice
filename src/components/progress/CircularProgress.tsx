@@ -1,19 +1,23 @@
 type CircularProgressProps = {
   percent: number;
-  size: number; // ✅ 그냥 px로 받기
+  size: number;
 };
+
 export default function CircularProgress({
   percent,
   size,
 }: CircularProgressProps) {
-  const strokeWidth = 24;
-  const radius = size / 2 - strokeWidth / 2;
+  const strokeWidth = size === 160 ? 24 : 14;
+  const radius = size / 2;
   const circumference = 2 * Math.PI * radius;
-  const offset = circumference - (percent / 100) * circumference;
+  const safePercent = Math.min(100, Math.max(0, percent));
+  const offset = circumference - (safePercent / 100) * circumference;
+
   return (
     <svg
       width={size}
-      height={size}>
+      height={size}
+      overflow="visible">
       <circle
         cx={size / 2}
         cy={size / 2}
@@ -22,6 +26,7 @@ export default function CircularProgress({
         strokeWidth={strokeWidth}
         fill="none"
       />
+
       <g transform={`rotate(-90 ${size / 2} ${size / 2})`}>
         <circle
           cx={size / 2}
@@ -31,9 +36,8 @@ export default function CircularProgress({
           strokeWidth={strokeWidth}
           fill="none"
           strokeDasharray={circumference}
-          strokeDashoffset={-offset} // ✅ 여기!!
+          strokeDashoffset={-offset}
           strokeLinecap="round"
-          //   strokeLinecap="butt"
           style={{ transition: "stroke-dashoffset 1s ease-out" }}
         />
       </g>
