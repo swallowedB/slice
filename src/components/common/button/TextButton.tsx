@@ -16,7 +16,7 @@ export default function TextButton({
   onClick,
 }: TextButtonProps) {
   const buttonClasses = clsx(
-    "cursor-pointer text-xs font-semibold sm:text-sm lg:text-base",
+    "cursor-pointer text-xs font-semibold whitespace-nowrap sm:text-sm lg:text-base",
 
     !isDisabled && {
       "text-orange-250 hover:text-orange-400": variant === "primary",
