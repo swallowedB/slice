@@ -1,3 +1,5 @@
+"use client";
+
 import NoteItem from "./NoteItem";
 
 const mockNotes = {
@@ -59,6 +61,18 @@ const mockNotes = {
 };
 
 export default function NoteList() {
+  const handleNoteClick = (id: number) => {
+    // TODO: 노트 상세가 사이드 보기로 열림
+  };
+
+  const handleNoteEdit = (id: number) => {
+    // TODO: 노트 수정 페이지로 이동
+  };
+
+  const handleNoteDelete = (id: number) => {
+    // TODO: 삭제 확인 모달 열기
+  };
+
   return (
     <section
       className="grid grid-cols-1 gap-2 sm:gap-4 lg:grid-cols-2 lg:gap-x-6 lg:gap-y-5"
@@ -66,6 +80,9 @@ export default function NoteList() {
       {mockNotes.notes.map((note) => (
         <NoteItem
           key={note.id}
+          onClickNote={handleNoteClick}
+          onEditNote={handleNoteEdit}
+          onDeleteNote={handleNoteDelete}
           {...note}
         />
       ))}
