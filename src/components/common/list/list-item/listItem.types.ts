@@ -1,6 +1,10 @@
 export type ListItemVariant = "default" | "white";
 
-export type ListItemType = {
+export type ListActionType = {
+  type: "link" | "file" | "note" | "more";
+};
+
+export type ListTodoType = {
   id: number;
   label: string;
   checked: boolean;
@@ -9,6 +13,8 @@ export type ListItemType = {
   note?: boolean;
 };
 
-export type ListActionType = {
-  type: "link" | "file" | "note" | "more";
+export type ListGoalType = {
+  id: number;
+  title: string;
+  todos: ListTodoType[];
 };
