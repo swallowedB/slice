@@ -2,7 +2,7 @@ import ListItem from "@/components/common/list/list-item/ListItem";
 import { ListTodoType } from "@/components/common/list/list-item/listItem.types";
 import EmptyState from "@/components/common/empty-state/EmptyState";
 import GoalHeader from "./GoalHeader";
-import TodoBox from "../TodoBox";
+import GoalTodoBox from "./GoalTodoBox";
 type GoalCardProps = {
   title: string;
   percent: number;
@@ -43,7 +43,7 @@ export default function GoalCard({
       {/* 목표 있고, 할일도 있고, isOpen이면 출력 */}
       {!noTodos && isOpen && (
         <div className="mt-6.5 grid grid-cols-1 sm:mt-11 sm:grid-cols-2 sm:gap-2 lg:mt-4 lg:gap-8">
-          <TodoBox
+          <GoalTodoBox
             title="TO DO"
             variant="todo">
             <ListItem
@@ -51,8 +51,8 @@ export default function GoalCard({
               items={todoItems}
               onChange={onChange}
             />
-          </TodoBox>
-          <TodoBox
+          </GoalTodoBox>
+          <GoalTodoBox
             title="DONE"
             variant="done">
             <ListItem
@@ -60,7 +60,7 @@ export default function GoalCard({
               items={doneItems}
               onChange={onChange}
             />
-          </TodoBox>
+          </GoalTodoBox>
         </div>
       )}
     </div>
