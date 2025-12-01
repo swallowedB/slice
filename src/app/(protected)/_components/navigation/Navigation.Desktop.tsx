@@ -13,7 +13,7 @@ export default function NavigationDesktop() {
 
   return (
     <aside
-      className={`sticky top-0 flex h-screen flex-col justify-between rounded-tr-4xl rounded-br-4xl bg-white shadow-2xl transition-all duration-300 ${isCollapsed ? "w-24 sm:w-15" : "w-84 px-7.5 pt-8 pb-10"} `}>
+      className={`flex h-full flex-col justify-between rounded-tr-4xl rounded-br-4xl bg-white shadow-2xl transition-all duration-300 ${isCollapsed ? "w-24 sm:w-15" : "w-84 px-7.5 pt-8 pb-10"} `}>
       <section className="relative flex w-full flex-col">
         <button
           onClick={toggleCollapse}

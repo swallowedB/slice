@@ -15,9 +15,10 @@ export default function ProtectedLayout({ children }: { children: ReactNode }) {
   }
 
   return (
-    <main className="flex min-h-screen gap-28">
+    <main className="flex h-screen gap-28 overflow-hidden">
       <NavigationDesktop />
-      <section className="flex-1 sm:py-12 lg:py-20 lg:pr-40">
+
+      <section className="flex-1 overflow-y-auto py-12 lg:py-20 lg:pr-40">
         {children}
       </section>
     </main>
