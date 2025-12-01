@@ -38,12 +38,29 @@ const mockNotes = {
       userId: 1,
       teamId: "team-abc",
     },
+    {
+      id: 3,
+      title: "프로그래밍 시작하기 in JavaScript",
+      goal: {
+        id: 100,
+        title: "자바스크립트로 웹 서비스 만들기",
+      },
+      todo: {
+        id: 1002,
+        title: "자바스크립트 기초 챕터1 듣기",
+        done: true,
+      },
+      updatedAt: "2025-11-28T10:08:39.408Z",
+      createdAt: "2025-11-28T10:08:39.408Z",
+      userId: 1,
+      teamId: "team-abc",
+    },
   ],
 };
 
 export default function NoteList() {
   return (
-    <div className="grid grid-cols-1 gap-2 lg:grid-cols-2">
+    <div className="grid grid-cols-1 gap-2 sm:gap-4 lg:grid-cols-2 lg:gap-x-6 lg:gap-y-5">
       {mockNotes.notes.map((note) => (
         <NoteItem
           key={note.id}
