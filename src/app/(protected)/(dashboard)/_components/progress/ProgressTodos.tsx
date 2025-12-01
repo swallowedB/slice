@@ -1,10 +1,13 @@
+"use client";
 import Progress from "@/components/progress/Progress";
+import { useEffect, useState } from "react";
 
-type ProgressTodosProps = {
-  mounted: boolean;
-};
+export default function ProgressTodos() {
+  const [mounted, setMounted] = useState(false);
 
-export default function ProgressTodos({ mounted }: ProgressTodosProps) {
+  useEffect(() => {
+    setMounted(true);
+  }, []);
   return (
     <div className="mt-7.5 w-full sm:mt-0">
       <h3 className="mb-2.5 flex flex-wrap items-center pl-2 font-medium sm:text-base lg:text-lg">
