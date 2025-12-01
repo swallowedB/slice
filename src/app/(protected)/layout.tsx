@@ -2,7 +2,6 @@
 import { ReactNode } from "react";
 import { useDeviceSize } from "../../hooks/useDeviceSize";
 import NavigationDesktop from "./_components/navigation/Navigation.Desktop";
-import PageHeader from "./_components/layout/PageHeader";
 
 export default function ProtectedLayout({ children }: { children: ReactNode }) {
   const { isMobile } = useDeviceSize();
