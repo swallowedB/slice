@@ -1,12 +1,10 @@
 "use client";
 
-import { Squares2X2Icon } from "@heroicons/react/16/solid";
 import { ChevronDoubleLeftIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
 import NavigationActions from "./_components/NavigationActions";
-import NavigationGoalSection from "./_components/NavigationGoalSection";
-import NavigationLink from "./_components/NavigationLink";
 import NavigationLogout from "./_components/NavigationLogout";
+import NavigationMenu from "./_components/NavigationMenu";
 import NavigationProfile from "./_components/NavigationProfile";
 
 export default function NavigationDesktop() {
@@ -15,7 +13,7 @@ export default function NavigationDesktop() {
 
   return (
     <aside
-      className={`sticky top-0 flex h-screen flex-col justify-between rounded-tr-4xl rounded-br-4xl bg-white  shadow-2xl transition-all duration-300 ${isCollapsed ? "w-24 sm:w-15" : "w-84 px-7.5 pt-8 pb-10"} `}>
+      className={`sticky top-0 flex h-screen flex-col justify-between rounded-tr-4xl rounded-br-4xl bg-white shadow-2xl transition-all duration-300 ${isCollapsed ? "w-24 sm:w-15" : "w-84 px-7.5 pt-8 pb-10"} `}>
       <section className="relative flex w-full flex-col">
         <button
           onClick={toggleCollapse}
@@ -26,12 +24,11 @@ export default function NavigationDesktop() {
           />
         </button>
         {/*로고*/}
-        <div
-          className="my-10 flex items-center gap-4 pl-1 transition-all duration-300">
+        <div className="my-10 flex items-center gap-4 pl-1 transition-all duration-300">
           <img
             src="/logo.svg"
             alt="Slice"
-            className={`transition-all duration-300 ${isCollapsed ? "h-9 w-9 mt-6 ml-2" : "h-10 w-10"} `}
+            className={`transition-all duration-300 ${isCollapsed ? "mt-6 ml-2 h-9 w-9" : "h-10 w-10"} `}
           />
           <p
             className={`text-2xl font-bold transition-opacity duration-300 lg:text-3xl ${
@@ -41,18 +38,7 @@ export default function NavigationDesktop() {
           </p>
         </div>
 
-        {!isCollapsed && (
-          <nav className="mb-1 flex w-full flex-col gap-2">
-            <NavigationLink
-              title="대시보드"
-              href="/"
-              icon={<Squares2X2Icon className="h-6 w-6" />}
-              isActive={true}
-            />
-
-            <NavigationGoalSection />
-          </nav>
-        )}
+        {!isCollapsed && <NavigationMenu />}
       </section>
 
       {!isCollapsed && (
