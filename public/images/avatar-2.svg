@@ -1,0 +1,28 @@
+<svg width="39" height="39" viewBox="0 0 39 39" fill="none" xmlns="http://www.w3.org/2000/svg">
+<circle cx="19.1407" cy="19.1407" r="19.1407" fill="#C0E8E4"/>
+<circle cx="23.8325" cy="18.5584" r="3.72441" fill="white"/>
+<circle cx="24.7937" cy="17.8378" r="1.92228" fill="#333333"/>
+<circle cx="16.9845" cy="18.5584" r="3.72441" fill="white"/>
+<circle cx="18.1859" cy="17.8378" r="1.92228" fill="#333333"/>
+<path d="M21.8148 23.4478C21.8148 23.712 21.3863 23.9263 20.8578 23.9263C20.3292 23.9263 19.9007 23.712 19.9007 23.4478" stroke="#96582D" stroke-width="0.957037" stroke-linecap="round"/>
+<ellipse cx="19.6615" cy="27.9932" rx="11.2452" ry="2.15333" fill="#95D3D0"/>
+<g filter="url(#filter0_i_12202_77115)">
+<path d="M31.3564 20.9529C31.0052 27.0362 25.6039 28.3596 18.85 28.3596C12.0962 28.3596 6.36145 26.7456 6.36145 20.9529C6.36145 13.2916 12.6287 8.85254 19.3826 8.85254C27.5632 8.85254 31.6402 16.0385 31.3564 20.9529Z" fill="#00D4BE"/>
+</g>
+<circle cx="22.4832" cy="20.1144" r="3.97716" fill="white"/>
+<ellipse cx="21.2815" cy="20" rx="2" ry="1" fill="#333333"/>
+<circle cx="15.1705" cy="20.1144" r="3.97716" fill="white"/>
+<ellipse cx="14.2815" cy="20" rx="2" ry="1" fill="#333333"/>
+<circle cx="19.2815" cy="25" r="1" fill="#78431D"/>
+<defs>
+<filter id="filter0_i_12202_77115" x="6.36145" y="8.85254" width="25.0088" height="19.5073" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dx="-2.87111" dy="-0.957037"/>
+<feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0.370198 0 0 0 0 0.730096 0 0 0 0 0.749039 0 0 0 1 0"/>
+<feBlend mode="normal" in2="shape" result="effect1_innerShadow_12202_77115"/>
+</filter>
+</defs>
+</svg>
