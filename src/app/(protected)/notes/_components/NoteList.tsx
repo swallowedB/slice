@@ -1,10 +1,11 @@
 "use client";
 
+import EmptyState from "@/components/common/empty-state/EmptyState";
 import NoteItem from "./NoteItem";
 
 const mockNotes = {
   nextCursor: 0,
-  totalCount: 0,
+  totalCount: 3,
   notes: [
     {
       id: 1,
@@ -72,6 +73,10 @@ export default function NoteList() {
   const handleNoteDelete = (id: number) => {
     // TODO: 삭제 확인 모달 열기
   };
+
+  if (mockNotes.totalCount === 0) {
+    return <EmptyState>아직 등록된 노트가 없어요</EmptyState>;
+  }
 
   return (
     <section
