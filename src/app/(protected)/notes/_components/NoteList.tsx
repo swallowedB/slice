@@ -60,13 +60,15 @@ const mockNotes = {
 
 export default function NoteList() {
   return (
-    <div className="grid grid-cols-1 gap-2 sm:gap-4 lg:grid-cols-2 lg:gap-x-6 lg:gap-y-5">
+    <section
+      className="grid grid-cols-1 gap-2 sm:gap-4 lg:grid-cols-2 lg:gap-x-6 lg:gap-y-5"
+      aria-label="노트 목록">
       {mockNotes.notes.map((note) => (
         <NoteItem
           key={note.id}
           {...note}
         />
       ))}
-    </div>
+    </section>
   );
 }
