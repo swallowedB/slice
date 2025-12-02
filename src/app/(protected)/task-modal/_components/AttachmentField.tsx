@@ -1,0 +1,58 @@
+"use client";
+
+import BaseInput from "@/components/common/input/base-input/BaseInput";
+import clsx from "clsx";
+
+interface AttachmentFieldProps {
+  type: "file" | "link";
+  value: string | File | null;
+  placeholder: string;
+  icon: React.ReactNode;
+  onChange?: (v: string | File | null) => void;
+}
+
+export default function AttachmentField({
+  type,
+  value,
+  placeholder,
+  icon,
+  onChange,
+}: AttachmentFieldProps) {
+  const FILE_LINK_STYLE =
+    "h-14 w-full rounded-xl border border-dashed border-gray-200 bg-[#FAFAFA] pl-10 pr-4 text-base";
+  return (
+    <div className="relative w-full">
+      <div className="pointer-events-none absolute top-1/2 left-4 z-10 -translate-y-1/2 text-gray-500">
+        {icon}
+      </div>
+
+      {type === "file" ? (
+        <>
+          <input
+            type="file"
+            id="attachment-file"
+            className="hidden"
+            onChange={(e) => onChange?.(e.target.files?.[0] ?? null)}
+          />
+
+          <label
+            htmlFor="attachment-file"
+            className={clsx(
+              FILE_LINK_STYLE,
+              "flex cursor-pointer items-center text-gray-400",
+            )}>
+            {value instanceof File ? value.name : placeholder}
+          </label>
+        </>
+      ) : (
+        <BaseInput
+          type="url"
+          value={(value as string) ?? ""}
+          placeholder={placeholder}
+          onChange={(e) => onChange?.(e.target.value)}
+          className={FILE_LINK_STYLE}
+        />
+      )}
+    </div>
+  );
+}
