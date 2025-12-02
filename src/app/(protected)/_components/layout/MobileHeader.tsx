@@ -18,7 +18,7 @@ export default function MobileHeader({ title, actions }: MobileHeaderProps) {
     <>
       <header className="fixed top-0 left-0 z-300 mb-4 flex w-full items-center justify-between bg-white px-5 py-4 shadow-sm sm:hidden">
         <div className="flex items-center gap-4">
-          <button onClick={openDrawer}>
+          <button onClick={openDrawer} className="cursor-pointer">
             <Bars3Icon
               className="h-6 w-6 text-gray-400"
               strokeWidth={2}

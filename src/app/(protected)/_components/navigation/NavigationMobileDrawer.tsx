@@ -24,7 +24,7 @@ export default function NavigationMobileDrawer({
         {/* 상단 헤더 영역 */}
         <div className="flex items-center justify-between border-b border-gray-100 px-5 py-4">
           <button
-            className="text-sm text-gray-500"
+            className="text-sm text-gray-500 cursor-pointer"
             onClick={onClose}>
             닫기
           </button>
