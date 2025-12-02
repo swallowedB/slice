@@ -1,8 +1,10 @@
+import MobileHeader from "../_components/layout/MobileHeader";
 import NoteList from "./_components/NoteList";
 
 export default async function NotesPage() {
   return (
     <section className="h-screen">
+      <MobileHeader title="노트 모아보기" />
       <h2 className="hidden text-black sm:mb-14 sm:block sm:text-2xl sm:font-semibold">
         노트 모아보기
       </h2>
