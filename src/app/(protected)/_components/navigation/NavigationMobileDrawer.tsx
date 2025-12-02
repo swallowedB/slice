@@ -8,16 +8,18 @@ import NavigationProfile from "./_components/NavigationProfile";
 interface NavigationMobileDrawerProps {
   isOpen: boolean;
   onClose: () => void;
+  className?: string
 }
 
 export default function NavigationMobileDrawer({
   isOpen,
   onClose,
+  className
 }: NavigationMobileDrawerProps) {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-400 transition-all duration-100">
+    <div className={`fixed inset-0 z-400 transition-all duration-100 ${className}`}>
       <aside className="absolute inset-0 flex h-full w-full flex-col bg-white shadow-2xl">
         {/* 상단 헤더 영역 */}
         <div className="flex items-center justify-between border-b border-gray-100 px-5 py-4">

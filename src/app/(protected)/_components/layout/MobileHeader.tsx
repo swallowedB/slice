@@ -1,15 +1,14 @@
-"use client";
-
+"use client"
 import { Bars3Icon } from "@heroicons/react/24/outline";
 import { useState } from "react";
 import NavigationMobileDrawer from "../navigation/NavigationMobileDrawer";
 
-interface PageHeaderProps {
+interface MobileHeaderProps {
   title: string;
   actions?: React.ReactNode;
 }
 
-export default function PageHeader({ title, actions }: PageHeaderProps) {
+export default function MobileHeader({ title, actions }: MobileHeaderProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   const openDrawer = () => setIsOpen(true);
@@ -17,7 +16,7 @@ export default function PageHeader({ title, actions }: PageHeaderProps) {
 
   return (
     <>
-      <header className="fixed top-0 z-300 mb-4 flex w-full items-center justify-between bg-white px-5 py-4 shadow-sm">
+      <header className="fixed top-0 left-0 z-300 mb-4 flex w-full items-center justify-between bg-white px-5 py-4 shadow-sm sm:hidden">
         <div className="flex items-center gap-4">
           <button onClick={openDrawer}>
             <Bars3Icon
@@ -31,7 +30,11 @@ export default function PageHeader({ title, actions }: PageHeaderProps) {
         <div className="flex items-center gap-4">{actions}</div>
       </header>
 
-      <NavigationMobileDrawer isOpen={isOpen} onClose={closeDrawer} />
+      <NavigationMobileDrawer
+        isOpen={isOpen}
+        onClose={closeDrawer}
+        className="sm:hidden"
+      />
     </>
   );
 }
