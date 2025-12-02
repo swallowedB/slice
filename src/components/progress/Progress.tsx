@@ -22,7 +22,7 @@ export default function Progress({
   const percentSize = variant === "large" ? "text-3xl" : "text-xl";
 
   return (
-    <div className="flex h-full items-center justify-center gap-6">
+    <>
       <CircularProgress
         percent={percent}
         strokeColor={"#009D97"}
@@ -35,6 +35,6 @@ export default function Progress({
           <span className={`${percentSize} font-medium`}>%</span>
         </p>
       </div>
-    </div>
+    </>
   );
 }
