@@ -3,6 +3,8 @@
 import EmptyState from "@/components/common/empty-state/EmptyState";
 import NoteItem from "./NoteItem";
 import { EMPTY_MESSAGES } from "@/constants/messages";
+import { useState } from "react";
+import ConfirmModal from "@/components/common/popup-modal/ConfirmModal";
 
 const mockNotes = {
   nextCursor: 0,
@@ -63,6 +65,8 @@ const mockNotes = {
 };
 
 export default function NoteList() {
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+
   const handleNoteClick = (id: number) => {
     // TODO: 노트 상세가 사이드 보기로 열림
   };
@@ -72,7 +76,7 @@ export default function NoteList() {
   };
 
   const handleNoteDelete = (id: number) => {
-    // TODO: 삭제 확인 모달 열기
+    setIsDeleteModalOpen(true);
   };
 
   if (mockNotes.totalCount === 0) {
@@ -80,18 +84,27 @@ export default function NoteList() {
   }
 
   return (
-    <section
-      className="grid grid-cols-1 gap-2 sm:gap-4 lg:grid-cols-2 lg:gap-x-6 lg:gap-y-5"
-      aria-label="노트 목록">
-      {mockNotes.notes.map((note) => (
-        <NoteItem
-          key={note.id}
-          onClickNote={handleNoteClick}
-          onEditNote={handleNoteEdit}
-          onDeleteNote={handleNoteDelete}
-          {...note}
-        />
-      ))}
-    </section>
+    <>
+      <section
+        className="grid grid-cols-1 gap-2 sm:gap-4 lg:grid-cols-2 lg:gap-x-6 lg:gap-y-5"
+        aria-label="노트 목록">
+        {mockNotes.notes.map((note) => (
+          <NoteItem
+            key={note.id}
+            onClickNote={handleNoteClick}
+            onEditNote={handleNoteEdit}
+            onDeleteNote={handleNoteDelete}
+            {...note}
+          />
+        ))}
+      </section>
+      <ConfirmModal
+        isOpen={isDeleteModalOpen}
+        title="노트를 삭제하시겠어요?"
+        message="삭제된 노트는 복구할 수 없습니다."
+        onClose={() => setIsDeleteModalOpen(false)}
+        onConfirm={() => {}}
+      />
+    </>
   );
 }
