@@ -2,6 +2,7 @@
 
 import EmptyState from "@/components/common/empty-state/EmptyState";
 import NoteItem from "./NoteItem";
+import { EMPTY_MESSAGES } from "@/constants/messages";
 
 const mockNotes = {
   nextCursor: 0,
@@ -75,7 +76,7 @@ export default function NoteList() {
   };
 
   if (mockNotes.totalCount === 0) {
-    return <EmptyState>아직 등록된 노트가 없어요</EmptyState>;
+    return <EmptyState>{EMPTY_MESSAGES.NOTE.LIST}</EmptyState>;
   }
 
   return (
