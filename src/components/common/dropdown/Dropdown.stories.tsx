@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
-import Dropdown from "./NavigateDropdown";
+import Dropdown from "./Dropdown";
 
 const meta: Meta<typeof Dropdown> = {
   title: "Dropdown/Dropdown",
@@ -10,7 +10,7 @@ const meta: Meta<typeof Dropdown> = {
 export default meta;
 type Story = StoryObj<typeof Dropdown>;
 
-export const onclickMenu: Story = {
+export const Default: Story = {
   args: {
     items: [
       { text: "수정하기", onClick: () => console.log("edit") },

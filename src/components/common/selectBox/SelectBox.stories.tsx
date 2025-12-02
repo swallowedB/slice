@@ -1,14 +1,14 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
-import Dropdown from "./SelectDropdown";
+import SelectBox from "./SelectBox";
 
-const meta: Meta<typeof Dropdown> = {
-  title: "Dropdown/Dropdown",
-  component: Dropdown,
+const meta: Meta<typeof SelectBox> = {
+  title: "SelectBox/SelectBox",
+  component: SelectBox,
   tags: ["autodocs"],
 };
 
 export default meta;
-type Story = StoryObj<typeof Dropdown>;
+type Story = StoryObj<typeof SelectBox>;
 
 export const SelectSidebar: Story = {
   args: {

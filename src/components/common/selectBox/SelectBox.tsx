@@ -1,13 +1,13 @@
 import clsx from "clsx";
 
-export interface DropdownProps {
+export interface SelectBoxProps {
   items: string[];
   variant?: "sidebar" | "menu";
   onSelect?: (value: string) => void;
   className?: string;
 }
 
-const DROPDOWN_STYLES = {
+const SELECTBOX_STYLES = {
   sidebar: {
     wrapper: "w-full p-2 bg-white",
     item: "px-4 pt-3 pb-4 cursor-pointer",
@@ -18,13 +18,13 @@ const DROPDOWN_STYLES = {
   },
 } as const;
 
-export default function Dropdown({
+export default function SelectBox({
   items,
   variant = "sidebar",
   className,
   onSelect,
-}: DropdownProps) {
-  const { wrapper, item } = DROPDOWN_STYLES[variant];
+}: SelectBoxProps) {
+  const { wrapper, item } = SELECTBOX_STYLES[variant];
 
   const baseWrapper =
     "rounded-xl p-4 gap-y-2 flex flex-col shadow-[0px_4px_16px_-2px_rgba(0,0,0,0.1)";
