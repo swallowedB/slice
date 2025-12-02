@@ -16,7 +16,7 @@ export default function RecentTodos() {
   };
   return (
     <div className="w-full">
-      <h3 className="mb-2.5 flex flex-wrap items-center justify-between pr-3.5 pl-2 text-base font-medium lg:text-lg">
+      <h3 className="mb-2.5 flex flex-wrap items-center justify-between pr-3.5 pl-2 text-base font-medium sm:text-sm lg:text-lg xl:text-base">
         <p className="flex flex-wrap items-center">
           <img
             src="/icons/icon-todo.svg"
@@ -30,7 +30,7 @@ export default function RecentTodos() {
           className="text-orange-250 flex items-center text-sm font-semibold lg:text-base"
           href="/dashboard/todos">
           모두 보기
-          <ChevronRightIcon className="text-orange-250 ml-0.5 w-3.5 sm:ml-0 sm:w-5" />
+          <ChevronRightIcon className="text-orange-250 ml-0.5 w-3.5 lg:w-5" />
         </Link>
       </h3>
 
