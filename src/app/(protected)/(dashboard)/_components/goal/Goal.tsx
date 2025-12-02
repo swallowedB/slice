@@ -42,7 +42,7 @@ export default function Goal() {
     <section>
       {/* 목표별 할 일  */}
       <div className="overflow-x-clip">
-        <h3 className="mb-2.5 grid items-center pl-2 font-medium sm:text-base lg:text-lg">
+        <h3 className="mb-2.5 grid items-center pl-2 text-base font-medium sm:text-sm lg:text-lg xl:text-base">
           <p className="flex flex-wrap items-center">
             <img
               src="/icons/icon-goal.svg"

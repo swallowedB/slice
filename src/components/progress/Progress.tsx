@@ -8,7 +8,7 @@ const VARIANT_MAP = {
   large: {
     titleClass: "text-sm lg:text-lg font-semibold",
     percentClass:
-      "text-[54px] sm:text-[74px] lg:text-[80px] leading-[1.2] sm:leading-[1] lg:leading-[1.2]",
+      "text-[54px] lg:text-[74px] xl:text-[80px] leading-[1.2] sm:leading-[1] lg:leading-[1.2]",
   },
 };
 
@@ -23,9 +23,12 @@ export default function Progress({
 
   return (
     <div className="flex h-full items-center justify-center gap-6">
-      <CircularProgress percent={percent} />
+      <CircularProgress
+        percent={percent}
+        strokeColor={"#009D97"}
+      />
 
-      <div className="text-center text-white lg:text-left">
+      <div className="text-white lg:text-left">
         <p className={styles.titleClass}>{title}</p>
         <p className={`${styles.percentClass} font-bold`}>
           {percent}
