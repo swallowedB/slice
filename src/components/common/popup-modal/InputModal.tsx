@@ -23,8 +23,7 @@ export default function InputModal({
         titleAlign="left"
         isClosable={true}
         onClose={onClose}
-        footer={footer}
-        >
+        footer={footer}>
         {children}
       </ModalContent>
     </BaseLayout>
