@@ -3,8 +3,8 @@
 import { EllipsisVerticalIcon } from "@heroicons/react/24/outline";
 import Badge from "./Badge";
 import { useEffect, useRef, useState } from "react";
-import Dropdown from "@/components/common/dropdown/Dropdown";
 import clsx from "clsx";
+import Dropdown from "@/components/common/dropdown/Dropdown";
 
 interface NoteItemProps {
   id: number;
@@ -18,6 +18,12 @@ interface NoteItemProps {
   onClickNote: (id: number) => void;
   onEditNote: (id: number) => void;
   onDeleteNote: (id: number) => void;
+}
+
+// TODO: 타입 분리
+interface DropdownItem {
+  text: string;
+  onClick: () => void;
 }
 
 export default function NoteItem({
@@ -79,6 +85,24 @@ export default function NoteItem({
     };
   }, [isDropdownOpen]);
 
+  // TODO: Dropdown e.stopPropagation() 체크
+  const dropdownItems: DropdownItem[] = [
+    {
+      text: "수정하기",
+      onClick: () => {
+        setIsDropdownOpen(false);
+        onEditNote(id);
+      },
+    },
+    {
+      text: "삭제하기",
+      onClick: () => {
+        setIsDropdownOpen(false);
+        onDeleteNote(id);
+      },
+    },
+  ];
+
   return (
     <article
       onClick={handleNoteClick}
@@ -120,16 +144,11 @@ export default function NoteItem({
           2025. 11. 23
         </time>
       </footer>
-
-      {/* TODO: dropdown 이벤트 핸들러 */}
       {isDropdownOpen && (
         <div
           ref={dropdownRef}
           className="absolute top-11 right-6 z-100">
-          <Dropdown
-            items={["수정하기", "삭제하기"]}
-            variant="menu"
-          />
+          <Dropdown items={dropdownItems} />
         </div>
       )}
     </article>
