@@ -67,15 +67,15 @@ const mockNotes = {
 export default function NoteList() {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
-  const handleNoteClick = (id: number) => {
+  const openNoteDetail = (id: number) => {
     // TODO: 노트 상세가 사이드 보기로 열림
   };
 
-  const handleNoteEdit = (id: number) => {
+  const navigateToNoteEdit = (id: number) => {
     // TODO: 노트 수정 페이지로 이동
   };
 
-  const handleNoteDelete = (id: number) => {
+  const openDeleteModal = (id: number) => {
     setIsDeleteModalOpen(true);
   };
 
@@ -91,9 +91,9 @@ export default function NoteList() {
         {mockNotes.notes.map((note) => (
           <NoteItem
             key={note.id}
-            onClickNote={handleNoteClick}
-            onEditNote={handleNoteEdit}
-            onDeleteNote={handleNoteDelete}
+            onClickNote={openNoteDetail}
+            onEditNote={navigateToNoteEdit}
+            onDeleteNote={openDeleteModal}
             {...note}
           />
         ))}
