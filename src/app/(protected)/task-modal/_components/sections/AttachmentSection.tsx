@@ -3,7 +3,7 @@
 import BaseInput from "@/components/common/input/base-input/BaseInput";
 import clsx from "clsx";
 
-interface AttachmentFieldProps {
+interface AttachmentSectionProps {
   type: "file" | "link";
   value: string | File | null;
   placeholder: string;
@@ -11,13 +11,13 @@ interface AttachmentFieldProps {
   onChange?: (v: string | File | null) => void;
 }
 
-export default function AttachmentField({
+export default function AttachmentSection({
   type,
   value,
   placeholder,
   icon,
   onChange,
-}: AttachmentFieldProps) {
+}: AttachmentSectionProps) {
   const FILE_LINK_STYLE =
     "h-14 w-full rounded-xl border border-dashed border-gray-200 bg-[#FAFAFA] pl-10 pr-4 text-base";
   return (
