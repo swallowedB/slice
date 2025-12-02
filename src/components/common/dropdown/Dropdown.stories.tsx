@@ -12,13 +12,9 @@ type Story = StoryObj<typeof Dropdown>;
 
 export const Default: Story = {
   args: {
-    items: ["자바스크립트로 웹서비스 만들기", "디자인 시스템 강의 듣기"],
-  },
-};
-
-export const MenuVariant: Story = {
-  args: {
-    items: ["노트 작성하기", "수정하기", "삭제하기"],
-    variant: "menu"
+    items: [
+      { text: "수정하기", onClick: () => console.log("edit") },
+      { text: "삭제하기", onClick: () => console.log("delete") },
+    ],
   },
 };
