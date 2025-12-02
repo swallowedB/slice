@@ -12,20 +12,18 @@ export default function CircularProgress({
   strokeColor = "#009D97",
 }: CircularProgressProps) {
   const vbSize = 100;
-  const strokeWidth = variant === "large" ? 24 : 14;
 
-  const radius = (vbSize - strokeWidth) / 2;
+  const radius = (vbSize - 14) / 2;
   const circumference = 2 * Math.PI * radius;
 
   const progress = Math.min(100, Math.max(0, percent)) / 100;
 
   const offset = circumference * (1 - progress);
 
-  // 렌더링 크기 (반응형)
   const sizeClasses =
     variant === "large"
-      ? "w-[162px] h-[162px]"
-      : "w-23 h-23 sm:w-20 sm:h-20 lg:w-32 lg:h-32 2xl:w-40 2xl:h-40";
+      ? "w-[92px] h-[92px] lg:w-[162px] lg:h-[162px]"
+      : "w-[92px] h-[92px]";
 
   const cx = vbSize / 2;
   const cy = vbSize / 2;
@@ -40,7 +38,7 @@ export default function CircularProgress({
         cy={cy}
         r={radius}
         stroke={strokeColor}
-        strokeWidth={strokeWidth}
+        strokeWidth="14"
         fill="none"
       />
 
@@ -56,7 +54,7 @@ export default function CircularProgress({
           cy={cy}
           r={radius}
           stroke={"#fff"}
-          strokeWidth={strokeWidth}
+          strokeWidth="14"
           fill="none"
           strokeDasharray={circumference}
           strokeDashoffset={offset}
