@@ -1,5 +1,4 @@
 import CircularProgress from "./CircularProgress";
-import { useDeviceSize } from "@/hooks/useDeviceSize";
 
 const VARIANT_MAP = {
   default: {
@@ -18,22 +17,15 @@ export default function Progress({
   percent,
   variant = "default",
 }: ProgressProps) {
-  const { isDesktop } = useDeviceSize();
   const styles = VARIANT_MAP[variant];
 
-  const circleSize = variant === "large" && isDesktop ? 160 : 92;
   const percentSize = variant === "large" ? "text-3xl" : "text-xl";
 
   return (
-    // <div className="flex h-full
-    // flex-wrap items-center justify-center sm:justify-start sm:pl-3.75 lg:pl-4">
-    <div className="flex h-full flex-wrap items-center justify-center">
-      <CircularProgress
-        percent={percent}
-        size={circleSize}
-      />
+    <div className="flex h-full items-center justify-center gap-6">
+      <CircularProgress percent={percent} />
 
-      <div className="ml-7.5 text-white">
+      <div className="text-center text-white lg:text-left">
         <p className={styles.titleClass}>{title}</p>
         <p className={`${styles.percentClass} font-bold`}>
           {percent}
