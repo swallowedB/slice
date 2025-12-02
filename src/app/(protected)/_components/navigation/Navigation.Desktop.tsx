@@ -1,17 +1,47 @@
 "use client";
 
 import { ChevronDoubleLeftIcon } from "@heroicons/react/24/outline";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import ModalBackground from "../../../../components/common/popup-modal/ModalBackground";
+import { useDeviceSize } from "../../../../hooks/useDeviceSize";
 import NavigationActions from "./_components/NavigationActions";
 import NavigationLogout from "./_components/NavigationLogout";
 import NavigationMenu from "./_components/NavigationMenu";
 import NavigationProfile from "./_components/NavigationProfile";
 
 export default function NavigationDesktop() {
+  const { isTablet } = useDeviceSize();
   const [isCollapsed, setIsCollapsed] = useState(false);
-  const toggleCollapse = () => setIsCollapsed((prev) => !prev);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  return (
+    useEffect(() => {
+    if (isTablet) {
+      setIsModalOpen(false);
+      setIsCollapsed(true);
+    } else {
+      setIsModalOpen(false);
+      setIsCollapsed(false);
+    }
+  }, [isTablet]);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+    setIsCollapsed(false);
+  };
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setIsCollapsed(true);
+  };
+
+  const toggleCollapse = () => {
+    if (!isTablet) {
+      setIsCollapsed((prev) => !prev);
+    } else {
+      isModalOpen ? closeModal() : openModal();
+    }
+  };
+
+  const sidebar = (
     <aside
       className={`flex h-full flex-col justify-between rounded-tr-4xl rounded-br-4xl bg-white shadow-2xl transition-all duration-300 ${isCollapsed ? "w-24 sm:w-15" : "w-84 px-7.5 pt-8 pb-10"} `}>
       <section className="relative flex w-full flex-col">
@@ -49,5 +79,22 @@ export default function NavigationDesktop() {
         </section>
       )}
     </aside>
+  );
+
+  return (
+    <>
+      {!isTablet && sidebar}
+
+      {isTablet && !isModalOpen && sidebar}
+
+      {isTablet && isModalOpen && (
+        <div className="fixed inset-0 z-900 transition-all duration-100">
+          <ModalBackground onClick={closeModal} />
+          <div className="absolute inset-y-0 left-0 z-910 flex h-full">
+            {sidebar}
+          </div>
+        </div>
+      )}
+    </>
   );
 }
