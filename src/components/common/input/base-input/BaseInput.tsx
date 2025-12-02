@@ -2,12 +2,7 @@
 
 import clsx from "clsx";
 
-export type InputType =
-  | "text"
-  | "email"
-  | "password"
-  | "url"
-  | "file";
+export type InputType = "text" | "email" | "password" | "url" | "file";
 
 export interface BaseInputProps {
   name?: string;
@@ -30,15 +25,14 @@ export default function BaseInput({
   className,
   Icon,
 }: BaseInputProps) {
-
   const inputClassName = clsx(
-    "w-full rounded-xl px-4 h-[52px] text-sm outline-none",
+    "w-full rounded-xl px-4 h-14 text-sm outline-none",
     Icon && "pr-12",
-    className
+    className,
   );
-  
+
   const rightIcon = Icon && (
-    <div className="absolute right-4 top-1/2 -translate-y-1/2 cursor-pointer z-10">
+    <div className="absolute top-1/2 right-4 z-10 -translate-y-1/2 cursor-pointer">
       {Icon}
     </div>
   );
