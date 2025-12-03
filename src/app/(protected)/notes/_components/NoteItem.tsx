@@ -5,6 +5,7 @@ import Badge from "./Badge";
 import { useEffect, useRef, useState } from "react";
 import clsx from "clsx";
 import Dropdown from "@/components/common/dropdown/Dropdown";
+import NoteTitleView from "./NoteTitleView";
 
 interface NoteItemProps {
   id: number;
@@ -111,16 +112,10 @@ export default function NoteItem({
         isDropdownOpen && "z-10",
       )}>
       <header className="mb-2 flex items-center justify-between border-b border-b-gray-100 pb-2 sm:mb-3.5 sm:pb-4 lg:mb-4 lg:pb-5">
-        <h3 className="flex min-w-0 items-center gap-2">
-          <img
-            src="/icons/icon-note.svg"
-            alt="노트 아이콘"
-            className="h-8 w-8 lg:h-10 lg:w-10"
-          />
-          <span className="flex-1 truncate text-sm font-semibold sm:text-lg lg:text-xl">
-            {title}
-          </span>
-        </h3>
+        <NoteTitleView
+          title={title}
+          className="text-sm sm:text-lg lg:text-xl"
+        />
         <button
           type="button"
           ref={kebabButtonRef}

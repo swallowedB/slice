@@ -5,6 +5,7 @@ import NoteItem from "./NoteItem";
 import { EMPTY_MESSAGES } from "@/constants/messages";
 import { useState } from "react";
 import ConfirmModal from "@/components/common/popup-modal/ConfirmModal";
+import NoteDetailModal from "./NoteDetailModal";
 
 const mockNotes = {
   nextCursor: 0,
@@ -65,10 +66,11 @@ const mockNotes = {
 };
 
 export default function NoteList() {
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [selectedNoteId, setSelectedNoteId] = useState<number | null>(null);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
 
   const openNoteDetail = (id: number) => {
-    // TODO: 노트 상세가 사이드 보기로 열림
+    setSelectedNoteId(id);
   };
 
   const navigateToNoteEdit = (id: number) => {
@@ -98,6 +100,11 @@ export default function NoteList() {
           />
         ))}
       </section>
+      <NoteDetailModal
+        isOpen={selectedNoteId !== null}
+        noteId={selectedNoteId}
+        onClose={() => setSelectedNoteId(null)}
+      />
       <ConfirmModal
         isOpen={isDeleteModalOpen}
         title="노트를 삭제하시겠어요?"
