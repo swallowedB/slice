@@ -1,16 +1,18 @@
 import clsx from "clsx";
 import { twMerge } from "tailwind-merge";
 
+type ButtonType = "button" | "submit" | "reset";
 type ButtonVariant = "primary" | "outline-orange" | "outline-gray";
 type ButtonSize = "full" | "compact";
 
 interface ButtonProps {
+  type?: ButtonType;
   children: React.ReactNode;
   variant?: ButtonVariant;
   size?: ButtonSize;
   isDisabled?: boolean;
   className?: string;
-  onClick: () => void;
+  onClick?: () => void;
 }
 
 const VARIANT_CONFIG: Record<ButtonVariant, string> = {
@@ -22,6 +24,7 @@ const VARIANT_CONFIG: Record<ButtonVariant, string> = {
 };
 
 export default function Button({
+  type = "button",
   children,
   variant = "primary",
   size = "full",
@@ -54,6 +57,7 @@ export default function Button({
 
   return (
     <button
+      type={type}
       className={buttonClasses}
       disabled={isDisabled}
       onClick={onClick}>
