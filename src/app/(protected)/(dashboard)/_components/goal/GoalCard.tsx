@@ -3,6 +3,8 @@ import { ListTodoType } from "@/components/common/list/list-item/listItem.types"
 import EmptyState from "@/components/common/empty-state/EmptyState";
 import GoalHeader from "./GoalHeader";
 import GoalTodoBox from "./GoalTodoBox";
+import { EMPTY_MESSAGES } from "@/constants/messages";
+import { useListItems } from "@/hooks/useListItems";
 type GoalCardProps = {
   title: string;
   percent: number;
@@ -10,7 +12,6 @@ type GoalCardProps = {
   doneItems: ListTodoType[];
   isOpen: boolean;
   onToggle: () => void;
-  onChange: (id: number) => void;
   cardStyles: string;
 };
 
@@ -21,12 +22,17 @@ export default function GoalCard({
   doneItems,
   isOpen,
   onToggle,
-  onChange,
   cardStyles,
 }: GoalCardProps) {
+  const allItems = [...todoItems, ...doneItems];
+  const { items, onToggleChecked } = useListItems(allItems);
+
   if (!title) return null;
 
   const noTodos = todoItems.length === 0 && doneItems.length === 0;
+
+  const todoState = items.filter((item) => !item.checked);
+  const doneState = items.filter((item) => item.checked);
   return (
     <div
       className={`${cardStyles} ${isOpen ? "sm:pb-4" : "pb-13.5 sm:pb-7.5"}`}>
@@ -38,7 +44,7 @@ export default function GoalCard({
       />
       {/* 목표는 있고, 등록된 할 일이 없는 상태 */}
       {noTodos && isOpen && (
-        <EmptyState>최근에 등록한 목표가 없어요</EmptyState>
+        <EmptyState>{EMPTY_MESSAGES.GOAL.RECENT}</EmptyState>
       )}
       {/* 목표 있고, 할일도 있고, isOpen이면 출력 */}
       {!noTodos && isOpen && (
@@ -48,8 +54,8 @@ export default function GoalCard({
             variant="todo">
             <ListItem
               className="grid sm:gap-0.5 lg:gap-1"
-              items={todoItems}
-              onChange={onChange}
+              items={todoState}
+              onToggleChecked={onToggleChecked}
             />
           </GoalTodoBox>
           <GoalTodoBox
@@ -57,8 +63,8 @@ export default function GoalCard({
             variant="done">
             <ListItem
               className="grid sm:gap-0.5 lg:gap-1"
-              items={doneItems}
-              onChange={onChange}
+              items={doneState}
+              onToggleChecked={onToggleChecked}
             />
           </GoalTodoBox>
         </div>
