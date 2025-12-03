@@ -5,7 +5,7 @@ export type ListActionType = {
 };
 
 export type ListTodoType = {
-  id: number;
+  id: string;
   label: string;
   checked: boolean;
   link?: boolean;
@@ -14,7 +14,7 @@ export type ListTodoType = {
 };
 
 export type ListGoalType = {
-  id: number;
+  id: string;
   title: string;
   todos: ListTodoType[];
 };

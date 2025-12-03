@@ -9,11 +9,11 @@ import {
 
 type Props = {
   item: ListTodoType;
-  onChange: (id: number) => void;
+  onToggleChecked: (id: number) => void;
   variant: ListItemVariant;
 };
 
-export default function ListItemRow({ item, onChange, variant }: Props) {
+export default function ListItemRow({ item, onToggleChecked, variant }: Props) {
   const getTextColor = (checked: boolean, variant: ListItemVariant) => {
     if (checked) return "text-gray-600";
     if (variant === "white") return "text-white";
@@ -43,7 +43,7 @@ export default function ListItemRow({ item, onChange, variant }: Props) {
           <Checkbox
             id={`checkbox-${item.id}`}
             checked={item.checked}
-            onChange={() => onChange(item.id)}
+            onChange={() => onToggleChecked(item.id)}
             variant={variant}
           />
           <span
