@@ -3,12 +3,12 @@ import Checkbox from "../../checkbox/Checkbox";
 import ListItemActions from "../list-item-actions/ListItemActions";
 import {
   ListActionType,
-  ListItemType,
+  ListTodoType,
   ListItemVariant,
 } from "./listItem.types";
 
 type Props = {
-  item: ListItemType;
+  item: ListTodoType;
   onChange: (id: number) => void;
   variant: ListItemVariant;
 };
@@ -20,7 +20,7 @@ export default function ListItemRow({ item, onChange, variant }: Props) {
     return "text-gray-700";
   };
 
-  const getActionsFromItem = (item: ListItemType): ListActionType[] => {
+  const getActionsFromItem = (item: ListTodoType): ListActionType[] => {
     const actions: ListActionType[] = [];
 
     if (item.link) actions.push({ type: "link" });
