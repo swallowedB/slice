@@ -44,8 +44,7 @@ export default function GoalTodoSection({
       </div>
 
       {items.length === 0 && <p>할 일이 없어요!</p>}
-
-      <div className="rounded-2xl bg-orange-100 px-4 py-6 sm:h-64 sm:px-6 sm:py-8 lg:rounded-3xl xl:max-h-130">
+      <div className="min-h-auto rounded-2xl bg-orange-100 px-4 py-6 sm:px-6 sm:py-8 lg:rounded-3xl xl:min-h-138">
         <ListItem
           className="grid sm:gap-0.5 lg:gap-1"
           items={items}

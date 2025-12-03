@@ -3,7 +3,7 @@ import NavigationDesktop from "./_components/navigation/Navigation.Desktop";
 
 export default function ProtectedLayout({ children }: { children: ReactNode }) {
   return (
-    <main className="flex h-screen overflow-hidden sm:gap-12 lg:gap-20">
+    <main className="flex min-h-screen overflow-hidden sm:h-screen sm:gap-12 lg:gap-20">
       <div className="hidden sm:block">
         <NavigationDesktop />
       </div>
