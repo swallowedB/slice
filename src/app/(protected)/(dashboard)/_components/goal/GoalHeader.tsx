@@ -17,16 +17,16 @@ export default function GoalHeader({
   isOpen,
 }: GoalHeaderProps) {
   return (
-    <div className="flex items-start justify-between sm:items-center">
-      <div className="w-full pl-2.5 sm:w-auto lg:flex lg:items-center lg:pl-3.5">
-        <h4 className="mb-3 line-clamp-2 pr-20 font-semibold break-keep sm:line-clamp-1 sm:w-105 sm:text-sm lg:mb-0 lg:w-60 lg:pr-7.5 lg:text-base">
+    <div className="flex items-start justify-between sm:grid sm:grid-cols-2 sm:items-center lg:flex lg:flex-col lg:items-start xl:flex-row">
+      <div className="lg: w-full pl-2.5 sm:w-auto lg:grid lg:grid-rows-[auto_auto] lg:gap-1 lg:pl-3.5 2xl:grid 2xl:grid-cols-2 2xl:items-center">
+        <h4 className="mb-3 line-clamp-2 pr-20 font-semibold break-keep sm:line-clamp-1 sm:text-sm lg:mb-0 lg:pr-7.5 lg:text-base">
           {title}
         </h4>
 
         <ProgressBar percent={percent} />
       </div>
 
-      <div className="flex pr-2.5">
+      <div className="flex pr-2.5 sm:ml-auto lg:mt-4 xl:mt-0">
         <Button
           variant="outline-gray"
           size="compact"

@@ -1,9 +1,9 @@
 "use client";
-import { ListItemType, ListItemVariant } from "./listItem.types";
+import { ListTodoType, ListItemVariant } from "./listItem.types";
 import ListItemRow from "./ListItemRow";
 
 type ListItemProps = {
-  items: ListItemType[];
+  items: ListTodoType[];
   onChange: (id: number) => void;
   variant?: ListItemVariant;
   className?: string;

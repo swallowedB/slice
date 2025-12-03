@@ -10,7 +10,7 @@ export default function ProgressTodos() {
   }, []);
   return (
     <div className="mt-7.5 w-full sm:mt-0">
-      <h3 className="mb-2.5 flex flex-wrap items-center pl-2 font-medium sm:text-base lg:text-lg">
+      <h3 className="mb-2.5 flex flex-wrap items-center pl-2 text-base font-medium sm:text-sm lg:text-lg xl:text-base">
         <img
           src="/icons/icon-progress.svg"
           alt="진행 아이콘"
@@ -19,13 +19,15 @@ export default function ProgressTodos() {
         내 진행 상황
       </h3>
 
-      <div className="h-46.5 rounded-[28px] bg-blue-200 bg-[url(/images/dashboard/obj-progress.png)] bg-[length:151px_auto] bg-[right_8px_bottom_-54px] bg-no-repeat p-0 shadow-[0_10px_40px_0_rgba(0,212,190,0.24)] transition-all sm:bg-[right_-24px_bottom_-54px] sm:p-6 lg:h-64 lg:rounded-[40px] lg:bg-[length:222px_auto] lg:bg-[right_-4px_bottom_-45px] lg:p-7.5 lg:hover:shadow-[0_10px_40px_0_rgba(0,212,190,0.24)]">
+      <div className="h-46.5 rounded-[28px] bg-blue-200 bg-[url(/images/dashboard/obj-progress.png)] bg-[length:151px_auto] bg-[right_8px_bottom_-54px] bg-no-repeat shadow-[0_10px_40px_0_rgba(0,212,190,0.24)] transition-all sm:bg-[right_-24px_bottom_-54px] lg:h-64 lg:rounded-[40px] lg:bg-[length:222px_auto] lg:bg-[right_-4px_bottom_-45px] lg:hover:shadow-[0_10px_40px_0_rgba(0,212,190,0.24)]">
         {mounted && (
-          <Progress
-            percent={40}
-            variant="large"
-            title={`체다치즈님의 진행도는`}
-          />
+          <div className="flex h-full items-center justify-start gap-5 pl-6 lg:pl-10 xl:justify-center xl:gap-3 xl:pl-0 2xl:justify-start 2xl:gap-6 2xl:pl-12">
+            <Progress
+              percent={30}
+              variant="large"
+              title={`체다치즈님의 진행도는`}
+            />
+          </div>
         )}
       </div>
     </div>

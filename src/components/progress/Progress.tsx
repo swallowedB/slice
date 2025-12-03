@@ -1,15 +1,26 @@
 import CircularProgress from "./CircularProgress";
-import { useDeviceSize } from "@/hooks/useDeviceSize";
+import { ProgressProps, Variant } from "./Progress.types";
 
-const VARIANT_MAP = {
+type VariantStyle = {
+  title: string;
+  percent: string;
+  percentSize: string;
+  stroke: string;
+};
+
+const variants: Record<Variant, VariantStyle> = {
   default: {
-    titleClass: "text-sm",
-    percentClass: "text-xl",
+    title: "text-lg sm:text-base lg:text-lg font-bold",
+    percent: "text-[57px] leading-[1] sm:text-[48px] lg:text-[57px] font-bold",
+    percentSize: "text-xl",
+    stroke: "#FFA96C",
   },
   large: {
-    titleClass: "text-sm lg:text-lg font-semibold",
-    percentClass:
-      "text-[54px] sm:text-[74px] lg:text-[80px] leading-[1.2] sm:leading-[1] lg:leading-[1.2]",
+    title: "text-sm lg:text-lg font-semibold",
+    percent:
+      "text-[54px] lg:text-[74px] xl:text-[80px] leading-[1.2] sm:leading-[1] lg:leading-[1.2]",
+    percentSize: "text-3xl",
+    stroke: "#009D97",
   },
 };
 
@@ -18,25 +29,23 @@ export default function Progress({
   percent,
   variant = "default",
 }: ProgressProps) {
-  const { isDesktop } = useDeviceSize();
-  const styles = VARIANT_MAP[variant];
-
-  const circleSize = variant === "large" && isDesktop ? 160 : 92;
+  const v = variants[variant];
 
   return (
-    <div className="flex h-full flex-wrap items-center justify-center sm:justify-start sm:pl-3.75 lg:pl-4">
+    <>
       <CircularProgress
         percent={percent}
-        size={circleSize}
+        variant={variant}
+        strokeColor={v.stroke}
       />
 
-      <div className="ml-7.5 text-white">
-        <p className={styles.titleClass}>{title}</p>
-        <p className={`${styles.percentClass} font-bold`}>
+      <div className="text-white lg:text-left">
+        <p className={`${v.title} break-keep`}>{title}</p>
+        <p className={`${v.percent} font-bold`}>
           {percent}
-          <span className="text-3xl font-medium">%</span>
+          <span className={`${v.percentSize} font-medium`}>%</span>
         </p>
       </div>
-    </div>
+    </>
   );
 }
