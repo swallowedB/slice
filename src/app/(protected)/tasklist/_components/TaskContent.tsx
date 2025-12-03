@@ -26,7 +26,7 @@ export default function TaskContent() {
     );
   };
   return (
-    <div className="h-[640px] w-[343px] rounded-3xl bg-white px-4 pb-8 lg:h-[916px] lg:w-[636px] lg:px-6 lg:pt-6 lg:pb-10 2xl:h-[796px] 2xl:w-[720px] 2xl:rounded-2xl 2xl:px-8 2xl:pt-8 2xl:pb-44">
+    <div className="h-[640px] w-[343px] rounded-3xl bg-white px-4 py-4 pb-8 lg:h-[916px] lg:w-[636px] lg:px-6 lg:pt-6 lg:pb-10 2xl:h-[796px] 2xl:w-[720px] 2xl:rounded-2xl 2xl:px-8 2xl:pt-8 2xl:pb-44">
       <GoalSelect
         goals={mockGoals}
         title="목표를 선택하세요."
