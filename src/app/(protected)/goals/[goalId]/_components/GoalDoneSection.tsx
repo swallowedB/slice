@@ -21,7 +21,7 @@ export default function GoalDoneSection({
         <ListItem
           className="grid sm:gap-0.5 lg:gap-1"
           items={items}
-          onChange={onToggle}
+          onToggleChecked={onToggle}
         />
       </div>
     </div>

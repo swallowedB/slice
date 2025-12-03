@@ -3,18 +3,35 @@ import EmptyState from "@/components/common/empty-state/EmptyState";
 import GoalCard from "./GoalCard";
 import { ListGoalType } from "@/components/common/list/list-item/listItem.types";
 import { useState } from "react";
+import { EMPTY_MESSAGES } from "@/constants/messages";
 
 const mockGoalItem: ListGoalType[] = [
   {
     id: 1,
     title: "자바스크립트로 웹 서비스 만들기",
     todos: [
-      { id: 1, label: "사용자 데이터 렌더링 구현", checked: false },
-      { id: 2, label: "UI 구현 및 기능 처리", checked: true },
+      {
+        id: 11,
+        label: "사용자 데이터 렌더링 구현",
+        checked: false,
+      },
+      { id: 12, label: "UI 구현 및 기능 처리", checked: true },
     ],
   },
-  { id: 2, title: "TypeScript 리팩터링 하기", todos: [] },
-  { id: 3, title: "", todos: [] },
+  {
+    id: 2,
+    title: "TypeScript 리팩터링 하기",
+    todos: [
+      {
+        id: 21,
+        label: "사용자 데이터 렌더링 구현",
+        checked: false,
+      },
+      { id: 22, label: "UI 구현 및 기능 처리", checked: true },
+    ],
+  },
+  { id: 3, title: "퍼블리싱 하기", todos: [] },
+  { id: 4, title: "", todos: [] },
 ];
 
 const cardStyles =
@@ -23,19 +40,16 @@ const cardStyles =
    lg:hover:shadow-[0_4px_4px_0_rgba(0,0,0,0.025)]";
 
 export default function Goal() {
-  const [openCards, setOpenCards] = useState<Record<number, boolean>>(() => {
-    const initial: Record<number, boolean> = {};
-    mockGoalItem.forEach((_, index) => (initial[index] = true));
+  const [openCards, setOpenCards] = useState<Record<string, boolean>>(() => {
+    const initial: Record<string, boolean> = {};
+    mockGoalItem.forEach((goal) => {
+      initial[goal.id] = true;
+    });
     return initial;
   });
-  const onChange = (id: number) => {
-    console.log("clicked", id);
-  };
-  const onToggle = (index: number) => {
-    setOpenCards((prev) => ({
-      ...prev,
-      [index]: !prev[index],
-    }));
+
+  const onToggleCard = (id: number) => {
+    setOpenCards((prev) => ({ ...prev, [id]: !prev[id] }));
   };
 
   return (
@@ -56,10 +70,10 @@ export default function Goal() {
           <div>
             {mockGoalItem.length === 0 ? (
               <div className={cardStyles}>
-                <EmptyState>최근 등록한 할일이 없어요</EmptyState>
+                <EmptyState>{EMPTY_MESSAGES.GOAL.RECENT}</EmptyState>
               </div>
             ) : (
-              mockGoalItem.map((goal, index) => {
+              mockGoalItem.map((goal) => {
                 const todoItems = goal.todos.filter((t) => !t.checked);
                 const doneItems = goal.todos.filter((t) => t.checked);
                 return (
@@ -69,9 +83,8 @@ export default function Goal() {
                     percent={60}
                     todoItems={todoItems}
                     doneItems={doneItems}
-                    isOpen={openCards[index]}
-                    onToggle={() => onToggle(index)}
-                    onChange={onChange}
+                    isOpen={openCards[goal.id]}
+                    onToggle={() => onToggleCard(goal.id)}
                     cardStyles={cardStyles}
                   />
                 );

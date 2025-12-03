@@ -1,19 +1,29 @@
 "use client";
 import ListItem from "@/components/common/list/list-item/ListItem";
 import { ListTodoType } from "@/components/common/list/list-item/listItem.types";
+import { useListItems } from "@/hooks/useListItems";
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 
 const mockRecentItem: ListTodoType[] = [
-  { id: 1, label: "사용자 데이터 렌더링 구현", checked: false, link: true },
-  { id: 2, label: "기능 구현", checked: false, link: true, file: true },
-  { id: 3, label: "UI 구현", checked: false, link: true, note: true },
+  {
+    id: 111,
+    label: "사용자 데이터 렌더링 구현",
+    checked: false,
+    link: true,
+  },
+  {
+    id: 222,
+    label: "기능 구현",
+    checked: false,
+    link: true,
+    file: true,
+  },
+  { id: 333, label: "UI 구현", checked: false, link: true, note: true },
 ];
 
 export default function RecentTodos() {
-  const onChange = (id: number) => {
-    console.log("clicked", id);
-  };
+  const { items, onToggleChecked } = useListItems(mockRecentItem);
   return (
     <div className="w-full">
       <h3 className="mb-2.5 flex flex-wrap items-center justify-between pr-3.5 pl-2 text-base font-medium sm:text-sm lg:text-lg xl:text-base">
@@ -42,8 +52,8 @@ export default function RecentTodos() {
         ) : (
           <ListItem
             className="grid gap-0.5 lg:gap-1.5"
-            items={mockRecentItem}
-            onChange={onChange}
+            items={items}
+            onToggleChecked={onToggleChecked}
             variant="white"
           />
         )}

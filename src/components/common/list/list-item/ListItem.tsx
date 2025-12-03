@@ -4,14 +4,14 @@ import ListItemRow from "./ListItemRow";
 
 type ListItemProps = {
   items: ListTodoType[];
-  onChange: (id: number) => void;
+  onToggleChecked: (id: number) => void;
   variant?: ListItemVariant;
   className?: string;
 };
 
 export default function ListItem({
   items,
-  onChange,
+  onToggleChecked,
   variant = "default",
   className = "",
 }: ListItemProps) {
@@ -22,7 +22,7 @@ export default function ListItem({
           <ListItemRow
             key={item.id}
             item={item}
-            onChange={onChange}
+            onToggleChecked={onToggleChecked}
             variant={variant}
           />
         ))}
