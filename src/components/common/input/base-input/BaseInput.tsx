@@ -26,7 +26,7 @@ export default function BaseInput({
   Icon,
 }: BaseInputProps) {
   const inputClassName = clsx(
-    "w-full rounded-xl px-4 h-[52px] text-sm outline-none",
+    "w-full rounded-xl px-4 h-14 outline-none",
     Icon && "pr-12",
     className,
   );

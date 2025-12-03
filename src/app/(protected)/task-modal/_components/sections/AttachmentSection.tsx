@@ -18,7 +18,7 @@ export default function AttachmentSection({
   icon,
   onChange,
 }: AttachmentSectionProps) {
-  const FILE_LINK_STYLE =
+  const ATTACHMENT_CLASS =
     "h-14 w-full rounded-xl border border-dashed border-gray-200 bg-[#FAFAFA] pl-10 pr-4 text-base";
   return (
     <div className="relative w-full">
@@ -38,8 +38,8 @@ export default function AttachmentSection({
           <label
             htmlFor="attachment-file"
             className={clsx(
-              FILE_LINK_STYLE,
-              "flex cursor-pointer items-center text-gray-400",
+              ATTACHMENT_CLASS,
+              "flex cursor-pointer items-center text-gray-600",
             )}>
             {value instanceof File ? value.name : placeholder}
           </label>
@@ -50,7 +50,7 @@ export default function AttachmentSection({
           value={(value as string) ?? ""}
           placeholder={placeholder}
           onChange={(e) => onChange?.(e.target.value)}
-          className={FILE_LINK_STYLE}
+          className={clsx(ATTACHMENT_CLASS, "placeholder:text-gray-600")}
         />
       )}
     </div>

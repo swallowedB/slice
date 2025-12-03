@@ -1,4 +1,4 @@
-export default function FormFieldSection({
+export default function InputFieldSection({
   label,
   required = false,
   children,

@@ -2,18 +2,18 @@
 
 import { ReactNode } from "react";
 
-interface MobileTaskFormLayoutProps {
+interface MobileDialogLayoutProps {
   children: ReactNode;
   onClose: () => void;
 }
 
-export default function MobileTaskFormLayout({
+export default function MobileDialogLayout({
   children,
   onClose,
-}: MobileTaskFormLayoutProps) {
+}: MobileDialogLayoutProps) {
   return (
     <div
-      className="fixed inset-0 z-50 flex flex-col justify-end bg-black/40"
+      className="fixed inset-0 flex flex-col justify-end bg-black/40"
       onClick={onClose}>
       {/* 아래에서 올라오는 효과 */}
       <div

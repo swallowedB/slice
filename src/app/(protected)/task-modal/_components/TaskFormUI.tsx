@@ -2,9 +2,9 @@
 
 import BaseInput from "@/components/common/input/base-input/BaseInput";
 import AttachmentSection from "./sections/AttachmentSection";
-import FormFieldSection from "./sections/FormFieldSection";
+import InputFieldSection from "./sections/InputFieldSection";
 import { CheckboxSection } from "./sections/CheckboxSection";
-import SelectBox from "@/components/common/selectBox/SelectBox";
+import SelectBox from "@/components/common/select-box/SelectBox";
 import {
   ChevronDownIcon,
   LinkIcon,
@@ -48,7 +48,7 @@ export default function TaskFormUI({
     <div className="flex flex-col gap-6 px-3 pb-4">
       {/* 상태 (edit 전용) */}
       {isEdit && (
-        <FormFieldSection
+        <InputFieldSection
           label="상태"
           required>
           <div className="flex items-center gap-4">
@@ -66,21 +66,21 @@ export default function TaskFormUI({
               onClick={() => setStatus("DONE")}
             />
           </div>
-        </FormFieldSection>
+        </InputFieldSection>
       )}
 
-      <FormFieldSection
+      <InputFieldSection
         label="제목"
         required>
         <BaseInput
           value={title}
           placeholder="할 일의 제목을 적어주세요"
           onChange={(e) => setTitle(e.target.value)}
-          className="border border-gray-200 bg-white"
+          className="border border-gray-200 bg-white placeholder:text-gray-600"
         />
-      </FormFieldSection>
+      </InputFieldSection>
 
-      <FormFieldSection
+      <InputFieldSection
         label="목표"
         required>
         <div className="relative w-full">
@@ -108,9 +108,9 @@ export default function TaskFormUI({
             </div>
           )}
         </div>
-      </FormFieldSection>
+      </InputFieldSection>
 
-      <FormFieldSection label="파일">
+      <InputFieldSection label="파일">
         <AttachmentSection
           type="file"
           value={file}
@@ -118,9 +118,9 @@ export default function TaskFormUI({
           icon={<DocumentArrowUpIcon className="h-5 w-5" />}
           onChange={(f) => setFile(f as File | null)}
         />
-      </FormFieldSection>
+      </InputFieldSection>
 
-      <FormFieldSection label="링크">
+      <InputFieldSection label="링크">
         <AttachmentSection
           type="link"
           value={link}
@@ -128,7 +128,7 @@ export default function TaskFormUI({
           icon={<LinkIcon className="h-5 w-5" />}
           onChange={(v) => setLink(v as string)}
         />
-      </FormFieldSection>
+      </InputFieldSection>
     </div>
   );
 }

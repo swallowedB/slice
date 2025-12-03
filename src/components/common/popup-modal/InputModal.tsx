@@ -8,6 +8,7 @@ interface InputModalProps {
   onConfirm: () => void;
   children: React.ReactNode;
   footer: React.ReactNode;
+  sizeClass: string;
 }
 
 export default function InputModal({
@@ -15,9 +16,12 @@ export default function InputModal({
   children,
   onClose,
   footer,
+  sizeClass,
 }: InputModalProps) {
   return (
-    <BaseLayout onClose={onClose}>
+    <BaseLayout
+      onClose={onClose}
+      sizeClass={sizeClass}>
       <ModalContent
         title={title}
         titleAlign="left"

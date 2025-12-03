@@ -1,12 +1,13 @@
 import InputModal from "@/components/common/popup-modal/InputModal";
-import MobileInputModal from "./mobile/MobileInputModal";
+import MobileInputModal from "./mobile/MobileDialog";
 import Button from "@/components/common/button/Button";
 import { ReactNode } from "react";
 
 interface TaskFormLayoutProps {
-  children: ReactNode;
+  children?: ReactNode;
   isMobile: boolean;
   mode: "create" | "edit";
+  sizeClass?: string;
   onClose: () => void;
   onConfirm: () => void;
   isConfirmDisabled: boolean;
@@ -19,6 +20,7 @@ export default function TaskFormLayout({
   onClose,
   onConfirm,
   isConfirmDisabled,
+  sizeClass = "",
 }: TaskFormLayoutProps) {
   const title = mode === "create" ? "할 일 생성" : "할 일 수정";
 
@@ -59,7 +61,8 @@ export default function TaskFormLayout({
       title={title}
       onClose={onClose}
       onConfirm={onConfirm}
-      footer={footer}>
+      footer={footer}
+      sizeClass={sizeClass}>
       {children}
     </InputModal>
   );

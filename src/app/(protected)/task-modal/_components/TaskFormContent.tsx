@@ -30,7 +30,7 @@ export default function TaskFormContent({
   mode,
   onClose,
   onConfirm,
-}: TaskFormContentProps) {
+}: TaskFormContentProps & { sizeClass?: string }) {
   const { isMobile } = useDeviceSize();
   const isEdit = mode === "edit";
 
@@ -54,7 +54,8 @@ export default function TaskFormContent({
       mode={mode}
       onClose={onClose}
       onConfirm={handleConfirm}
-      isConfirmDisabled={isConfirmDisabled}>
+      isConfirmDisabled={isConfirmDisabled}
+      sizeClass={"w-[488px]"}>
       <TaskFormUI
         isEdit={isEdit}
         title={title}

@@ -1,9 +1,9 @@
 "use client";
 
 import ModalContent from "@/components/common/popup-modal/ModalContent";
-import MobileTaskModalLayout from "./MobileTaskFormLayout";
+import MobileDialogLayout from "./MobileDialogLayout";
 
-interface MobileInputModalProps {
+interface MobileDialogProps {
   title: string;
   children: React.ReactNode;
   onClose: () => void;
@@ -11,14 +11,14 @@ interface MobileInputModalProps {
   footer: React.ReactNode;
 }
 
-export default function MobileInputModal({
+export default function MobileDialog({
   title,
   children,
   onClose,
   footer,
-}: MobileInputModalProps) {
+}: MobileDialogProps) {
   return (
-    <MobileTaskModalLayout onClose={onClose}>
+    <MobileDialogLayout onClose={onClose}>
       <ModalContent
         title={title}
         titleAlign="left"
@@ -27,6 +27,6 @@ export default function MobileInputModal({
         footer={footer}>
         {children}
       </ModalContent>
-    </MobileTaskModalLayout>
+    </MobileDialogLayout>
   );
 }
