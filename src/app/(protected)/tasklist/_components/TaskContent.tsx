@@ -3,6 +3,7 @@
 import { useState } from "react";
 import GoalSelect from "./GoalSelect";
 import ListItem from "@/components/common/list/list-item/ListItem";
+import { useListItems } from "@/hooks/useListItems";
 
 const mockGoals = [
   "자바스크립트로 웹 서비스 만들기",
@@ -17,6 +18,7 @@ const mockTasks = [
 export default function TaskContent() {
   const [goal, setGoal] = useState("");
   const [tasks, setTasks] = useState(mockTasks);
+  const { items, onToggleChecked } = useListItems(mockTasks);
 
   const handleChange = (id: number) => {
     setTasks((prev) =>
@@ -35,8 +37,8 @@ export default function TaskContent() {
       />
       <div className="mt-4">
         <ListItem
-          items={mockTasks}
-          onChange={handleChange}
+          items={items}
+          onToggleChecked={onToggleChecked}
         />
       </div>
     </div>
