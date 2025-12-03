@@ -7,6 +7,7 @@ import Badge from "./Badge";
 import { useEffect, useState } from "react";
 import { useDeviceSize } from "@/hooks/useDeviceSize";
 import clsx from "clsx";
+import NoteMetaInfoRow from "./NoteMetaInfoRow";
 
 export default function NoteDetailModal({
   isOpen,
@@ -73,46 +74,28 @@ export default function NoteDetailModal({
           className="text-lg sm:text-2xl"
         />
         <div className="mt-7.5 flex flex-col gap-1 sm:gap-2">
-          <div className="flex text-sm">
-            <h4 className="flex min-w-15 items-center justify-start gap-1 text-gray-400">
-              <img
-                src="/icons/flag/flag-outline-gray.svg"
-                alt="목표 아이콘"
-                className="h-4.5 w-4.5"
-              />
-              <span className="font-medium">목표</span>
-            </h4>
+          <NoteMetaInfoRow
+            src="/icons/flag/flag-outline-gray.svg"
+            label="목표">
             <p className="font-normal text-gray-700">
               자바스크립트로 웹 서비스 만들기
             </p>
-          </div>
-          <div className="flex text-sm">
-            <h4 className="flex min-w-15 items-center justify-start gap-1 text-gray-400">
-              <img
-                src="/icons/todo/todo-outline-gray.svg"
-                alt="체크 아이콘"
-                className="h-4.5 w-4.5"
-              />
-              <span className="font-medium">할 일</span>
-            </h4>
+          </NoteMetaInfoRow>
+          <NoteMetaInfoRow
+            src="/icons/todo/todo-outline-gray.svg"
+            label="할 일">
             <div className="flex items-center gap-1 sm:gap-2">
               <Badge isDone={false} />
               <p className="font-normal text-gray-700">
                 자바스크립트 기초 챕터1 듣기
               </p>
             </div>
-          </div>
-          <div className="flex text-sm">
-            <h4 className="flex min-w-15 items-center justify-start gap-1.5 text-gray-400">
-              <img
-                src="/icons/icon-calendar-gray.svg"
-                alt="체크 아이콘"
-                className="h-4 w-4"
-              />
-              <span className="font-medium">날짜</span>
-            </h4>
+          </NoteMetaInfoRow>
+          <NoteMetaInfoRow
+            src="/icons/icon-calendar-gray.svg"
+            label="날짜">
             <p className="font-normal text-gray-700">2025. 11. 23</p>
-          </div>
+          </NoteMetaInfoRow>
         </div>
       </div>
     </>
