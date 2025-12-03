@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
-import SelectBox from "@/components/common/selectBox/SelectBox";
+import SelectBox from "@/components/common/select-box/SelectBox";
 
 interface GoalSelectProps {
   title: string;
