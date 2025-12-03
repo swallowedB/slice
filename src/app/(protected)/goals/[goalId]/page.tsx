@@ -30,18 +30,18 @@ const mockGoalItem: ListGoalType[] = [
 export default function GoalsPage() {
   const goal = mockGoalItem[0];
   const [goals, setGoals] = useState<ListGoalType[]>(mockGoalItem);
-  const handleDeleteTodo = (goalId: number, todoId: number) => {
-    setGoals((prevGoals) =>
-      prevGoals.map((goal) =>
-        goal.id === goalId
-          ? {
-              ...goal,
-              todos: goal.todos.filter((t) => t.id !== todoId),
-            }
-          : goal,
-      ),
-    );
-  };
+  //   const handleDeleteTodo = (goalId: number, todoId: number) => {
+  //     setGoals((prevGoals) =>
+  //       prevGoals.map((goal) =>
+  //         goal.id === goalId
+  //           ? {
+  //               ...goal,
+  //               todos: goal.todos.filter((t) => t.id !== todoId),
+  //             }
+  //           : goal,
+  //       ),
+  //     );
+  //   };
   return (
     <>
       <MobileHeader title="체다치즈님의 목표" />
@@ -63,10 +63,7 @@ export default function GoalsPage() {
         </div>
       </section>
 
-      <Goal
-        goal={goal}
-        onDeleteTodo={(todoId) => handleDeleteTodo(goal.id, todoId)}
-      />
+      <Goal goal={goal} />
     </>
   );
 }

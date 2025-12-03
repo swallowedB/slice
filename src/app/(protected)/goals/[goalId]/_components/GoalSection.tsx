@@ -9,7 +9,6 @@ type GoalSectionProps = {
   title: string;
   items: { id: number; label: string; checked: boolean }[];
   onToggle: (id: number) => void;
-  onDeleteTodo: (id: number) => void;
   background?: string;
   onAdd?: () => void;
   emptyMessage?: string;
@@ -20,7 +19,6 @@ export default function GoalSection({
   title,
   items,
   onToggle,
-  onDeleteTodo,
   background = "bg-white",
   onAdd,
   emptyMessage,
@@ -70,7 +68,6 @@ export default function GoalSection({
           <ListItem
             className="grid sm:gap-0.5 lg:gap-1"
             items={items}
-            onDeleteTodo={onDeleteTodo}
             onToggleChecked={onToggle}
           />
         )}

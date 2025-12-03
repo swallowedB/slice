@@ -6,10 +6,9 @@ import { EMPTY_MESSAGES } from "@/constants/messages";
 
 type GoalProps = {
   goal: ListGoalType;
-  onDeleteTodo: (id: number) => void;
 };
 
-export default function Goal({ goal, onDeleteTodo }: GoalProps) {
+export default function Goal({ goal }: GoalProps) {
   const { items, onToggleChecked } = useListItems(goal.todos);
   const goalTodos = items.filter((t) => !t.checked);
   const goalDones = items.filter((t) => t.checked);
@@ -23,7 +22,6 @@ export default function Goal({ goal, onDeleteTodo }: GoalProps) {
         emptyMessage={EMPTY_MESSAGES.TODO.NOT_STARTED}
         variant="yellow"
         background="bg-orange-100"
-        onDeleteTodo={onDeleteTodo}
       />
       <GoalSection
         title="DONE"
@@ -31,7 +29,6 @@ export default function Goal({ goal, onDeleteTodo }: GoalProps) {
         emptyMessage={EMPTY_MESSAGES.TODO.COMPLETED}
         onToggle={onToggleChecked}
         background="bg-white"
-        onDeleteTodo={onDeleteTodo}
       />
     </section>
   );

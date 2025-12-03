@@ -4,7 +4,6 @@ import ListItemRow from "./ListItemRow";
 
 type ListItemProps = {
   items: ListTodoType[];
-  onDeleteTodo: (id: number) => void;
   onToggleChecked: (id: number) => void;
   variant?: ListItemVariant;
   className?: string;
@@ -13,7 +12,6 @@ type ListItemProps = {
 export default function ListItem({
   items,
   onToggleChecked,
-  onDeleteTodo,
   variant = "default",
   className = "",
 }: ListItemProps) {
@@ -26,7 +24,6 @@ export default function ListItem({
             item={item}
             onToggleChecked={onToggleChecked}
             variant={variant}
-            onDeleteTodo={onDeleteTodo}
           />
         ))}
       </ul>

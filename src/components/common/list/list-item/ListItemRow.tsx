@@ -9,17 +9,11 @@ import {
 
 type Props = {
   item: ListTodoType;
-  onDeleteTodo: (id: number) => void;
   onToggleChecked: (id: number) => void;
   variant: ListItemVariant;
 };
 
-export default function ListItemRow({
-  item,
-  onDeleteTodo,
-  onToggleChecked,
-  variant,
-}: Props) {
+export default function ListItemRow({ item, onToggleChecked, variant }: Props) {
   const getTextColor = (checked: boolean, variant: ListItemVariant) => {
     if (checked) return "text-gray-600";
     if (variant === "white") return "text-white";
@@ -67,7 +61,6 @@ export default function ListItemRow({
           id={item.id}
           variant={variant}
           actions={getActionsFromItem(item)}
-          onDeleteTodo={onDeleteTodo}
         />
       </div>
     </li>

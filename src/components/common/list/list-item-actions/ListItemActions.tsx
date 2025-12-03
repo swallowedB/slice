@@ -76,7 +76,7 @@ export default function ListItemActions({
 
   return (
     <>
-      <div className="relative z-1 flex items-center gap-2">
+      <div className="relative flex items-center gap-2">
         {/* Desktop 아이콘 */}
         <div className="hidden gap-2 md:flex">
           {iconActions.map(({ type }) => {

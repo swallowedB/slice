@@ -5,13 +5,11 @@ import ListItem from "@/components/common/list/list-item/ListItem";
 type GoalDoneSectionProps = {
   items: { id: number; label: string; checked: boolean }[];
   onToggle: (id: number) => void;
-  onDeleteTodo: (id: number) => void;
 };
 
 export default function GoalDoneSection({
   items,
   onToggle,
-  onDeleteTodo,
 }: GoalDoneSectionProps) {
   return (
     <div>
@@ -24,7 +22,6 @@ export default function GoalDoneSection({
           className="grid sm:gap-0.5 lg:gap-1"
           items={items}
           onToggleChecked={onToggle}
-          onDeleteTodo={onDeleteTodo}
         />
       </div>
     </div>
