@@ -3,7 +3,7 @@ import type { ComponentProps } from "react";
 import { useState } from "react";
 
 import ListItem from "./ListItem";
-import type { ListItemType } from "./listItem.types";
+import type { ListTodoType } from "./listItem.types";
 
 const meta: Meta<typeof ListItem> = {
   title: "ListItem/ListItem",
@@ -29,7 +29,7 @@ type Story = StoryObj<typeof ListItem>;
 
 type ListItemStoryProps = ComponentProps<typeof ListItem>;
 
-const mockItems: ListItemType[] = [
+const mockItems: ListTodoType[] = [
   { id: 1, label: "Next.js 공부", checked: false, link: true },
   { id: 2, label: "타입스크립트", checked: true, file: true },
   {
@@ -44,7 +44,7 @@ const mockItems: ListItemType[] = [
 ];
 
 const Interactive = (args: ListItemStoryProps) => {
-  const [items, setItems] = useState<ListItemType[]>(args.items);
+  const [items, setItems] = useState<ListTodoType[]>(args.items);
 
   const handleChange = (id: number) => {
     setItems((prev) =>

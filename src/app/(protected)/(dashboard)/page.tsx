@@ -5,7 +5,7 @@ import RecentTodos from "./_components/recent/RecentTodos";
 
 export default function DashBoardPage() {
   return (
-    <>
+    <section>
       <MobileHeader title="체다치즈님의 대시보드" />
       <h2 className="color-black hidden sm:mb-8.5 sm:block sm:pl-2 sm:text-2xl sm:font-semibold">
         체다치즈님의 대시보드
@@ -21,6 +21,6 @@ export default function DashBoardPage() {
 
       {/* 목표별 섹션 */}
       <Goal />
-    </>
+    </section>
   );
 }
