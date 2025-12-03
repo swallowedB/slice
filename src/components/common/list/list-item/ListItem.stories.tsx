@@ -18,7 +18,7 @@ const meta: Meta<typeof ListItem> = {
     items: {
       description: "리스트 아이템 배열",
     },
-    onChange: {
+    onToggleChecked: {
       description: "체크박스 클릭 시 실행",
     },
   },
@@ -46,7 +46,7 @@ const mockItems: ListTodoType[] = [
 const Interactive = (args: ListItemStoryProps) => {
   const [items, setItems] = useState<ListTodoType[]>(args.items);
 
-  const handleChange = (id: number) => {
+  const handleToggle = (id: number) => {
     setItems((prev) =>
       prev.map((item) =>
         item.id === id ? { ...item, checked: !item.checked } : item,
@@ -58,7 +58,7 @@ const Interactive = (args: ListItemStoryProps) => {
     <ListItem
       {...args}
       items={items}
-      onChange={handleChange}
+      onToggleChecked={handleToggle}
     />
   );
 };

@@ -1,15 +1,18 @@
 import clsx from "clsx";
+import { ButtonHTMLAttributes, ReactNode } from "react";
 import { ListItemVariant } from "../list-item/listItem.types";
 
 type ListItemButtonProps = {
-  icon: React.ReactNode;
+  icon: ReactNode;
   variant?: ListItemVariant;
   className?: string;
-};
+} & ButtonHTMLAttributes<HTMLButtonElement>;
+
 export default function ListItemButton({
   icon,
   variant = "default",
   className,
+  ...props
 }: ListItemButtonProps) {
   const listButtonClasses = clsx(
     "flex h-6 w-6 items-center justify-center rounded-full",
@@ -20,7 +23,9 @@ export default function ListItemButton({
   return (
     <button
       type="button"
-      className={listButtonClasses}>
+      className={listButtonClasses}
+      {...props} // onClick 포함 모든 속성 전달
+    >
       {icon}
     </button>
   );

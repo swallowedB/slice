@@ -9,12 +9,14 @@ type GoalTodoSectionProps = {
   items: { id: number; label: string; checked: boolean }[];
   onAdd: () => void;
   onToggle: (id: number) => void;
+  onDeleteTodo: (id: number) => void;
 };
 
 export default function GoalTodoSection({
   items,
   onAdd,
   onToggle,
+  onDeleteTodo,
 }: GoalTodoSectionProps) {
   return (
     <div>
@@ -48,7 +50,8 @@ export default function GoalTodoSection({
         <ListItem
           className="grid sm:gap-0.5 lg:gap-1"
           items={items}
-          onChange={onToggle}
+          onToggleChecked={onToggle}
+          onDeleteTodo={onDeleteTodo}
         />
       </div>
     </div>

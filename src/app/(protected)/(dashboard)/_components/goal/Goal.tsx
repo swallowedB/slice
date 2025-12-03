@@ -7,31 +7,31 @@ import { EMPTY_MESSAGES } from "@/constants/messages";
 
 const mockGoalItem: ListGoalType[] = [
   {
-    id: "goal-1",
+    id: 1,
     title: "자바스크립트로 웹 서비스 만들기",
     todos: [
       {
-        id: "goal-1-todo-1",
+        id: 11,
         label: "사용자 데이터 렌더링 구현",
         checked: false,
       },
-      { id: "goal-1-todo-2", label: "UI 구현 및 기능 처리", checked: true },
+      { id: 12, label: "UI 구현 및 기능 처리", checked: true },
     ],
   },
   {
-    id: "goal-2",
+    id: 2,
     title: "TypeScript 리팩터링 하기",
     todos: [
       {
-        id: "goal-2-todo-1",
+        id: 21,
         label: "사용자 데이터 렌더링 구현",
         checked: false,
       },
-      { id: "goal-2-todo-2", label: "UI 구현 및 기능 처리", checked: true },
+      { id: 22, label: "UI 구현 및 기능 처리", checked: true },
     ],
   },
-  { id: "goal-3", title: "퍼블리싱 하기", todos: [] },
-  { id: "goal-4", title: "", todos: [] },
+  { id: 3, title: "퍼블리싱 하기", todos: [] },
+  { id: 4, title: "", todos: [] },
 ];
 
 const cardStyles =
@@ -48,7 +48,7 @@ export default function Goal() {
     return initial;
   });
 
-  const onToggle = (id: string) => {
+  const onToggleCard = (id: number) => {
     setOpenCards((prev) => ({ ...prev, [id]: !prev[id] }));
   };
 
@@ -84,7 +84,7 @@ export default function Goal() {
                     todoItems={todoItems}
                     doneItems={doneItems}
                     isOpen={openCards[goal.id]}
-                    onToggle={() => onToggle(goal.id)}
+                    onToggle={() => onToggleCard(goal.id)}
                     cardStyles={cardStyles}
                   />
                 );

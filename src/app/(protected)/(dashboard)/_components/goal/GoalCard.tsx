@@ -31,7 +31,6 @@ export default function GoalCard({
 
   const noTodos = todoItems.length === 0 && doneItems.length === 0;
 
-  // 화면에 다시 분리
   const todoState = items.filter((item) => !item.checked);
   const doneState = items.filter((item) => item.checked);
   return (

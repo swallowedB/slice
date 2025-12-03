@@ -7,19 +7,19 @@ import Link from "next/link";
 
 const mockRecentItem: ListTodoType[] = [
   {
-    id: "recent-1",
+    id: 111,
     label: "사용자 데이터 렌더링 구현",
     checked: false,
     link: true,
   },
   {
-    id: "recent-2",
+    id: 222,
     label: "기능 구현",
     checked: false,
     link: true,
     file: true,
   },
-  { id: "recent-3", label: "UI 구현", checked: false, link: true, note: true },
+  { id: 333, label: "UI 구현", checked: false, link: true, note: true },
 ];
 
 export default function RecentTodos() {

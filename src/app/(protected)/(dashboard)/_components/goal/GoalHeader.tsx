@@ -17,7 +17,7 @@ export default function GoalHeader({
   isOpen,
 }: GoalHeaderProps) {
   return (
-    <div className="flex items-start justify-between sm:grid sm:grid-cols-2 sm:items-center lg:flex lg:flex-col lg:items-start xl:flex-row">
+    <div className="flex items-start justify-between sm:grid sm:grid-cols-2 sm:items-center lg:flex lg:flex-col lg:items-start xl:flex-row xl:items-center">
       <div className="lg: w-full pl-2.5 sm:w-auto lg:grid lg:grid-rows-[auto_auto] lg:gap-1 lg:pl-3.5 2xl:grid 2xl:grid-cols-2 2xl:items-center">
         <h4 className="mb-3 line-clamp-2 pr-20 font-semibold break-keep sm:line-clamp-1 sm:text-sm lg:mb-0 lg:pr-7.5 lg:text-base">
           {title}

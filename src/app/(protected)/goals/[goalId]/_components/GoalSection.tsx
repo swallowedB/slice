@@ -1,21 +1,26 @@
 import Button from "@/components/common/button/Button";
 import TextButton from "@/components/common/button/TextButton";
+import EmptyState from "@/components/common/empty-state/EmptyState";
 import ListItem from "@/components/common/list/list-item/ListItem";
+import { EMPTY_MESSAGES } from "@/constants/messages";
 import { PlusIcon } from "@heroicons/react/24/outline";
 
 type GoalSectionProps = {
   title: string;
   items: { id: number; label: string; checked: boolean }[];
   onToggle: (id: number) => void;
+  onDeleteTodo: (id: number) => void;
   background?: string;
   onAdd?: () => void;
   emptyMessage?: string;
+  variant?: string;
 };
 
 export default function GoalSection({
   title,
   items,
   onToggle,
+  onDeleteTodo,
   background = "bg-white",
   onAdd,
   emptyMessage,
@@ -52,16 +57,23 @@ export default function GoalSection({
         )}
       </div>
 
-      {items.length === 0 && emptyMessage && <p>{emptyMessage}</p>}
-
       {/* 리스트 박스 */}
       <div
-        className={`min-h-auto rounded-2xl px-4 py-6 sm:px-6 sm:py-8 lg:rounded-3xl xl:min-h-138 ${background}`}>
-        <ListItem
-          className="grid sm:gap-0.5 lg:gap-1"
-          items={items}
-          onChange={onToggle}
-        />
+        className={`min-h-0 rounded-2xl px-4 py-6 sm:px-6 sm:py-8 lg:rounded-3xl xl:min-h-138 ${background}`}>
+        {items.length === 0 ? (
+          <EmptyState variant={title === "TO DO" ? "yellow" : "gray"}>
+            {title === "TO DO"
+              ? `${EMPTY_MESSAGES.TODO.NOT_STARTED}`
+              : `${EMPTY_MESSAGES.TODO.COMPLETED}`}
+          </EmptyState>
+        ) : (
+          <ListItem
+            className="grid sm:gap-0.5 lg:gap-1"
+            items={items}
+            onDeleteTodo={onDeleteTodo}
+            onToggleChecked={onToggle}
+          />
+        )}
       </div>
     </div>
   );

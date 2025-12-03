@@ -9,11 +9,17 @@ import {
 
 type Props = {
   item: ListTodoType;
+  onDeleteTodo: (id: number) => void;
   onToggleChecked: (id: number) => void;
   variant: ListItemVariant;
 };
 
-export default function ListItemRow({ item, onToggleChecked, variant }: Props) {
+export default function ListItemRow({
+  item,
+  onDeleteTodo,
+  onToggleChecked,
+  variant,
+}: Props) {
   const getTextColor = (checked: boolean, variant: ListItemVariant) => {
     if (checked) return "text-gray-600";
     if (variant === "white") return "text-white";
@@ -35,13 +41,13 @@ export default function ListItemRow({ item, onToggleChecked, variant }: Props) {
   const textColor = getTextColor(item.checked, variant);
 
   return (
-    <li className="group flex w-full items-center justify-between overflow-hidden rounded-2xl p-2.5 transition-all hover:bg-orange-400/20">
-      <div className="flex min-w-0 flex-1 items-center gap-2.5">
+    <li className="group flex items-center justify-between rounded-2xl p-2.5 transition-all">
+      <div className="grid max-w-fit min-w-0 flex-1 items-center gap-2.5 overflow-hidden">
         <label
-          className="flex min-w-0 flex-1 cursor-pointer items-center gap-2.5 pr-2 sm:pr-10"
-          htmlFor={`checkbox-${item.id}`}>
+          className="flex min-w-0 flex-1 items-center gap-2.5 pr-2 sm:pr-0 md:pr-10"
+          htmlFor={`${item.id}`}>
           <Checkbox
-            id={`checkbox-${item.id}`}
+            id={`${item.id}`}
             checked={item.checked}
             onChange={() => onToggleChecked(item.id)}
             variant={variant}
@@ -56,10 +62,12 @@ export default function ListItemRow({ item, onToggleChecked, variant }: Props) {
           </span>
         </label>
       </div>
-      <div className="flex shrink-0 items-center gap-2">
+      <div className="flex max-w-fit shrink-0 items-center gap-2">
         <ListItemActions
+          id={item.id}
           variant={variant}
           actions={getActionsFromItem(item)}
+          onDeleteTodo={onDeleteTodo}
         />
       </div>
     </li>
