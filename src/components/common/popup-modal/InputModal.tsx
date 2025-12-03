@@ -1,45 +1,33 @@
 "use client";
-import Button from "../button/Button";
 import BaseLayout from "./BaseLayout";
 import ModalContent from "./ModalContent";
 
 interface InputModalProps {
   title: string;
-  confirmText?: string;
-  isOpen: boolean;
   onClose: () => void;
   onConfirm: () => void;
   children: React.ReactNode;
-  isConfirmDisabled?: boolean;
+  footer: React.ReactNode;
+  sizeClass: string;
 }
 
 export default function InputModal({
   title,
-  confirmText = "확인",
   children,
-  isOpen,
   onClose,
-  onConfirm,
-  isConfirmDisabled = true,
+  footer,
+  sizeClass,
 }: InputModalProps) {
-  if (!isOpen) return null;
   return (
-    <BaseLayout onClose={onClose}>
+    <BaseLayout
+      onClose={onClose}
+      sizeClass={sizeClass}>
       <ModalContent
         title={title}
         titleAlign="left"
         isClosable={true}
         onClose={onClose}
-        footer={
-          <>
-            <Button
-              onClick={onConfirm}
-              variant="primary"
-              isDisabled={isConfirmDisabled}>
-              {confirmText}
-            </Button>
-          </>
-        }>
+        footer={footer}>
         {children}
       </ModalContent>
     </BaseLayout>
