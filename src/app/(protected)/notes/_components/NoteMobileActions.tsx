@@ -1,7 +1,7 @@
 import TextButton from "@/components/common/button/TextButton";
 
 interface NoteMobileActionsProps {
-  submitLabel: string;
+  submitLabel: "등록" | "수정";
   isDisabled?: boolean;
   onDraft?: () => void;
   onSubmit?: () => void;
@@ -9,8 +9,8 @@ interface NoteMobileActionsProps {
 
 export default function NoteMobileActions({
   submitLabel,
+  isDisabled = false,
   onDraft,
-  isDisabled,
   onSubmit,
 }: NoteMobileActionsProps) {
   return (

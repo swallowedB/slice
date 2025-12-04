@@ -1,7 +1,7 @@
 import Button from "@/components/common/button/Button";
 
 interface NoteDesktopActionsProps {
-  submitLabel: string;
+  submitLabel: "등록하기" | "수정하기";
   isDisabled?: boolean;
   onDraft?: () => void;
   onSubmit?: () => void;
@@ -9,8 +9,8 @@ interface NoteDesktopActionsProps {
 
 export default function NoteDesktopActions({
   submitLabel,
+  isDisabled = false,
   onDraft,
-  isDisabled,
   onSubmit,
 }: NoteDesktopActionsProps) {
   return (
