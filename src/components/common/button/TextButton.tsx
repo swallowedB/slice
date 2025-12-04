@@ -1,14 +1,16 @@
 import clsx from "clsx";
 import { twMerge } from "tailwind-merge";
 
+type ButtonType = "button" | "submit" | "reset";
 type TextButtonVariant = "primary" | "secondary";
 
 interface TextButtonProps {
+  type?: ButtonType;
   children: React.ReactNode;
   variant?: TextButtonVariant;
   isDisabled?: boolean;
   className?: string;
-  onClick: () => void;
+  onClick?: () => void;
 }
 
 const VARIANT_CONFIG: Record<TextButtonVariant, string> = {
@@ -17,6 +19,7 @@ const VARIANT_CONFIG: Record<TextButtonVariant, string> = {
 };
 
 export default function TextButton({
+  type = "button",
   children,
   variant = "primary",
   isDisabled = false,
@@ -38,6 +41,7 @@ export default function TextButton({
 
   return (
     <button
+      type={type}
       className={buttonClasses}
       disabled={isDisabled}
       onClick={onClick}>
