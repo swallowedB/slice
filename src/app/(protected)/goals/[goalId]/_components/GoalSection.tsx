@@ -61,8 +61,8 @@ export default function GoalSection({
         {items.length === 0 ? (
           <EmptyState variant={title === "TO DO" ? "yellow" : "gray"}>
             {title === "TO DO"
-              ? `${EMPTY_MESSAGES.TODO.NOT_STARTED}`
-              : `${EMPTY_MESSAGES.TODO.COMPLETED}`}
+              ? `${EMPTY_MESSAGES.TODO.ALL}`
+              : `${EMPTY_MESSAGES.TODO.DONE}`}
           </EmptyState>
         ) : (
           <ListItem

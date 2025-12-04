@@ -10,6 +10,7 @@ interface TaskHeaderProps {
   tab: TabType;
   onTabChange: (tab: TabType) => void;
   onAdd: () => void;
+  className?: string;
 }
 
 export default function TaskHeader({
@@ -18,7 +19,7 @@ export default function TaskHeader({
   onAdd,
 }: TaskHeaderProps) {
   return (
-    <div className="flex w-[343px] items-center justify-between px-2 py-4 lg:w-[636px] 2xl:w-[720px]">
+    <div className="flex w-[343px] items-center justify-between px-1 py-4 lg:w-[636px] 2xl:w-[720px]">
       <div className="flex">
         {TABS.map((t) => (
           <button
@@ -26,7 +27,6 @@ export default function TaskHeader({
             onClick={() => onTabChange(t)}
             className={clsx(
               "cursor-pointer rounded-full px-4 py-2 text-sm font-bold transition-colors",
-              "lg: px-4 lg:py-2 lg:font-bold",
               tab === t ? "bg-[#FFA56533] text-orange-400" : "text-[#A4A4A4]",
             )}>
             {t === "ALL" && "ALL"}
