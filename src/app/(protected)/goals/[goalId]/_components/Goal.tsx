@@ -19,14 +19,14 @@ export default function Goal({ goal }: GoalProps) {
         items={goalTodos}
         onToggle={onToggleChecked}
         onAdd={() => console.log("mock up")}
-        emptyMessage={EMPTY_MESSAGES.TODO.NOT_STARTED}
+        emptyMessage={EMPTY_MESSAGES.TODO.ALL}
         variant="yellow"
         background="bg-orange-100"
       />
       <GoalSection
         title="DONE"
         items={goalDones}
-        emptyMessage={EMPTY_MESSAGES.TODO.COMPLETED}
+        emptyMessage={EMPTY_MESSAGES.TODO.DONE}
         onToggle={onToggleChecked}
         background="bg-white"
       />
