@@ -1,9 +1,9 @@
 "use client";
 
-import Button from "@/components/common/button/Button";
-import TextButton from "@/components/common/button/TextButton";
 import PageHeader from "../../_components/layout/PageHeader";
 import NoteEditorForm from "../_components/NoteEditorForm";
+import NoteMobileActions from "../_components/NoteMobileActions";
+import NoteDesktopActions from "../_components/NoteDesktopActions";
 import { useState } from "react";
 
 export default function NoteNewPage() {
@@ -18,36 +18,20 @@ export default function NoteNewPage() {
         title="노트 작성하기"
         className="sm:mb-14"
         mobileActions={
-          <div className="flex items-center gap-4">
-            <TextButton
-              variant="primary"
-              onClick={() => {}}>
-              임시저장
-            </TextButton>
-            <TextButton
-              variant="secondary"
-              isDisabled={true}
-              onClick={() => {}}>
-              등록
-            </TextButton>
-          </div>
+          <NoteMobileActions
+            submitLabel="등록"
+            isDisabled={true}
+            onDraft={() => {}}
+            onSubmit={handleSubmit}
+          />
         }
         desktopActions={
-          <div className="flex items-center gap-4">
-            <Button
-              variant="outline-orange"
-              size="compact"
-              onClick={() => {}}>
-              임시저장
-            </Button>
-            <Button
-              variant="primary"
-              size="compact"
-              isDisabled={true}
-              onClick={() => {}}>
-              등록하기
-            </Button>
-          </div>
+          <NoteDesktopActions
+            submitLabel="등록하기"
+            isDisabled={true}
+            onDraft={() => {}}
+            onSubmit={handleSubmit}
+          />
         }
       />
       <NoteEditorForm
