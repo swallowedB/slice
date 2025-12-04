@@ -1,16 +1,16 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 import { fn } from "storybook/test";
 import Button from "../button/Button";
-import ModalLayout from "./ModalContent";
+import DialogContent from "./DialogContent";
 
 const meta = {
   title: "Modal/ModalLayout",
-  component: ModalLayout,
+  component: DialogContent,
   parameters: {
     layout: "centered",
   },
   tags: ["autodocs"],
-} satisfies Meta<typeof ModalLayout>;
+} satisfies Meta<typeof DialogContent>;
 
 export default meta;
 

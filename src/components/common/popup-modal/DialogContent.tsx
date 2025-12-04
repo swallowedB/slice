@@ -2,7 +2,7 @@
 import { ExclamationCircleIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import clsx from "clsx";
 
-interface ModalContentProps {
+interface DialogContentProps {
   title: string;
   message?: string;
   isClosable?: boolean;
@@ -12,7 +12,7 @@ interface ModalContentProps {
   onClose?: () => void;
 }
 
-export default function ModalContent({
+export default function DialogContent({
   title,
   titleAlign = "center",
   message,
@@ -20,7 +20,7 @@ export default function ModalContent({
   children,
   footer,
   onClose,
-}: ModalContentProps) {
+}: DialogContentProps) {
   return (
     <div className="relative flex flex-col items-center">
       {isClosable && (

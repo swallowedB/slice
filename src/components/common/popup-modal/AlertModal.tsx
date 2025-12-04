@@ -1,7 +1,7 @@
 "use client";
 import Button from "../button/Button";
 import BaseLayout from "./BaseLayout";
-import ModalContent from "./ModalContent";
+import DialogContent from "./DialogContent";
 
 interface AlertModalProps {
   title: string;
@@ -21,7 +21,7 @@ export default function AlertModal({
   if (!isOpen) return null;
   return (
     <BaseLayout onClose={onClose}>
-      <ModalContent
+      <DialogContent
         title={title}
         titleAlign="center"
         message={message}
@@ -33,7 +33,7 @@ export default function AlertModal({
               {confirmText}
             </Button>
           </>
-        }></ModalContent>
+        }></DialogContent>
     </BaseLayout>
   );
 }
