@@ -1,4 +1,4 @@
-import clsx from "clsx";
+import DesktopHeader from "./DesktopHeader";
 import MobileHeader from "./MobileHeader";
 
 interface PageHeaderProps {
@@ -23,19 +23,12 @@ export default function PageHeader({
         count={count}
         actions={mobileActions}
       />
-      <div
-        className={clsx(
-          "hidden items-center justify-between sm:flex",
-          className,
-        )}>
-        <h2 className="leading-9.5 text-black sm:text-2xl sm:font-semibold">
-          {title}
-          {count !== undefined && (
-            <span className="pl-2 text-orange-400">{count}</span>
-          )}
-        </h2>
-        <div className="flex items-center gap-2">{desktopActions}</div>
-      </div>
+      <DesktopHeader
+        title={title}
+        count={count}
+        actions={desktopActions}
+        className={className}
+      />
     </>
   );
 }
