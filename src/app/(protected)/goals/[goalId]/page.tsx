@@ -62,7 +62,6 @@ export default function GoalsPage() {
           </div>
         </div>
       </section>
-
       <Goal goal={goal} />
     </>
   );

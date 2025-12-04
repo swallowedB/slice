@@ -57,7 +57,7 @@ export default function GoalSection({
 
       {/* 리스트 박스 */}
       <div
-        className={`min-h-0 rounded-2xl px-4 py-6 sm:px-6 sm:py-8 lg:rounded-3xl xl:min-h-138 ${background}`}>
+        className={`min-h-0 rounded-2xl px-4 py-6 sm:min-h-138 sm:px-6 sm:py-8 lg:rounded-3xl ${background}`}>
         {items.length === 0 ? (
           <EmptyState variant={title === "TO DO" ? "yellow" : "gray"}>
             {title === "TO DO"

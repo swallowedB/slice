@@ -13,7 +13,7 @@ export default function Goal({ goal }: GoalProps) {
   const goalTodos = items.filter((t) => !t.checked);
   const goalDones = items.filter((t) => t.checked);
   return (
-    <section className="grid gap-8 xl:grid-cols-2">
+    <section className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-2">
       <GoalSection
         title="TO DO"
         items={goalTodos}
