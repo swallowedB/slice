@@ -24,7 +24,7 @@ export default function GoalSelect({
       {/* 상단 목표 */}
       <button
         onClick={() => setOpen((prev) => !prev)}
-        className={`flex w-full items-center justify-between rounded-3xl bg-[#FAFAFA] px-4 py-4 transition-all ${
+        className={`flex h-14 w-full items-center justify-between rounded-3xl bg-[#FAFAFA] px-4 py-3 transition-all ${
           open ? "rounded-b-none" : ""
         }`}>
         <div className="flex items-center gap-3">
