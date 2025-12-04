@@ -25,7 +25,7 @@ export default function TaskFormLayout({
   const title = mode === "create" ? "할 일 생성" : "할 일 수정";
 
   const footer = (
-    <div className="flex w-full gap-2 px-3 pb-4">
+    <div className="flex w-full gap-2 px-2 pb-4">
       <Button
         variant="outline-gray"
         size="full"

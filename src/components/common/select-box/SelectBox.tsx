@@ -27,7 +27,7 @@ export default function SelectBox({
   const { wrapper, item } = SELECTBOX_STYLES[variant];
 
   const baseWrapper =
-    "rounded-xl p-4 gap-y-2 flex flex-col shadow-[0px_4px_16px_-2px_rgba(0,0,0,0.1)";
+    "rounded-xl p-4 gap-y-2 flex flex-col shadow-[0px_4px_16px_-2px_rgba(0,0,0,0.1)]";
   const baseItem = "text-left rounded-lg hover:bg-orange-50 transition";
 
   const wrapperClass = clsx(baseWrapper, wrapper, className);

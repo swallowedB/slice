@@ -17,7 +17,7 @@ export default function MobileDialogLayout({
       onClick={onClose}>
       {/* 아래에서 올라오는 효과 */}
       <div
-        className="w-full rounded-t-4xl bg-white p-6"
+        className="w-full rounded-t-4xl bg-white p-8"
         style={{
           animation: "slideUp 0.25s ease-out",
         }}
