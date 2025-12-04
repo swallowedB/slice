@@ -6,8 +6,13 @@ import NoteMobileActions from "../_components/NoteMobileActions";
 import NoteDesktopActions from "../_components/NoteDesktopActions";
 import { useState } from "react";
 
+// TODO: NoteNewPage 컴포넌트 → 서버 컴포넌트로
 export default function NoteNewPage() {
   const [title, setTitle] = useState("");
+
+  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setTitle(e.target.value);
+  };
 
   // TODO: 노트 등록
   const handleSubmit = () => {};
@@ -36,6 +41,7 @@ export default function NoteNewPage() {
       />
       <NoteEditorForm
         title={title}
+        onChangeTitle={handleTitleChange}
         metaInfo={{
           goalTitle: "자바스크립트로 웹 서비스 만들기",
           todoTitle: "자바스크립트 기초 챕터1 듣기",
