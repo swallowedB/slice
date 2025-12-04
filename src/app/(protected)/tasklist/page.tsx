@@ -12,7 +12,7 @@ export default function TasklistPage() {
   return (
     <section className="">
       <MobileHeader title="모든 할 일" />
-      <h2 className="color-black hidden sm:block sm:pl-6 sm:text-2xl sm:font-semibold">
+      <h2 className="color-black hidden sm:block sm:pl-4 sm:text-2xl sm:font-semibold">
         모든 할 일
       </h2>
       <TaskListLayout>
@@ -20,7 +20,7 @@ export default function TasklistPage() {
           tab={tab}
           onTabChange={(t) => setTab(t)}
           onAdd={() => console.log("할 일 추가")}
-          className="mb-4"
+          className="mb-3"
         />
         <TaskListContent tab={tab} />
       </TaskListLayout>
