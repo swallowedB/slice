@@ -3,11 +3,10 @@
 import ModalBackground from "@/components/common/popup-modal/ModalBackground";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import NoteTitleView from "./NoteTitleView";
-import Badge from "./Badge";
 import { useEffect, useState } from "react";
 import { useDeviceSize } from "@/hooks/useDeviceSize";
+import NoteMetaInfo from "./NoteMetaInfo";
 import clsx from "clsx";
-import NoteMetaInfoRow from "./NoteMetaInfoRow";
 
 export default function NoteDetailModal({
   isOpen,
@@ -69,34 +68,18 @@ export default function NoteDetailModal({
             className="h-6 w-6"
           />
         </button>
-        <NoteTitleView
-          title="프로그래밍과 데이터 in JavaScript"
-          className="text-lg sm:text-2xl"
-        />
-        <div className="mt-7.5 flex flex-col gap-1 sm:gap-2">
-          <NoteMetaInfoRow
-            src="/icons/flag/flag-outline-gray.svg"
-            label="목표">
-            <p className="font-normal text-gray-700">
-              자바스크립트로 웹 서비스 만들기
-            </p>
-          </NoteMetaInfoRow>
-          <NoteMetaInfoRow
-            src="/icons/todo/todo-outline-gray.svg"
-            label="할 일">
-            <div className="flex items-center gap-1 sm:gap-2">
-              <Badge isDone={false} />
-              <p className="font-normal text-gray-700">
-                자바스크립트 기초 챕터1 듣기
-              </p>
-            </div>
-          </NoteMetaInfoRow>
-          <NoteMetaInfoRow
-            src="/icons/icon-calendar-gray.svg"
-            label="날짜">
-            <p className="font-normal text-gray-700">2025. 11. 23</p>
-          </NoteMetaInfoRow>
-        </div>
+        <header className="border-b border-gray-100 pb-7">
+          <NoteTitleView
+            title="프로그래밍과 데이터 in JavaScript"
+            className="text-lg sm:text-2xl"
+          />
+          <NoteMetaInfo
+            goalTitle="자바스크립트로 웹 서비스 만들기"
+            todoTitle="자바스크립트 기초 챕터1 듣기"
+            isTodoDone={false}
+            updatedAt="2025. 11. 23"
+          />
+        </header>
       </div>
     </>
   );

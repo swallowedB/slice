@@ -37,7 +37,7 @@ export default function Button({
   const sizeStyles =
     size === "full"
       ? "w-full py-3 text-base sm:py-3.5 sm:text-lg"
-      : "min-w-26 py-2.5 text-sm";
+      : "min-w-26 py-2 text-sm";
 
   const variantStyles = !isDisabled && VARIANT_CONFIG[variant];
 

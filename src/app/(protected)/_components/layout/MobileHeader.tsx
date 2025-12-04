@@ -1,14 +1,20 @@
-"use client"
+"use client";
+
 import { Bars3Icon } from "@heroicons/react/24/outline";
 import { useState } from "react";
 import NavigationMobileDrawer from "../navigation/NavigationMobileDrawer";
 
 interface MobileHeaderProps {
   title: string;
+  count?: number;
   actions?: React.ReactNode;
 }
 
-export default function MobileHeader({ title, actions }: MobileHeaderProps) {
+export default function MobileHeader({
+  title,
+  count,
+  actions,
+}: MobileHeaderProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   const openDrawer = () => setIsOpen(true);
@@ -18,16 +24,22 @@ export default function MobileHeader({ title, actions }: MobileHeaderProps) {
     <>
       <header className="fixed top-0 left-0 z-300 mb-4 flex w-full items-center justify-between bg-white px-5 py-4 shadow-sm sm:hidden">
         <div className="flex items-center gap-4">
-          <button onClick={openDrawer} className="cursor-pointer">
+          <button
+            onClick={openDrawer}
+            className="cursor-pointer">
             <Bars3Icon
               className="h-6 w-6 text-gray-400"
               strokeWidth={2}
             />
           </button>
-          <span className="font-semibold">{title}</span>
+          <h2 className="font-semibold">
+            {title}
+            {count !== undefined && (
+              <span className="pl-0.5 text-orange-400">{count}</span>
+            )}
+          </h2>
         </div>
-
-        <div className="flex items-center gap-4">{actions}</div>
+        {actions}
       </header>
 
       <NavigationMobileDrawer
