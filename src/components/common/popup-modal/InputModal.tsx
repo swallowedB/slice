@@ -1,6 +1,6 @@
 "use client";
 import BaseLayout from "./BaseLayout";
-import ModalContent from "./ModalContent";
+import DialogContent from "./DialogContent";
 
 interface InputModalProps {
   title: string;
@@ -22,14 +22,14 @@ export default function InputModal({
     <BaseLayout
       onClose={onClose}
       sizeClass={sizeClass}>
-      <ModalContent
+      <DialogContent
         title={title}
         titleAlign="left"
         isClosable={true}
         onClose={onClose}
         footer={footer}>
         {children}
-      </ModalContent>
+      </DialogContent>
     </BaseLayout>
   );
 }

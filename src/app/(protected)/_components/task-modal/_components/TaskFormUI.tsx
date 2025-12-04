@@ -45,7 +45,7 @@ export default function TaskFormUI({
   goals,
 }: TaskFormUIProps) {
   return (
-    <div className="flex flex-col gap-6 px-3 pb-4">
+    <div className="flex flex-col gap-2.5 px-2 pb-4">
       {/* 상태 (edit 전용) */}
       {isEdit && (
         <InputFieldSection
@@ -89,7 +89,7 @@ export default function TaskFormUI({
             className={`flex h-14 w-full items-center justify-between rounded-xl border bg-white px-4 transition-colors ${
               isGoalOpen ? "border-orange-300" : "border-gray-200"
             }`}>
-            <span className={goal ? "text-gray-700" : "text-gray-400"}>
+            <span className={goal ? "text-gray-700" : "text-gray-600"}>
               {goal || "목표를 선택해주세요"}
             </span>
             <ChevronDownIcon className="h-6 w-6 text-gray-300" />

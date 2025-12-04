@@ -1,6 +1,6 @@
 "use client";
 
-import ModalContent from "@/components/common/popup-modal/ModalContent";
+import DialogContent from "@/components/common/popup-modal/DialogContent";
 import MobileDialogLayout from "./MobileDialogLayout";
 
 interface MobileDialogProps {
@@ -19,14 +19,14 @@ export default function MobileDialog({
 }: MobileDialogProps) {
   return (
     <MobileDialogLayout onClose={onClose}>
-      <ModalContent
+      <DialogContent
         title={title}
         titleAlign="left"
         isClosable
         onClose={onClose}
         footer={footer}>
         {children}
-      </ModalContent>
+      </DialogContent>
     </MobileDialogLayout>
   );
 }

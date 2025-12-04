@@ -2,7 +2,7 @@
 
 import Button from "../button/Button";
 import BaseLayout from "./BaseLayout";
-import ModalContent from "./ModalContent";
+import DialogContent from "./DialogContent";
 
 interface ConfirModalProps {
   title: string;
@@ -24,7 +24,7 @@ export default function ConfirmModal({
   if (!isOpen) return null;
   return (
     <BaseLayout onClose={onClose}>
-      <ModalContent
+      <DialogContent
         title={title}
         message={message}
         onClose={onClose}
@@ -41,7 +41,7 @@ export default function ConfirmModal({
               {confirmText}
             </Button>
           </>
-        }></ModalContent>
+        }></DialogContent>
     </BaseLayout>
   );
 }

@@ -2,7 +2,7 @@
 import { ExclamationCircleIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import clsx from "clsx";
 
-interface ModalContentProps {
+interface DialogContentProps {
   title: string;
   message?: string;
   isClosable?: boolean;
@@ -12,7 +12,7 @@ interface ModalContentProps {
   onClose?: () => void;
 }
 
-export default function ModalContent({
+export default function DialogContent({
   title,
   titleAlign = "center",
   message,
@@ -20,16 +20,16 @@ export default function ModalContent({
   children,
   footer,
   onClose,
-}: ModalContentProps) {
+}: DialogContentProps) {
   return (
-    <div className='relative flex flex-col items-center'>
+    <div className="relative flex flex-col items-center">
       {isClosable && (
         <button
           onClick={onClose}
-          type='button'
-          aria-label='닫기'
-          className='absolute top-0 right-0'>
-          <XMarkIcon className='h-4 w-4 stroke-2 text-gray-600' />
+          type="button"
+          aria-label="닫기"
+          className="absolute top-0 right-0">
+          <XMarkIcon className="h-4 w-4 stroke-2 text-gray-600" />
         </button>
       )}
       <div
@@ -40,23 +40,23 @@ export default function ModalContent({
         )}>
         <h2
           className={clsx(
-            "font-medium text-black",
+            "text-xl font-semibold text-black",
             titleAlign === "center" && "text-center",
             titleAlign === "left" && "text-left",
           )}>
           {title}
         </h2>
         {message && (
-          <div className='flex items-center gap-1'>
-            <ExclamationCircleIcon className='h-4 w-4 text-orange-500' />
-            <p className='text-orange-350 text-xs md:text-sm'>{message}</p>
+          <div className="flex items-center gap-1">
+            <ExclamationCircleIcon className="h-4 w-4 text-orange-500" />
+            <p className="text-orange-350 text-xs md:text-sm">{message}</p>
           </div>
         )}
       </div>
       {children && (
-        <section className='mt-5 w-full min-w-70 md:mt-8'>{children}</section>
+        <section className="mt-5 w-full min-w-70 md:mt-8">{children}</section>
       )}
-      <div className='mt-3 flex w-full gap-3'>{footer}</div>
+      <div className="mt-3 flex w-full gap-3">{footer}</div>
     </div>
   );
 }
