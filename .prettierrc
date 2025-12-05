@@ -1,0 +1,31 @@
+{
+  "semi": true,
+  "singleQuote": false,
+  "useTabs": false,
+  "tabWidth": 2,
+  "printWidth": 80,
+  "endOfLine": "auto",
+  "trailingComma": "all",
+  "bracketSpacing": true,
+  "bracketSameLine": true,
+  "arrowParens": "always",
+  "jsxSingleQuote": false,
+  "singleAttributePerLine": true,
+  "importOrder": [
+    "^@api/(.*)$",
+    "^@components/(.*)$",
+    "^@constants/(.*)$",
+    "^@hooks/(.*)$",
+    "^@lib/(.*)$",
+    "^@pages/(.*)$",
+    "^@store/(.*)$",
+    "^@styles/(.*)$",
+    "^@types/(.*)$",
+    "^@utils/(.*)$",
+    "^@views/(.*)$",
+    "^[./]"
+  ],
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true,
+  "plugins": ["prettier-plugin-tailwindcss"]
+}
