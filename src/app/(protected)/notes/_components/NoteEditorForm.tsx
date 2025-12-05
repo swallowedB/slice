@@ -1,9 +1,13 @@
+import { JSONContent } from "@tiptap/react";
+import NoteEditor from "./NoteEditor";
 import NoteMetaInfo from "./NoteMetaInfo";
 import NoteTitleInput from "./NoteTitleInput";
 
 interface NoteEditorFormProps {
   title: string;
+  content: JSONContent | null;
   onChangeTitle: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChangeContent: (content: JSONContent) => void;
   metaInfo: {
     goalTitle: string;
     todoTitle: string;
@@ -14,7 +18,9 @@ interface NoteEditorFormProps {
 
 export default function NoteEditorForm({
   title,
+  content,
   onChangeTitle,
+  onChangeContent,
   metaInfo,
 }: NoteEditorFormProps) {
   return (
@@ -31,6 +37,10 @@ export default function NoteEditorForm({
           updatedAt={metaInfo.updatedAt}
         />
       </header>
+      <NoteEditor
+        content={content}
+        onChange={onChangeContent}
+      />
     </section>
   );
 }
