@@ -1,5 +1,5 @@
 import { JSONContent } from "@tiptap/react";
-import NoteEditor from "./NoteEditor";
+import Editor from "./editor/Editor";
 import NoteMetaInfo from "./NoteMetaInfo";
 import NoteTitleInput from "./NoteTitleInput";
 
@@ -37,7 +37,7 @@ export default function NoteEditorForm({
           updatedAt={metaInfo.updatedAt}
         />
       </header>
-      <NoteEditor
+      <Editor
         content={content}
         onChange={onChangeContent}
       />
