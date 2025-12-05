@@ -1,8 +1,10 @@
 "use client";
 
 import Placeholder from "@tiptap/extension-placeholder";
+import TextAlign from "@tiptap/extension-text-align";
 import { useEditor, EditorContent, JSONContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
+import EditorToolbar from "./EditorToolbar";
 
 interface NoteEditorProps {
   content: JSONContent | null;
@@ -15,6 +17,9 @@ export default function NoteEditor({ content, onChange }: NoteEditorProps) {
       StarterKit,
       Placeholder.configure({
         placeholder: "이 곳을 통해 노트 작성을 시작해주세요",
+      }),
+      TextAlign.configure({
+        types: ["heading", "paragraph"],
       }),
     ],
     content,
@@ -29,5 +34,12 @@ export default function NoteEditor({ content, onChange }: NoteEditorProps) {
     },
   });
 
-  return <EditorContent editor={editor} />;
+  if (!editor) return null;
+
+  return (
+    <>
+      <EditorToolbar editor={editor} />
+      <EditorContent editor={editor} />
+    </>
+  );
 }
