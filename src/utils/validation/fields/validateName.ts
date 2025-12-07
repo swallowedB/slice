@@ -10,12 +10,5 @@ export function validateName(value: string): string {
   if (trimmed.length > 10) {
     return "이름은 10자를 초과할 수 없습니다.";
   }
-
-  const nameRegex = /^[가-힣a-zA-Z]+$/;
-
-  if (!nameRegex.test(trimmed)) {
-    return "이름에는 숫자나 특수문자를 사용할 수 없습니다.";
-  }
-
   return "";
 }
