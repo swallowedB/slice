@@ -2,10 +2,7 @@
 import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
 import { useLogin } from "../../../../hooks/queries/useLogin";
-import {
-  AuthFieldErrors,
-  LoginFormValues,
-} from "../../../../types/authForm.type";
+import { AuthFieldErrors, LoginFormValues } from "../../../../types/authForm";
 import { validateLogin } from "../../../../utils/validation/forms/validateLogin";
 
 const LOGIN_FORM_INITIAL = {
@@ -33,7 +30,7 @@ export function useLoginForm() {
     e.preventDefault();
 
     const validationErrors = validateLogin(form);
-    
+
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
       return;

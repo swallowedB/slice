@@ -1,4 +1,4 @@
-import { LoginFormValues } from "../../../../src/types/authForm.type";
+import { LoginFormValues } from "../../../../src/types/authForm";
 import { validateLogin } from "../../../../src/utils/validation/forms/validateLogin";
 
 const createValues = (

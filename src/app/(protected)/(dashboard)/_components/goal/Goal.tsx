@@ -1,7 +1,7 @@
 "use client";
 import EmptyState from "@/components/common/empty-state/EmptyState";
 import GoalCard from "./GoalCard";
-import { ListGoalType } from "@/components/common/list/list-item/listItem.types";
+import { ListGoalType } from "@/components/common/list/list-item/types";
 import { useState } from "react";
 import { EMPTY_MESSAGES } from "@/constants/messages";
 

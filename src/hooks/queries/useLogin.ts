@@ -1,6 +1,6 @@
 "use client";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { loginApi } from "../../api/auth";
+import { login } from "../../api/auth";
 import { setTokens } from "../../lib/tokenStorage";
 import { LoginRequest, LoginResponse } from "../../api/types/auth";
 
@@ -8,7 +8,7 @@ export function useLogin() {
   const queryClient = useQueryClient();
 
   return useMutation<LoginResponse, Error, LoginRequest>({
-    mutationFn: (payload) => loginApi(payload),
+    mutationFn: (payload) => login(payload),
     onSuccess: (data) => {
       setTokens(data.accessToken, data.refreshToken);
       queryClient.invalidateQueries({ queryKey: ["auth", "me"] });

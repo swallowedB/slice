@@ -1,5 +1,5 @@
 import ListItem from "@/components/common/list/list-item/ListItem";
-import { ListTodoType } from "@/components/common/list/list-item/listItem.types";
+import { ListTodoType } from "@/components/common/list/list-item/types";
 import EmptyState from "@/components/common/empty-state/EmptyState";
 import GoalHeader from "./GoalHeader";
 import GoalTodoBox from "./GoalTodoBox";

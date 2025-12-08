@@ -1,8 +1,10 @@
-import { AuthFieldErrors, LoginFormValues } from "../../../types/authForm.type";
+import { AuthFieldErrors, LoginFormValues } from "../../../types/authForm";
 import { validateEmail } from "../fields/validateEmail";
 import { validatePassword } from "../fields/validatePassword";
 
-export function validateLogin(form: LoginFormValues): AuthFieldErrors<LoginFormValues> {
+export function validateLogin(
+  form: LoginFormValues,
+): AuthFieldErrors<LoginFormValues> {
   const errors: AuthFieldErrors<LoginFormValues> = {};
 
   const emailError = validateEmail(form.email);

@@ -1,4 +1,4 @@
-import { SignupFormValues } from "../../../../src/types/authForm.type";
+import { SignupFormValues } from "../../../../src/types/authForm";
 import { validateSignup } from "../../../../src/utils/validation/forms/validateSignup";
 
 const createValues = (

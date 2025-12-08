@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import { ButtonHTMLAttributes, ReactNode } from "react";
-import { ListItemVariant } from "../list-item/listItem.types";
+import { ListItemVariant } from "../list-item/types";
 
 type ListItemButtonProps = {
   icon: ReactNode;

@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import CircularProgress from "./CircularProgress";
-import { ProgressProps, Variant } from "./Progress.types";
+import { ProgressProps, Variant } from "./types";
 
 type VariantStyle = {
   title: string;

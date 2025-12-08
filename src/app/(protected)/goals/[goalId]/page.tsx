@@ -5,7 +5,7 @@ import GoalHeader from "./_components/GoalHeader";
 import GoalProgressCard from "./_components/GoalProgressCard";
 import GoalNotesCard from "./_components/GoalNotesCard";
 import Goal from "./_components/Goal";
-import { ListGoalType } from "@/components/common/list/list-item/listItem.types";
+import { ListGoalType } from "@/components/common/list/list-item/types";
 import { useState } from "react";
 
 const mockGoalItem: ListGoalType[] = [

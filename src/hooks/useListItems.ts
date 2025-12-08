@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ListTodoType } from "@/components/common/list/list-item/listItem.types";
+import { ListTodoType } from "@/components/common/list/list-item/types";
 
 export function useListItems(initialItems: ListTodoType[]) {
   const [items, setItems] = useState(initialItems);

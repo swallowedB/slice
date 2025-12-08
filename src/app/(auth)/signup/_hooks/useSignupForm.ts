@@ -3,10 +3,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useLogin } from "../../../../hooks/queries/useLogin";
 import { useSignup } from "../../../../hooks/queries/useSignup";
-import {
-  AuthFieldErrors,
-  SignupFormValues,
-} from "../../../../types/authForm.type";
+import { AuthFieldErrors, SignupFormValues } from "../../../../types/authForm";
 import { validateSignup } from "../../../../utils/validation/forms/validateSignup";
 
 const INITIAL_FORM: SignupFormValues = {
