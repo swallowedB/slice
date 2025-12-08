@@ -1,5 +1,5 @@
-import { getTodos } from "@/api/todo.api";
-import { Todos } from "@/api/types/todo.types";
+import { getTodos } from "@/api/todo";
+import { Todos } from "@/api/types/todo";
 import { useQuery } from "@tanstack/react-query";
 
 export const useTodos = () =>

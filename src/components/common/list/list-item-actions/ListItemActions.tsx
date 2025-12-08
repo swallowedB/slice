@@ -3,9 +3,9 @@
 import { useEffect, useRef, useState } from "react";
 import ListItemButton from "../list-button/ListItemButton";
 import Dropdown, { DropdownItem } from "../../dropdown/Dropdown";
-import { ListActionType, ListItemVariant } from "../list-item/listItem.types";
-import { ACTION_ICON_MAP } from "./listItemActions.constants";
+import { ListActionType, ListItemVariant } from "../list-item/types";
 import ConfirmModal from "../../popup-modal/ConfirmModal";
+import { ACTION_ICON_MAP } from "./constants/listItemActions";
 
 type ListItemActionsProps = {
   id: number;

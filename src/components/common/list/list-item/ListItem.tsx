@@ -1,5 +1,5 @@
 "use client";
-import { ListTodoType, ListItemVariant } from "./listItem.types";
+import { ListTodoType, ListItemVariant } from "./types";
 import ListItemRow from "./ListItemRow";
 
 type ListItemProps = {

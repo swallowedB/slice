@@ -1,4 +1,4 @@
-import { ListActionType } from "../list-item/listItem.types";
+import { ListActionType } from "../../list-item/types";
 import {
   LinkIcon,
   DocumentIcon,

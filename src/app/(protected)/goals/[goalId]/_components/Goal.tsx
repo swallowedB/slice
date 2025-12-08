@@ -1,5 +1,5 @@
 "use client";
-import { ListGoalType } from "@/components/common/list/list-item/listItem.types";
+import { ListGoalType } from "@/components/common/list/list-item/types";
 import GoalSection from "./GoalSection";
 import { useListItems } from "@/hooks/useListItems";
 import { EMPTY_MESSAGES } from "@/constants/messages";

@@ -5,7 +5,7 @@ import { useListItems } from "@/hooks/useListItems";
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import StatusMessage from "../state-message/StateMessage";
-import { ListTodoType } from "@/components/common/list/list-item/listItem.types";
+import { ListTodoType } from "@/components/common/list/list-item/types";
 
 export default function RecentTodos() {
   const { data, isLoading, isError } = useTodos();
