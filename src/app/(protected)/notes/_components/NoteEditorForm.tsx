@@ -5,6 +5,7 @@ import NoteMetaInfo from "./NoteMetaInfo";
 import NoteTitleInput from "./NoteTitleInput";
 import { useNoteEditor } from "./editor/hooks/useNoteEditor";
 import EditorToolbar from "./editor/EditorToolbar";
+import CharacterCount from "./CharacterCount";
 
 interface NoteEditorFormProps {
   title: string;
@@ -58,9 +59,10 @@ export default function NoteEditorForm({
         <div className="flex-1">
           <EditorContent editor={editor} />
         </div>
-        <p className="pt-6 text-right text-xs font-normal text-gray-400 lg:pt-5">
-          공백포함 {countWithSpace}자 | 공백제외 {countWithoutSpace}자
-        </p>
+        <CharacterCount
+          withSpace={countWithSpace}
+          withoutSpace={countWithoutSpace}
+        />
       </section>
     </article>
   );
