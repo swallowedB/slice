@@ -7,7 +7,7 @@ export default async function NotesPage() {
     <section className="h-screen">
       <PageHeader
         title="노트 모아보기"
-        className="sm:mb-14"
+        desktopClassName="sm:mb-14"
       />
       <SectionHeader />
       <NoteList />
