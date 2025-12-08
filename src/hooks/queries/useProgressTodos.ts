@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
-import { getProgress } from "@/api/progress.api";
-import { Progress } from "@/api/types/progress.types";
+import { getProgress } from "@/api/progress";
+import { Progress } from "@/api/types/progress";
 
 export const useProgressTodos = () => {
   return useQuery<Progress, Error>({

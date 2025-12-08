@@ -1,6 +1,6 @@
 "use client";
 import { useQueryClient } from "@tanstack/react-query";
-import { clearTokens } from "../../api/tokenStorage";
+import { clearTokens } from "../../lib/tokenStorage";
 
 export function useLogout() {
   const queryClient = useQueryClient();

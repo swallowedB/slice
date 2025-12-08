@@ -1,4 +1,9 @@
-import { clearTokens, getAccessToken, getRefreshToken, setTokens } from "./tokenStorage";
+import {
+  clearTokens,
+  getAccessToken,
+  getRefreshToken,
+  setTokens,
+} from "./tokenStorage";
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL!;
 const REFRESH_PATH = "/auth/tokens";
@@ -44,7 +49,6 @@ async function refreshTokens() {
   const data = (await res.json()) as RefreshResponse;
   setTokens(data.accessToken, data.refreshToken);
 }
-
 
 /**
  * 공통 fetcher
@@ -107,8 +111,7 @@ async function handleResponse<T>(res: Response): Promise<T> {
     try {
       const body = (await res.json()) as ApiErrorResponse;
       if (body.message) message = body.message;
-    } catch {
-    }
+    } catch {}
 
     throw new Error(message);
   }
