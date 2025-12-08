@@ -1,13 +1,9 @@
+"use client";
+
 import { Editor, useEditorState } from "@tiptap/react";
-import {
-  textStyleOptions,
-  alignOptions,
-  listOptions,
-  linkOptions,
-} from "./toolbar-config";
+import { toolbarGroups } from "./toolbar-config";
 import ToolbarGroup from "./ToolbarGroup";
 import ToolbarButton from "./ToolbarButton";
-import { ToolbarConfig } from "./types";
 
 interface EditorToolbarProps {
   editor: Editor;
@@ -36,26 +32,21 @@ export default function EditorToolbar({ editor }: EditorToolbarProps) {
 
   if (!editorState) return null;
 
-  const renderToolbarGroup = (options: ToolbarConfig[]) => (
-    <ToolbarGroup>
-      {options.map((config) => (
-        <ToolbarButton
-          key={config.stateKey}
-          onClick={() => config.action(editor)}
-          isActive={editorState[config.stateKey]}
-          title={config.title}>
-          {config.icon}
-        </ToolbarButton>
-      ))}
-    </ToolbarGroup>
-  );
-
   return (
     <div className="flex items-center gap-4 rounded-2xl bg-white px-4 py-1.5 sm:bg-gray-50">
-      {renderToolbarGroup(textStyleOptions)}
-      {renderToolbarGroup(alignOptions)}
-      {renderToolbarGroup(listOptions)}
-      {renderToolbarGroup(linkOptions)}
+      {toolbarGroups.map((group, groupIndex) => (
+        <ToolbarGroup key={groupIndex}>
+          {group.map((config) => (
+            <ToolbarButton
+              key={config.stateKey}
+              onClick={() => config.action(editor)}
+              isActive={editorState[config.stateKey]}
+              title={config.title}>
+              {config.icon}
+            </ToolbarButton>
+          ))}
+        </ToolbarGroup>
+      ))}
     </div>
   );
 }
