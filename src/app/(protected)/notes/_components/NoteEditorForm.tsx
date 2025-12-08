@@ -35,7 +35,7 @@ export default function NoteEditorForm({
       <div className="mb-8 sm:hidden">
         <EditorToolbar editor={editor} />
       </div>
-      <section className="h-full rounded-4xl bg-white p-4 sm:p-8">
+      <section className="min-h-[calc(100vh-215px)] rounded-4xl bg-white p-4 sm:min-h-[calc(100vh-150px)] sm:p-8 lg:min-h-[calc(100vh-225px)]">
         <div className="hidden sm:block">
           <EditorToolbar editor={editor} />
         </div>
