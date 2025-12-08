@@ -1,6 +1,5 @@
 "use client";
 import Progress from "@/components/progress/Progress";
-// import { useProgressTodos } from "@/hooks/queries/useProgressTodos";
 import { useEffect, useState } from "react";
 
 export default function ProgressTodos() {
