@@ -1,7 +1,7 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { Todos } from "@/app/(protected)/_types";
 import { ListTodoType } from "@/components/common/list/list-item/listItem.types";
-import { mockTodos } from "./useLatestTodos"; // import 잊지말기!
+import { mockTodos } from "./useTodos"; // import 잊지말기!
 
 export const useInfiniteTodos = (teamId: string) =>
   useInfiniteQuery<Todos, Error, ListTodoType[]>({

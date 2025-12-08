@@ -1,4 +1,4 @@
-import MobileHeader from "../_components/layout/MobileHeader";
+import PageHeader from "../_components/layout/PageHeader";
 import Goal from "./_components/goal/Goal";
 import ProgressTodos from "./_components/progress/ProgressTodos";
 import RecentTodos from "./_components/recent/RecentTodos";
@@ -6,10 +6,10 @@ import RecentTodos from "./_components/recent/RecentTodos";
 export default function DashBoardPage() {
   return (
     <section>
-      <MobileHeader title="체다치즈님의 대시보드" />
-      <h2 className="color-black hidden sm:mb-8.5 sm:block sm:pl-2 sm:text-2xl sm:font-semibold">
-        체다치즈님의 대시보드
-      </h2>
+      <PageHeader
+        title={`체다치즈님의 대시보드`}
+        className="sm:mb-8.5"
+      />
 
       {/* 최근 할일 + 진행도 섹션 */}
       <section className="mb-7.5 sm:mb-8 lg:mb-8.5">
