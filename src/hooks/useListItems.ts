@@ -1,8 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ListTodoType } from "@/components/common/list/list-item/listItem.types";
 
 export function useListItems(initialItems: ListTodoType[]) {
   const [items, setItems] = useState(initialItems);
+
+  useEffect(() => {
+    setItems(initialItems);
+  }, [JSON.stringify(initialItems)]); // 🔥 배열 내용 비교로 변경
 
   const onToggleChecked = (id: number) => {
     setItems((prev) =>
