@@ -1,5 +1,5 @@
 export interface Todos {
-  totalcount: number;
+  totalCount: number;
   nextCursor: number;
   todos: Todo[];
 }

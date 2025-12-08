@@ -6,8 +6,8 @@ import { ChevronRightIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import StatusMessage from "../state-message/StateMessage";
 
-export default function RecentTodos({ teamId }: { teamId: string }) {
-  const { data, isLoading, isError } = useLatestTodos(teamId);
+export default function RecentTodos() {
+  const { data, isLoading, isError } = useLatestTodos();
   const { items, onToggleChecked } = useListItems(data ?? []);
 
   return (
@@ -33,7 +33,9 @@ export default function RecentTodos({ teamId }: { teamId: string }) {
       <div className="bg-orange-250 h-auto rounded-[28px] px-4 py-4.5 shadow-[0_10px_40px_0_rgba(255,158,89,0.4)] transition-all sm:p-3.75 lg:h-64 lg:rounded-[40px] lg:p-7.5 lg:hover:shadow-[0_10px_40px_0_rgba(255,158,89,0.4)]">
         {isLoading && <StatusMessage>로딩 중입니다</StatusMessage>}
 
-        {isError && <StatusMessage>데이터를 불러오지 못했어요</StatusMessage>}
+        {isError && data === undefined && (
+          <StatusMessage>로그인 후 데이터를 볼 수 있습니다.</StatusMessage>
+        )}
 
         {!isLoading && !isError && items.length === 0 && (
           <StatusMessage>최근에 등록한 할 일이 없어요</StatusMessage>
