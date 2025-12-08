@@ -11,7 +11,7 @@ import {
   LinkIcon,
 } from "@heroicons/react/24/outline";
 
-export const textStyleOptions: ToolbarConfig[] = [
+const textStyleOptions: ToolbarConfig[] = [
   {
     icon: <BoldIcon className="h-5 w-5" />,
     action: (editor) => editor.chain().focus().toggleBold().run(),
@@ -32,7 +32,7 @@ export const textStyleOptions: ToolbarConfig[] = [
   },
 ];
 
-export const alignOptions: ToolbarConfig[] = [
+const alignOptions: ToolbarConfig[] = [
   {
     icon: <Bars3BottomLeftIcon className="h-5 w-5" />,
     action: (editor) => editor.chain().focus().setTextAlign("left").run(),
@@ -53,7 +53,7 @@ export const alignOptions: ToolbarConfig[] = [
   },
 ];
 
-export const listOptions: ToolbarConfig[] = [
+const listOptions: ToolbarConfig[] = [
   {
     icon: <ListBulletIcon className="h-5 w-5" />,
     action: (editor) => editor.chain().focus().toggleBulletList().run(),
@@ -68,7 +68,7 @@ export const listOptions: ToolbarConfig[] = [
   },
 ];
 
-export const linkOptions: ToolbarConfig[] = [
+const linkOptions: ToolbarConfig[] = [
   {
     icon: <LinkIcon className="h-4 w-4" />,
     action: (editor) => {
@@ -77,4 +77,11 @@ export const linkOptions: ToolbarConfig[] = [
     stateKey: "isLink",
     title: "링크 업로드",
   },
+];
+
+export const toolbarGroups = [
+  textStyleOptions,
+  alignOptions,
+  listOptions,
+  linkOptions,
 ];
