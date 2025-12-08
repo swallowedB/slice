@@ -1,7 +1,10 @@
-import { JSONContent } from "@tiptap/react";
-import Editor from "./editor/Editor";
+"use client";
+
+import { EditorContent, JSONContent } from "@tiptap/react";
 import NoteMetaInfo from "./NoteMetaInfo";
 import NoteTitleInput from "./NoteTitleInput";
+import { useNoteEditor } from "./editor/useNoteEditor";
+import EditorToolbar from "./editor/EditorToolbar";
 
 interface NoteEditorFormProps {
   title: string;
@@ -23,24 +26,34 @@ export default function NoteEditorForm({
   onChangeContent,
   metaInfo,
 }: NoteEditorFormProps) {
+  const editor = useNoteEditor(content, onChangeContent);
+
+  if (!editor) return null;
+
   return (
-    <section className="h-full rounded-4xl bg-white p-4 sm:p-8">
-      <header className="border-b border-gray-100 pb-4 lg:pb-7">
-        <NoteTitleInput
-          title={title}
-          onChange={onChangeTitle}
-        />
-        <NoteMetaInfo
-          goalTitle={metaInfo.goalTitle}
-          todoTitle={metaInfo.todoTitle}
-          isTodoDone={metaInfo.isTodoDone}
-          updatedAt={metaInfo.updatedAt}
-        />
-      </header>
-      <Editor
-        content={content}
-        onChange={onChangeContent}
-      />
-    </section>
+    <article>
+      <div className="mb-8 sm:hidden">
+        <EditorToolbar editor={editor} />
+      </div>
+      <section className="h-full rounded-4xl bg-white p-4 sm:p-8">
+        <div className="hidden sm:block">
+          <EditorToolbar editor={editor} />
+        </div>
+        <header className="border-b border-gray-100 pb-4 sm:py-7.5">
+          <NoteTitleInput
+            title={title}
+            onChange={onChangeTitle}
+          />
+          <NoteMetaInfo
+            goalTitle={metaInfo.goalTitle}
+            todoTitle={metaInfo.todoTitle}
+            isTodoDone={metaInfo.isTodoDone}
+            updatedAt={metaInfo.updatedAt}
+          />
+        </header>
+
+        <EditorContent editor={editor} />
+      </section>
+    </article>
   );
 }
