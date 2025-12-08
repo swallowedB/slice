@@ -3,7 +3,7 @@
 import { EditorContent, JSONContent } from "@tiptap/react";
 import NoteMetaInfo from "./NoteMetaInfo";
 import NoteTitleInput from "./NoteTitleInput";
-import { useNoteEditor } from "./editor/useNoteEditor";
+import { useNoteEditor } from "./editor/hooks/useNoteEditor";
 import EditorToolbar from "./editor/EditorToolbar";
 
 interface NoteEditorFormProps {

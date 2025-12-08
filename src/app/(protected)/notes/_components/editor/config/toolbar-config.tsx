@@ -1,4 +1,4 @@
-import type { ToolbarConfig } from "./types";
+import type { ToolbarConfig } from "../types";
 import {
   BoldIcon,
   ItalicIcon,

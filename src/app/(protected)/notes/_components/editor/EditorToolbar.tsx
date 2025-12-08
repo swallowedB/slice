@@ -1,9 +1,9 @@
 "use client";
 
 import { Editor, useEditorState } from "@tiptap/react";
-import { toolbarGroups } from "./toolbar-config";
-import ToolbarGroup from "./ToolbarGroup";
-import ToolbarButton from "./ToolbarButton";
+import { toolbarGroups } from "./config/toolbar-config";
+import ToolbarGroup from "./components/ToolbarGroup";
+import ToolbarButton from "./components/ToolbarButton";
 
 interface EditorToolbarProps {
   editor: Editor;
