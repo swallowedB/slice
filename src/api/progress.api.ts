@@ -1,6 +1,6 @@
 import { fetcher } from "@/api/fetcher";
-import { ProgressProps } from "@/components/progress/Progress.types";
+import { Progress } from "./types/progress.types";
 
 export function getProgress() {
-  return fetcher<ProgressProps>("/todos/progress");
+  return fetcher<Progress>("/todos/progress");
 }

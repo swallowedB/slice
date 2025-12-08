@@ -1,5 +1,5 @@
 type ProgressBarProps = {
-  percent: number; // 0 ~ 100
+  percent: number;
 };
 
 export default function ProgressBar({ percent }: ProgressBarProps) {

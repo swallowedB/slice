@@ -1,14 +1,30 @@
 "use client";
 import ListItem from "@/components/common/list/list-item/ListItem";
-import { useLatestTodos } from "@/hooks/queries/useLatestTodos";
+import { useTodos } from "@/hooks/queries/useTodos";
 import { useListItems } from "@/hooks/useListItems";
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import StatusMessage from "../state-message/StateMessage";
+import { ListTodoType } from "@/components/common/list/list-item/listItem.types";
 
 export default function RecentTodos() {
-  const { data, isLoading, isError } = useLatestTodos();
-  const { items, onToggleChecked } = useListItems(data ?? []);
+  const { data, isLoading, isError } = useTodos();
+  const recentTodos: ListTodoType[] =
+    data?.todos
+      ?.sort(
+        (a, b) =>
+          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+      )
+      ?.slice(0, 4)
+      ?.map((t) => ({
+        id: t.id,
+        label: t.title,
+        checked: t.done,
+        link: !!t.linkUrl,
+        file: !!t.fileUrl,
+        note: !!t.noteId,
+      })) ?? [];
+  const { items, onToggleChecked } = useListItems(recentTodos);
 
   return (
     <div className="w-full">
@@ -34,7 +50,7 @@ export default function RecentTodos() {
         {isLoading && <StatusMessage>로딩 중입니다</StatusMessage>}
 
         {isError && data === undefined && (
-          <StatusMessage>로그인 후 데이터를 볼 수 있습니다.</StatusMessage>
+          <StatusMessage>데이터를 불러오지 못했어요</StatusMessage>
         )}
 
         {!isLoading && !isError && items.length === 0 && (
