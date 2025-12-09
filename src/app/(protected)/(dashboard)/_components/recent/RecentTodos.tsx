@@ -1,39 +1,17 @@
 "use client";
 import ListItem from "@/components/common/list/list-item/ListItem";
-import { useListItems } from "@/hooks/useListItems";
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
-import { ListTodoType } from "@/components/common/list/list-item/types";
-import { useTodos } from "@/hooks/queries/todos";
+import { useTodoList } from "../../_hooks/useTodoList";
+import { useListItems } from "@/hooks/useListItems";
 
 export default function RecentTodos() {
-  const { data, isLoading, isError } = useTodos();
+  const { todos, isLoading, isError } = useTodoList();
 
-  const recentTodos: ListTodoType[] = data?.todos
-    ?.sort(
-      (a, b) =>
-        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
-    )
-    ?.slice(0, 4)
-    ?.map((t) => ({
-      id: t.id,
-      label: t.title,
-      checked: t.done,
-      link: !!t.linkUrl,
-      file: !!t.fileUrl,
-      note: !!t.noteId,
-    })) ?? [
-    {
-      id: 1,
-      label: "test",
-      checked: true,
-      link: false,
-      file: false,
-      note: false,
-    },
-  ];
+  const recentTodos = [...todos]
+    .sort((a, b) => Number(b.id) - Number(a.id))
+    .slice(0, 4);
   const { items, onToggleChecked } = useListItems(recentTodos);
-
   return (
     <div className="w-full">
       <h3 className="mb-2.5 flex flex-wrap items-center justify-between pr-3.5 pl-2 text-base font-medium sm:text-sm lg:text-lg xl:text-base">
@@ -60,29 +38,26 @@ export default function RecentTodos() {
           </p>
         )}
 
-        {isError && data === undefined && (
+        {isError && (
           <p className="flex h-full w-full items-center justify-center text-base font-semibold text-white">
             에러가 발생했습니다
           </p>
         )}
 
-        {!data && (
-          <p className="flex h-full w-full items-center justify-center text-base font-semibold text-white">
-            로그인이 필요합니다
-          </p>
-        )}
-
-        {!isLoading && !isError && items.length === 0 && (
+        {!isLoading && !isError && recentTodos.length === 0 && (
           <p className="flex h-full w-full items-center justify-center text-base font-semibold text-white">
             최근에 등록한 할 일이 없어요
           </p>
         )}
-        <ListItem
-          className="grid gap-0.5 lg:gap-1.5"
-          items={items}
-          onToggleChecked={onToggleChecked}
-          variant="white"
-        />
+
+        {!isLoading && !isError && recentTodos.length > 0 && (
+          <ListItem
+            className="grid gap-0.5 lg:gap-1.5"
+            items={recentTodos}
+            onToggleChecked={onToggleChecked}
+            variant="white"
+          />
+        )}
       </div>
     </div>
   );

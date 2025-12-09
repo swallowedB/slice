@@ -3,7 +3,7 @@ import { CheckIcon } from "@heroicons/react/24/outline";
 import { ListItemVariant } from "../list/list-item/types";
 
 type CheckboxProps = {
-  id: string;
+  id: number;
   checked: boolean;
   onChange: () => void;
   variant?: ListItemVariant;
@@ -26,7 +26,7 @@ export default function Checkbox({
   return (
     <div className="inline-flex h-4.5 w-4.5 items-center justify-center">
       <input
-        id={id}
+        id={`checkbox-${id}`}
         type="checkbox"
         checked={checked}
         onChange={onChange}

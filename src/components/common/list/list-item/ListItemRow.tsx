@@ -37,7 +37,7 @@ export default function ListItemRow({ item, onToggleChecked, variant }: Props) {
           className="flex min-w-0 flex-1 items-center gap-2.5 pr-2 sm:pr-0 md:pr-10"
           htmlFor={`${item.id}`}>
           <Checkbox
-            id={`${item.id}`}
+            id={item.id}
             checked={item.checked}
             onChange={() => onToggleChecked(item.id)}
             variant={variant}
