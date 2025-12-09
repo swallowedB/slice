@@ -59,10 +59,12 @@ export default function NoteEditorForm({
         <div className="flex-1">
           <EditorContent editor={editor} />
         </div>
-        <CharacterCount
-          withSpace={countWithSpace}
-          withoutSpace={countWithoutSpace}
-        />
+        <div className="pt-6 lg:pt-5">
+          <CharacterCount
+            withSpace={countWithSpace}
+            withoutSpace={countWithoutSpace}
+          />
+        </div>
       </section>
     </article>
   );

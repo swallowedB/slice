@@ -50,7 +50,7 @@ export default function EditorToolbar({ editor }: EditorToolbarProps) {
           </ToolbarGroup>
         ))}
       </div>
-      <div className="shrink-0">
+      <div className="shrink-0 rounded-full bg-white">
         {linkGroup.map((config) => (
           <ToolbarButton
             key={config.stateKey}
