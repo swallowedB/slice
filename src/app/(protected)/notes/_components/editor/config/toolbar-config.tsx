@@ -78,9 +78,7 @@ const listAndHighlightOptions: ToolbarConfig[] = [
 const linkOptions: ToolbarConfig[] = [
   {
     icon: <LinkIcon className="h-4 w-4" />,
-    action: (editor) => {
-      // TODO: 링크 모달 열기
-    },
+    action: (editor) => {},
     stateKey: "isLink",
     title: "링크 업로드",
   },

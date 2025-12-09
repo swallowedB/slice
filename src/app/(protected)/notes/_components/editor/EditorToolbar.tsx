@@ -7,9 +7,15 @@ import ToolbarButton from "./components/ToolbarButton";
 
 interface EditorToolbarProps {
   editor: Editor;
+  onClickLink?: () => void;
+  isLinkModalOpen?: boolean;
 }
 
-export default function EditorToolbar({ editor }: EditorToolbarProps) {
+export default function EditorToolbar({
+  editor,
+  onClickLink,
+  isLinkModalOpen = false,
+}: EditorToolbarProps) {
   const editorState = useEditorState({
     editor,
     selector: (snapshot) => {
@@ -54,8 +60,8 @@ export default function EditorToolbar({ editor }: EditorToolbarProps) {
         {linkGroup.map((config) => (
           <ToolbarButton
             key={config.stateKey}
-            onClick={() => config.action(editor)}
-            isActive={editorState[config.stateKey]}
+            onClick={onClickLink}
+            isActive={editorState[config.stateKey] || isLinkModalOpen}
             title={config.title}>
             {config.icon}
           </ToolbarButton>

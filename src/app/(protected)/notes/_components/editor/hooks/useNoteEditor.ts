@@ -11,7 +11,13 @@ export function useNoteEditor(
 ) {
   return useEditor({
     extensions: [
-      StarterKit,
+      StarterKit.configure({
+        link: {
+          openOnClick: false,
+          defaultProtocol: "https",
+          protocols: ["http", "https"],
+        },
+      }),
       Placeholder.configure({
         placeholder: "이 곳을 통해 노트 작성을 시작해주세요",
       }),
