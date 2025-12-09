@@ -10,7 +10,7 @@ export default function TasklistPage() {
   const [tab, setTab] = useState<"ALL" | "TODO" | "DONE">("ALL");
 
   return (
-    <section className="">
+    <section>
       <MobileHeader title="모든 할 일" />
       <h2 className="color-black hidden sm:block sm:pl-4 sm:text-2xl sm:font-semibold">
         모든 할 일
