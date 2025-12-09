@@ -3,13 +3,13 @@ import {
   BoldIcon,
   ItalicIcon,
   UnderlineIcon,
-  Bars3BottomLeftIcon,
-  Bars3Icon,
-  Bars3BottomRightIcon,
+  AlignLeftIcon,
+  AlignCenterIcon,
+  AlignRightIcon,
   ListBulletIcon,
   NumberedListIcon,
   LinkIcon,
-} from "@heroicons/react/24/outline";
+} from "./toolbar-icons";
 
 const textStyleOptions: ToolbarConfig[] = [
   {
@@ -34,19 +34,19 @@ const textStyleOptions: ToolbarConfig[] = [
 
 const alignOptions: ToolbarConfig[] = [
   {
-    icon: <Bars3BottomLeftIcon className="h-5 w-5" />,
+    icon: <AlignLeftIcon className="h-5 w-5" />,
     action: (editor) => editor.chain().focus().setTextAlign("left").run(),
     stateKey: "isAlignLeft",
     title: "왼쪽 정렬",
   },
   {
-    icon: <Bars3Icon className="h-5 w-5" />,
+    icon: <AlignCenterIcon className="h-5 w-5" />,
     action: (editor) => editor.chain().focus().setTextAlign("center").run(),
     stateKey: "isAlignCenter",
     title: "가운데 정렬",
   },
   {
-    icon: <Bars3BottomRightIcon className="h-5 w-5" />,
+    icon: <AlignRightIcon className="h-5 w-5" />,
     action: (editor) => editor.chain().focus().setTextAlign("right").run(),
     stateKey: "isAlignRight",
     title: "오른쪽 정렬",
@@ -61,7 +61,7 @@ const listOptions: ToolbarConfig[] = [
     title: "글머리 기호",
   },
   {
-    icon: <NumberedListIcon className="h-4 w-4" />,
+    icon: <NumberedListIcon className="h-5 w-5" />,
     action: (editor) => editor.chain().focus().toggleOrderedList().run(),
     stateKey: "isOrderedList",
     title: "번호 매기기",
