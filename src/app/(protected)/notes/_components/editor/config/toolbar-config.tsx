@@ -54,7 +54,7 @@ const alignOptions: ToolbarConfig[] = [
   },
 ];
 
-const listOptions: ToolbarConfig[] = [
+const listAndHighlightOptions: ToolbarConfig[] = [
   {
     icon: <ListBulletIcon className="h-6 w-6" />,
     action: (editor) => editor.chain().focus().toggleBulletList().run(),
@@ -67,9 +67,6 @@ const listOptions: ToolbarConfig[] = [
     stateKey: "isOrderedList",
     title: "번호 매기기",
   },
-];
-
-const highlightOptions: ToolbarConfig[] = [
   {
     icon: <HighlightIcon className="h-6 w-6" />,
     action: (editor) => editor.chain().focus().toggleHighlight().run(),
@@ -92,7 +89,6 @@ const linkOptions: ToolbarConfig[] = [
 export const toolbarGroups = [
   textStyleOptions,
   alignOptions,
-  listOptions,
-  highlightOptions,
+  listAndHighlightOptions,
   linkOptions,
 ];
