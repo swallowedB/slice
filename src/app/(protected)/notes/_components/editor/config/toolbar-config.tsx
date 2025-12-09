@@ -86,9 +86,10 @@ const linkOptions: ToolbarConfig[] = [
   },
 ];
 
-export const toolbarGroups = [
+export const mainToolbarGroups = [
   textStyleOptions,
   alignOptions,
   listAndHighlightOptions,
-  linkOptions,
 ];
+
+export const linkGroup = linkOptions;

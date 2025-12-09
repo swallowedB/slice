@@ -1,7 +1,7 @@
 "use client";
 
 import { Editor, useEditorState } from "@tiptap/react";
-import { toolbarGroups } from "./config/toolbar-config";
+import { mainToolbarGroups, linkGroup } from "./config/toolbar-config";
 import ToolbarGroup from "./components/ToolbarGroup";
 import ToolbarButton from "./components/ToolbarButton";
 
@@ -34,20 +34,33 @@ export default function EditorToolbar({ editor }: EditorToolbarProps) {
   if (!editorState) return null;
 
   return (
-    <div className="flex items-center gap-4 rounded-2xl bg-white px-4 py-1.5 sm:bg-gray-50">
-      {toolbarGroups.map((group, groupIndex) => (
-        <ToolbarGroup key={groupIndex}>
-          {group.map((config) => (
-            <ToolbarButton
-              key={config.stateKey}
-              onClick={() => config.action(editor)}
-              isActive={editorState[config.stateKey]}
-              title={config.title}>
-              {config.icon}
-            </ToolbarButton>
-          ))}
-        </ToolbarGroup>
-      ))}
+    <div className="flex justify-between overflow-x-auto rounded-2xl bg-white px-4 py-1.5 sm:bg-gray-50">
+      <div className="flex items-center gap-4">
+        {mainToolbarGroups.map((group, groupIndex) => (
+          <ToolbarGroup key={groupIndex}>
+            {group.map((config) => (
+              <ToolbarButton
+                key={config.stateKey}
+                onClick={() => config.action(editor)}
+                isActive={editorState[config.stateKey]}
+                title={config.title}>
+                {config.icon}
+              </ToolbarButton>
+            ))}
+          </ToolbarGroup>
+        ))}
+      </div>
+      <div className="shrink-0">
+        {linkGroup.map((config) => (
+          <ToolbarButton
+            key={config.stateKey}
+            onClick={() => config.action(editor)}
+            isActive={editorState[config.stateKey]}
+            title={config.title}>
+            {config.icon}
+          </ToolbarButton>
+        ))}
+      </div>
     </div>
   );
 }
