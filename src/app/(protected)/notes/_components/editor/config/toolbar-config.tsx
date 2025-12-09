@@ -8,6 +8,7 @@ import {
   AlignRightIcon,
   ListBulletIcon,
   NumberedListIcon,
+  HighlightIcon,
   LinkIcon,
 } from "./toolbar-icons";
 
@@ -68,6 +69,15 @@ const listOptions: ToolbarConfig[] = [
   },
 ];
 
+const highlightOptions: ToolbarConfig[] = [
+  {
+    icon: <HighlightIcon className="h-5 w-5" />,
+    action: (editor) => editor.chain().focus().toggleHighlight().run(),
+    stateKey: "isHighlight",
+    title: "형광펜",
+  },
+];
+
 const linkOptions: ToolbarConfig[] = [
   {
     icon: <LinkIcon className="h-4 w-4" />,
@@ -83,5 +93,6 @@ export const toolbarGroups = [
   textStyleOptions,
   alignOptions,
   listOptions,
+  highlightOptions,
   linkOptions,
 ];

@@ -25,6 +25,7 @@ export default function EditorToolbar({ editor }: EditorToolbarProps) {
         isAlignRight: editor.isActive({ textAlign: "right" }),
         isBulletList: editor.isActive("bulletList"),
         isOrderedList: editor.isActive("orderedList"),
+        isHighlight: editor.isActive("highlight"),
         isLink: editor.isActive("link"),
       };
     },

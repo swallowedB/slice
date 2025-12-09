@@ -2,6 +2,7 @@ import { useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Placeholder from "@tiptap/extension-placeholder";
 import TextAlign from "@tiptap/extension-text-align";
+import Highlight from "@tiptap/extension-highlight";
 import { JSONContent } from "@tiptap/react";
 
 export function useNoteEditor(
@@ -16,6 +17,9 @@ export function useNoteEditor(
       }),
       TextAlign.configure({
         types: ["heading", "paragraph"],
+      }),
+      Highlight.configure({
+        multicolor: false,
       }),
     ],
     content,
