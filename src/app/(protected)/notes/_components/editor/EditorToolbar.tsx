@@ -34,7 +34,7 @@ export default function EditorToolbar({ editor }: EditorToolbarProps) {
   if (!editorState) return null;
 
   return (
-    <div className="flex justify-between overflow-x-auto rounded-2xl bg-white px-4 py-1.5 sm:bg-gray-50">
+    <div className="flex justify-between overflow-x-auto rounded-2xl bg-white px-4 py-1.5 shadow-md sm:bg-gray-50 sm:shadow-sm">
       <div className="flex items-center gap-4">
         {mainToolbarGroups.map((group, groupIndex) => (
           <ToolbarGroup key={groupIndex}>

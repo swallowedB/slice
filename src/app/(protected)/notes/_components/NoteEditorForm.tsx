@@ -37,11 +37,11 @@ export default function NoteEditorForm({
 
   return (
     <article>
-      <div className="mb-8 sm:hidden">
+      <div className="fixed top-22 right-5 left-5 z-300 sm:hidden">
         <EditorToolbar editor={editor} />
       </div>
-      <section className="flex min-h-[75vh] flex-col rounded-4xl bg-white p-4 sm:min-h-[80vh] sm:p-8">
-        <div className="hidden sm:block">
+      <section className="mt-19 flex min-h-[75vh] flex-col rounded-4xl bg-white p-4 sm:mt-0 sm:min-h-[80vh] sm:p-8">
+        <div className="sticky top-8 z-300 hidden sm:block">
           <EditorToolbar editor={editor} />
         </div>
         <header className="border-b border-gray-100 pb-4 sm:py-7.5">
