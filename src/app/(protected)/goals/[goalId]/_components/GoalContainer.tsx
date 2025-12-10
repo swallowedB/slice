@@ -27,8 +27,6 @@ export default function GoalContainer({ goalId }: { goalId: string }) {
   const progress =
     totalCount > 0 ? Math.round((doneCount / totalCount) * 100) : 0;
 
-  console.log(todos);
-
   return (
     <>
       <PageHeader
