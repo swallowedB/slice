@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import TaskFormContent from "./_components/TaskFormContent";
+import TodoFormContent from "./_components/TodoFormContent";
 
 export default function Page() {
   const [open, setOpen] = useState(false);
@@ -20,7 +20,7 @@ export default function Page() {
       </button>
 
       {open && (
-        <TaskFormContent
+        <TodoFormContent
           /* create, edit 모드 선택 */
           mode="edit"
           onClose={() => setOpen(false)}

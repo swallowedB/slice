@@ -2,10 +2,10 @@
 
 import { useState } from "react";
 import { JSONContent } from "@tiptap/react";
-import PageHeader from "../../_components/layout/PageHeader";
 import NoteEditorForm from "../_components/NoteEditorForm";
 import NoteMobileActions from "../_components/NoteMobileActions";
 import NoteDesktopActions from "../_components/NoteDesktopActions";
+import PageHeader from "@/app/(protected)/_components/layout/PageHeader";
 
 export default function NoteNewPage() {
   const [title, setTitle] = useState("");

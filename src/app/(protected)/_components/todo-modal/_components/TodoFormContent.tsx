@@ -2,12 +2,12 @@
 
 import { useDeviceSize } from "@/hooks/useDeviceSize";
 import { useState } from "react";
-import TaskFormUI from "./TaskFormUI";
-import TaskFormLayout from "./TaskFormLayout";
+import TodoFormUI from "./TodoFormUI";
+import TodoFormLayout from "./TodoFormLayout";
 
-export type TaskFormMode = "create" | "edit";
+export type TodoFormMode = "create" | "edit";
 
-export interface TaskFormData {
+export interface TodoFormData {
   title: string;
   goal: string;
   status: "TODO" | "DONE";
@@ -20,17 +20,17 @@ const mockGoals = [
   "디자인 시스템 강의 듣기",
 ];
 
-interface TaskFormContentProps {
-  mode: TaskFormMode;
+interface TodoFormContentProps {
+  mode: TodoFormMode;
   onClose: () => void;
-  onConfirm: (data: TaskFormData) => void;
+  onConfirm: (data: TodoFormData) => void;
 }
 
-export default function TaskFormContent({
+export default function TodoFormContent({
   mode,
   onClose,
   onConfirm,
-}: TaskFormContentProps & { sizeClass?: string }) {
+}: TodoFormContentProps & { sizeClass?: string }) {
   const { isMobile } = useDeviceSize();
   const isEdit = mode === "edit";
 
@@ -49,14 +49,14 @@ export default function TaskFormContent({
   };
 
   return (
-    <TaskFormLayout
+    <TodoFormLayout
       isMobile={isMobile}
       mode={mode}
       onClose={onClose}
       onConfirm={handleConfirm}
       isConfirmDisabled={isConfirmDisabled}
       sizeClass={"w-[488px]"}>
-      <TaskFormUI
+      <TodoFormUI
         isEdit={isEdit}
         title={title}
         setTitle={setTitle}
@@ -72,6 +72,6 @@ export default function TaskFormContent({
         setIsGoalOpen={setIsGoalOpen}
         goals={mockGoals}
       />
-    </TaskFormLayout>
+    </TodoFormLayout>
   );
 }

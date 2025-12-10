@@ -10,7 +10,7 @@ import { Goal } from "@/api/types/goal";
 import { useTodos } from "@/hooks/queries/todos";
 import { Todo } from "@/api/types/todo";
 
-export default function TaskListContent({
+export default function TodosContent({
   tab,
 }: {
   tab: "ALL" | "TODO" | "DONE";

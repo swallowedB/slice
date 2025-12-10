@@ -1,4 +1,4 @@
-import PageHeader from "../_components/layout/PageHeader";
+import PageHeader from "@/app/(protected)/_components/layout/PageHeader";
 import NoteList from "./_components/NoteList";
 import SectionHeader from "./_components/SectionHeader";
 

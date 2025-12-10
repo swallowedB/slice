@@ -3,7 +3,7 @@ import MobileInputModal from "./mobile/MobileDialog";
 import Button from "@/components/common/button/Button";
 import { ReactNode } from "react";
 
-interface TaskFormLayoutProps {
+interface TodoFormLayoutProps {
   children?: ReactNode;
   isMobile: boolean;
   mode: "create" | "edit";
@@ -13,7 +13,7 @@ interface TaskFormLayoutProps {
   isConfirmDisabled: boolean;
 }
 
-export default function TaskFormLayout({
+export default function TodoFormLayout({
   children,
   isMobile,
   mode,
@@ -21,7 +21,7 @@ export default function TaskFormLayout({
   onConfirm,
   isConfirmDisabled,
   sizeClass = "",
-}: TaskFormLayoutProps) {
+}: TodoFormLayoutProps) {
   const title = mode === "create" ? "할 일 생성" : "할 일 수정";
 
   const footer = (
