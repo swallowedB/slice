@@ -2,13 +2,14 @@ import Button from "@/components/common/button/Button";
 import TextButton from "@/components/common/button/TextButton";
 import EmptyState from "@/components/common/empty-state/EmptyState";
 import ListItem from "@/components/common/list/list-item/ListItem";
+import { ListTodoType } from "@/components/common/list/list-item/types";
 import { EMPTY_MESSAGES } from "@/constants/messages";
 import { PlusIcon } from "@heroicons/react/24/outline";
 
 type GoalSectionProps = {
   title: string;
-  items: { id: number; label: string; checked: boolean }[];
-  onToggle: (id: number) => void;
+  items: ListTodoType[];
+  onToggleChecked: (id: number, checked: boolean) => void;
   background?: string;
   onAdd?: () => void;
   emptyMessage?: string;
@@ -18,7 +19,7 @@ type GoalSectionProps = {
 export default function GoalSection({
   title,
   items,
-  onToggle,
+  onToggleChecked,
   background = "bg-white",
   onAdd,
   emptyMessage,
@@ -68,7 +69,7 @@ export default function GoalSection({
           <ListItem
             className="grid sm:gap-0.5 lg:gap-1"
             items={items}
-            onToggleChecked={onToggle}
+            onToggleChecked={onToggleChecked}
           />
         )}
       </div>

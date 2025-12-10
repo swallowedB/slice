@@ -3,20 +3,20 @@ import { CheckIcon } from "@heroicons/react/24/outline";
 import { ListItemVariant } from "../list/list-item/types";
 
 type CheckboxProps = {
-  id: string;
+  id: number;
   checked: boolean;
-  onChange: () => void;
+  onToggleChecked: (checked: boolean) => void;
   variant?: ListItemVariant;
 };
 
 export default function Checkbox({
   id,
   checked,
-  onChange,
+  onToggleChecked,
   variant = "default",
 }: CheckboxProps) {
   const BASE_CHECKBOX =
-    "flex h-4.5 w-4.5 items-center justify-center rounded-md border transition-colors peer-focus:ring-1 peer-focus:ring-orange-400/40 peer-checked:border-orange-400 peer-checked:bg-orange-400";
+    "cursor-pointer flex h-4.5 w-4.5 items-center justify-center rounded-md border transition-colors peer-focus:ring-1 peer-focus:ring-orange-400/40 peer-checked:border-orange-400 peer-checked:bg-orange-400";
 
   const VARIANT_CLASS = {
     default: "border-gray-200 bg-white",
@@ -24,12 +24,16 @@ export default function Checkbox({
   };
 
   return (
-    <div className="inline-flex h-4.5 w-4.5 items-center justify-center">
+    <label
+      htmlFor={`checkbox-${id}`}
+      className="inline-flex h-4.5 w-4.5 items-center justify-center">
       <input
-        id={id}
+        id={`checkbox-${id}`}
         type="checkbox"
         checked={checked}
-        onChange={onChange}
+        onChange={(e) => {
+          onToggleChecked(e.target.checked);
+        }}
         className="peer sr-only"
       />
 
@@ -41,6 +45,6 @@ export default function Checkbox({
           />
         )}
       </span>
-    </div>
+    </label>
   );
 }

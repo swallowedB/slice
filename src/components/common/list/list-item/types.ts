@@ -11,6 +11,10 @@ export type ListTodoType = {
   link?: boolean;
   file?: boolean;
   note?: boolean;
+  goal?: {
+    id: number;
+    title: string;
+  };
 };
 
 export type ListGoalType = {

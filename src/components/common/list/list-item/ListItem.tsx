@@ -4,7 +4,7 @@ import ListItemRow from "./ListItemRow";
 
 type ListItemProps = {
   items: ListTodoType[];
-  onToggleChecked: (id: number) => void;
+  onToggleChecked: (id: number, checked: boolean) => void;
   variant?: ListItemVariant;
   className?: string;
 };
