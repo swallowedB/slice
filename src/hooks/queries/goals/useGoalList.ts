@@ -1,5 +1,5 @@
-import { getGoals } from "@/api/goal.api";
-import { GoalResponse } from "@/api/types/goal.types";
+import { getGoals } from "@/api/goal";
+import { GoalResponse } from "@/api/types/goal";
 import { useQuery } from "@tanstack/react-query";
 import goalsQueryKeys from "./queryKeys";
 
