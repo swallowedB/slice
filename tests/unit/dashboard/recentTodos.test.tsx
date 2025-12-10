@@ -1,9 +1,9 @@
 import RecentTodos from "@/app/(protected)/(dashboard)/_components/recent/RecentTodos";
-import { useTodos } from "@/hooks/queries/useTodos";
 import { renderWithQueryClient } from "../../test-utils";
 import { screen } from "@testing-library/react";
+import { useTodos } from "@/hooks/queries/todos";
 
-jest.mock("@/hooks/queries/useTodos");
+jest.mock("@/hooks/queries/todos");
 const mockedUseTodos = useTodos as jest.Mock;
 
 describe("대시보드 최근 할 일 불러오기 컴포넌트 테스트입니다", () => {
@@ -61,7 +61,7 @@ describe("대시보드 최근 할 일 불러오기 컴포넌트 테스트입니�
 
     renderWithQueryClient(<RecentTodos />);
 
-    expect(screen.getByText("데이터를 불러오지 못했어요")).toBeInTheDocument();
+    expect(screen.getByText("에러가 발생했습니다")).toBeInTheDocument();
   });
 
   it("등록된 할 일 이 없을 경우 등록된 할 일 없음 메시지가 보인다", () => {

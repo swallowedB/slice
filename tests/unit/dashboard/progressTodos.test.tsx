@@ -1,9 +1,9 @@
 import ProgressTodos from "@/app/(protected)/(dashboard)/_components/progress/ProgressTodos";
-import { useProgressTodos } from "@/hooks/queries/useProgressTodos";
 import { renderWithQueryClient } from "../../test-utils";
 import { screen } from "@testing-library/react";
+import { useProgressTodos } from "@/hooks/queries/todos";
 
-jest.mock("@/hooks/queries/useProgressTodos");
+jest.mock("@/hooks/queries/todos/useProgressTodosQuery");
 const mockedUseProgress = useProgressTodos as jest.Mock;
 
 describe("대시보드 내 진행 상황 퍼센트 테스트입니다", () => {
@@ -36,7 +36,7 @@ describe("대시보드 내 진행 상황 퍼센트 테스트입니다", () => {
 
     renderWithQueryClient(<ProgressTodos />);
 
-    expect(screen.getByText("데이터를 불러오지 못했어요")).toBeInTheDocument();
+    expect(screen.getByText("에러가 발생했습니다")).toBeInTheDocument();
   });
 
   it("진행 상황이 0%일 때를 확인해본다", () => {
@@ -59,6 +59,6 @@ describe("대시보드 내 진행 상황 퍼센트 테스트입니다", () => {
 
     renderWithQueryClient(<ProgressTodos />);
 
-    expect(screen.getByText("64")).toBeInTheDocument();
+    expect(screen.getByText(64)).toBeInTheDocument();
   });
 });

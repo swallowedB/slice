@@ -29,7 +29,7 @@ export default function NoteNewPage() {
     <>
       <PageHeader
         title="노트 작성하기"
-        className="sm:mb-3 lg:mb-5.5"
+        desktopClassName="sm:mb-3 lg:mb-5.5"
         mobileActions={
           <NoteMobileActions
             submitLabel="등록"

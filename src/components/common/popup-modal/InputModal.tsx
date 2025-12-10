@@ -8,7 +8,7 @@ interface InputModalProps {
   onConfirm: () => void;
   children: React.ReactNode;
   footer: React.ReactNode;
-  sizeClass: string;
+  sizeClass?: string;
 }
 
 export default function InputModal({

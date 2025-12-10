@@ -14,7 +14,7 @@ export default function BaseLayout({
 }: BaseLayoutProps) {
   return (
     <div
-      className="fixed inset-0 flex items-center justify-center"
+      className="fixed inset-0 z-1000 flex items-center justify-center"
       role="dialog"
       aria-modal="true">
       <ModalBackground onClick={onClose} />

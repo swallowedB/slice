@@ -9,6 +9,7 @@ export interface EditorActiveState {
   isAlignRight: boolean;
   isBulletList: boolean;
   isOrderedList: boolean;
+  isHighlight: boolean;
   isLink: boolean;
 }
 

@@ -8,7 +8,7 @@ export default function DashBoardPage() {
     <section>
       <PageHeader
         title={`체다치즈님의 대시보드`}
-        className="sm:mb-8.5"
+        desktopClassName="sm:mb-8.5"
       />
 
       {/* 최근 할일 + 진행도 섹션 */}
