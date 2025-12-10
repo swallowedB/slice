@@ -8,7 +8,8 @@ import GoalProgressCard from "./GoalProgressCard";
 import GoalNotesCard from "./GoalNotesCard";
 import Goal from "./Goal";
 
-export default function GoalContainer({ goalId }: { goalId: number }) {
+export default function GoalContainer({ goalId }: { goalId: string }) {
+  const goalIdNum = Number(goalId);
   const {
     data: goalData,
     isLoading: isGoalsLoading,
@@ -45,7 +46,7 @@ export default function GoalContainer({ goalId }: { goalId: number }) {
 
           <div className="block sm:grid sm:grid-cols-2 sm:gap-x-5 lg:mt-5 lg:gap-x-5 xl:mt-5 xl:grid xl:grid-cols-2 2xl:mt-0">
             <GoalProgressCard percent={progress} />
-            <GoalNotesCard goalId={goalId} />
+            <GoalNotesCard goalId={goalIdNum} />
           </div>
         </div>
       </section>

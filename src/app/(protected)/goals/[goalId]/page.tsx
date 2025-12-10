@@ -1,5 +1,10 @@
 import GoalContainer from "./_components/GoalContainer";
 
-export default function GoalsPage({ params }: { params: { goalId: number } }) {
-  return <GoalContainer goalId={params.goalId} />;
+export default async function GoalsPage({
+  params,
+}: {
+  params: Promise<{ goalId: string }>;
+}) {
+  const { goalId } = await params;
+  return <GoalContainer goalId={goalId} />;
 }
