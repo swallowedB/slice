@@ -11,7 +11,7 @@ import {
   DocumentArrowUpIcon,
 } from "@heroicons/react/24/outline";
 
-interface TaskFormUIProps {
+interface TodoFormUIProps {
   isEdit: boolean;
   title: string;
   setTitle: (v: string) => void;
@@ -28,7 +28,7 @@ interface TaskFormUIProps {
   goals: string[];
 }
 
-export default function TaskFormUI({
+export default function TodoFormUI({
   isEdit,
   title,
   setTitle,
@@ -43,7 +43,7 @@ export default function TaskFormUI({
   isGoalOpen,
   setIsGoalOpen,
   goals,
-}: TaskFormUIProps) {
+}: TodoFormUIProps) {
   return (
     <div className="flex flex-col gap-2.5 px-2 pb-4">
       {/* 상태 (edit 전용) */}

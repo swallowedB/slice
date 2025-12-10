@@ -45,10 +45,9 @@ export default function RecentTodos() {
           />
           최근 등록한 할일
         </p>
-
         <Link
           className="text-orange-250 flex items-center text-sm font-semibold lg:text-base"
-          href="/tasklist">
+          href="/todos">
           모두 보기
           <ChevronRightIcon className="text-orange-250 ml-0.5 w-3.5 lg:w-5" />
         </Link>

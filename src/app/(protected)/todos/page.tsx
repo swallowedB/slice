@@ -1,12 +1,12 @@
 "use client";
 
-import TaskHeader from "./_components/TaskHeader";
-import TaskListContent from "./_components/TaskContent";
-import MobileHeader from "../_components/layout/MobileHeader";
+import TodoHeader from "./_components/TodoHeader";
+import TodosContent from "./_components/TodosContent";
 import { useState } from "react";
-import TaskListLayout from "./_components/TaskListLayout";
+import TodosLayout from "./_components/TodosLayout";
+import MobileHeader from "@/app/(protected)/_components/layout/MobileHeader";
 
-export default function TasklistPage() {
+export default function TodosPage() {
   const [tab, setTab] = useState<"ALL" | "TODO" | "DONE">("ALL");
 
   return (
@@ -15,15 +15,15 @@ export default function TasklistPage() {
       <h2 className="color-black hidden sm:block sm:pl-4 sm:text-2xl sm:font-semibold">
         모든 할 일
       </h2>
-      <TaskListLayout>
-        <TaskHeader
+      <TodosLayout>
+        <TodoHeader
           tab={tab}
           onTabChange={(t) => setTab(t)}
           onAdd={() => console.log("할 일 추가")}
           className="mb-3"
         />
-        <TaskListContent tab={tab} />
-      </TaskListLayout>
+        <TodosContent tab={tab} />
+      </TodosLayout>
     </section>
   );
 }

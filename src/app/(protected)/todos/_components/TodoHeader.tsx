@@ -6,18 +6,18 @@ import Button from "@/components/common/button/Button";
 const TABS = ["ALL", "TODO", "DONE"] as const;
 type TabType = (typeof TABS)[number];
 
-interface TaskHeaderProps {
+interface TodoHeaderProps {
   tab: TabType;
   onTabChange: (tab: TabType) => void;
   onAdd: () => void;
   className?: string;
 }
 
-export default function TaskHeader({
+export default function TodoHeader({
   tab,
   onTabChange,
   onAdd,
-}: TaskHeaderProps) {
+}: TodoHeaderProps) {
   return (
     <div className="flex w-[343px] items-center justify-between px-1 py-4 lg:w-[636px] 2xl:w-[720px]">
       <div className="flex">
