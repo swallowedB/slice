@@ -7,7 +7,7 @@ import EmptyListContent from "./EmptyListContent";
 import { useListItems } from "@/hooks/useListItems";
 import { useGoalList } from "@/hooks/queries/goals/useGoalList";
 import { Goal } from "@/api/types/goal";
-import { useTodos } from "@/hooks/queries/useTodos";
+import { useTodos } from "@/hooks/queries/todos";
 import { Todo } from "@/api/types/todo";
 
 export default function TaskListContent({
