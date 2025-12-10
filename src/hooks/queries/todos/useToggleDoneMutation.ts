@@ -3,7 +3,7 @@ import { UpdateTodo } from "@/api/types/todo";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import todosQueryKeys from "./queryKeys";
 
-export const useUpdateTodo = () => {
+export const useToggleDoneMutation = () => {
   const queryClient = useQueryClient();
 
   return useMutation({

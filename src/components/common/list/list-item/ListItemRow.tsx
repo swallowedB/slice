@@ -5,7 +5,7 @@ import { ListActionType, ListTodoType, ListItemVariant } from "./types";
 
 type Props = {
   item: ListTodoType;
-  onToggleChecked: (id: number) => void;
+  onToggleChecked: (id: number, checked: boolean) => void;
   variant: ListItemVariant;
 };
 
@@ -33,13 +33,13 @@ export default function ListItemRow({ item, onToggleChecked, variant }: Props) {
   return (
     <li className="group flex items-center justify-between rounded-2xl p-2.5 transition-all">
       <div className="grid max-w-fit min-w-0 flex-1 items-center gap-2.5 overflow-hidden">
-        <label
-          className="flex min-w-0 flex-1 items-center gap-2.5 pr-2 sm:pr-0 md:pr-10"
-          htmlFor={`${item.id}`}>
+        <div className="flex min-w-0 flex-1 items-center gap-2.5 pr-2 sm:pr-0 md:pr-10">
           <Checkbox
             id={item.id}
             checked={item.checked}
-            onChange={() => onToggleChecked(item.id)}
+            onToggleChecked={(checked) => {
+              onToggleChecked(item.id, checked);
+            }}
             variant={variant}
           />
           <span
@@ -50,7 +50,7 @@ export default function ListItemRow({ item, onToggleChecked, variant }: Props) {
             )}>
             {item.label}
           </span>
-        </label>
+        </div>
       </div>
       <div className="flex max-w-fit shrink-0 items-center gap-2">
         <ListItemActions

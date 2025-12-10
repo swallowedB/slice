@@ -3,7 +3,7 @@ import ListItem from "@/components/common/list/list-item/ListItem";
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { useTodoList } from "../../_hooks/useTodoList";
-import { useListItems } from "@/hooks/useListItems";
+import { useToggleTodo } from "@/hooks/queries/todos";
 
 export default function RecentTodos() {
   const { todos, isLoading, isError } = useTodoList();
@@ -11,7 +11,9 @@ export default function RecentTodos() {
   const recentTodos = [...todos]
     .sort((a, b) => Number(b.id) - Number(a.id))
     .slice(0, 4);
-  const { items, onToggleChecked } = useListItems(recentTodos);
+
+  const { handleToggle } = useToggleTodo();
+
   return (
     <div className="w-full">
       <h3 className="mb-2.5 flex flex-wrap items-center justify-between pr-3.5 pl-2 text-base font-medium sm:text-sm lg:text-lg xl:text-base">
@@ -54,7 +56,7 @@ export default function RecentTodos() {
           <ListItem
             className="grid gap-0.5 lg:gap-1.5"
             items={recentTodos}
-            onToggleChecked={onToggleChecked}
+            onToggleChecked={handleToggle}
             variant="white"
           />
         )}

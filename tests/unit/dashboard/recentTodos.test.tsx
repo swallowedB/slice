@@ -1,10 +1,16 @@
 import RecentTodos from "@/app/(protected)/(dashboard)/_components/recent/RecentTodos";
 import { renderWithQueryClient } from "../../test-utils";
 import { screen } from "@testing-library/react";
-import { useTodos } from "@/hooks/queries/todos";
+import { useTodosQuery, useToggleTodo } from "@/hooks/queries/todos";
 
-jest.mock("@/hooks/queries/todos");
-const mockedUseTodos = useTodos as jest.Mock;
+jest.mock("@/hooks/queries/todos", () => ({
+  useTodosQuery: jest.fn(),
+  useToggleTodo: () => ({
+    handleToggle: jest.fn(),
+  }),
+}));
+
+const mockedUseTodos = useTodosQuery as jest.Mock;
 
 describe("대시보드 최근 할 일 불러오기 컴포넌트 테스트입니다", () => {
   afterEach(() => {
