@@ -8,14 +8,16 @@ import GoalProgressCard from "./GoalProgressCard";
 import GoalNotesCard from "./GoalNotesCard";
 import Goal from "./Goal";
 
-export default function GoalContainer({ goalId }: { goalId: string }) {
-  const goalIdNum = Number(goalId);
+type DataIdProps = {
+  goalId: string;
+};
+
+export default function GoalContainer({ goalId }: DataIdProps) {
   const {
     data: goalData,
     isLoading: isGoalsLoading,
     isError: isGoalsError,
   } = useGoalList();
-
   const { todos, isLoading, isError } = useTodoList();
 
   const goals = goalData?.goals || [];
@@ -27,6 +29,7 @@ export default function GoalContainer({ goalId }: { goalId: string }) {
   const progress =
     totalCount > 0 ? Math.round((doneCount / totalCount) * 100) : 0;
 
+  const targetTodoId = goalTodos.length > 0 ? goalTodos[0].id : null;
   return (
     <>
       <PageHeader
@@ -44,7 +47,10 @@ export default function GoalContainer({ goalId }: { goalId: string }) {
 
           <div className="block sm:grid sm:grid-cols-2 sm:gap-x-5 lg:mt-5 lg:gap-x-5 xl:mt-5 xl:grid xl:grid-cols-2 2xl:mt-0">
             <GoalProgressCard percent={progress} />
-            <GoalNotesCard goalId={goalIdNum} />
+            <GoalNotesCard
+              goalId={goalId}
+              todoId={`${targetTodoId}`}
+            />
           </div>
         </div>
       </section>
