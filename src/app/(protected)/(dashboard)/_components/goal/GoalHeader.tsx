@@ -1,5 +1,5 @@
-import Todobutton from "@/app/(protected)/_components/todo-button/TodoButton";
-import ProgressBar from "../progress/ProgressBar";
+import TodoButton from "@/app/(protected)/_components/todo-button/TodoButton";
+import ProgressBar from "../todos/progress/ProgressBar";
 import { ChevronDownIcon, PlusIcon } from "@heroicons/react/24/outline";
 
 type GoalHeaderProps = {
@@ -26,7 +26,7 @@ export default function GoalHeader({
       </div>
 
       <div className="flex pr-2.5 sm:ml-auto lg:mt-4 xl:mt-0">
-        <Todobutton />
+        <TodoButton />
 
         <button
           onClick={onToggle}

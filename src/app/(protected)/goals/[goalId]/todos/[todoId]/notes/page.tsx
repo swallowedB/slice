@@ -1,16 +1,26 @@
 import PageHeader from "@/app/(protected)/_components/layout/PageHeader";
-import NoteList from "./_components/NoteList";
-import SectionHeader from "./_components/SectionHeader";
+import NoteListContainer from "./_components/NoteListContainer";
 
-export default async function NotesPage() {
+interface NotesPageProps {
+  params: Promise<{
+    goalId: string;
+    todoId: string;
+  }>;
+}
+
+export default async function NotesPage({ params }: NotesPageProps) {
+  const { goalId, todoId } = await params;
+
   return (
     <section className="h-screen">
       <PageHeader
         title="노트 모아보기"
         desktopClassName="sm:mb-14"
       />
-      <SectionHeader />
-      <NoteList />
+      <NoteListContainer
+        goalId={Number(goalId)}
+        todoId={Number(todoId)}
+      />
     </section>
   );
 }

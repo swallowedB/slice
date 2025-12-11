@@ -7,6 +7,7 @@ import Dropdown, { DropdownItem } from "../../dropdown/Dropdown";
 import { ListActionType, ListItemVariant } from "../list-item/types";
 import ConfirmModal from "../../popup-modal/ConfirmModal";
 import { ACTION_ICON_MAP } from "./constants/listItemActions";
+import { useDropdown } from "@/hooks/useDropdown";
 
 type ListItemActionsProps = {
   id: number;
@@ -20,56 +21,29 @@ export default function ListItemActions({
   variant = "default",
   actions = [],
 }: ListItemActionsProps) {
-  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const {
+    open: dropdownOpen,
+    toggle: toggleDropdown,
+    close: closeDropdown,
+    dropdownRef,
+    triggerRef,
+  } = useDropdown<HTMLDivElement>();
+
   const [confirmOpen, setConfirmOpen] = useState(false);
   const deleteTodo = useDeleteMutation();
-
-  // 외부 클릭 + ESC 닫기
-  useEffect(() => {
-    if (!dropdownOpen) return;
-
-    const handleClose = (e: MouseEvent | KeyboardEvent) => {
-      if ("key" in e && e.key === "Escape") {
-        setDropdownOpen(false);
-        return;
-      }
-
-      const target = e.target as Node;
-      if (
-        !dropdownRef.current?.contains(target) &&
-        !kebabRef.current?.contains(target)
-      ) {
-        setDropdownOpen(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClose);
-    document.addEventListener("keydown", handleClose);
-    return () => {
-      document.removeEventListener("mousedown", handleClose);
-      document.removeEventListener("keydown", handleClose);
-    };
-  }, [dropdownOpen]);
-  const dropdownRef = useRef<HTMLDivElement>(null);
-  const kebabRef = useRef<HTMLDivElement>(null);
 
   if (!actions.length) return null;
 
   const iconActions = actions.filter((a) => a.type !== "more");
   const hasMore = actions.some((a) => a.type === "more");
 
-  const onToggleDropdown = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    setDropdownOpen((prev) => !prev);
-  };
-
   const dropdownItems: DropdownItem[] = [
-    { text: "노트 작성하기", onClick: () => setDropdownOpen(false) },
-    { text: "수정하기", onClick: () => setDropdownOpen(false) },
+    { text: "노트 작성하기", onClick: () => closeDropdown() },
+    { text: "수정하기", onClick: () => closeDropdown() },
     {
       text: "삭제하기",
       onClick: () => {
-        setDropdownOpen(false);
+        toggleDropdown();
         setConfirmOpen(true);
       },
     },
@@ -95,17 +69,16 @@ export default function ListItemActions({
 
         {/* Kebab 버튼 */}
         {hasMore && (
-          <div ref={kebabRef}>
+          <div ref={triggerRef}>
             <ListItemButton
               icon={ACTION_ICON_MAP.more.icon}
               className={ACTION_ICON_MAP.more.buttonClassName}
               variant={variant}
-              onClick={onToggleDropdown}
+              onClick={toggleDropdown}
             />
           </div>
         )}
 
-        {/* Dropdown */}
         {dropdownOpen && (
           <div
             ref={dropdownRef}

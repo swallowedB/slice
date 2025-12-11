@@ -2,7 +2,7 @@
 import ListItem from "@/components/common/list/list-item/ListItem";
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
-import { useTodoList } from "../../_hooks/useTodoList";
+import { useTodoList } from "../../../../_hooks/useTodoList";
 import { useToggleTodo } from "@/hooks/queries/todos";
 
 export default function RecentTodos() {
