@@ -1,9 +1,9 @@
 "use client";
 import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
-import { useLogin } from "../../../../hooks/queries/useLogin";
-import { AuthFieldErrors, LoginFormValues } from "../../../../types/authForm";
-import { validateLogin } from "../../../../utils/validation/forms/validateLogin";
+import { useLoginMutation } from "@/hooks/queries/auth";
+import { validateLogin } from "@/utils/validation/forms/validateLogin";
+import { AuthFieldErrors, LoginFormValues } from "@/types/authForm";
 
 const LOGIN_FORM_INITIAL = {
   email: "",
@@ -14,7 +14,7 @@ const LOGIN_ERROR_INITIAL: AuthFieldErrors<LoginFormValues> = {};
 
 export function useLoginForm() {
   const router = useRouter();
-  const { mutate: login, isPending } = useLogin();
+  const { mutate: login, isPending } = useLoginMutation();
 
   const [form, setForm] = useState(LOGIN_FORM_INITIAL);
   const [errors, setErrors] = useState(LOGIN_ERROR_INITIAL);
