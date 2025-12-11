@@ -1,14 +1,17 @@
 "use client";
 
-import { useRouter, useSearchParams } from "next/navigation";
+//import { useRouter, useSearchParams } from "next/navigation";
+import { useState, useEffect } from "react";
 
 import GoalSelect from "./GoalSelect";
 import ListItem from "@/components/common/list/list-item/ListItem";
 import EmptyListContent from "./EmptyListContent";
+
 import { useListItems } from "@/hooks/useListItems";
 import { useGoalList } from "@/hooks/queries/goals/useGoalList";
-import { Goal } from "@/api/types/goal";
 import { useTodosQuery } from "@/hooks/queries/todos";
+
+import { Goal } from "@/api/types/goal";
 import { Todo } from "@/api/types/todo";
 
 export default function TodosContent({
@@ -16,10 +19,12 @@ export default function TodosContent({
 }: {
   tab: "ALL" | "TODO" | "DONE";
 }) {
-  const router = useRouter();
-  const searchParams = useSearchParams();
+  const [goal, setGoal] = useState<Goal | null>(null);
 
-  const selectedGoalId = searchParams.get("goal");
+  // const router = useRouter();
+  // const searchParams = useSearchParams();
+  // const selectedGoalId = searchParams.get("goal");
+  const [selectedGoalId, setSelectedGoalId] = useState<number | null>(null);
   const goalId = selectedGoalId ? Number(selectedGoalId) : null;
 
   const {
@@ -41,7 +46,7 @@ export default function TodosContent({
     ? todos.filter((todo) => todo.goal?.id === goalId)
     : todos;
 
-  const foundGoal = goals.find((goal) => goal.id === goalId) || null;
+  // const found = goals.find((goal) => goal.id === goalId) || null;
 
   const initialItems = filteredTodos.map((todo) => ({
     id: todo.id,
@@ -75,10 +80,12 @@ export default function TodosContent({
           <GoalSelect
             goals={goals.map((goal) => goal.title)}
             title="목표를 선택하세요."
-            value={foundGoal?.title ?? ""}
+            value={goal?.title ?? ""}
             onSelect={(title) => {
               const found = goals.find((goal) => goal.title === title) || null;
-              router.push(`/todos?goal=${found?.id}`);
+              setSelectedGoalId(found?.id ?? null);
+              setGoal(found);
+              //router.push(`/todos?goal=${found?.id}`);
             }}
           />
           <div className="mt-4">
