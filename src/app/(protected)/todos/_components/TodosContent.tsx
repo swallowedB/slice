@@ -21,19 +21,13 @@ export default function TodosContent({
 
   const selectedGoalId = searchParams.get("goal");
   const goalId = selectedGoalId ? Number(selectedGoalId) : null;
-  //const [selectedGoalId, setSelectedGoalId] = useState<number | null>(null);
 
-  // const [goal, setGoal] = useState<Goal | null>(null);
-
-  // ⭕️ 목표 리스트랑 할일이랑 나누기
-  // Goal 관련은 goalSelect안에 넣어버리기
   const {
     data: goalData,
     isLoading: isGoalsLoading,
     isError: isGoalsError,
   } = useGoalList();
 
-  // 할일 목록 조회
   const {
     data: todoData,
     isLoading: isTodoLoading,
@@ -46,6 +40,8 @@ export default function TodosContent({
   const filteredTodos = goalId
     ? todos.filter((todo) => todo.goal?.id === goalId)
     : todos;
+
+  const foundGoal = goals.find((goal) => goal.id === goalId) || null;
 
   const initialItems = filteredTodos.map((todo) => ({
     id: todo.id,
@@ -70,10 +66,8 @@ export default function TodosContent({
   if (isGoalsLoading || isTodoLoading) return <div>로딩 중..</div>;
   if (isGoalsError || isTodoError) return <div>🚨에러</div>;
 
-  const foundGoal = goals.find((goal) => goal.id === goalId) || null;
-
   return (
-    <div className="flex flex-col rounded-2xl bg-white px-4 pt-4 pb-8">
+    <div className="flex flex-col rounded-2xl bg-white px-4 pt-4 pb-6 sm:h-160 lg:h-240">
       {filtered.length === 0 ? (
         <EmptyListContent tab={tab} />
       ) : (
@@ -84,8 +78,6 @@ export default function TodosContent({
             value={foundGoal?.title ?? ""}
             onSelect={(title) => {
               const found = goals.find((goal) => goal.title === title) || null;
-              //setSelectedGoalId(found?.id ?? null);
-              //setGoal(found);
               router.push(`/todos?goal=${found?.id}`);
             }}
           />
