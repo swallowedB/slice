@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+
 import GoalSelect from "./GoalSelect";
 import ListItem from "@/components/common/list/list-item/ListItem";
 import EmptyListContent from "./EmptyListContent";
@@ -15,10 +16,17 @@ export default function TodosContent({
 }: {
   tab: "ALL" | "TODO" | "DONE";
 }) {
-  const [goal, setGoal] = useState<Goal | null>(null);
-  const [selectedGoalId, setSelectedGoalId] = useState<number | null>(null);
+  const router = useRouter();
+  const searchParams = useSearchParams();
 
-  // 목표 리스트 조회
+  const selectedGoalId = searchParams.get("goal");
+  const goalId = selectedGoalId ? Number(selectedGoalId) : null;
+  //const [selectedGoalId, setSelectedGoalId] = useState<number | null>(null);
+
+  // const [goal, setGoal] = useState<Goal | null>(null);
+
+  // ⭕️ 목표 리스트랑 할일이랑 나누기
+  // Goal 관련은 goalSelect안에 넣어버리기
   const {
     data: goalData,
     isLoading: isGoalsLoading,
@@ -35,8 +43,8 @@ export default function TodosContent({
   const goals: Goal[] = goalData?.goals ?? [];
   const todos: Todo[] = todoData?.todos ?? [];
 
-  const filteredTodos = selectedGoalId
-    ? todos.filter((todo) => todo.goal?.id == selectedGoalId)
+  const filteredTodos = goalId
+    ? todos.filter((todo) => todo.goal?.id === goalId)
     : todos;
 
   const initialItems = filteredTodos.map((todo) => ({
@@ -62,6 +70,8 @@ export default function TodosContent({
   if (isGoalsLoading || isTodoLoading) return <div>로딩 중..</div>;
   if (isGoalsError || isTodoError) return <div>🚨에러</div>;
 
+  const foundGoal = goals.find((goal) => goal.id === goalId) || null;
+
   return (
     <div className="flex flex-col rounded-2xl bg-white px-4 pt-4 pb-8">
       {filtered.length === 0 ? (
@@ -69,13 +79,14 @@ export default function TodosContent({
       ) : (
         <>
           <GoalSelect
-            goals={goals.map((g) => g.title)}
+            goals={goals.map((goal) => goal.title)}
             title="목표를 선택하세요."
-            value={goal?.title ?? ""}
+            value={foundGoal?.title ?? ""}
             onSelect={(title) => {
-              const found = goals.find((g) => g.title === title) || null;
-              setGoal(found);
-              setSelectedGoalId(found?.id ?? null);
+              const found = goals.find((goal) => goal.title === title) || null;
+              //setSelectedGoalId(found?.id ?? null);
+              //setGoal(found);
+              router.push(`/todos?goal=${found?.id}`);
             }}
           />
           <div className="mt-4">
