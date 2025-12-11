@@ -24,8 +24,7 @@ export default function ListItemButton({
     <button
       type="button"
       className={listButtonClasses}
-      {...props} // onClick 포함 모든 속성 전달
-    >
+      {...props}>
       {icon}
     </button>
   );

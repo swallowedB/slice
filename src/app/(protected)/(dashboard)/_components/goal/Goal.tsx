@@ -3,7 +3,7 @@
 import EmptyState from "@/components/common/empty-state/EmptyState";
 import GoalCard from "./GoalCard";
 import { EMPTY_MESSAGES } from "@/constants/messages";
-import { useTodoList } from "../../_hooks/useTodoList";
+import { useTodoList } from "../../../_hooks/useTodoList";
 import { ListGoalType } from "@/components/common/list/list-item/types";
 import { useEffect, useState } from "react";
 

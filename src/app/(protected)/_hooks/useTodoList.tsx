@@ -1,9 +1,8 @@
-import { useTodosQuery } from "@/hooks/queries/todos";
 import { ListTodoType } from "@/components/common/list/list-item/types";
+import { useTodosQuery } from "@/hooks/queries/todos/useTodosQuery";
 
 export function useTodoList() {
   const { data, isLoading, isError } = useTodosQuery();
-
   const todos: ListTodoType[] =
     data?.todos?.map((t) => ({
       id: t.id,
