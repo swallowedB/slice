@@ -1,10 +1,9 @@
 "use client";
+import { useLoginMutation, useSignupMutation } from "@/hooks/queries/auth";
+import { AuthFieldErrors, SignupFormValues } from "@/types/authForm";
+import { validateSignup } from "@/utils/validation/forms/validateSignup";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { useLogin } from "../../../../hooks/queries/useLogin";
-import { useSignup } from "../../../../hooks/queries/useSignup";
-import { AuthFieldErrors, SignupFormValues } from "../../../../types/authForm";
-import { validateSignup } from "../../../../utils/validation/forms/validateSignup";
 
 const INITIAL_FORM: SignupFormValues = {
   name: "",
@@ -21,8 +20,8 @@ export function useSignupForm() {
   const [errors, setErrors] =
     useState<AuthFieldErrors<SignupFormValues>>(INITIAL_ERRORS);
 
-  const { mutate, isPending } = useSignup();
-  const { mutate: loginMutate, isPending: isLoginPending } = useLogin();
+  const { mutate, isPending } = useSignupMutation();
+  const { mutate: loginMutate, isPending: isLoginPending } = useLoginMutation();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;

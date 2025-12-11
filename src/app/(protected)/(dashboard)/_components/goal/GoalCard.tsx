@@ -4,7 +4,7 @@ import EmptyState from "@/components/common/empty-state/EmptyState";
 import GoalHeader from "./GoalHeader";
 import GoalTodoBox from "./GoalTodoBox";
 import { EMPTY_MESSAGES } from "@/constants/messages";
-import { useListItems } from "@/hooks/useListItems";
+import { useToggleTodo } from "@/hooks/queries/todos";
 type GoalCardProps = {
   title: string;
   percent: number;
@@ -25,14 +25,14 @@ export default function GoalCard({
   cardStyles,
 }: GoalCardProps) {
   const allItems = [...todoItems, ...doneItems];
-  const { items, onToggleChecked } = useListItems(allItems);
+  const { handleToggle } = useToggleTodo();
 
   if (!title) return null;
 
   const noTodos = todoItems.length === 0 && doneItems.length === 0;
 
-  const todoState = items.filter((item) => !item.checked);
-  const doneState = items.filter((item) => item.checked);
+  const todoState = allItems.filter((item) => !item.checked);
+  const doneState = allItems.filter((item) => item.checked);
   return (
     <div
       className={`${cardStyles} ${isOpen ? "sm:pb-4" : "pb-13.5 sm:pb-7.5"}`}>
@@ -55,7 +55,7 @@ export default function GoalCard({
             <ListItem
               className="grid sm:gap-0.5 lg:gap-1"
               items={todoState}
-              onToggleChecked={onToggleChecked}
+              onToggleChecked={handleToggle}
             />
           </GoalTodoBox>
           <GoalTodoBox
@@ -64,7 +64,7 @@ export default function GoalCard({
             <ListItem
               className="grid sm:gap-0.5 lg:gap-1"
               items={doneState}
-              onToggleChecked={onToggleChecked}
+              onToggleChecked={handleToggle}
             />
           </GoalTodoBox>
         </div>

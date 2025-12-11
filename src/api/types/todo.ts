@@ -19,3 +19,8 @@ export interface Todo {
   updatedAt: string;
   createdAt: string;
 }
+
+export interface UpdateTodo {
+  id?: number;
+  done?: boolean;
+}

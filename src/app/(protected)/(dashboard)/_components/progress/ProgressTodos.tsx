@@ -1,9 +1,9 @@
 "use client";
 import Progress from "@/components/progress/Progress";
-import { useProgressTodos } from "@/hooks/queries/todos/useProgressTodosQuery";
+import { useProgressTodosQuery } from "@/hooks/queries/todos/useProgressTodosQuery";
 
 export default function ProgressTodos() {
-  const { data, isLoading, isError } = useProgressTodos();
+  const { data, isLoading, isError } = useProgressTodosQuery();
 
   return (
     <div className="mt-7.5 w-full sm:mt-0">

@@ -1,10 +1,10 @@
 import ProgressTodos from "@/app/(protected)/(dashboard)/_components/progress/ProgressTodos";
 import { renderWithQueryClient } from "../../test-utils";
 import { screen } from "@testing-library/react";
-import { useProgressTodos } from "@/hooks/queries/todos";
+import { useProgressTodosQuery } from "@/hooks/queries/todos";
 
 jest.mock("@/hooks/queries/todos/useProgressTodosQuery");
-const mockedUseProgress = useProgressTodos as jest.Mock;
+const mockedUseProgress = useProgressTodosQuery as jest.Mock;
 
 describe("대시보드 내 진행 상황 퍼센트 테스트입니다", () => {
   afterEach(() => {

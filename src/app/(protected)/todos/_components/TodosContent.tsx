@@ -8,7 +8,7 @@ import EmptyListContent from "./EmptyListContent";
 import { useListItems } from "@/hooks/useListItems";
 import { useGoalList } from "@/hooks/queries/goals/useGoalList";
 import { Goal } from "@/api/types/goal";
-import { useTodos } from "@/hooks/queries/todos";
+import { useTodosQuery } from "@/hooks/queries/todos";
 import { Todo } from "@/api/types/todo";
 
 export default function TodosContent({
@@ -38,7 +38,7 @@ export default function TodosContent({
     data: todoData,
     isLoading: isTodoLoading,
     isError: isTodoError,
-  } = useTodos();
+  } = useTodosQuery();
 
   const goals: Goal[] = goalData?.goals ?? [];
   const todos: Todo[] = todoData?.todos ?? [];
