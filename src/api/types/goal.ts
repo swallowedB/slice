@@ -12,3 +12,7 @@ export interface Goal {
   userId: number;
   teamId: number;
 }
+
+export interface UpdateGoal {
+  title?: string;
+}
