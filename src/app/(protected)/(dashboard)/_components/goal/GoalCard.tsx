@@ -42,11 +42,9 @@ export default function GoalCard({
         percent={percent}
         onToggle={onToggle}
       />
-      {/* 목표는 있고, 등록된 할 일이 없는 상태 */}
       {noTodos && isOpen && (
         <EmptyState>{EMPTY_MESSAGES.GOAL.RECENT}</EmptyState>
       )}
-      {/* 목표 있고, 할일도 있고, isOpen이면 출력 */}
       {!noTodos && isOpen && (
         <div className="mt-6.5 grid grid-cols-1 sm:mt-11 sm:grid-cols-2 sm:gap-2 lg:mt-4 lg:gap-8">
           <GoalTodoBox

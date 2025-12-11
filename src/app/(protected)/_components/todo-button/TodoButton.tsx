@@ -4,7 +4,7 @@ import { PlusIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
 import TodoFormContent from "../todo-modal/_components/TodoFormContent";
 
-export default function Todobutton() {
+export default function TodoButton() {
   const [isOpenTodoModal, setIsOpenTodoModal] = useState(false);
   const handleTodoOpen = () => {
     setIsOpenTodoModal(true);
