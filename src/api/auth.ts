@@ -6,10 +6,10 @@ import {
   SignupResponse,
 } from "./types/auth";
 
-export async function signup(payload: SignupRequest) {
+export async function signup(body: SignupRequest) {
   return await fetcher<SignupResponse>("/user", {
     method: "POST",
-    body: JSON.stringify(payload),
+    body: JSON.stringify(body),
   });
 }
 

@@ -22,12 +22,7 @@ export default function NavigationGoalSection() {
 
   return (
     <section>
-      <NavigationLink
-        title="목표"
-        href="/goal/1"
-        icon={<FlagIcon className="h-6 w-6 opacity-90" />}
-        isActive={false}
-      />
+
 
       {/* 목표 리스트 */}
       <ul className="flex flex-col items-start text-sm">

@@ -1,6 +1,6 @@
 "use client";
-import Button from "../../../../components/common/button/Button";
-import FormField from "../../_components/FormField";
+import FormField from "@/app/(auth)/_components/FormField";
+import Button from "@/components/common/button/Button";
 import { useLoginForm } from "../_hooks/useLoginForm";
 
 export default function LoginForm() {
