@@ -48,16 +48,14 @@ export default function GoalSelect({
 
       {/* 하위 리스트 */}
       {open && (
-        <div className="rounded-b-3xl border border-t-0 border-gray-200 bg-white px-2">
-          <SelectBox
-            variant="sidebar"
-            items={goals}
-            onSelect={(item) => {
-              onSelect(item);
-              setOpen(false);
-            }}
-          />
-        </div>
+        <SelectBox
+          variant="sidebar"
+          items={goals}
+          onSelect={(item) => {
+            onSelect(item);
+            setOpen(false);
+          }}
+        />
       )}
     </div>
   );
