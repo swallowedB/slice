@@ -7,12 +7,14 @@ import GoalHeader from "./GoalHeader";
 import GoalProgressCard from "./GoalProgressCard";
 import GoalNotesCard from "./GoalNotesCard";
 import Goal from "./Goal";
+import { useAuthStore } from "@/store/useAuthStore";
 
 type DataIdProps = {
   goalId: string;
 };
 
 export default function GoalContainer({ goalId }: DataIdProps) {
+  const nickname = useAuthStore((state) => state.user?.name ?? "");
   const {
     data: goalData,
     isLoading: isGoalsLoading,
@@ -33,7 +35,7 @@ export default function GoalContainer({ goalId }: DataIdProps) {
   return (
     <>
       <PageHeader
-        title={`체다치즈님의 목표`}
+        title={`${nickname} 목표`}
         desktopClassName="sm:mb-8.5"
       />
 
