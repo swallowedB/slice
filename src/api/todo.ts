@@ -13,3 +13,9 @@ export async function updateTodos(id: number, payload: UpdateTodo) {
     body: JSON.stringify(payload),
   });
 }
+
+export async function deleteTodos(id: number) {
+  return fetcher(`/todos/${id}`, {
+    method: "DELETE",
+  });
+}

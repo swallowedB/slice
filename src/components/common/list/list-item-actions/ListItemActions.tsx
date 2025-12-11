@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useDeleteMutation } from "@/hooks/queries/todos/useDeleteMutation";
 import ListItemButton from "../list-button/ListItemButton";
 import Dropdown, { DropdownItem } from "../../dropdown/Dropdown";
 import { ListActionType, ListItemVariant } from "../list-item/types";
@@ -18,10 +19,10 @@ export default function ListItemActions({
   id,
   variant = "default",
   actions = [],
-  onDeleteTodo,
 }: ListItemActionsProps) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [confirmOpen, setConfirmOpen] = useState(false);
+  const deleteTodo = useDeleteMutation();
 
   // 외부 클릭 + ESC 닫기
   useEffect(() => {
@@ -122,7 +123,7 @@ export default function ListItemActions({
           onClose={() => setConfirmOpen(false)}
           onConfirm={() => {
             setConfirmOpen(false);
-            onDeleteTodo?.(id);
+            deleteTodo.mutate({ id });
           }}
         />
       </div>
