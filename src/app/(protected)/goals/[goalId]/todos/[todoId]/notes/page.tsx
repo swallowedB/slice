@@ -9,7 +9,7 @@ interface NotesPageProps {
 }
 
 export default async function NotesPage({ params }: NotesPageProps) {
-  const { goalId } = await params;
+  const { goalId, todoId } = await params;
 
   return (
     <section className="h-screen">
@@ -17,7 +17,10 @@ export default async function NotesPage({ params }: NotesPageProps) {
         title="노트 모아보기"
         desktopClassName="sm:mb-14"
       />
-      <NoteListContainer goalId={Number(goalId)} />
+      <NoteListContainer
+        goalId={Number(goalId)}
+        todoId={Number(todoId)}
+      />
     </section>
   );
 }

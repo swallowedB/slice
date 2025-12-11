@@ -8,12 +8,18 @@ import NoteList from "./NoteList";
 import NoteDetailModal from "./NoteDetailModal";
 import ConfirmModal from "@/components/common/popup-modal/ConfirmModal";
 import GoalBanner from "./GoalBanner";
+import { useRouter } from "next/navigation";
 
 interface NoteListContainerProps {
   goalId: number;
+  todoId: number;
 }
 
-export default function NoteListContainer({ goalId }: NoteListContainerProps) {
+export default function NoteListContainer({
+  goalId,
+  todoId,
+}: NoteListContainerProps) {
+  const router = useRouter();
   const { data, isLoading, error } = useNotesQuery(goalId);
   const [selectedNoteId, setSelectedNoteId] = useState<number | null>(null);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
@@ -23,7 +29,7 @@ export default function NoteListContainer({ goalId }: NoteListContainerProps) {
   };
 
   const handleNoteEdit = (id: number) => {
-    // TODO: 노트 수정 페이지로 이동
+    router.push(`/goals/${goalId}/todos/${todoId}/notes/${id}/edit`);
   };
 
   const handleNoteDelete = (id: number) => {
