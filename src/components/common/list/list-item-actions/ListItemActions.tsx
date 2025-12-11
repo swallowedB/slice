@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useDeleteMutation } from "@/hooks/queries/todos/useDeleteMutation";
 import ListItemButton from "../list-button/ListItemButton";
 import Dropdown, { DropdownItem } from "../../dropdown/Dropdown";
 import { ListActionType, ListItemVariant } from "../list-item/types";
@@ -19,7 +20,6 @@ export default function ListItemActions({
   id,
   variant = "default",
   actions = [],
-  onDeleteTodo,
 }: ListItemActionsProps) {
   const {
     open: dropdownOpen,
@@ -30,6 +30,7 @@ export default function ListItemActions({
   } = useDropdown<HTMLDivElement>();
 
   const [confirmOpen, setConfirmOpen] = useState(false);
+  const deleteTodo = useDeleteMutation();
 
   if (!actions.length) return null;
 
@@ -95,7 +96,7 @@ export default function ListItemActions({
           onClose={() => setConfirmOpen(false)}
           onConfirm={() => {
             setConfirmOpen(false);
-            onDeleteTodo?.(id);
+            deleteTodo.mutate({ id });
           }}
         />
       </div>

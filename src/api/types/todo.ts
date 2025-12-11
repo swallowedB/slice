@@ -24,3 +24,7 @@ export interface UpdateTodo {
   id?: number;
   done?: boolean;
 }
+
+export interface DeleteTodo {
+  id: number;
+}

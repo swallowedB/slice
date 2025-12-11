@@ -1,13 +1,17 @@
 "use client";
 
-import { useState } from "react";
+//import { useRouter, useSearchParams } from "next/navigation";
+import { useState, useEffect } from "react";
+
 import GoalSelect from "./GoalSelect";
 import ListItem from "@/components/common/list/list-item/ListItem";
 import EmptyListContent from "./EmptyListContent";
+
 import { useListItems } from "@/hooks/useListItems";
 import { useGoalList } from "@/hooks/queries/goals/useGoalList";
-import { Goal } from "@/api/types/goal";
 import { useTodosQuery } from "@/hooks/queries/todos";
+
+import { Goal } from "@/api/types/goal";
 import { Todo } from "@/api/types/todo";
 
 export default function TodosContent({
@@ -16,16 +20,19 @@ export default function TodosContent({
   tab: "ALL" | "TODO" | "DONE";
 }) {
   const [goal, setGoal] = useState<Goal | null>(null);
-  const [selectedGoalId, setSelectedGoalId] = useState<number | null>(null);
 
-  // 목표 리스트 조회
+  // const router = useRouter();
+  // const searchParams = useSearchParams();
+  // const selectedGoalId = searchParams.get("goal");
+  const [selectedGoalId, setSelectedGoalId] = useState<number | null>(null);
+  const goalId = selectedGoalId ? Number(selectedGoalId) : null;
+
   const {
     data: goalData,
     isLoading: isGoalsLoading,
     isError: isGoalsError,
   } = useGoalList();
 
-  // 할일 목록 조회
   const {
     data: todoData,
     isLoading: isTodoLoading,
@@ -35,9 +42,11 @@ export default function TodosContent({
   const goals: Goal[] = goalData?.goals ?? [];
   const todos: Todo[] = todoData?.todos ?? [];
 
-  const filteredTodos = selectedGoalId
-    ? todos.filter((todo) => todo.goal?.id == selectedGoalId)
+  const filteredTodos = goalId
+    ? todos.filter((todo) => todo.goal?.id === goalId)
     : todos;
+
+  // const found = goals.find((goal) => goal.id === goalId) || null;
 
   const initialItems = filteredTodos.map((todo) => ({
     id: todo.id,
@@ -63,19 +72,20 @@ export default function TodosContent({
   if (isGoalsError || isTodoError) return <div>🚨에러</div>;
 
   return (
-    <div className="flex flex-col rounded-2xl bg-white px-4 pt-4 pb-8">
+    <div className="flex flex-col rounded-2xl bg-white px-4 pt-4 pb-6 sm:h-160 lg:h-240">
       {filtered.length === 0 ? (
         <EmptyListContent tab={tab} />
       ) : (
         <>
           <GoalSelect
-            goals={goals.map((g) => g.title)}
+            goals={goals.map((goal) => goal.title)}
             title="목표를 선택하세요."
             value={goal?.title ?? ""}
             onSelect={(title) => {
-              const found = goals.find((g) => g.title === title) || null;
-              setGoal(found);
+              const found = goals.find((goal) => goal.title === title) || null;
               setSelectedGoalId(found?.id ?? null);
+              setGoal(found);
+              //router.push(`/todos?goal=${found?.id}`);
             }}
           />
           <div className="mt-4">
