@@ -12,5 +12,9 @@ export interface Note {
 export interface Notes {
   totalCount: number;
   nextCursor: number | null;
+  goal: {
+    id: number;
+    title: string;
+  };
   notes: Note[];
 }

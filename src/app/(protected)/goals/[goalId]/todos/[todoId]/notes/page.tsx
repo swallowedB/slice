@@ -1,5 +1,4 @@
 import PageHeader from "@/app/(protected)/_components/layout/PageHeader";
-import SectionHeader from "./_components/SectionHeader";
 import NoteListContainer from "./_components/NoteListContainer";
 
 interface NotesPageProps {
@@ -18,7 +17,6 @@ export default async function NotesPage({ params }: NotesPageProps) {
         title="노트 모아보기"
         desktopClassName="sm:mb-14"
       />
-      <SectionHeader />
       <NoteListContainer goalId={Number(goalId)} />
     </section>
   );

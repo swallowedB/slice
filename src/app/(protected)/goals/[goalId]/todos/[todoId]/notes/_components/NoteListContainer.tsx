@@ -7,6 +7,7 @@ import { EMPTY_MESSAGES } from "@/constants/messages";
 import NoteList from "./NoteList";
 import NoteDetailModal from "./NoteDetailModal";
 import ConfirmModal from "@/components/common/popup-modal/ConfirmModal";
+import GoalBanner from "./GoalBanner";
 
 interface NoteListContainerProps {
   goalId: number;
@@ -41,6 +42,7 @@ export default function NoteListContainer({ goalId }: NoteListContainerProps) {
 
   return (
     <>
+      <GoalBanner title={data.goal.title} />
       <NoteList
         notes={data.notes}
         onClickNote={handleNoteClick}
