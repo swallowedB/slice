@@ -27,13 +27,5 @@ export function AuthGuard({ children }: { children: ReactNode }) {
     }
   }, [hydrated, user, pathname, router]);
 
-  if (!hydrated) {
-    return (
-      <div className="flex min-h-screen items-center justify-center text-sm text-gray-500">
-        Loading...
-      </div>
-    );
-  }
-
   return <>{children}</>;
 }

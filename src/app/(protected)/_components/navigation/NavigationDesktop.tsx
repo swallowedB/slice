@@ -1,9 +1,9 @@
 "use client";
 
+import ModalBackground from "@/components/common/popup-modal/ModalBackground";
+import { useDeviceSize } from "@/hooks/useDeviceSize";
 import { ChevronDoubleLeftIcon } from "@heroicons/react/24/outline";
 import { useEffect, useState } from "react";
-import ModalBackground from "../../../../components/common/popup-modal/ModalBackground";
-import { useDeviceSize } from "../../../../hooks/useDeviceSize";
 import NavigationActions from "./_components/NavigationActions";
 import NavigationLogout from "./_components/NavigationLogout";
 import NavigationMenu from "./_components/NavigationMenu";
@@ -14,7 +14,7 @@ export default function NavigationDesktop() {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-    useEffect(() => {
+  useEffect(() => {
     if (isTablet) {
       setIsModalOpen(false);
       setIsCollapsed(true);
