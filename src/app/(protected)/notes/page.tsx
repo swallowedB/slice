@@ -2,14 +2,14 @@ import PageHeader from "@/app/(protected)/_components/layout/PageHeader";
 import NoteListContainer from "./_components/NoteListContainer";
 
 interface NotesPageProps {
-  params: Promise<{
+  searchParams: Promise<{
     goalId: string;
     todoId: string;
   }>;
 }
 
-export default async function NotesPage({ params }: NotesPageProps) {
-  const { goalId, todoId } = await params;
+export default async function NotesPage({ searchParams }: NotesPageProps) {
+  const { goalId, todoId } = await searchParams;
 
   return (
     <section className="h-screen">
