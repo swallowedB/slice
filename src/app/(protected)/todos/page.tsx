@@ -5,6 +5,7 @@ import TodosContent from "./_components/TodosContent";
 import { useState } from "react";
 import TodosLayout from "./_components/TodosLayout";
 import MobileHeader from "@/app/(protected)/_components/layout/MobileHeader";
+import { Suspense } from "react";
 
 export default function TodosPage() {
   const [tab, setTab] = useState<"ALL" | "TODO" | "DONE">("ALL");
@@ -22,7 +23,10 @@ export default function TodosPage() {
           onAdd={() => console.log("할 일 추가")}
           className="mb-3"
         />
-        <TodosContent tab={tab} />
+
+        <Suspense>
+          <TodosContent tab={tab} />
+        </Suspense>
       </TodosLayout>
     </section>
   );

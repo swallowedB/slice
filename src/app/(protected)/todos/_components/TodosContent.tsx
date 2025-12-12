@@ -1,7 +1,7 @@
 "use client";
 
-//import { useRouter, useSearchParams } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useState } from "react";
 
 import GoalSelect from "./GoalSelect";
 import ListItem from "@/components/common/list/list-item/ListItem";
@@ -21,10 +21,9 @@ export default function TodosContent({
 }) {
   const [goal, setGoal] = useState<Goal | null>(null);
 
-  // const router = useRouter();
-  // const searchParams = useSearchParams();
-  // const selectedGoalId = searchParams.get("goal");
-  const [selectedGoalId, setSelectedGoalId] = useState<number | null>(null);
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const selectedGoalId = searchParams.get("goal");
   const goalId = selectedGoalId ? Number(selectedGoalId) : null;
 
   const {
@@ -45,8 +44,6 @@ export default function TodosContent({
   const filteredTodos = goalId
     ? todos.filter((todo) => todo.goal?.id === goalId)
     : todos;
-
-  // const found = goals.find((goal) => goal.id === goalId) || null;
 
   const initialItems = filteredTodos.map((todo) => ({
     id: todo.id,
@@ -83,9 +80,8 @@ export default function TodosContent({
             value={goal?.title ?? ""}
             onSelect={(title) => {
               const found = goals.find((goal) => goal.title === title) || null;
-              setSelectedGoalId(found?.id ?? null);
               setGoal(found);
-              //router.push(`/todos?goal=${found?.id}`);
+              router.push(`/todos?goal=${found?.id}`);
             }}
           />
           <div className="mt-4">
