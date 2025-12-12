@@ -9,6 +9,7 @@ import NoteDetailModal from "./NoteDetailModal";
 import ConfirmModal from "@/components/common/popup-modal/ConfirmModal";
 import GoalBanner from "./GoalBanner";
 import { useRouter } from "next/navigation";
+import { useDeleteNoteMutation } from "@/hooks/queries/notes/useDeleteNoteMutaion";
 
 interface NoteListContainerProps {
   goalId: number;
@@ -20,8 +21,12 @@ export default function NoteListContainer({
   todoId,
 }: NoteListContainerProps) {
   const router = useRouter();
+
   const { data, isLoading, error } = useNotesQuery(goalId);
+  const { mutate: deleteNoteMutation } = useDeleteNoteMutation();
+
   const [selectedNoteId, setSelectedNoteId] = useState<number | null>(null);
+  const [deleteNoteId, setDeleteNoteId] = useState<number | null>(null);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
 
   const handleNoteClick = (id: number) => {
@@ -33,11 +38,26 @@ export default function NoteListContainer({
   };
 
   const handleNoteDelete = (id: number) => {
+    setDeleteNoteId(id);
     setIsDeleteModalOpen(true);
   };
 
   const handleDeleteConfirm = () => {
-    // TODO: 노트 삭제
+    if (deleteNoteId === null) return;
+
+    deleteNoteMutation(
+      { goalId, noteId: deleteNoteId },
+      {
+        onSuccess: () => {
+          setDeleteNoteId(null);
+          setIsDeleteModalOpen(false);
+
+          if (selectedNoteId === deleteNoteId) {
+            setSelectedNoteId(null);
+          }
+        },
+      },
+    );
   };
 
   if (isLoading) return <div>로딩 중...</div>;
