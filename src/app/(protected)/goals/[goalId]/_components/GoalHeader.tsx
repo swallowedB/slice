@@ -7,7 +7,7 @@ import { useDropdown } from "@/hooks/useDropdown";
 import { EllipsisVerticalIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
 import TextButton from "@/components/common/button/TextButton";
-import { useDeleteMutation } from "@/hooks/queries/goals/ussDeleteGoalMutation";
+import { useDeleteGoalMutation } from "@/hooks/queries/goals/ussDeleteGoalMutation";
 import ConfirmModal from "@/components/common/popup-modal/ConfirmModal";
 import { useRouter } from "next/navigation";
 
@@ -26,7 +26,7 @@ export default function GoalHeader({ goalId }: GoalHeaderProps) {
   const [editTitle, setEditTitle] = useState("");
 
   const { mutate: updateGoal } = useUpdateGoalMutation(numericGoalId);
-  const { mutate: deleteGoal } = useDeleteMutation(numericGoalId);
+  const { mutate: deleteGoal } = useDeleteGoalMutation();
   const {
     open: dropdownOpen,
     toggle: toggleDropdown,
@@ -65,15 +65,12 @@ export default function GoalHeader({ goalId }: GoalHeaderProps) {
   };
 
   const handleConfim = () => {
-    deleteGoal(
-      { goalId: numericGoalId },
-      {
-        onSuccess: () => {
-          setConfirmOpen(false);
-          router.push("/");
-        },
+    deleteGoal(numericGoalId, {
+      onSuccess: () => {
+        setConfirmOpen(false);
+        router.push("/");
       },
-    );
+    });
   };
   return (
     <div className="relative mb-4 flex items-center gap-3 rounded-2xl bg-white px-4 py-4 lg:mb-0">
