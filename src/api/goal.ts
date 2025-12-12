@@ -22,3 +22,9 @@ export async function updateGoal(
     body: JSON.stringify(payload),
   });
 }
+
+export async function deleteGoal(goalId: number) {
+  return fetcher(`/goals/${goalId}`, {
+    method: "DELETE",
+  });
+}
