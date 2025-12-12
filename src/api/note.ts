@@ -6,3 +6,9 @@ export function getNotes(goalId: number) {
     method: "GET",
   });
 }
+
+export function deleteNote(noteId: number) {
+  return fetcher(`/notes/${noteId}`, {
+    method: "DELETE",
+  });
+}
