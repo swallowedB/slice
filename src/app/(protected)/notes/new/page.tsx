@@ -63,6 +63,7 @@ export default function NoteNewPage() {
         },
 
         onError: (error) => {
+          console.error("노트 등록 실패:", error);
           // TODO: 고민
           alert("노트 등록에 실패했습니다.");
         },
