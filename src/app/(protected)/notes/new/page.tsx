@@ -14,14 +14,13 @@ export default function NoteNewPage() {
   const searchParams = useSearchParams();
   const todoId = searchParams.get("todoId");
 
-  const { mutate: createNoteMutation } = useCreateNoteMutation();
+  const { mutate: createNoteMutation, isPending } = useCreateNoteMutation();
 
   const [title, setTitle] = useState("");
   const [content, setContent] = useState<JSONContent | null>(null);
   const [linkUrl, setLinkUrl] = useState("");
 
-  // TODO:
-  const isDisabled = !title.trim() || !content;
+  const isDisabled = !title.trim() || !content || isPending;
 
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
