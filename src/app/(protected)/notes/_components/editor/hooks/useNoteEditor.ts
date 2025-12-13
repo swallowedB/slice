@@ -13,9 +13,16 @@ export function useNoteEditor(
     extensions: [
       StarterKit.configure({
         link: {
+          autolink: true,
           openOnClick: false,
           defaultProtocol: "https",
           protocols: ["http", "https"],
+          linkOnPaste: true,
+          HTMLAttributes: {
+            class: "text-orange-250 underline cursor-pointer",
+            rel: "noopener noreferrer",
+            target: "_blank",
+          },
         },
       }),
       Placeholder.configure({

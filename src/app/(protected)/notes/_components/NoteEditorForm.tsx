@@ -46,8 +46,7 @@ export default function NoteEditorForm({
   const countWithoutSpace = text.replace(/\s+/g, "").length;
 
   const handleOpenLinkModal = () => {
-    const currentUrl: string = editor.getAttributes("link").href || "";
-    setTempLinkUrl(currentUrl);
+    setTempLinkUrl(linkUrl);
     setIsLinkModalOpen(true);
   };
 
@@ -57,17 +56,6 @@ export default function NoteEditorForm({
   };
 
   const handleConfirmLink = () => {
-    if (linkUrl === "") {
-      editor.chain().focus().extendMarkRange("link").unsetLink().run();
-    } else {
-      editor
-        .chain()
-        .focus()
-        .extendMarkRange("link")
-        .setLink({ href: tempLinkUrl })
-        .run();
-    }
-
     onChangeLinkUrl(tempLinkUrl);
     handleCloseLinkModal();
   };
@@ -80,6 +68,7 @@ export default function NoteEditorForm({
             editor={editor}
             onClickLink={handleOpenLinkModal}
             isLinkModalOpen={isLinkModalOpen}
+            hasLinkUrl={!!linkUrl}
           />
         </div>
         <section className="mt-19 flex min-h-[75vh] flex-col rounded-4xl bg-white p-4 sm:mt-0 sm:min-h-[80vh] sm:p-8">
@@ -88,6 +77,7 @@ export default function NoteEditorForm({
               editor={editor}
               onClickLink={handleOpenLinkModal}
               isLinkModalOpen={isLinkModalOpen}
+              hasLinkUrl={!!linkUrl}
             />
           </div>
           <header className="border-b border-gray-100 pb-4 sm:py-7.5">
