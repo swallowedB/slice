@@ -34,7 +34,7 @@ export default function NoteListContainer({
   };
 
   const handleNoteEdit = (id: number) => {
-    router.push(`/goals/${goalId}/todos/${todoId}/notes/${id}/edit`);
+    router.push(`/notes/${id}/edit`);
   };
 
   const handleNoteDelete = (id: number) => {
