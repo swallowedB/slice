@@ -14,8 +14,10 @@ import BaseInput from "@/components/common/input/base-input/BaseInput";
 interface NoteEditorFormProps {
   title: string;
   content: JSONContent | null;
+  linkUrl: string;
   onChangeTitle: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onChangeContent: (content: JSONContent) => void;
+  onChangeLinkUrl: (url: string) => void;
   metaInfo: {
     goalTitle: string;
     todoTitle: string;
@@ -27,13 +29,15 @@ interface NoteEditorFormProps {
 export default function NoteEditorForm({
   title,
   content,
+  linkUrl,
   onChangeTitle,
   onChangeContent,
+  onChangeLinkUrl,
   metaInfo,
 }: NoteEditorFormProps) {
   const editor = useNoteEditor(content, onChangeContent);
   const [isLinkModalOpen, setIsLinkModalOpen] = useState(false);
-  const [linkUrl, setLinkUrl] = useState("");
+  const [tempLinkUrl, setTempLinkUrl] = useState("");
 
   if (!editor) return null;
 
@@ -42,27 +46,17 @@ export default function NoteEditorForm({
   const countWithoutSpace = text.replace(/\s+/g, "").length;
 
   const handleOpenLinkModal = () => {
-    const currentUrl: string = editor.getAttributes("link").href || "";
-    setLinkUrl(currentUrl);
+    setTempLinkUrl(linkUrl);
     setIsLinkModalOpen(true);
   };
 
   const handleCloseLinkModal = () => {
-    setLinkUrl("");
+    setTempLinkUrl("");
     setIsLinkModalOpen(false);
   };
 
   const handleConfirmLink = () => {
-    if (linkUrl === "") {
-      editor.chain().focus().extendMarkRange("link").unsetLink().run();
-    } else {
-      editor
-        .chain()
-        .focus()
-        .extendMarkRange("link")
-        .setLink({ href: linkUrl })
-        .run();
-    }
+    onChangeLinkUrl(tempLinkUrl);
     handleCloseLinkModal();
   };
 
@@ -74,6 +68,7 @@ export default function NoteEditorForm({
             editor={editor}
             onClickLink={handleOpenLinkModal}
             isLinkModalOpen={isLinkModalOpen}
+            hasLinkUrl={!!linkUrl}
           />
         </div>
         <section className="mt-19 flex min-h-[75vh] flex-col rounded-4xl bg-white p-4 sm:mt-0 sm:min-h-[80vh] sm:p-8">
@@ -82,6 +77,7 @@ export default function NoteEditorForm({
               editor={editor}
               onClickLink={handleOpenLinkModal}
               isLinkModalOpen={isLinkModalOpen}
+              hasLinkUrl={!!linkUrl}
             />
           </div>
           <header className="border-b border-gray-100 pb-4 sm:py-7.5">
@@ -115,8 +111,8 @@ export default function NoteEditorForm({
           footer={<Button onClick={handleConfirmLink}>확인</Button>}>
           <BaseInput
             type="text"
-            value={linkUrl}
-            onChange={(e) => setLinkUrl(e.target.value)}
+            value={tempLinkUrl}
+            onChange={(e) => setTempLinkUrl(e.target.value)}
             placeholder="https://www.example.com"
             className="border border-gray-200 text-sm sm:text-base"
           />

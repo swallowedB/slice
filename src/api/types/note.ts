@@ -21,3 +21,32 @@ export interface NotesResponse {
   totalCount: number;
   nextCursor: number | null;
 }
+
+export interface CreateNoteRequest {
+  todoId: number;
+  title: string;
+  content: string;
+  linkUrl?: string;
+}
+
+export interface NoteDetailResponse {
+  id: number;
+  title: string;
+  content: string;
+  linkUrl: string | null;
+  createdAt: string;
+  updatedAt: string;
+  teamId: string;
+  userId: number;
+  goal: {
+    id: number;
+    title: string;
+  };
+  todo: {
+    id: number;
+    title: string;
+    fileUrl: string | null;
+    linkUrl: string | null;
+    done: boolean;
+  };
+}

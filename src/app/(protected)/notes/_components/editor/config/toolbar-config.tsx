@@ -1,4 +1,4 @@
-import type { ToolbarConfig } from "../types";
+import type { ToolbarConfig, LinkToolbarConfig } from "../types";
 import {
   BoldIcon,
   ItalicIcon,
@@ -75,11 +75,9 @@ const listAndHighlightOptions: ToolbarConfig[] = [
   },
 ];
 
-const linkOptions: ToolbarConfig[] = [
+const linkOptions: LinkToolbarConfig[] = [
   {
     icon: <LinkIcon className="h-4 w-4" />,
-    action: (editor) => {},
-    stateKey: "isLink",
     title: "링크 업로드",
   },
 ];
