@@ -1,12 +1,18 @@
 import { fetcher } from "@/lib/fetcher";
 import {
-  CreateNoteRequest,
-  NoteDetailResponse,
   NotesResponse,
+  NoteDetailResponse,
+  CreateNoteRequest,
 } from "./types/note";
 
 export function getNotes(goalId: number) {
   return fetcher<NotesResponse>(`/notes?goalId=${goalId}`, {
+    method: "GET",
+  });
+}
+
+export function getNote(noteId: number) {
+  return fetcher<NoteDetailResponse>(`/notes/${noteId}`, {
     method: "GET",
   });
 }
