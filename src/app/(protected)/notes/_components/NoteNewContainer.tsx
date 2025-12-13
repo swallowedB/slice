@@ -4,7 +4,7 @@ import { useState } from "react";
 import { JSONContent } from "@tiptap/react";
 import PageHeader from "@/app/(protected)/_components/layout/PageHeader";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useCreateNoteMutation } from "@/hooks/queries/notes/useCreateNoteMutation";
+import { useCreateNoteMutation } from "@/hooks/queries/notes";
 import NoteEditorForm from "../_components/NoteEditorForm";
 import NoteMobileActions from "../_components/NoteMobileActions";
 import NoteDesktopActions from "../_components/NoteDesktopActions";
