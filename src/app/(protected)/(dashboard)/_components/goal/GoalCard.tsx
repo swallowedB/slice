@@ -24,35 +24,34 @@ export default function GoalCard({
   onToggle,
   cardStyles,
 }: GoalCardProps) {
-  const allItems = [...todoItems, ...doneItems];
   const { handleToggle } = useToggleTodo();
-
-  if (!title) return null;
 
   const noTodos = todoItems.length === 0 && doneItems.length === 0;
 
-  const todoState = allItems.filter((item) => !item.checked);
-  const doneState = allItems.filter((item) => item.checked);
   return (
     <div
       className={`${cardStyles} ${isOpen ? "sm:pb-4" : "pb-13.5 sm:pb-7.5"}`}>
-      <GoalHeader
-        title={title}
-        isOpen={isOpen}
-        percent={percent}
-        onToggle={onToggle}
-      />
-      {noTodos && isOpen && (
+      {title && (
+        <GoalHeader
+          title={title}
+          isOpen={isOpen}
+          percent={percent}
+          onToggle={onToggle}
+        />
+      )}
+
+      {isOpen && noTodos && (
         <EmptyState>{EMPTY_MESSAGES.GOAL.RECENT}</EmptyState>
       )}
-      {!noTodos && isOpen && (
-        <div className="mt-6.5 grid grid-cols-1 sm:mt-11 sm:grid-cols-2 sm:gap-2 lg:mt-4 lg:gap-8">
+
+      {isOpen && !noTodos && (
+        <div className="mt-6.5 grid grid-cols-1 sm:grid-cols-2 sm:gap-2">
           <GoalTodoBox
             title="TO DO"
             variant="todo">
             <ListItem
               className="grid sm:gap-0.5 lg:gap-1"
-              items={todoState}
+              items={todoItems}
               onToggleChecked={handleToggle}
             />
           </GoalTodoBox>
@@ -61,7 +60,7 @@ export default function GoalCard({
             variant="done">
             <ListItem
               className="grid sm:gap-0.5 lg:gap-1"
-              items={doneState}
+              items={doneItems}
               onToggleChecked={handleToggle}
             />
           </GoalTodoBox>

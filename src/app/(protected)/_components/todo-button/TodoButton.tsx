@@ -30,7 +30,7 @@ export default function TodoButton() {
       <TextButton
         variant="primary"
         className="block sm:hidden"
-        onClick={() => console.log("mock up")}>
+        onClick={handleTodoOpen}>
         <p className="absolute top-7.25 right-5 flex w-18.5 items-center justify-center font-semibold sm:static sm:w-full">
           <PlusIcon className="mr-1 h-4 w-4 sm:mr-1.5 sm:h-4.5 sm:w-4.5" />
           할일추가
@@ -38,11 +38,13 @@ export default function TodoButton() {
       </TextButton>
 
       {isOpenTodoModal && (
-        <TodoFormContent
-          mode="create"
-          onClose={() => setIsOpenTodoModal(false)}
-          onConfirm={handleConfirm}
-        />
+        <div className="z-1000">
+          <TodoFormContent
+            mode="create"
+            onClose={() => setIsOpenTodoModal(false)}
+            onConfirm={handleConfirm}
+          />
+        </div>
       )}
     </>
   );
