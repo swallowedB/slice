@@ -2,14 +2,26 @@
 
 import { useState } from "react";
 import { JSONContent } from "@tiptap/react";
+import PageHeader from "@/app/(protected)/_components/layout/PageHeader";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useCreateNoteMutation } from "@/hooks/queries/notes/useCreateNoteMutation";
 import NoteEditorForm from "../_components/NoteEditorForm";
 import NoteMobileActions from "../_components/NoteMobileActions";
 import NoteDesktopActions from "../_components/NoteDesktopActions";
-import PageHeader from "@/app/(protected)/_components/layout/PageHeader";
 
 export default function NoteNewPage() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const todoId = searchParams.get("todoId");
+
+  const { mutate: createNoteMutation } = useCreateNoteMutation();
+
   const [title, setTitle] = useState("");
   const [content, setContent] = useState<JSONContent | null>(null);
+  const [linkUrl, setLinkUrl] = useState("");
+
+  // TODO:
+  const isDisabled = !title.trim() || !content;
 
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
@@ -19,11 +31,45 @@ export default function NoteNewPage() {
     setContent(content);
   };
 
+  const handleLinkUrlChange = (url: string) => {
+    setLinkUrl(url);
+  };
+
   // TODO: 노트 임시저장
   const handleDraft = () => {};
 
-  // TODO: 노트 등록
-  const handleSubmit = () => {};
+  const handleSubmit = () => {
+    if (title.trim() === "") {
+      // TODO: 고민
+      alert("제목을 입력해주세요.");
+      return;
+    }
+
+    if (content === null) {
+      // TODO: 고민
+      alert("내용을 입력해주세요.");
+      return;
+    }
+
+    createNoteMutation(
+      {
+        todoId: Number(todoId),
+        title: title.trim(),
+        content: JSON.stringify(content),
+        linkUrl: linkUrl.trim() || undefined,
+      },
+      {
+        onSuccess: (data) => {
+          router.replace(`/notes?goalId=${data.goal.id}`);
+        },
+
+        onError: (error) => {
+          // TODO: 고민
+          alert("노트 등록에 실패했습니다.");
+        },
+      },
+    );
+  };
 
   return (
     <>
@@ -33,7 +79,7 @@ export default function NoteNewPage() {
         mobileActions={
           <NoteMobileActions
             submitLabel="등록"
-            isDisabled={true}
+            isDisabled={isDisabled}
             onDraft={handleDraft}
             onSubmit={handleSubmit}
           />
@@ -41,7 +87,7 @@ export default function NoteNewPage() {
         desktopActions={
           <NoteDesktopActions
             submitLabel="등록하기"
-            isDisabled={true}
+            isDisabled={isDisabled}
             onDraft={handleDraft}
             onSubmit={handleSubmit}
           />
@@ -50,8 +96,10 @@ export default function NoteNewPage() {
       <NoteEditorForm
         title={title}
         content={content}
+        linkUrl={linkUrl}
         onChangeTitle={handleTitleChange}
         onChangeContent={handleContentChange}
+        onChangeLinkUrl={handleLinkUrlChange}
         metaInfo={{
           goalTitle: "자바스크립트로 웹 서비스 만들기",
           todoTitle: "자바스크립트 기초 챕터1 듣기",

@@ -14,8 +14,10 @@ import BaseInput from "@/components/common/input/base-input/BaseInput";
 interface NoteEditorFormProps {
   title: string;
   content: JSONContent | null;
+  linkUrl: string;
   onChangeTitle: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onChangeContent: (content: JSONContent) => void;
+  onChangeLinkUrl: (url: string) => void;
   metaInfo: {
     goalTitle: string;
     todoTitle: string;
@@ -27,13 +29,15 @@ interface NoteEditorFormProps {
 export default function NoteEditorForm({
   title,
   content,
+  linkUrl,
   onChangeTitle,
   onChangeContent,
+  onChangeLinkUrl,
   metaInfo,
 }: NoteEditorFormProps) {
   const editor = useNoteEditor(content, onChangeContent);
   const [isLinkModalOpen, setIsLinkModalOpen] = useState(false);
-  const [linkUrl, setLinkUrl] = useState("");
+  const [tempLinkUrl, setTempLinkUrl] = useState("");
 
   if (!editor) return null;
 
@@ -43,12 +47,12 @@ export default function NoteEditorForm({
 
   const handleOpenLinkModal = () => {
     const currentUrl: string = editor.getAttributes("link").href || "";
-    setLinkUrl(currentUrl);
+    setTempLinkUrl(currentUrl);
     setIsLinkModalOpen(true);
   };
 
   const handleCloseLinkModal = () => {
-    setLinkUrl("");
+    setTempLinkUrl("");
     setIsLinkModalOpen(false);
   };
 
@@ -60,9 +64,11 @@ export default function NoteEditorForm({
         .chain()
         .focus()
         .extendMarkRange("link")
-        .setLink({ href: linkUrl })
+        .setLink({ href: tempLinkUrl })
         .run();
     }
+
+    onChangeLinkUrl(tempLinkUrl);
     handleCloseLinkModal();
   };
 
@@ -115,8 +121,8 @@ export default function NoteEditorForm({
           footer={<Button onClick={handleConfirmLink}>확인</Button>}>
           <BaseInput
             type="text"
-            value={linkUrl}
-            onChange={(e) => setLinkUrl(e.target.value)}
+            value={tempLinkUrl}
+            onChange={(e) => setTempLinkUrl(e.target.value)}
             placeholder="https://www.example.com"
             className="border border-gray-200 text-sm sm:text-base"
           />
