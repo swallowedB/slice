@@ -1,5 +1,6 @@
 "use client";
 
+import TodoFormContent from "@/app/(protected)/_components/todo-modal/_components/TodoFormContent";
 import ModalBackground from "@/components/common/popup-modal/ModalBackground";
 import { useDeviceSize } from "@/hooks/useDeviceSize";
 import { ChevronDoubleLeftIcon } from "@heroicons/react/24/outline";
@@ -8,7 +9,6 @@ import NavigationActions from "./_components/NavigationActions";
 import NavigationLogout from "./_components/NavigationLogout";
 import NavigationMenu from "./_components/NavigationMenu";
 import NavigationProfile from "./_components/NavigationProfile";
-import TodoFormContent from "@/app/(protected)/_components/todo-modal/_components/TodoFormContent";
 
 export default function NavigationDesktop() {
   const { isTablet } = useDeviceSize();
@@ -84,13 +84,16 @@ export default function NavigationDesktop() {
         </div>
 
         {!isCollapsed && (
-          <NavigationMenu newGoalInputSignal={newGoalInputSignal}  />
+          <NavigationMenu newGoalInputSignal={newGoalInputSignal} />
         )}
       </section>
 
       {!isCollapsed && (
         <section className="flex flex-col">
-          <NavigationActions onClickNewGoal={onClickNewGoal} onClickNewTodo={onClickNewTodo} />
+          <NavigationActions
+            onClickNewGoal={onClickNewGoal}
+            onClickNewTodo={onClickNewTodo}
+          />
           <NavigationProfile />
           <NavigationLogout />
         </section>
@@ -115,7 +118,7 @@ export default function NavigationDesktop() {
 
       {isTodoModalOpen && (
         <TodoFormContent
-          mode="create"                
+          mode="create"
           onClose={handleCloseTodoModal}
           onConfirm={handleConfirmTodoModal}
         />
