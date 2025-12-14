@@ -1,10 +1,10 @@
 import { Suspense } from "react";
-import NoteNewContainer from "../_components/NoteNewContainer";
+import NoteWriteContainer from "../_components/NoteWriteContainer";
 
 export default function NoteNewPage() {
   return (
     <Suspense fallback={<div>로딩 중...</div>}>
-      <NoteNewContainer />
+      <NoteWriteContainer mode="create" />
     </Suspense>
   );
 }
