@@ -1,7 +1,7 @@
 "use client";
 
 import { EditorContent, JSONContent } from "@tiptap/react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import NoteMetaInfo from "./NoteMetaInfo";
 import NoteTitleInput from "./NoteTitleInput";
 import { useNoteEditor } from "./editor/hooks/useNoteEditor";
@@ -39,6 +39,14 @@ export default function NoteEditorForm({
   const [isLinkModalOpen, setIsLinkModalOpen] = useState(false);
   const [tempLinkUrl, setTempLinkUrl] = useState("");
 
+  useEffect(() => {
+    if (editor && content && !editor.isDestroyed) {
+      if (JSON.stringify(editor.getJSON()) !== JSON.stringify(content)) {
+        editor.commands.setContent(content);
+      }
+    }
+  }, [editor, content]);
+
   if (!editor) return null;
 
   const text = editor.getText();
@@ -51,7 +59,7 @@ export default function NoteEditorForm({
   };
 
   const handleCloseLinkModal = () => {
-    setTempLinkUrl("");
+    setTempLinkUrl(linkUrl);
     setIsLinkModalOpen(false);
   };
 

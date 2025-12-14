@@ -1,8 +1,14 @@
 import { fetcher } from "@/lib/fetcher";
-import { Todos, UpdateTodo } from "./types/todo";
+import { Todo, Todos, UpdateTodo } from "./types/todo";
 
 export function getTodos() {
   return fetcher<Todos>("/todos", {
+    method: "GET",
+  });
+}
+
+export function getTodo(id: number) {
+  return fetcher<Todo>(`/todos/${id}`, {
     method: "GET",
   });
 }
