@@ -110,6 +110,7 @@ export default function ListItemActions({
         {editOpen && (
           <TodoFormContent
             mode="edit"
+            todoId={todo?.id}
             todo={todo}
             onClose={() => setEditOpen(false)}
           />

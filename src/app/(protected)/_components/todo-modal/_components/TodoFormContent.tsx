@@ -73,9 +73,9 @@ export default function TodoFormContent({
     const payload: EditTodo = {
       title,
       goalId: goal.id,
-      linkUrl: link,
-      fileUrl: file?.name,
       done: status === "DONE",
+      ...(link && { linkUrl: link }),
+      ...(file && { fileUrl: file.name }),
     };
 
     if (mode === "edit" && todoId) {
