@@ -1,35 +1,21 @@
 "use client";
 
-import { FlagIcon } from "@heroicons/react/24/solid";
+import { useGoalList } from "@/hooks/queries/goals";
 import NavigationGoalListItem from "./NavigationGoalListItem";
-import NavigationLink from "./NavigationLink";
-
-interface GoalNavItem {
-  id: string;
-  title: string;
-  href: string;
-}
-
-const MOCK_GOALS: GoalNavItem[] = [
-  { id: "1", title: "자바스크립트로 웹 서비스 만들기", href: "/goal/1" },
-  { id: "2", title: "디자인 시스템 강의 듣기", href: "/goal/2" },
-];
 
 export default function NavigationGoalSection() {
-  const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log("입력값:", e.target.value);
-  };
+  const { data, isLoading, isError } = useGoalList();
+  const goals = data?.goals ?? [];
 
   return (
     <section>
-
-
       {/* 목표 리스트 */}
       <ul className="flex flex-col items-start text-sm">
-        {MOCK_GOALS.map((item) => (
+        {goals.map((item) => (
           <NavigationGoalListItem
-            key={item.href}
-            {...item}
+            key={item.id}
+            title={item.title}
+            href={`/goals/${item.id}`}
           />
         ))}
       </ul>
@@ -41,7 +27,6 @@ export default function NavigationGoalSection() {
           autoFocus
           className="bg-orange-250/15 w-full border-b-2 border-orange-400 px-4 py-3 text-sm font-medium text-black outline-none placeholder:text-orange-400/60 focus:ring-0"
           placeholder="새 목표를 입력하고 Enter를 눌러주세요"
-          onChange={onChangeInput}
         />
       </div>
     </section>
