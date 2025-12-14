@@ -23,6 +23,13 @@ export async function updateGoal(
   });
 }
 
+export async function postGoal(payload: { title: string }): Promise<Goal> {
+  return fetcher<Goal>(`/goals`, {
+    method: "POST",
+    body: JSON.stringify(payload),
+  });
+}
+
 export async function deleteGoal(goalId: number) {
   return fetcher(`/goals/${goalId}`, {
     method: "DELETE",

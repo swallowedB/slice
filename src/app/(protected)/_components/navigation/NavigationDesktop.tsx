@@ -1,5 +1,6 @@
 "use client";
 
+import TodoFormContent from "@/app/(protected)/_components/todo-modal/_components/TodoFormContent";
 import ModalBackground from "@/components/common/popup-modal/ModalBackground";
 import { useDeviceSize } from "@/hooks/useDeviceSize";
 import { ChevronDoubleLeftIcon } from "@heroicons/react/24/outline";
@@ -13,6 +14,8 @@ export default function NavigationDesktop() {
   const { isTablet } = useDeviceSize();
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [newGoalInputSignal, setNewGoalInputSignal] = useState(0);
+  const [isTodoModalOpen, setIsTodoModalOpen] = useState(false);
 
   useEffect(() => {
     if (isTablet) {
@@ -31,6 +34,18 @@ export default function NavigationDesktop() {
   const closeModal = () => {
     setIsModalOpen(false);
     setIsCollapsed(true);
+  };
+
+  const onClickNewGoal = () => {
+    setNewGoalInputSignal((v) => v + 1);
+  };
+
+  const onClickNewTodo = () => {
+    setIsTodoModalOpen(true);
+  };
+  const handleCloseTodoModal = () => setIsTodoModalOpen(false);
+  const handleConfirmTodoModal = () => {
+    setIsTodoModalOpen(false);
   };
 
   const toggleCollapse = () => {
@@ -68,12 +83,17 @@ export default function NavigationDesktop() {
           </p>
         </div>
 
-        {!isCollapsed && <NavigationMenu />}
+        {!isCollapsed && (
+          <NavigationMenu newGoalInputSignal={newGoalInputSignal} />
+        )}
       </section>
 
       {!isCollapsed && (
         <section className="flex flex-col">
-          <NavigationActions />
+          <NavigationActions
+            onClickNewGoal={onClickNewGoal}
+            onClickNewTodo={onClickNewTodo}
+          />
           <NavigationProfile />
           <NavigationLogout />
         </section>
@@ -94,6 +114,14 @@ export default function NavigationDesktop() {
             {sidebar}
           </div>
         </div>
+      )}
+
+      {isTodoModalOpen && (
+        <TodoFormContent
+          mode="create"
+          onClose={handleCloseTodoModal}
+          onConfirm={handleConfirmTodoModal}
+        />
       )}
     </>
   );
