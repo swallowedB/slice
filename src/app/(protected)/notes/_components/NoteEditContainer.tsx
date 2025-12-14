@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { JSONContent } from "@tiptap/react";
 import PageHeader from "@/app/(protected)/_components/layout/PageHeader";
 import { useParams, useRouter } from "next/navigation";
+import { useNoteQuery } from "@/hooks/queries/notes";
 import NoteEditorForm from "../_components/NoteEditorForm";
 import NoteMobileActions from "../_components/NoteMobileActions";
 import NoteDesktopActions from "../_components/NoteDesktopActions";
@@ -13,9 +14,21 @@ export default function NoteEditContainer() {
   const params = useParams();
   const noteId = Number(params.noteId);
 
+  const { data: note, isLoading, error } = useNoteQuery(noteId);
+
   const [title, setTitle] = useState("");
   const [content, setContent] = useState<JSONContent | null>(null);
   const [linkUrl, setLinkUrl] = useState("");
+
+  const isDisabled = !title.trim() || !content;
+
+  useEffect(() => {
+    if (note) {
+      setTitle(note.title);
+      setContent(JSON.parse(note.content));
+      setLinkUrl(note.linkUrl || "");
+    }
+  }, [note]);
 
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
@@ -46,6 +59,11 @@ export default function NoteEditContainer() {
     }
   };
 
+  // TODO:
+  if (isLoading) return <div>노트 불러오는 중...</div>;
+  if (error) return <div>노트를 불러오는 중 오류가 발생했습니다.</div>;
+  if (!note) return <div>노트를 찾을 수 없습니다.</div>;
+
   return (
     <>
       <PageHeader
@@ -54,6 +72,7 @@ export default function NoteEditContainer() {
         mobileActions={
           <NoteMobileActions
             submitLabel="수정"
+            isDisabled={isDisabled}
             onDraft={handleDraft}
             onSubmit={handleSubmit}
           />
@@ -61,6 +80,7 @@ export default function NoteEditContainer() {
         desktopActions={
           <NoteDesktopActions
             submitLabel="수정하기"
+            isDisabled={isDisabled}
             onDraft={handleDraft}
             onSubmit={handleSubmit}
           />
@@ -74,10 +94,10 @@ export default function NoteEditContainer() {
         onChangeContent={handleContentChange}
         onChangeLinkUrl={handleLinkUrlChange}
         metaInfo={{
-          goalTitle: "자바스크립트로 웹 서비스 만들기",
-          todoTitle: "자바스크립트 기초 챕터1 듣기",
-          isTodoDone: false,
-          updatedAt: "2025. 11. 23",
+          goalTitle: note.goal.title,
+          todoTitle: note.todo.title,
+          isTodoDone: note.todo.done,
+          updatedAt: new Date(note.updatedAt).toLocaleDateString("ko-KR"),
         }}
       />
     </>
