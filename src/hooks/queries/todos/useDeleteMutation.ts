@@ -2,8 +2,7 @@ import { deleteTodos } from "@/api/todo";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import todosQueryKeys from "./queryKeys";
 
-//delete는 body가 없으므로 payload가 필요없음! 단순 id만 필요함.
-export const useDeleteMutation = () => {
+export function useDeleteMutation() {
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -14,7 +13,7 @@ export const useDeleteMutation = () => {
     },
 
     onError: (error) => {
-      console.error("🚨 에러 🚨", error);
+      console.error("🚨 할 일 삭제 에러 🚨", error);
     },
   });
-};
+}

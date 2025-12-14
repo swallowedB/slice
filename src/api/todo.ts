@@ -1,5 +1,5 @@
 import { fetcher } from "@/lib/fetcher";
-import { Todo, Todos, UpdateTodo } from "./types/todo";
+import { Todo, Todos, UpdateTodo, CreateTodo, EditTodo } from "./types/todo";
 
 export function getTodos() {
   return fetcher<Todos>("/todos", {
@@ -19,6 +19,20 @@ export async function updateTodos(id: number, payload: UpdateTodo) {
     body: JSON.stringify(payload),
   });
 }
+
+export async function createTodos(payload: CreateTodo) {
+  return fetcher("/todos", {
+    method: "POST",
+    body: JSON.stringify(payload),
+  });
+}
+
+export const editTodos = async (todoId: number, payload: EditTodo) => {
+  return fetcher(`/todos/${todoId}`, {
+    method: "PATCH",
+    body: JSON.stringify(payload),
+  });
+};
 
 export async function deleteTodos(id: number) {
   return fetcher(`/todos/${id}`, {
