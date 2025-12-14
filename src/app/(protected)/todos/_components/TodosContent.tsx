@@ -52,6 +52,7 @@ export default function TodosContent({
     note: !!todo.noteId,
     link: !!todo.linkUrl,
     file: !!todo.fileUrl,
+    todo,
   }));
 
   const { items, onToggleChecked } = useListItems(initialItems);

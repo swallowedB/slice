@@ -7,7 +7,7 @@ import { useEditMutation } from "@/hooks/queries/todos/useEditMutation";
 import { useDeviceSize } from "@/hooks/useDeviceSize";
 
 import { useGoalList } from "@/hooks/queries/goals/useGoalList";
-import { Todo } from "@/api/types/todo";
+import { Todo, EditTodo } from "@/api/types/todo";
 import { Goal } from "@/api/types/goal";
 
 import TodoFormUI from "./TodoFormUI";
@@ -63,14 +63,14 @@ export default function TodoFormContent({
     setLink(todo.linkUrl ?? "");
     setFile(null);
 
-    const matchedGoal = goals.find((g) => g.id === todo.goal.id) ?? null;
+    const matchedGoal = goals.find((goal) => goal.id === todo.goal.id) ?? null;
     setGoal(matchedGoal);
   }, [isEdit, todo, goals]);
 
   const handleConfirm = () => {
     if (!goal) return;
 
-    const payload = {
+    const payload: EditTodo = {
       title,
       goalId: goal.id,
       linkUrl: link,
