@@ -8,12 +8,14 @@ import { useCreateNoteMutation } from "@/hooks/queries/notes";
 import NoteEditorForm from "../_components/NoteEditorForm";
 import NoteMobileActions from "../_components/NoteMobileActions";
 import NoteDesktopActions from "../_components/NoteDesktopActions";
+import { useTodoQuery } from "@/hooks/queries/todos";
 
 export default function NoteNewContainer() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const todoId = searchParams.get("todoId");
+  const todoId = Number(searchParams.get("todoId"));
 
+  const { data: todo } = useTodoQuery(todoId);
   const { mutate: createNoteMutation, isPending } = useCreateNoteMutation();
 
   const [title, setTitle] = useState("");
@@ -101,10 +103,10 @@ export default function NoteNewContainer() {
         onChangeContent={handleContentChange}
         onChangeLinkUrl={handleLinkUrlChange}
         metaInfo={{
-          goalTitle: "자바스크립트로 웹 서비스 만들기",
-          todoTitle: "자바스크립트 기초 챕터1 듣기",
-          isTodoDone: false,
-          updatedAt: "2025. 11. 23",
+          goalTitle: todo?.goal.title ?? "",
+          todoTitle: todo?.title ?? "",
+          isTodoDone: todo?.done ?? false,
+          updatedAt: new Date().toLocaleDateString("ko-KR"),
         }}
       />
     </>
