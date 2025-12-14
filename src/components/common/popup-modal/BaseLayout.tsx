@@ -19,7 +19,7 @@ export default function BaseLayout({
       aria-modal="true">
       <ModalBackground onClick={onClose} />
       <div
-        className={`bg-bg relative z-1000 min-w-56 rounded-2xl p-4 md:rounded-3xl md:p-6 ${sizeClass}`}>
+        className={`bg-white relative z-1000 min-w-56 rounded-2xl p-4 md:rounded-3xl md:p-6 ${sizeClass}`}>
         {children}
       </div>
     </div>

@@ -10,12 +10,16 @@ export interface EditorActiveState {
   isBulletList: boolean;
   isOrderedList: boolean;
   isHighlight: boolean;
-  isLink: boolean;
 }
 
 export interface ToolbarConfig {
   icon: React.ReactNode;
   action: (editor: Editor) => void;
   stateKey: keyof EditorActiveState;
+  title: string;
+}
+
+export interface LinkToolbarConfig {
+  icon: React.ReactNode;
   title: string;
 }

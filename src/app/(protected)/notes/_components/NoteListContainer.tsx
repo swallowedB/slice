@@ -1,6 +1,6 @@
 "use client";
 
-import { useNotesQuery } from "@/hooks/queries/notes";
+import { useNotesQuery, useDeleteNoteMutation } from "@/hooks/queries/notes";
 import { useState } from "react";
 import EmptyState from "@/components/common/empty-state/EmptyState";
 import { EMPTY_MESSAGES } from "@/constants/messages";
@@ -20,8 +20,12 @@ export default function NoteListContainer({
   todoId,
 }: NoteListContainerProps) {
   const router = useRouter();
+
   const { data, isLoading, error } = useNotesQuery(goalId);
+  const { mutate: deleteNoteMutation } = useDeleteNoteMutation();
+
   const [selectedNoteId, setSelectedNoteId] = useState<number | null>(null);
+  const [deleteNoteId, setDeleteNoteId] = useState<number | null>(null);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
 
   const handleNoteClick = (id: number) => {
@@ -29,15 +33,30 @@ export default function NoteListContainer({
   };
 
   const handleNoteEdit = (id: number) => {
-    router.push(`/goals/${goalId}/todos/${todoId}/notes/${id}/edit`);
+    router.push(`/notes/${id}/edit`);
   };
 
   const handleNoteDelete = (id: number) => {
+    setDeleteNoteId(id);
     setIsDeleteModalOpen(true);
   };
 
   const handleDeleteConfirm = () => {
-    // TODO: 노트 삭제
+    if (deleteNoteId === null) return;
+
+    deleteNoteMutation(
+      { goalId, noteId: deleteNoteId },
+      {
+        onSuccess: () => {
+          setDeleteNoteId(null);
+          setIsDeleteModalOpen(false);
+
+          if (selectedNoteId === deleteNoteId) {
+            setSelectedNoteId(null);
+          }
+        },
+      },
+    );
   };
 
   if (isLoading) return <div>로딩 중...</div>;

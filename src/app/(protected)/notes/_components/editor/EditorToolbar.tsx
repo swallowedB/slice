@@ -9,12 +9,14 @@ interface EditorToolbarProps {
   editor: Editor;
   onClickLink?: () => void;
   isLinkModalOpen?: boolean;
+  hasLinkUrl?: boolean;
 }
 
 export default function EditorToolbar({
   editor,
   onClickLink,
   isLinkModalOpen = false,
+  hasLinkUrl = false,
 }: EditorToolbarProps) {
   const editorState = useEditorState({
     editor,
@@ -32,7 +34,6 @@ export default function EditorToolbar({
         isBulletList: editor.isActive("bulletList"),
         isOrderedList: editor.isActive("orderedList"),
         isHighlight: editor.isActive("highlight"),
-        isLink: editor.isActive("link"),
       };
     },
   });
@@ -57,11 +58,11 @@ export default function EditorToolbar({
         ))}
       </div>
       <div className="shrink-0 rounded-full bg-white">
-        {linkGroup.map((config) => (
+        {linkGroup.map((config, index) => (
           <ToolbarButton
-            key={config.stateKey}
+            key={index}
             onClick={onClickLink}
-            isActive={editorState[config.stateKey] || isLinkModalOpen}
+            isActive={hasLinkUrl || isLinkModalOpen}
             title={config.title}>
             {config.icon}
           </ToolbarButton>
