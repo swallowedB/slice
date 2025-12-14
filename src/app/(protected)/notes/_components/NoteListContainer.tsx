@@ -41,6 +41,11 @@ export default function NoteListContainer({ goalId }: NoteListContainerProps) {
           setDeleteNoteId(null);
           setIsDeleteModalOpen(false);
         },
+
+        onError: (error) => {
+          console.error("삭제 실패:", error);
+          alert("노트 삭제에 실패했습니다.");
+        },
       },
     );
   };
