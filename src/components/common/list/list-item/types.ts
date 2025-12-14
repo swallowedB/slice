@@ -16,7 +16,7 @@ export type ListTodoType = {
     id: number;
     title: string;
   };
-  todo: Todo;
+  todo?: Todo;
 };
 
 export type ListGoalType = {

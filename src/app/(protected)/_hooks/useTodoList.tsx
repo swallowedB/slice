@@ -12,6 +12,7 @@ export function useTodoList() {
       file: !!t.fileUrl,
       note: !!t.noteId,
       goal: t.goal,
+      todo: t,
     })) ?? [];
 
   return { todos, isLoading, isError };
