@@ -5,16 +5,21 @@ import PageHeader from "../_components/layout/PageHeader";
 import TodoHeader from "./_components/TodoHeader";
 import TodosContent from "./_components/TodosContent";
 import TodosLayout from "./_components/TodosLayout";
+
+import { useTodosQuery } from "@/hooks/queries/todos";
 import MobileHeader from "@/app/(protected)/_components/layout/MobileHeader";
 
 export default function TodosPage() {
   const [tab, setTab] = useState<"ALL" | "TODO" | "DONE">("ALL");
 
+  const { data } = useTodosQuery();
+  const todosCount = data?.totalCount ?? 0;
+
   return (
     <section className="h-screen">
       <h2 className="color-black hidden sm:block sm:pl-4 sm:text-2xl sm:font-semibold">
         <PageHeader
-          title="모든 할 일"
+          title={`모든 할 일 ${todosCount}`}
           desktopClassName="sm:mb-2"
         />
       </h2>
