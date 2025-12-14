@@ -6,7 +6,8 @@ export function useDropdown<T extends HTMLElement = HTMLButtonElement>() {
   const triggerRef = useRef<T | null>(null);
 
   const toggle = (e?: React.MouseEvent) => {
-    e?.stopPropagation?.();
+    e?.preventDefault();
+    e?.stopPropagation();
     setOpen((prev) => !prev);
   };
 
@@ -24,9 +25,9 @@ export function useDropdown<T extends HTMLElement = HTMLButtonElement>() {
       const target = e.target as Node;
       if (
         dropdownRef.current &&
-        !dropdownRef.current?.contains(target) &&
+        !dropdownRef.current.contains(target) &&
         triggerRef.current &&
-        !triggerRef.current?.contains(target)
+        !triggerRef.current.contains(target)
       ) {
         close();
       }

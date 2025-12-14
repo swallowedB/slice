@@ -2,21 +2,19 @@
 
 import ModalBackground from "@/components/common/popup-modal/ModalBackground";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import NoteTitleView from "./NoteTitleView";
 import { useEffect, useState } from "react";
 import { useDeviceSize } from "@/hooks/useDeviceSize";
-import NoteMetaInfo from "./NoteMetaInfo";
 import clsx from "clsx";
 
-export default function NoteDetailModal({
-  isOpen,
-  noteId,
-  onClose,
-}: {
-  isOpen: boolean;
-  noteId: number | null;
+interface NoteDetailModalProps {
+  children: React.ReactNode;
   onClose: () => void;
-}) {
+}
+
+export default function NoteDetailModal({
+  children,
+  onClose,
+}: NoteDetailModalProps) {
   const [isAnimating, setIsAnimating] = useState(false);
   const { isDesktop } = useDeviceSize();
 
@@ -31,22 +29,9 @@ export default function NoteDetailModal({
   };
 
   useEffect(() => {
-    let timerId: NodeJS.Timeout | null = null;
-
-    if (isOpen) {
-      timerId = setTimeout(() => setIsAnimating(true), 10);
-    } else {
-      setIsAnimating(false);
-    }
-
-    return () => {
-      if (timerId) {
-        clearTimeout(timerId);
-      }
-    };
-  }, [isOpen]);
-
-  if (!isOpen && !isAnimating) return null;
+    const timerId = setTimeout(() => setIsAnimating(true), 10);
+    return () => clearTimeout(timerId);
+  }, []);
 
   return (
     <>
@@ -68,18 +53,7 @@ export default function NoteDetailModal({
             className="h-6 w-6"
           />
         </button>
-        <header className="border-b border-gray-100 pb-7">
-          <NoteTitleView
-            title="프로그래밍과 데이터 in JavaScript"
-            className="text-lg sm:text-2xl"
-          />
-          <NoteMetaInfo
-            goalTitle="자바스크립트로 웹 서비스 만들기"
-            todoTitle="자바스크립트 기초 챕터1 듣기"
-            isTodoDone={false}
-            updatedAt="2025. 11. 23"
-          />
-        </header>
+        {children}
       </div>
     </>
   );
