@@ -44,7 +44,7 @@ export default function NoteWriteContainer({ mode }: NoteWriteContainerProps) {
   useEffect(() => {
     if (isEditMode && note) {
       setTitle(note.title);
-      setContent(JSON.parse(note.content));
+      setContent(note.content);
       setLinkUrl(note.linkUrl ?? "");
     }
   }, [isEditMode, note]);

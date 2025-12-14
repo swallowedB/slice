@@ -7,14 +7,14 @@ import { JSONContent } from "@tiptap/react";
 
 export function useNoteEditor(
   content: JSONContent | null,
-  onChange: (content: JSONContent) => void,
+  onChange?: (content: JSONContent) => void,
 ) {
   return useEditor({
     extensions: [
       StarterKit.configure({
         link: {
           autolink: true,
-          openOnClick: false,
+          openOnClick: !onChange,
           defaultProtocol: "https",
           protocols: ["http", "https"],
           linkOnPaste: true,
@@ -25,9 +25,13 @@ export function useNoteEditor(
           },
         },
       }),
-      Placeholder.configure({
-        placeholder: "이 곳을 통해 노트 작성을 시작해주세요",
-      }),
+      ...(onChange
+        ? [
+            Placeholder.configure({
+              placeholder: "이 곳을 통해 노트 작성을 시작해주세요",
+            }),
+          ]
+        : []),
       TextAlign.configure({
         types: ["heading", "paragraph"],
       }),
@@ -35,11 +39,14 @@ export function useNoteEditor(
         multicolor: false,
       }),
     ],
+    editable: !!onChange,
     content,
     immediatelyRender: false,
-    onUpdate: ({ editor }) => {
-      onChange(editor.getJSON());
-    },
+    ...(onChange && {
+      onUpdate: ({ editor }) => {
+        onChange(editor.getJSON());
+      },
+    }),
     editorProps: {
       attributes: {
         class: "note-editor",

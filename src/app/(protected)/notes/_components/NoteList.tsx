@@ -5,14 +5,12 @@ import NoteItem from "./NoteItem";
 
 interface NoteListProps {
   notes: Note[];
-  onClickNote: (id: number) => void;
   onEditNote: (id: number) => void;
   onDeleteNote: (id: number) => void;
 }
 
 export default function NoteList({
   notes,
-  onClickNote,
   onEditNote,
   onDeleteNote,
 }: NoteListProps) {
@@ -23,7 +21,6 @@ export default function NoteList({
       {notes.map((note) => (
         <NoteItem
           key={note.id}
-          onClickNote={onClickNote}
           onEditNote={onEditNote}
           onDeleteNote={onDeleteNote}
           {...note}

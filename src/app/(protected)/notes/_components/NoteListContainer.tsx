@@ -2,35 +2,25 @@
 
 import { useNotesQuery, useDeleteNoteMutation } from "@/hooks/queries/notes";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import EmptyState from "@/components/common/empty-state/EmptyState";
 import { EMPTY_MESSAGES } from "@/constants/messages";
-import NoteList from "./NoteList";
-import NoteDetailModal from "./NoteDetailModal";
 import ConfirmModal from "@/components/common/popup-modal/ConfirmModal";
 import GoalBanner from "./GoalBanner";
-import { useRouter } from "next/navigation";
+import NoteList from "./NoteList";
 
 interface NoteListContainerProps {
   goalId: number;
-  todoId: number;
 }
 
-export default function NoteListContainer({
-  goalId,
-  todoId,
-}: NoteListContainerProps) {
+export default function NoteListContainer({ goalId }: NoteListContainerProps) {
   const router = useRouter();
 
   const { data, isLoading, error } = useNotesQuery(goalId);
   const { mutate: deleteNoteMutation } = useDeleteNoteMutation();
 
-  const [selectedNoteId, setSelectedNoteId] = useState<number | null>(null);
   const [deleteNoteId, setDeleteNoteId] = useState<number | null>(null);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
-
-  const handleNoteClick = (id: number) => {
-    setSelectedNoteId(id);
-  };
 
   const handleNoteEdit = (id: number) => {
     router.push(`/notes/${id}/edit`);
@@ -50,10 +40,6 @@ export default function NoteListContainer({
         onSuccess: () => {
           setDeleteNoteId(null);
           setIsDeleteModalOpen(false);
-
-          if (selectedNoteId === deleteNoteId) {
-            setSelectedNoteId(null);
-          }
         },
       },
     );
@@ -70,14 +56,8 @@ export default function NoteListContainer({
       <GoalBanner title={data.goal.title} />
       <NoteList
         notes={data.notes}
-        onClickNote={handleNoteClick}
         onEditNote={handleNoteEdit}
         onDeleteNote={handleNoteDelete}
-      />
-      <NoteDetailModal
-        isOpen={selectedNoteId !== null}
-        noteId={selectedNoteId}
-        onClose={() => setSelectedNoteId(null)}
       />
       <ConfirmModal
         isOpen={isDeleteModalOpen}
