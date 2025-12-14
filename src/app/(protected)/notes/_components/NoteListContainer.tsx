@@ -1,6 +1,6 @@
 "use client";
 
-import { useNotesQuery } from "@/hooks/queries/notes";
+import { useNotesQuery, useDeleteNoteMutation } from "@/hooks/queries/notes";
 import { useState } from "react";
 import EmptyState from "@/components/common/empty-state/EmptyState";
 import { EMPTY_MESSAGES } from "@/constants/messages";
@@ -9,7 +9,6 @@ import NoteDetailModal from "./NoteDetailModal";
 import ConfirmModal from "@/components/common/popup-modal/ConfirmModal";
 import GoalBanner from "./GoalBanner";
 import { useRouter } from "next/navigation";
-import { useDeleteNoteMutation } from "@/hooks/queries/notes/useDeleteNoteMutaion";
 
 interface NoteListContainerProps {
   goalId: number;
@@ -34,7 +33,7 @@ export default function NoteListContainer({
   };
 
   const handleNoteEdit = (id: number) => {
-    router.push(`/goals/${goalId}/todos/${todoId}/notes/${id}/edit`);
+    router.push(`/notes/${id}/edit`);
   };
 
   const handleNoteDelete = (id: number) => {
