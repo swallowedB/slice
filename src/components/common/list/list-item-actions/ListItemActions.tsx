@@ -14,7 +14,7 @@ import { useDropdown } from "@/hooks/useDropdown";
 
 type ListItemActionsProps = {
   id: number;
-  todo: Todo;
+  todo?: Todo;
   variant?: ListItemVariant;
   actions?: ListActionType[];
   onDeleteTodo?: (id: number) => void;
