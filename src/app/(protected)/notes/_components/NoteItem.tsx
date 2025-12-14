@@ -3,7 +3,7 @@
 import { EllipsisVerticalIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import clsx from "clsx";
-import Dropdown from "@/components/common/dropdown/Dropdown";
+import Dropdown, { DropdownItem } from "@/components/common/dropdown";
 import { useDropdown } from "@/hooks/useDropdown";
 import { formatDate } from "@/utils/date";
 import NoteTitleView from "./NoteTitleView";
@@ -20,12 +20,6 @@ interface NoteItemProps {
   updatedAt: string;
   onEditNote: (id: number) => void;
   onDeleteNote: (id: number) => void;
-}
-
-// TODO: 타입 분리
-interface DropdownItem {
-  text: string;
-  onClick: () => void;
 }
 
 export default function NoteItem({
