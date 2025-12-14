@@ -1,11 +1,17 @@
 "use client";
 
+import { useState, useEffect } from "react";
+
+import { useCreateMutation } from "@/hooks/queries/todos/useCreateMutation";
+import { useEditMutation } from "@/hooks/queries/todos/useEditMutation";
 import { useDeviceSize } from "@/hooks/useDeviceSize";
-import { useState } from "react";
+
+import { useGoalList } from "@/hooks/queries/goals/useGoalList";
+import { Todo } from "@/api/types/todo";
+import { Goal } from "@/api/types/goal";
+
 import TodoFormUI from "./TodoFormUI";
 import TodoFormLayout from "./TodoFormLayout";
-
-export type TodoFormMode = "create" | "edit";
 
 export interface TodoFormData {
   title: string;
@@ -15,37 +21,80 @@ export interface TodoFormData {
   file: File | null;
 }
 
-const mockGoals = [
-  "자바스크립트로 웹 서비스 만들기",
-  "디자인 시스템 강의 듣기",
-];
+export type TodoFormMode = "create" | "edit";
 
 interface TodoFormContentProps {
   mode: TodoFormMode;
   onClose: () => void;
-  onConfirm: (data: TodoFormData) => void;
+  todoId?: number;
+  todo?: Todo;
+  onConfirm?: (data: TodoFormData) => void;
 }
 
 export default function TodoFormContent({
   mode,
   onClose,
-  onConfirm,
+  todoId,
+  todo,
 }: TodoFormContentProps & { sizeClass?: string }) {
   const { isMobile } = useDeviceSize();
   const isEdit = mode === "edit";
 
+  const createTodoMutation = useCreateMutation();
+  const editTodoMutation = useEditMutation();
+
+  const { data: goalData } = useGoalList();
+  const goals: Goal[] = goalData?.goals ?? [];
+
   const [title, setTitle] = useState("");
-  const [goal, setGoal] = useState("");
+  const [goal, setGoal] = useState<Goal | null>(null);
   const [status, setStatus] = useState<"TODO" | "DONE">("TODO");
   const [link, setLink] = useState("");
   const [file, setFile] = useState<File | null>(null);
   const [isGoalOpen, setIsGoalOpen] = useState(false);
 
-  const isConfirmDisabled = !title.trim() || !goal.trim();
+  const isConfirmDisabled = !title.trim() || !goal;
+
+  useEffect(() => {
+    if (!isEdit || !todo) return;
+
+    setTitle(todo.title);
+    setStatus(todo.done ? "DONE" : "TODO");
+    setLink(todo.linkUrl ?? "");
+    setFile(null);
+
+    const matchedGoal = goals.find((g) => g.id === todo.goal.id) ?? null;
+    setGoal(matchedGoal);
+  }, [isEdit, todo, goals]);
 
   const handleConfirm = () => {
-    if (isConfirmDisabled) return;
-    onConfirm({ title, goal, status, link, file });
+    if (!goal) return;
+
+    const payload = {
+      title,
+      goalId: goal.id,
+      linkUrl: link,
+      fileUrl: file?.name,
+      done: status === "DONE",
+    };
+
+    if (mode === "edit" && todoId) {
+      editTodoMutation.mutate(
+        { todoId, payload },
+        {
+          onSuccess: () => {
+            onClose();
+          },
+        },
+      );
+      return;
+    }
+
+    createTodoMutation.mutate(payload, {
+      onSuccess: () => {
+        onClose();
+      },
+    });
   };
 
   return (
@@ -70,7 +119,7 @@ export default function TodoFormContent({
         setFile={setFile}
         isGoalOpen={isGoalOpen}
         setIsGoalOpen={setIsGoalOpen}
-        goals={mockGoals}
+        goals={goals}
       />
     </TodoFormLayout>
   );
