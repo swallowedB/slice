@@ -8,12 +8,14 @@ import NavigationActions from "./_components/NavigationActions";
 import NavigationLogout from "./_components/NavigationLogout";
 import NavigationMenu from "./_components/NavigationMenu";
 import NavigationProfile from "./_components/NavigationProfile";
+import TodoFormContent from "@/app/(protected)/_components/todo-modal/_components/TodoFormContent";
 
 export default function NavigationDesktop() {
   const { isTablet } = useDeviceSize();
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [newGoalInputSignal, setNewGoalInputSignal] = useState(0);
+  const [isTodoModalOpen, setIsTodoModalOpen] = useState(false);
 
   useEffect(() => {
     if (isTablet) {
@@ -35,8 +37,16 @@ export default function NavigationDesktop() {
   };
 
   const onClickNewGoal = () => {
-  setNewGoalInputSignal((v) => v + 1);
-};
+    setNewGoalInputSignal((v) => v + 1);
+  };
+
+  const onClickNewTodo = () => {
+    setIsTodoModalOpen(true);
+  };
+  const handleCloseTodoModal = () => setIsTodoModalOpen(false);
+  const handleConfirmTodoModal = () => {
+    setIsTodoModalOpen(false);
+  };
 
   const toggleCollapse = () => {
     if (!isTablet) {
@@ -73,12 +83,14 @@ export default function NavigationDesktop() {
           </p>
         </div>
 
-        {!isCollapsed && <NavigationMenu newGoalInputSignal={newGoalInputSignal} />}
+        {!isCollapsed && (
+          <NavigationMenu newGoalInputSignal={newGoalInputSignal}  />
+        )}
       </section>
 
       {!isCollapsed && (
         <section className="flex flex-col">
-          <NavigationActions onClickNewGoal={onClickNewGoal}/>
+          <NavigationActions onClickNewGoal={onClickNewGoal} onClickNewTodo={onClickNewTodo} />
           <NavigationProfile />
           <NavigationLogout />
         </section>
@@ -99,6 +111,14 @@ export default function NavigationDesktop() {
             {sidebar}
           </div>
         </div>
+      )}
+
+      {isTodoModalOpen && (
+        <TodoFormContent
+          mode="create"                
+          onClose={handleCloseTodoModal}
+          onConfirm={handleConfirmTodoModal}
+        />
       )}
     </>
   );

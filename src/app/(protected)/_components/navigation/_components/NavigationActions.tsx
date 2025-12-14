@@ -3,15 +3,13 @@ import { FlagIcon, Square2StackIcon } from "@heroicons/react/24/solid";
 
 interface Props {
   onClickNewGoal: () => void;
+  onClickNewTodo: () => void;
 }
 
 export default function NavigationActions({
   onClickNewGoal,
+  onClickNewTodo,
 }: Props) {
-
-  const onClickNewTodoButton = () => {
-    console.log("새 할일 생성");
-  };
 
   return (
     <div className="mb-6 flex w-full gap-4">
@@ -26,7 +24,7 @@ export default function NavigationActions({
       <Button
         aria-label="새 할일 추가"
         variant="outline-orange"
-        onClick={onClickNewTodoButton}>
+        onClick={onClickNewTodo}>
         <div className="-pl-1 flex items-center justify-center gap-2 text-base font-medium">
           <Square2StackIcon className="h-5 w-5" />
           <p>새 할일</p>
