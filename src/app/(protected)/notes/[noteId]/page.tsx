@@ -1,4 +1,5 @@
 import NoteDetailContent from "@/app/(protected)/notes/_components/NoteDetailContent";
+import PageHeader from "../../_components/layout/PageHeader";
 
 export default async function NoteDetailPage({
   params,
@@ -10,8 +11,14 @@ export default async function NoteDetailPage({
   const { noteId } = await params;
 
   return (
-    <div>
-      <NoteDetailContent noteId={Number(noteId)} />
-    </div>
+    <>
+      <PageHeader
+        title="노트 상세보기"
+        desktopClassName="sm:mb-3 lg:mb-5.5"
+      />
+      <div className="min-h-[75vh] rounded-4xl bg-white p-4 sm:min-h-[80vh] sm:p-8">
+        <NoteDetailContent noteId={Number(noteId)} />
+      </div>
+    </>
   );
 }
