@@ -17,6 +17,10 @@ export function useDeleteNoteMutation() {
       queryClient.invalidateQueries({
         queryKey: notesQueryKeys.list(variables.goalId),
       });
+
+      queryClient.removeQueries({
+        queryKey: notesQueryKeys.detail(variables.noteId),
+      });
     },
   });
 }

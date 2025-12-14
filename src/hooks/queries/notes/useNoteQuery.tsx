@@ -7,5 +7,6 @@ export function useNoteQuery(noteId: number) {
     queryKey: notesQueryKeys.detail(noteId),
     queryFn: () => getNote(noteId),
     enabled: !!noteId && noteId > 0,
+    staleTime: 1000 * 60 * 3,
   });
 }
