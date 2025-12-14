@@ -13,6 +13,7 @@ export default function NavigationDesktop() {
   const { isTablet } = useDeviceSize();
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [newGoalInputSignal, setNewGoalInputSignal] = useState(0);
 
   useEffect(() => {
     if (isTablet) {
@@ -32,6 +33,10 @@ export default function NavigationDesktop() {
     setIsModalOpen(false);
     setIsCollapsed(true);
   };
+
+  const onClickNewGoal = () => {
+  setNewGoalInputSignal((v) => v + 1);
+};
 
   const toggleCollapse = () => {
     if (!isTablet) {
@@ -68,12 +73,12 @@ export default function NavigationDesktop() {
           </p>
         </div>
 
-        {!isCollapsed && <NavigationMenu />}
+        {!isCollapsed && <NavigationMenu newGoalInputSignal={newGoalInputSignal} />}
       </section>
 
       {!isCollapsed && (
         <section className="flex flex-col">
-          <NavigationActions />
+          <NavigationActions onClickNewGoal={onClickNewGoal}/>
           <NavigationProfile />
           <NavigationLogout />
         </section>

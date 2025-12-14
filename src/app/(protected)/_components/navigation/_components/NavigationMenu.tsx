@@ -1,11 +1,15 @@
+import { useNavActive } from "@/app/(protected)/_components/navigation/hooks/useNavActive";
 import { useGoalList } from "@/hooks/queries/goals";
 import { FlagIcon, Squares2X2Icon } from "@heroicons/react/24/solid";
 import NavigationGoalSection from "./NavigationGoalSection";
 import NavigationLink from "./NavigationLink";
-import { useNavActive } from "@/app/(protected)/_components/navigation/hooks/useNavActive";
 
-export default function NavigationMenu() {
-  const { data, isLoading } = useGoalList();
+interface NavigationMenuProps {
+  newGoalInputSignal: number;
+}
+
+export default function NavigationMenu({ newGoalInputSignal }: NavigationMenuProps) {
+  const { data } = useGoalList();
   const firstGoalId = data?.goals?.[0]?.id;
   const goalsHref = firstGoalId ? `/goals/${firstGoalId}` : "/";
 
@@ -25,7 +29,7 @@ export default function NavigationMenu() {
         icon={<FlagIcon className="h-6 w-6 opacity-90" />}
         isActive={isGoalsSectionActive}
       />
-      <NavigationGoalSection />
+      <NavigationGoalSection newGoalInputSignal={newGoalInputSignal} />
     </nav>
   );
 }
