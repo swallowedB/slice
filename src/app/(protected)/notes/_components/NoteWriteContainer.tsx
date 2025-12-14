@@ -78,48 +78,30 @@ export default function NoteWriteContainer({ mode }: NoteWriteContainerProps) {
       return;
     }
 
+    const payload = {
+      title: title.trim(),
+      content: JSON.stringify(content),
+      linkUrl: linkUrl.trim() || undefined,
+    };
+
+    const onSuccess = (data: { goal: { id: number } }) => {
+      router.replace(`/notes?goalId=${data.goal.id}`);
+    };
+
+    const onError = (error: Error) => {
+      const action = isEditMode ? "수정" : "등록";
+      console.error(`노트 ${action} 실패:`, error);
+      alert(`노트 ${action}에 실패했습니다.`);
+    };
+
     if (isEditMode) {
-      updateNoteMutation(
-        {
-          noteId: noteId,
-          data: {
-            title: title.trim(),
-            content: JSON.stringify(content),
-            linkUrl: linkUrl.trim() || undefined,
-          },
-        },
-        {
-          onSuccess: (data) => {
-            router.replace(`/notes?goalId=${data.goal.id}`);
-          },
-          onError: (error) => {
-            console.error("노트 수정 실패:", error);
-            alert("노트 수정에 실패했습니다.");
-          },
-        },
-      );
+      updateNoteMutation({ noteId, data: payload }, { onSuccess, onError });
     } else {
-      createNoteMutation(
-        {
-          todoId: todoId,
-          title: title.trim(),
-          content: JSON.stringify(content),
-          linkUrl: linkUrl.trim() || undefined,
-        },
-        {
-          onSuccess: (data) => {
-            router.replace(`/notes?goalId=${data.goal.id}`);
-          },
-          onError: (error) => {
-            console.error("노트 등록 실패:", error);
-            alert("노트 등록에 실패했습니다.");
-          },
-        },
-      );
+      createNoteMutation({ todoId, ...payload }, { onSuccess, onError });
     }
   };
 
-  // TODO: UI
+  // TODO: ErrorBoundary?
   if (!isEditMode && todoError) {
     return <div>할일 정보를 불러올 수 없습니다.</div>;
   }
