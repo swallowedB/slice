@@ -15,10 +15,12 @@ export function useNewGoalInput({ newGoalInputSignal }: UseNewGoalInputParams) {
   const [isCreating, setIsCreating] = useState(false);
   const [title, setTitle] = useState("");
 
+  const containerRef = useRef<HTMLDivElement | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
   const submittedRef = useRef(false);
-
   const didMountRef = useRef(false);
+
+  const closingByOutsideRef = useRef(false);
 
   const closeInput = () => {
     setIsCreating(false);
@@ -39,6 +41,30 @@ export function useNewGoalInput({ newGoalInputSignal }: UseNewGoalInputParams) {
       inputRef.current?.focus();
     });
   }, [newGoalInputSignal]);
+
+  useEffect(() => {
+    if (!isCreating) return;
+
+    const onPointerDown = (e: PointerEvent) => {
+      const container = containerRef.current;
+      if (!container) return;
+
+      const target = e.target as Node | null;
+      const clickedInside = target ? container.contains(target) : false;
+
+      if (!clickedInside) {
+        closingByOutsideRef.current = true;
+        closeInput();
+      }
+    };
+
+    document.addEventListener("pointerdown", onPointerDown, { capture: true });
+    return () => {
+      document.removeEventListener("pointerdown", onPointerDown, {
+        capture: true,
+      });
+    };
+  }, [isCreating]);
 
   const submit = async () => {
     if (submittedRef.current) return;
@@ -75,6 +101,7 @@ export function useNewGoalInput({ newGoalInputSignal }: UseNewGoalInputParams) {
   };
 
   const onBlur: React.FocusEventHandler<HTMLInputElement> = async () => {
+    if (closingByOutsideRef.current) return;
     await submit();
   };
 
@@ -84,6 +111,7 @@ export function useNewGoalInput({ newGoalInputSignal }: UseNewGoalInputParams) {
     isPending,
 
     inputRef,
+    containerRef,
 
     setTitle,
     onKeyDown,

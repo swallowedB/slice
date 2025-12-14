@@ -20,6 +20,7 @@ export default function NavigationGoalSection({ newGoalInputSignal }: Props) {
     title,
     isPending,
     inputRef,
+    containerRef,
     setTitle,
     onKeyDown,
     onBlur,
@@ -28,9 +29,11 @@ export default function NavigationGoalSection({ newGoalInputSignal }: Props) {
   return (
     <section>
       {/* 목표 리스트 */}
-            <ul className="flex flex-col items-start text-sm">
+      <ul className="flex flex-col items-start text-sm">
         {isLoading && (
-          <li className="w-full px-4 py-3 text-sm text-gray-400">불러오는 중…</li>
+          <li className="w-full px-4 py-3 text-sm text-gray-400">
+            불러오는 중…
+          </li>
         )}
 
         {isError && !isLoading && (
@@ -59,7 +62,9 @@ export default function NavigationGoalSection({ newGoalInputSignal }: Props) {
 
       {/* 새 목표 input */}
       {isCreating && (
-        <div className="mt-1">
+        <div
+          ref={containerRef}
+          className="mt-1">
           <input
             ref={inputRef}
             aria-label="새 목표 입력"
@@ -73,7 +78,6 @@ export default function NavigationGoalSection({ newGoalInputSignal }: Props) {
             onBlur={onBlur}
             disabled={isPending}
           />
-
         </div>
       )}
     </section>
