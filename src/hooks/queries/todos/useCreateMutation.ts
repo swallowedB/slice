@@ -12,7 +12,7 @@ export function useCreateMutation() {
     mutationFn: (payload: CreateTodo) => createTodos(payload),
 
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: todosQueryKeys.create() });
+      queryClient.invalidateQueries({ queryKey: todosQueryKeys.list() });
     },
 
     onError: (error) => {
