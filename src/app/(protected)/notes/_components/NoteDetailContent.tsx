@@ -3,6 +3,7 @@
 import { useNoteQuery } from "@/hooks/queries/notes";
 import { EditorContent } from "@tiptap/react";
 import { useEffect } from "react";
+import { formatDate } from "@/utils/date";
 import NoteTitleView from "./NoteTitleView";
 import NoteMetaInfo from "./NoteMetaInfo";
 import { useNoteEditor } from "./editor/hooks/useNoteEditor";
@@ -41,7 +42,7 @@ export default function NoteDetailContent({ noteId }: NoteDetailContentProps) {
           goalTitle={note.goal.title}
           todoTitle={note.todo.title}
           isTodoDone={note.todo.done}
-          updatedAt={new Date(note.updatedAt).toLocaleDateString("ko-KR")}
+          updatedAt={formatDate(note.updatedAt)}
         />
       </header>
       <div className="flex-1">

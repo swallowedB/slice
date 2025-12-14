@@ -10,6 +10,7 @@ import {
   useUpdateNoteMutation,
 } from "@/hooks/queries/notes";
 import { useTodoQuery } from "@/hooks/queries/todos";
+import { formatDate } from "@/utils/date";
 import NoteEditorForm from "./NoteEditorForm";
 import NoteMobileActions from "./NoteMobileActions";
 import NoteDesktopActions from "./NoteDesktopActions";
@@ -115,13 +116,13 @@ export default function NoteWriteContainer({ mode }: NoteWriteContainerProps) {
         goalTitle: note!.goal.title,
         todoTitle: note!.todo.title,
         isTodoDone: note!.todo.done,
-        updatedAt: new Date(note!.updatedAt).toLocaleDateString("ko-KR"),
+        updatedAt: formatDate(note!.updatedAt),
       }
     : {
         goalTitle: todo?.goal.title ?? "",
         todoTitle: todo?.title ?? "",
         isTodoDone: todo?.done ?? false,
-        updatedAt: new Date().toLocaleDateString("ko-KR"),
+        updatedAt: formatDate(todo?.updatedAt ?? new Date().toISOString()),
       };
 
   return (

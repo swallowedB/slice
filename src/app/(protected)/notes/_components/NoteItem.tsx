@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import clsx from "clsx";
 import Dropdown from "@/components/common/dropdown/Dropdown";
+import { formatDate } from "@/utils/date";
 import NoteTitleView from "./NoteTitleView";
 import Badge from "./Badge";
 
@@ -131,7 +132,7 @@ export default function NoteItem({
           <time
             dateTime={updatedAt}
             className="ml-2 shrink-0 text-xs font-normal text-gray-400">
-            2025. 11. 23
+            {formatDate(updatedAt)}
           </time>
         </footer>
         {isDropdownOpen && (
