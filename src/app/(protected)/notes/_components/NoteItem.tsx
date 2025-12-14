@@ -1,10 +1,10 @@
 "use client";
 
 import { EllipsisVerticalIcon } from "@heroicons/react/24/outline";
-import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import clsx from "clsx";
 import Dropdown from "@/components/common/dropdown/Dropdown";
+import { useDropdown } from "@/hooks/useDropdown";
 import { formatDate } from "@/utils/date";
 import NoteTitleView from "./NoteTitleView";
 import Badge from "./Badge";
@@ -36,65 +36,21 @@ export default function NoteItem({
   onEditNote,
   onDeleteNote,
 }: NoteItemProps) {
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
-  const kebabButtonRef = useRef<HTMLButtonElement>(null);
+  const { open, toggle, close, dropdownRef, triggerRef } =
+    useDropdown<HTMLButtonElement>();
 
-  const handleKebabButtonClick = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setIsDropdownOpen((prev) => !prev);
-  };
-
-  useEffect(() => {
-    const handleOutsideClick = (e: MouseEvent) => {
-      const target = e.target as Node;
-
-      if (kebabButtonRef.current && kebabButtonRef.current.contains(target)) {
-        return;
-      }
-
-      if (dropdownRef.current && !dropdownRef.current.contains(target)) {
-        setIsDropdownOpen(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleOutsideClick);
-
-    return () => {
-      document.removeEventListener("mousedown", handleOutsideClick);
-    };
-  }, []);
-
-  useEffect(() => {
-    const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === "Escape" && isDropdownOpen) {
-        setIsDropdownOpen(false);
-      }
-    };
-
-    if (isDropdownOpen) {
-      document.addEventListener("keydown", handleEscape);
-    }
-
-    return () => {
-      document.removeEventListener("keydown", handleEscape);
-    };
-  }, [isDropdownOpen]);
-
-  // TODO: Dropdown e.stopPropagation() 체크
   const dropdownItems: DropdownItem[] = [
     {
       text: "수정하기",
       onClick: () => {
-        setIsDropdownOpen(false);
+        close();
         onEditNote(id);
       },
     },
     {
       text: "삭제하기",
       onClick: () => {
-        setIsDropdownOpen(false);
+        close();
         onDeleteNote(id);
       },
     },
@@ -105,7 +61,7 @@ export default function NoteItem({
       <article
         className={clsx(
           "relative cursor-pointer rounded-2xl bg-white p-4 shadow-sm transition-[box-shadow,transform] duration-200 hover:-translate-y-0.5 hover:shadow-lg sm:px-8 sm:py-7",
-          isDropdownOpen && "z-10",
+          open && "z-10",
         )}>
         <header className="mb-2 flex items-center justify-between border-b border-b-gray-100 pb-2 sm:mb-3.5 sm:pb-4 lg:mb-4 lg:pb-5">
           <NoteTitleView
@@ -114,10 +70,10 @@ export default function NoteItem({
           />
           <button
             type="button"
-            ref={kebabButtonRef}
+            ref={triggerRef}
             aria-label="노트 옵션 메뉴"
-            aria-expanded={isDropdownOpen}
-            onClick={handleKebabButtonClick}
+            aria-expanded={open}
+            onClick={toggle}
             className="ml-2 h-6 w-6 shrink-0 cursor-pointer text-gray-400">
             <EllipsisVerticalIcon className="h-6 w-6" />
           </button>
@@ -135,7 +91,7 @@ export default function NoteItem({
             {formatDate(updatedAt)}
           </time>
         </footer>
-        {isDropdownOpen && (
+        {open && (
           <div
             ref={dropdownRef}
             className="absolute top-11 right-6 z-100">
