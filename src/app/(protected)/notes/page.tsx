@@ -4,12 +4,11 @@ import NoteListContainer from "./_components/NoteListContainer";
 interface NotesPageProps {
   searchParams: Promise<{
     goalId: string;
-    todoId: string;
   }>;
 }
 
 export default async function NotesPage({ searchParams }: NotesPageProps) {
-  const { goalId, todoId } = await searchParams;
+  const { goalId } = await searchParams;
 
   return (
     <section className="h-screen">
@@ -17,10 +16,7 @@ export default async function NotesPage({ searchParams }: NotesPageProps) {
         title="노트 모아보기"
         desktopClassName="sm:mb-14"
       />
-      <NoteListContainer
-        goalId={Number(goalId)}
-        todoId={Number(todoId)}
-      />
+      <NoteListContainer goalId={Number(goalId)} />
     </section>
   );
 }

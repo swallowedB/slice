@@ -1,6 +1,15 @@
+export interface LinkMetadata {
+  title: string | null;
+  description: string | null;
+  image: string | null;
+  url: string;
+}
+
 export interface NoteResponse {
   id: number;
   title: string;
+  linkUrl: string | null;
+  linkMetadata: LinkMetadata | null;
   createdAt: string;
   updatedAt: string;
   userId: number;
@@ -36,6 +45,7 @@ export interface NoteDetailResponse {
   title: string;
   content: string;
   linkUrl: string | null;
+  linkMetadata: LinkMetadata | null;
   createdAt: string;
   updatedAt: string;
   teamId: string;

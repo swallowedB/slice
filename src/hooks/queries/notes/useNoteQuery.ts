@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { getNote } from "@/api/note";
+import { JSONContent } from "@tiptap/react";
 import notesQueryKeys from "./queryKeys";
 
 export function useNoteQuery(noteId: number) {
@@ -8,5 +9,9 @@ export function useNoteQuery(noteId: number) {
     queryFn: () => getNote(noteId),
     enabled: !!noteId && noteId > 0,
     staleTime: 1000 * 60 * 3,
+    select: (data) => ({
+      ...data,
+      content: JSON.parse(data.content) as JSONContent,
+    }),
   });
 }
