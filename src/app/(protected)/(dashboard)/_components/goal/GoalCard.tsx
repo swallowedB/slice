@@ -40,9 +40,7 @@ export default function GoalCard({
         />
       )}
 
-      {isOpen && noTodos && (
-        <EmptyState>{EMPTY_MESSAGES.GOAL.RECENT}</EmptyState>
-      )}
+      {isOpen && noTodos && <EmptyState>{EMPTY_MESSAGES.TODO.ALL}</EmptyState>}
 
       {isOpen && !noTodos && (
         <div className="mt-6.5 grid grid-cols-1 sm:grid-cols-2 sm:gap-2">
