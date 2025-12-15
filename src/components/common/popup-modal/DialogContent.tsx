@@ -29,7 +29,7 @@ export default function DialogContent({
           type="button"
           aria-label="닫기"
           className="absolute top-0 right-0">
-          <XMarkIcon className="h-4 w-4 stroke-2 text-gray-600" />
+          <XMarkIcon className="h-6 w-6 cursor-pointer stroke-2 text-gray-600" />
         </button>
       )}
       <div
