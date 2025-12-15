@@ -1,7 +1,7 @@
 "use client";
 
 import clsx from "clsx";
-import Button from "@/components/common/button/Button";
+import TodoButton from "@/app/(protected)/_components/todo-button/TodoButton";
 
 const TABS = ["ALL", "TODO", "DONE"] as const;
 type TabType = (typeof TABS)[number];
@@ -13,11 +13,7 @@ interface TodoHeaderProps {
   className?: string;
 }
 
-export default function TodoHeader({
-  tab,
-  onTabChange,
-  onAdd,
-}: TodoHeaderProps) {
+export default function TodoHeader({ tab, onTabChange }: TodoHeaderProps) {
   return (
     <div className="flex items-center justify-between px-2 py-4 2xl:w-[720px]">
       <div className="flex">
@@ -35,13 +31,7 @@ export default function TodoHeader({
           </button>
         ))}
       </div>
-
-      <Button
-        variant="outline-gray"
-        size="compact"
-        onClick={onAdd}>
-        + 할 일 추가
-      </Button>
+      <TodoButton />
     </div>
   );
 }

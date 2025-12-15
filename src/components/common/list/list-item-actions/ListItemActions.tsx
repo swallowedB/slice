@@ -1,16 +1,20 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { useDeleteMutation } from "@/hooks/queries/todos/useDeleteMutation";
 import ListItemButton from "../list-button/ListItemButton";
 import Dropdown, { DropdownItem } from "../../dropdown/Dropdown";
 import { ListActionType, ListItemVariant } from "../list-item/types";
 import ConfirmModal from "../../popup-modal/ConfirmModal";
+import { Todo } from "@/api/types/todo";
+import TodoFormContent from "@/app/(protected)/_components/todo-modal/_components/TodoFormContent";
 import { ACTION_ICON_MAP } from "./constants/listItemActions";
 import { useDropdown } from "@/hooks/useDropdown";
 
 type ListItemActionsProps = {
   id: number;
+  todo?: Todo;
   variant?: ListItemVariant;
   actions?: ListActionType[];
   onDeleteTodo?: (id: number) => void;
@@ -18,6 +22,7 @@ type ListItemActionsProps = {
 
 export default function ListItemActions({
   id,
+  todo,
   variant = "default",
   actions = [],
 }: ListItemActionsProps) {
@@ -29,7 +34,9 @@ export default function ListItemActions({
     triggerRef,
   } = useDropdown<HTMLDivElement>();
 
+  const router = useRouter();
   const [confirmOpen, setConfirmOpen] = useState(false);
+  const [editOpen, setEditOpen] = useState(false);
   const deleteTodo = useDeleteMutation();
 
   if (!actions.length) return null;
@@ -38,8 +45,20 @@ export default function ListItemActions({
   const hasMore = actions.some((a) => a.type === "more");
 
   const dropdownItems: DropdownItem[] = [
-    { text: "노트 작성하기", onClick: () => closeDropdown() },
-    { text: "수정하기", onClick: () => closeDropdown() },
+    {
+      text: "노트 작성하기",
+      onClick: () => {
+        closeDropdown();
+        router.push(`/notes/new?todoId=${id}`);
+      },
+    },
+    {
+      text: "수정하기",
+      onClick: () => {
+        closeDropdown();
+        setEditOpen(true);
+      },
+    },
     {
       text: "삭제하기",
       onClick: () => {
@@ -87,8 +106,16 @@ export default function ListItemActions({
           </div>
         )}
       </div>
-      {/* 삭제 모달 */}
       <div className="z-1000">
+        {editOpen && (
+          <TodoFormContent
+            mode="edit"
+            todoId={todo?.id}
+            todo={todo}
+            onClose={() => setEditOpen(false)}
+          />
+        )}
+        {/* 삭제 모달 */}
         <ConfirmModal
           isOpen={confirmOpen}
           title="정말 삭제하시겠어요?"

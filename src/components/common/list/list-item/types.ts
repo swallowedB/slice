@@ -1,3 +1,4 @@
+import { Todo } from "@/api/types/todo";
 export type ListItemVariant = "default" | "white";
 
 export type ListActionType = {
@@ -15,6 +16,7 @@ export type ListTodoType = {
     id: number;
     title: string;
   };
+  todo?: Todo;
 };
 
 export type ListGoalType = {

@@ -25,6 +25,21 @@ export interface UpdateTodo {
   done?: boolean;
 }
 
+export interface CreateTodo {
+  title: string;
+  linkUrl?: string;
+  fileUrl?: string;
+  goalId: number;
+}
+
+export interface EditTodo {
+  title: string;
+  fileUrl?: string;
+  linkUrl?: string;
+  goalId: number;
+  done: boolean;
+}
+
 export interface DeleteTodo {
   id: number;
 }

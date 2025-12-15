@@ -55,6 +55,7 @@ export default function ListItemRow({ item, onToggleChecked, variant }: Props) {
       <div className="flex max-w-fit shrink-0 items-center gap-2">
         <ListItemActions
           id={item.id}
+          todo={item.todo}
           variant={variant}
           actions={getActionsFromItem(item)}
         />
