@@ -50,6 +50,7 @@ export default function TodoFormContent({
   const [goal, setGoal] = useState<Goal | null>(null);
   const [status, setStatus] = useState<"TODO" | "DONE">("TODO");
   const [link, setLink] = useState("");
+  const [existingFileName, setExistingFileName] = useState<string | null>(null);
   const [file, setFile] = useState<File | null>(null);
   const [isGoalOpen, setIsGoalOpen] = useState(false);
 
@@ -120,6 +121,7 @@ export default function TodoFormContent({
         isGoalOpen={isGoalOpen}
         setIsGoalOpen={setIsGoalOpen}
         goals={goals}
+        existingFileName={todo?.fileUrl ?? null}
       />
     </TodoFormLayout>
   );
