@@ -1,8 +1,9 @@
 "use client";
 
 import { useState, Suspense } from "react";
-import PageHeader from "../_components/layout/PageHeader";
 import TodoHeader from "./_components/TodoHeader";
+import PageHeader from "../_components/layout/PageHeader";
+import MobileHeader from "../_components/layout/MobileHeader";
 import TodosContent from "./_components/TodosContent";
 import TodosLayout from "./_components/TodosLayout";
 
@@ -18,10 +19,14 @@ export default function TodosPage() {
     <section className="h-screen">
       <h2 className="color-black hidden sm:block sm:pl-4 sm:text-2xl sm:font-semibold">
         <PageHeader
-          title={`모든 할 일 ${todosCount}`}
+          title={`모든 할 일`}
+          count={todosCount}
           desktopClassName="sm:mb-2"
         />
       </h2>
+      <MobileHeader
+        title={`모든 할 일`}
+        count={todosCount}></MobileHeader>
       <TodosLayout>
         <TodoHeader
           tab={tab}
