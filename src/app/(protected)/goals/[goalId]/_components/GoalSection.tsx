@@ -21,10 +21,12 @@ export default function GoalSection({
 }: GoalSectionProps) {
   return (
     <div>
-      <div className="mb-2.5 flex h-10.5 items-center justify-between">
+      <div className="relative mb-2.5 flex h-10.5 items-center justify-between">
         <h4 className="pl-2 text-lg font-semibold">{title}</h4>
 
-        {title === "TO DO" && <TodoButton />}
+        {title === "TO DO" && (
+          <TodoButton className="top-1/2 translate-y-[-50%]" />
+        )}
       </div>
 
       <div
