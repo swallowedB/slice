@@ -1,7 +1,6 @@
-import Button from "@/components/common/button/Button";
-import ProgressBar from "../progress/ProgressBar";
+import TodoButton from "@/app/(protected)/_components/todo-button/TodoButton";
+import ProgressBar from "../todos/progress/ProgressBar";
 import { ChevronDownIcon, PlusIcon } from "@heroicons/react/24/outline";
-import TextButton from "@/components/common/button/TextButton";
 
 type GoalHeaderProps = {
   title: string;
@@ -27,26 +26,7 @@ export default function GoalHeader({
       </div>
 
       <div className="flex pr-2.5 sm:ml-auto lg:mt-4 xl:mt-0">
-        <Button
-          variant="outline-gray"
-          size="compact"
-          className="hidden sm:block"
-          onClick={() => console.log("mock up")}>
-          <p className="absolute top-7.25 right-5 flex w-18.5 items-center justify-center font-semibold sm:static sm:w-full">
-            <PlusIcon className="mr-1 h-4 w-4 sm:mr-1.5 sm:h-4.5 sm:w-4.5" />
-            할일추가
-          </p>
-        </Button>
-
-        <TextButton
-          variant="primary"
-          className="block sm:hidden"
-          onClick={() => console.log("mock up")}>
-          <p className="absolute top-7.25 right-5 flex w-18.5 items-center justify-center font-semibold sm:static sm:w-full">
-            <PlusIcon className="mr-1 h-4 w-4 sm:mr-1.5 sm:h-4.5 sm:w-4.5" />
-            할일추가
-          </p>
-        </TextButton>
+        <TodoButton />
 
         <button
           onClick={onToggle}

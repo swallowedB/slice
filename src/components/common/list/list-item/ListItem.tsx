@@ -1,10 +1,10 @@
 "use client";
-import { ListTodoType, ListItemVariant } from "./listItem.types";
+import { ListTodoType, ListItemVariant } from "./types";
 import ListItemRow from "./ListItemRow";
 
 type ListItemProps = {
   items: ListTodoType[];
-  onToggleChecked: (id: number) => void;
+  onToggleChecked: (id: number, checked: boolean) => void;
   variant?: ListItemVariant;
   className?: string;
 };

@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import { ButtonHTMLAttributes, ReactNode } from "react";
-import { ListItemVariant } from "../list-item/listItem.types";
+import { ListItemVariant } from "../list-item/types";
 
 type ListItemButtonProps = {
   icon: ReactNode;
@@ -24,8 +24,7 @@ export default function ListItemButton({
     <button
       type="button"
       className={listButtonClasses}
-      {...props} // onClick 포함 모든 속성 전달
-    >
+      {...props}>
       {icon}
     </button>
   );

@@ -1,5 +1,7 @@
+"use client";
+import { useEffect, useState } from "react";
 import CircularProgress from "./CircularProgress";
-import { ProgressProps, Variant } from "./Progress.types";
+import { ProgressProps, Variant } from "./types";
 
 type VariantStyle = {
   title: string;
@@ -29,12 +31,29 @@ export default function Progress({
   percent,
   variant = "default",
 }: ProgressProps) {
+  const [animatedValue, setAnimatedValue] = useState(0);
   const v = variants[variant];
+
+  useEffect(() => {
+    const start = 0;
+    const duration = 800;
+    const startTime = performance.now();
+
+    const tick = (now: number) => {
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const value = Math.round(start + (percent - start) * progress);
+      setAnimatedValue(value);
+      if (progress < 1) requestAnimationFrame(tick);
+    };
+
+    requestAnimationFrame(tick);
+  }, [percent]);
 
   return (
     <>
       <CircularProgress
-        percent={percent}
+        percent={animatedValue}
         variant={variant}
         strokeColor={v.stroke}
       />

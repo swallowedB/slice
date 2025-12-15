@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import NavigationDesktop from "./_components/navigation/Navigation.Desktop";
+import NavigationDesktop from "./_components/navigation/NavigationDesktop";
 
 export default function ProtectedLayout({ children }: { children: ReactNode }) {
   return (

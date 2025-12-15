@@ -38,3 +38,51 @@
     background: var(--color-bg);
   }
 }
+
+@layer components {
+  .tiptap p.is-editor-empty:first-child::before {
+    color: #a4a4a4;
+    font-size: 14px;
+    font-weight: 400;
+    content: attr(data-placeholder);
+    float: left;
+    height: 0;
+    pointer-events: none;
+  }
+
+  @media (min-width: 640px) {
+    .tiptap p.is-editor-empty:first-child::before {
+      font-size: 16px;
+    }
+  }
+
+  .note-editor {
+    @apply pt-6 text-sm font-normal outline-none sm:text-base lg:pt-5;
+  }
+
+  .note-editor ul {
+    @apply my-4 list-disc pl-6;
+  }
+
+  .note-editor ol {
+    @apply my-4 list-decimal pl-6;
+  }
+
+  .note-editor li {
+    @apply my-1;
+  }
+
+  .note-editor li > p {
+    @apply my-0;
+  }
+
+  .note-editor ul ul,
+  .note-editor ol ul {
+    @apply my-2 list-[circle];
+  }
+
+  .note-editor ul ul ul,
+  .note-editor ol ul ul {
+    @apply my-2 list-[square];
+  }
+}

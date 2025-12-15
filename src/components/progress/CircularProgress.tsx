@@ -59,7 +59,7 @@ export default function CircularProgress({
           strokeDasharray={circumference}
           strokeDashoffset={offset}
           strokeLinecap="round"
-          style={{ transition: "stroke-dashoffset 1s ease-out" }}
+          className="transition-[stroke-dashoffset] duration-[800ms] ease-out"
         />
       </g>
     </svg>

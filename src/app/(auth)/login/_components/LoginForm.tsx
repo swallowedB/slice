@@ -1,23 +1,16 @@
 "use client";
-import { useState } from "react";
-import FormField from "../../_components/FormField";
+import FormField from "@/app/(auth)/_components/FormField";
+import Button from "@/components/common/button/Button";
+import { useLoginForm } from "../_hooks/useLoginForm";
 
 export default function LoginForm() {
-  const [form, setForm] = useState({
-    email: "",
-    password: "",
-  });
-  const [errors, setErrors] = useState({
-    email: "",
-    password: "",
-  })
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-  };
+  const { form, errors, serverError, isPending, handleChange, handleSubmit } =
+    useLoginForm();
 
   return (
-    <section className="flex flex-col gap-4 w-full">
+    <form
+      onSubmit={handleSubmit}
+      className="flex w-full flex-col gap-4">
       <FormField
         hideLabel={true}
         label="이메일"
@@ -36,6 +29,14 @@ export default function LoginForm() {
         value={form.password}
         onChange={handleChange}
       />
-    </section>
+      {serverError && (
+        <p className="mt-1 text-sm text-red-500">{serverError}</p>
+      )}
+      <div className="mt-8">
+        <Button type="submit">
+          {isPending ? "로그인 중..." : "로그인 하기"}
+        </Button>
+      </div>
+    </form>
   );
 }

@@ -6,7 +6,7 @@ interface PageHeaderProps {
   count?: number;
   mobileActions?: React.ReactNode;
   desktopActions?: React.ReactNode;
-  className?: string;
+  desktopClassName?: string;
 }
 
 export default function PageHeader({
@@ -14,7 +14,7 @@ export default function PageHeader({
   count,
   mobileActions,
   desktopActions,
-  className,
+  desktopClassName,
 }: PageHeaderProps) {
   return (
     <>
@@ -27,7 +27,7 @@ export default function PageHeader({
         title={title}
         count={count}
         actions={desktopActions}
-        className={className}
+        className={desktopClassName}
       />
     </>
   );

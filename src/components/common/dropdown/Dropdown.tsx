@@ -25,7 +25,11 @@ export default function Dropdown({ items, className }: DropdownProps) {
         <button
           key={text}
           type="button"
-          onClick={onClick}
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            onClick();
+          }}
           className={itemClass}>
           {text}
         </button>

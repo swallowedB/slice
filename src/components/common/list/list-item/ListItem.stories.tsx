@@ -3,7 +3,7 @@ import type { ComponentProps } from "react";
 import { useState } from "react";
 
 import ListItem from "./ListItem";
-import type { ListTodoType } from "./listItem.types";
+import type { ListTodoType } from "./types";
 
 const meta: Meta<typeof ListItem> = {
   title: "ListItem/ListItem",
