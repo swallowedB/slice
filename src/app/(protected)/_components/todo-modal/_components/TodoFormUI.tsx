@@ -30,6 +30,7 @@ interface TodoFormUIProps {
 
   file: File | null;
   setFile: (f: File | null) => void;
+  existingFileName?: string | null;
 
   isGoalOpen: boolean;
   setIsGoalOpen: (v: boolean) => void;
@@ -49,6 +50,7 @@ export default function TodoFormUI({
   setLink,
   file,
   setFile,
+  existingFileName,
   isGoalOpen,
   setIsGoalOpen,
   goals,
@@ -124,6 +126,7 @@ export default function TodoFormUI({
         <AttachmentSection
           type="file"
           value={file}
+          existingFileName={existingFileName ?? null}
           placeholder="파일을 업로드해주세요"
           icon={<DocumentArrowUpIcon className="h-5 w-5" />}
           onChange={(f) => setFile(f as File | null)}

@@ -8,6 +8,7 @@ interface AttachmentSectionProps {
   value: string | File | null;
   placeholder: string;
   icon: React.ReactNode;
+  existingFileName?: string | null;
   onChange?: (v: string | File | null) => void;
 }
 
@@ -16,6 +17,7 @@ export default function AttachmentSection({
   value,
   placeholder,
   icon,
+  existingFileName,
   onChange,
 }: AttachmentSectionProps) {
   const ATTACHMENT_CLASS =
@@ -41,7 +43,9 @@ export default function AttachmentSection({
               ATTACHMENT_CLASS,
               "flex cursor-pointer items-center text-gray-600",
             )}>
-            {value instanceof File ? value.name : placeholder}
+            {value instanceof File
+              ? value.name
+              : (existingFileName ?? placeholder)}
           </label>
         </>
       ) : (
