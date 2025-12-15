@@ -7,6 +7,7 @@ type ListItemProps = {
   onToggleChecked: (id: number, checked: boolean) => void;
   variant?: ListItemVariant;
   className?: string;
+  containerClassName?: string;
 };
 
 export default function ListItem({
@@ -14,9 +15,10 @@ export default function ListItem({
   onToggleChecked,
   variant = "default",
   className = "",
+  containerClassName = "",
 }: ListItemProps) {
   return (
-    <div className="w-full">
+    <div className={`w-full overflow-y-auto ${containerClassName}`}>
       <ul className={className}>
         {items.map((item) => (
           <ListItemRow

@@ -42,6 +42,7 @@ export default function GoalSection({
             className="grid sm:gap-0.5 lg:gap-1"
             items={items}
             onToggleChecked={onToggleChecked}
+            containerClassName="sm:h-110"
           />
         )}
       </div>
