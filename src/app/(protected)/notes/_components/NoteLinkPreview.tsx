@@ -10,6 +10,14 @@ export function NoteLinkPreview({ linkMetadata }: NoteLinkPreviewProps) {
     <div className="bg-gray-25 flex flex-col gap-1 rounded-xl px-4 py-3.5">
       <div className="flex justify-between">
         <div className="flex items-start gap-1">
+          <img
+            src={`https://www.google.com/s2/favicons?domain=${new URL(linkMetadata.url).hostname}&sz=32`}
+            alt="favicon"
+            onError={(e) => {
+              e.currentTarget.style.display = "none";
+            }}
+            className="h-6 w-6"
+          />
           <h5 className="text-sm font-medium text-gray-700">
             {linkMetadata.title}
           </h5>
