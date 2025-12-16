@@ -26,7 +26,7 @@ export default function GoalHeader({
       </div>
 
       <div className="flex pr-2.5 sm:ml-auto lg:mt-4 xl:mt-0">
-        <TodoButton />
+        <TodoButton className="top-7.25" />
 
         <button
           onClick={onToggle}
