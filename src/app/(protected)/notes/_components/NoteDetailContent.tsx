@@ -7,6 +7,7 @@ import { formatDate } from "@/utils/date";
 import NoteTitleView from "./NoteTitleView";
 import NoteMetaInfo from "./NoteMetaInfo";
 import { useNoteEditor } from "./editor/hooks/useNoteEditor";
+import { NoteLinkPreview } from "./NoteLinkPreview";
 
 interface NoteDetailContentProps {
   noteId: number;
@@ -45,6 +46,11 @@ export default function NoteDetailContent({ noteId }: NoteDetailContentProps) {
           updatedAt={formatDate(note.updatedAt)}
         />
       </header>
+      {note.linkMetadata && (
+        <div className="mt-6">
+          <NoteLinkPreview linkMetadata={note.linkMetadata} />
+        </div>
+      )}
       <div className="flex-1">
         <EditorContent editor={editor} />
       </div>
