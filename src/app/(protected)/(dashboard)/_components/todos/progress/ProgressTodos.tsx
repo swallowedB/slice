@@ -1,9 +1,11 @@
 "use client";
 import Progress from "@/components/progress/Progress";
 import { useProgressTodosQuery } from "@/hooks/queries/todos/useProgressTodosQuery";
+import { useAuthStore } from "@/store/useAuthStore";
 
 export default function ProgressTodos() {
   const { data, isLoading, isError } = useProgressTodosQuery();
+  const nickname = useAuthStore((state) => state.user?.name ?? "");
 
   return (
     <div className="mt-7.5 w-full sm:mt-0">
@@ -33,7 +35,7 @@ export default function ProgressTodos() {
             <Progress
               percent={data?.progress ?? 0}
               variant="large"
-              title={`체다치즈님의 진행도는`}
+              title={`${nickname}님의 진행도는`}
             />
           )}
         </div>

@@ -4,7 +4,7 @@ import { PlusIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
 import TodoFormContent from "../todo-modal/_components/TodoFormContent";
 
-export default function TodoButton() {
+export default function TodoButton({ className }: { className?: string }) {
   const [isOpenTodoModal, setIsOpenTodoModal] = useState(false);
   const handleTodoOpen = () => {
     setIsOpenTodoModal(true);
@@ -31,7 +31,8 @@ export default function TodoButton() {
         variant="primary"
         className="block sm:hidden"
         onClick={handleTodoOpen}>
-        <p className="absolute top-7.25 right-5 flex w-18.5 items-center justify-center font-semibold sm:static sm:w-full">
+        <p
+          className={`${className} absolute right-5 flex w-18.5 items-center justify-center font-semibold sm:static sm:w-full`}>
           <PlusIcon className="mr-1 h-4 w-4 sm:mr-1.5 sm:h-4.5 sm:w-4.5" />
           할일추가
         </p>

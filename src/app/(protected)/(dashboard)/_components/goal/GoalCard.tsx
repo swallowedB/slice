@@ -28,6 +28,9 @@ export default function GoalCard({
 
   const noTodos = todoItems.length === 0 && doneItems.length === 0;
 
+  const isOpenWithTodos = isOpen && noTodos;
+  const isOpenWithNoTodos = isOpen && !noTodos;
+
   return (
     <div
       className={`${cardStyles} ${isOpen ? "sm:pb-4" : "pb-13.5 sm:pb-7.5"}`}>
@@ -40,11 +43,9 @@ export default function GoalCard({
         />
       )}
 
-      {isOpen && noTodos && (
-        <EmptyState>{EMPTY_MESSAGES.GOAL.RECENT}</EmptyState>
-      )}
+      {isOpenWithTodos && <EmptyState>{EMPTY_MESSAGES.TODO.ALL}</EmptyState>}
 
-      {isOpen && !noTodos && (
+      {isOpenWithNoTodos && (
         <div className="mt-6.5 grid grid-cols-1 sm:grid-cols-2 sm:gap-2">
           <GoalTodoBox
             title="TO DO"
@@ -53,6 +54,7 @@ export default function GoalCard({
               className="grid sm:gap-0.5 lg:gap-1"
               items={todoItems}
               onToggleChecked={handleToggle}
+              containerClassName="sm:h-48 lg:h-60"
             />
           </GoalTodoBox>
           <GoalTodoBox
@@ -62,6 +64,7 @@ export default function GoalCard({
               className="grid sm:gap-0.5 lg:gap-1"
               items={doneItems}
               onToggleChecked={handleToggle}
+              containerClassName="sm:h-48 lg:h-60"
             />
           </GoalTodoBox>
         </div>
