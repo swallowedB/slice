@@ -21,6 +21,7 @@
     "@tiptap/extension-highlight": "^3.13.0",
     "@tiptap/extension-placeholder": "^3.12.1",
     "@tiptap/extension-text-align": "^3.13.0",
+    "@tiptap/extension-youtube": "^3.13.0",
     "@tiptap/pm": "^3.12.1",
     "@tiptap/react": "^3.12.1",
     "@tiptap/starter-kit": "^3.12.1",
