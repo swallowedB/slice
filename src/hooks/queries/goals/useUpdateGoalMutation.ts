@@ -12,10 +12,8 @@ export function useUpdateGoalMutation(goalId: number) {
     mutationFn: (payload) => updateGoal(goalId, payload),
 
     onSuccess: (data) => {
-      // 상세 데이터 즉시 반영
       queryClient.setQueryData(goalsQueryKeys.detail(goalId), data);
 
-      // 목록도 최신화
       queryClient.invalidateQueries({
         queryKey: goalsQueryKeys.detail(goalId),
       });

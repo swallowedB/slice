@@ -1,8 +1,4 @@
-import {
-  QueryClient,
-  useMutation,
-  useQueryClient,
-} from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteGoal } from "@/api/goal";
 import goalsQueryKeys from "./queryKeys";
 export function useDeleteGoalMutation() {

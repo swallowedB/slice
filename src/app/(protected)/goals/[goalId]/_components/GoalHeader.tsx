@@ -84,6 +84,7 @@ export default function GoalHeader({ goalId }: GoalHeaderProps) {
       ) : (
         <div className="flex w-full gap-2">
           <input
+            type="text"
             className="w-[70%] rounded border p-2 sm:w-[80%]"
             value={editTitle}
             onChange={(e) => setEditTitle(e.target.value)}
