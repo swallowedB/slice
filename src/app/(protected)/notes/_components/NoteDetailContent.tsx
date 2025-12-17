@@ -75,11 +75,14 @@ export default function NoteDetailContent({ noteId }: NoteDetailContentProps) {
               />
             </button>
           </div>
-          <iframe
-            src={getYouTubeEmbedUrl(note.linkMetadata!.url)}
-            className="h-52 w-full sm:h-85 lg:h-100"
-            title={note.linkMetadata!.title ?? "YouTube Video"}
-            allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen"></iframe>
+          <div className="relative aspect-video max-h-[400px] w-full sm:max-h-[500px] lg:max-h-[600px]">
+            <iframe
+              src={getYouTubeEmbedUrl(note.linkMetadata!.url)}
+              className="absolute inset-0 h-full w-full"
+              title={note.linkMetadata!.title ?? "YouTube Video"}
+              allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen"
+            />
+          </div>
         </div>
       )}
       {note.linkMetadata && (
