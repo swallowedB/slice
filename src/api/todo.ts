@@ -2,7 +2,7 @@ import { fetcher } from "@/lib/fetcher";
 import { Todo, Todos, UpdateTodo, CreateTodo, EditTodo } from "./types/todo";
 
 export function getTodos() {
-  return fetcher<Todos>("/todos?ㅔㅁ", {
+  return fetcher<Todos>("/todos", {
     method: "GET",
   });
 }
