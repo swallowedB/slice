@@ -1,6 +1,7 @@
 import { deleteGoal, updateGoal } from "@/api/goal";
 import GoalHeader from "@/app/(protected)/goals/[goalId]/_components/GoalHeader";
 import GoalSection from "@/app/(protected)/goals/[goalId]/_components/GoalSection";
+import { calcProgress } from "@/app/(protected)/goals/[goalId]/_utils/calcProgress";
 import { EMPTY_MESSAGES } from "@/constants/messages";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
@@ -17,7 +18,7 @@ jest.mock("@/api/goal", () => ({
   deleteGoal: jest.fn(),
 }));
 
-describe("목표 카드", () => {
+describe("목표 영역", () => {
   beforeEach(() => {
     push.mockClear();
     jest.clearAllMocks();
@@ -81,7 +82,13 @@ describe("목표 카드", () => {
   });
 });
 
-describe("진행도 카드", () => {});
+describe("진행도 영역", () => {
+  it("완료 비율을 퍼센트로 계산한다", () => {
+    expect(
+      calcProgress([{ checked: true }, { checked: false }, { checked: true }]),
+    ).toBe(67);
+  });
+});
 
 describe("목표상세 Todo/done", () => {
   it("items가 Todo박스에 비어있으면 EmptyState를 보여준다", () => {
