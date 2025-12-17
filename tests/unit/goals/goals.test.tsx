@@ -81,6 +81,8 @@ describe("목표 카드", () => {
   });
 });
 
+describe("진행도 카드", () => {});
+
 describe("목표상세 Todo/done", () => {
   it("items가 Todo박스에 비어있으면 EmptyState를 보여준다", () => {
     render(
