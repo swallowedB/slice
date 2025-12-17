@@ -2,15 +2,17 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { useDeleteMutation } from "@/hooks/queries/todos/useDeleteMutation";
-import ListItemButton from "../list-button/ListItemButton";
-import Dropdown, { DropdownItem } from "../../dropdown/Dropdown";
-import { ListActionType, ListItemVariant } from "../list-item/types";
-import ConfirmModal from "../../popup-modal/ConfirmModal";
-import { Todo } from "@/api/types/todo";
-import TodoFormContent from "@/app/(protected)/_components/todo-modal/_components/TodoFormContent";
-import { ACTION_ICON_MAP } from "./constants/listItemActions";
 import { useDropdown } from "@/hooks/useDropdown";
+import { useDeleteMutation } from "@/hooks/queries/todos/useDeleteMutation";
+
+import DropdownPortal from "@/components/common/dropdown/dropdown-portal/DropdownPortal";
+import ConfirmModal from "../../popup-modal/ConfirmModal";
+import ListItemButton from "../list-button/ListItemButton";
+import TodoFormContent from "@/app/(protected)/_components/todo-modal/_components/TodoFormContent";
+
+import { Todo } from "@/api/types/todo";
+import { ListActionType, ListItemVariant } from "../list-item/types";
+import { ACTION_ICON_MAP } from "./constants/listItemActions";
 
 type ListItemActionsProps = {
   id: number;
@@ -26,17 +28,19 @@ export default function ListItemActions({
   variant = "default",
   actions = [],
 }: ListItemActionsProps) {
+  const router = useRouter();
+
   const {
     open: dropdownOpen,
     toggle: toggleDropdown,
     close: closeDropdown,
-    dropdownRef,
     triggerRef,
   } = useDropdown<HTMLDivElement>();
 
-  const router = useRouter();
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [editOpen, setEditOpen] = useState(false);
+  const [anchorRect, setAnchorRect] = useState<DOMRect | null>(null);
+
   const deleteTodo = useDeleteMutation();
 
   if (!actions.length) return null;
@@ -44,7 +48,7 @@ export default function ListItemActions({
   const iconActions = actions.filter((a) => a.type !== "more");
   const hasMore = actions.some((a) => a.type === "more");
 
-  const dropdownItems: DropdownItem[] = [
+  const dropdownItems = [
     {
       text: "노트 작성하기",
       onClick: () => {
@@ -62,11 +66,18 @@ export default function ListItemActions({
     {
       text: "삭제하기",
       onClick: () => {
-        toggleDropdown();
+        closeDropdown();
         setConfirmOpen(true);
       },
     },
   ];
+
+  const onClickMore = () => {
+    const rect = triggerRef.current?.getBoundingClientRect();
+    if (!rect) return;
+    setAnchorRect(rect);
+    toggleDropdown();
+  };
 
   return (
     <>
@@ -93,40 +104,45 @@ export default function ListItemActions({
               icon={ACTION_ICON_MAP.more.icon}
               className={ACTION_ICON_MAP.more.buttonClassName}
               variant={variant}
-              onClick={toggleDropdown}
+              onClick={onClickMore}
             />
           </div>
         )}
-
-        {dropdownOpen && (
-          <div
-            ref={dropdownRef}
-            className="absolute top-full right-0 z-50 mt-2">
-            <Dropdown items={dropdownItems} />
-          </div>
-        )}
       </div>
-      <div className="z-1000">
-        {editOpen && (
-          <TodoFormContent
-            mode="edit"
-            todoId={todo?.id}
-            todo={todo}
-            onClose={() => setEditOpen(false)}
-          />
-        )}
-        {/* 삭제 모달 */}
-        <ConfirmModal
-          isOpen={confirmOpen}
-          title="정말 삭제하시겠어요?"
-          message="삭제된 목표는 복구할 수 없습니다."
-          onClose={() => setConfirmOpen(false)}
-          onConfirm={() => {
-            setConfirmOpen(false);
-            deleteTodo.mutate({ id });
+
+      {/* 드롭다운 포탈 */}
+      {dropdownOpen && anchorRect && (
+        <DropdownPortal
+          anchorRect={anchorRect}
+          items={dropdownItems}
+          onClose={() => {
+            setAnchorRect(null);
+            closeDropdown();
           }}
         />
-      </div>
+      )}
+
+      {/* 수정 모달 */}
+      {editOpen && (
+        <TodoFormContent
+          mode="edit"
+          todoId={todo?.id}
+          todo={todo}
+          onClose={() => setEditOpen(false)}
+        />
+      )}
+
+      {/* 삭제 모달 */}
+      <ConfirmModal
+        isOpen={confirmOpen}
+        title="정말 삭제하시겠어요?"
+        message="삭제된 목표는 복구할 수 없습니다."
+        onClose={() => setConfirmOpen(false)}
+        onConfirm={() => {
+          setConfirmOpen(false);
+          deleteTodo.mutate({ id });
+        }}
+      />
     </>
   );
 }
