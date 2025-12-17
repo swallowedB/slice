@@ -105,7 +105,8 @@ export default function GoalHeader({ goalId }: GoalHeaderProps) {
       <button
         ref={triggerRef}
         className="ml-auto cursor-pointer"
-        onClick={toggleDropdown}>
+        onClick={toggleDropdown}
+        aria-label="goal-options">
         <EllipsisVerticalIcon className="h-6 w-6 text-gray-400" />
       </button>
 
