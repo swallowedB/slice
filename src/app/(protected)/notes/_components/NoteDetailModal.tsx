@@ -39,6 +39,7 @@ export default function NoteDetailModal({
       <div
         className={clsx(
           "fixed inset-y-0 right-0 left-0 z-1000 bg-white px-4 pt-12 pb-4",
+          "overflow-y-auto",
           "translate-x-0 transition-transform duration-300 ease-out",
           "sm:px-10 sm:pt-18 sm:pb-10 lg:left-auto lg:w-5xl lg:rounded-tl-4xl lg:rounded-bl-4xl lg:pt-20",
           !isAnimating && "lg:translate-x-full",

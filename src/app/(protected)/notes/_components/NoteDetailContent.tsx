@@ -1,12 +1,13 @@
 "use client";
 
 import { useNoteQuery } from "@/hooks/queries/notes";
-import { EditorContent } from "@tiptap/react";
-import { useEffect } from "react";
+import { useState } from "react";
 import { formatDate } from "@/utils/date";
 import NoteTitleView from "./NoteTitleView";
 import NoteMetaInfo from "./NoteMetaInfo";
-import { useNoteEditor } from "./editor/hooks/useNoteEditor";
+import { NoteLinkPreview } from "./NoteLinkPreview";
+import { NoteEmbedView } from "./NoteEmbedView";
+import { Editor } from "./editor/Editor";
 
 interface NoteDetailContentProps {
   noteId: number;
@@ -14,14 +15,8 @@ interface NoteDetailContentProps {
 
 export default function NoteDetailContent({ noteId }: NoteDetailContentProps) {
   const { data: note, isLoading, error } = useNoteQuery(noteId);
-
-  const editor = useNoteEditor(null);
-
-  useEffect(() => {
-    if (note?.content && editor) {
-      editor.commands.setContent(note.content);
-    }
-  }, [note?.content, editor]);
+  const [isEmbedOpen, setIsEmbedOpen] = useState(false);
+  const linkMetadata = note?.linkMetadata;
 
   if (isLoading) {
     return <div>로딩 중...</div>;
@@ -45,8 +40,23 @@ export default function NoteDetailContent({ noteId }: NoteDetailContentProps) {
           updatedAt={formatDate(note.updatedAt)}
         />
       </header>
+      {linkMetadata && (
+        <div className="mt-5 flex flex-col gap-6">
+          {isEmbedOpen && (
+            <NoteEmbedView
+              url={linkMetadata.url}
+              title={linkMetadata.title}
+              onClose={() => setIsEmbedOpen(false)}
+            />
+          )}
+          <NoteLinkPreview
+            linkMetadata={linkMetadata}
+            onClick={() => setIsEmbedOpen(true)}
+          />
+        </div>
+      )}
       <div className="flex-1">
-        <EditorContent editor={editor} />
+        <Editor content={note.content} />
       </div>
     </div>
   );
