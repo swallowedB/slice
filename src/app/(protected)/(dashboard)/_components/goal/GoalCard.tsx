@@ -33,7 +33,7 @@ export default function GoalCard({
 
   return (
     <div
-      className={`${cardStyles} ${isOpen ? "sm:pb-4" : "pb-13.5 sm:pb-7.5"}`}>
+      className={` ${cardStyles} ${isOpen ? "sm:pb-4" : "pb-13.5 sm:pb-7.5"}`}>
       {title && (
         <GoalHeader
           title={title}
@@ -46,12 +46,12 @@ export default function GoalCard({
       {isOpenWithTodos && <EmptyState>{EMPTY_MESSAGES.TODO.ALL}</EmptyState>}
 
       {isOpenWithNoTodos && (
-        <div className="mt-6.5 grid grid-cols-1 sm:grid-cols-2 sm:gap-2">
+        <div className="mt-6.5 grid grid-cols-1 overflow-hidden sm:grid-cols-2 sm:gap-2">
           <GoalTodoBox
             title="TO DO"
             variant="todo">
             <ListItem
-              className="grid sm:gap-0.5 lg:gap-1"
+              className="grid overflow-hidden sm:gap-0.5 lg:gap-1"
               items={todoItems}
               onToggleChecked={handleToggle}
               containerClassName="sm:h-48 lg:h-60"

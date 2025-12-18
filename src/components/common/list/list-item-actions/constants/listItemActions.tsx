@@ -1,10 +1,10 @@
-import { ListActionType } from "../../list-item/types";
 import {
   LinkIcon,
   DocumentIcon,
   DocumentTextIcon,
   EllipsisVerticalIcon,
 } from "@heroicons/react/24/outline";
+import { ListActionType } from "../types";
 
 const BASE_ICON_CLASS = "h-3 w-3 text-orange-400";
 
