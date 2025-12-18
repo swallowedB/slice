@@ -1,6 +1,6 @@
 import { useRouter } from "next/navigation";
 import { Todo } from "@/api/types/todo";
-import { ActionType } from "../../list-item/types";
+import { ActionType } from "../types";
 
 export function useListItemActions(todo?: Todo) {
   const router = useRouter();

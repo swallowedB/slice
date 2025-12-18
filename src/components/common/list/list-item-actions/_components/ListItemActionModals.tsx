@@ -2,7 +2,6 @@ import { Todo } from "@/api/types/todo";
 import TodoFormContent from "@/app/(protected)/_components/todo-modal/_components/TodoFormContent";
 import ConfirmModal from "@/components/common/popup-modal/ConfirmModal";
 
-// ListItemActionModals.tsx
 type Props = {
   todo?: Todo;
   editOpen: boolean;
