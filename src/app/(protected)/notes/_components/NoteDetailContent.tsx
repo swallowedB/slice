@@ -4,7 +4,11 @@ import { useNoteQuery } from "@/hooks/queries/notes";
 import { EditorContent } from "@tiptap/react";
 import { useEffect, useState } from "react";
 import { formatDate } from "@/utils/date";
-import { canEmbedUrl, isYouTubeUrl, getYouTubeEmbedUrl } from "@/utils/embed";
+import {
+  canEmbedUrl,
+  isYouTubeUrl,
+  getYouTubeEmbedUrl,
+} from "@/app/(protected)/notes/_utils/embed";
 import { useNoteEditor } from "./editor/hooks/useNoteEditor";
 import NoteTitleView from "./NoteTitleView";
 import NoteMetaInfo from "./NoteMetaInfo";
