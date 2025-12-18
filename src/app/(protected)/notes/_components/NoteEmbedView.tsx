@@ -2,28 +2,19 @@ import { XMarkIcon } from "@heroicons/react/24/outline";
 import { YouTubeEmbed } from "./YouTubeEmbed";
 import { GeneralEmbed } from "./GeneralEmbed";
 import { UnsupportedEmbed } from "./UnsupportedEmbed";
+import { useEmbedInfo } from "../_hooks/useEmbedInfo";
 
 interface NoteEmbedViewProps {
   url: string;
   title: string | null;
-  isYouTube: boolean;
-  canEmbed: boolean;
   onClose: () => void;
 }
 
-export function NoteEmbedView({
-  url,
-  title,
-  isYouTube,
-  canEmbed,
-  onClose,
-}: NoteEmbedViewProps) {
-  const showYouTubeEmbed = isYouTube;
-  const showGeneralEmbed = !isYouTube && canEmbed;
-  const showUnsupportedEmbed = !isYouTube && !canEmbed;
+export function NoteEmbedView({ url, title, onClose }: NoteEmbedViewProps) {
+  const { isYouTube, canEmbed, embedUrl } = useEmbedInfo(url);
 
   return (
-    <div className="mt-5 border border-gray-100">
+    <div className="border border-gray-100">
       <div className="bg-gray-25 flex justify-end">
         <button
           type="button"
@@ -36,19 +27,19 @@ export function NoteEmbedView({
           />
         </button>
       </div>
-      {showYouTubeEmbed && (
+      {isYouTube && (
         <YouTubeEmbed
-          url={url}
+          url={embedUrl}
           title={title}
         />
       )}
-      {showGeneralEmbed && (
+      {!isYouTube && canEmbed && (
         <GeneralEmbed
-          url={url}
+          url={embedUrl}
           title={title}
         />
       )}
-      {showUnsupportedEmbed && <UnsupportedEmbed url={url} />}
+      {!isYouTube && !canEmbed && <UnsupportedEmbed url={embedUrl} />}
     </div>
   );
 }

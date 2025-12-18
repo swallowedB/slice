@@ -1,19 +1,13 @@
 "use client";
 
 import { useNoteQuery } from "@/hooks/queries/notes";
-import { EditorContent } from "@tiptap/react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { formatDate } from "@/utils/date";
-import {
-  canEmbedUrl,
-  isYouTubeUrl,
-  getYouTubeEmbedUrl,
-} from "@/app/(protected)/notes/_utils/embed";
-import { useNoteEditor } from "./editor/hooks/useNoteEditor";
 import NoteTitleView from "./NoteTitleView";
 import NoteMetaInfo from "./NoteMetaInfo";
 import { NoteLinkPreview } from "./NoteLinkPreview";
 import { NoteEmbedView } from "./NoteEmbedView";
+import { Editor } from "./editor/Editor";
 
 interface NoteDetailContentProps {
   noteId: number;
@@ -21,26 +15,8 @@ interface NoteDetailContentProps {
 
 export default function NoteDetailContent({ noteId }: NoteDetailContentProps) {
   const { data: note, isLoading, error } = useNoteQuery(noteId);
-  const editor = useNoteEditor(null);
-  const [showEmbed, setShowEmbed] = useState(false);
-
+  const [isEmbedOpen, setIsEmbedOpen] = useState(false);
   const linkMetadata = note?.linkMetadata;
-  const isYouTube = linkMetadata ? isYouTubeUrl(linkMetadata.url) : false;
-  const canEmbed = linkMetadata ? canEmbedUrl(linkMetadata.url) : false;
-
-  const embedUrl =
-    isYouTube && linkMetadata
-      ? getYouTubeEmbedUrl(linkMetadata.url)
-      : (linkMetadata?.url ?? "");
-
-  const shouldShowEmbed = showEmbed && linkMetadata;
-
-  useEffect(() => {
-    if (note?.content && editor) {
-      editor.commands.setContent(note.content);
-    }
-    console.log(note?.content);
-  }, [note?.content, editor]);
 
   if (isLoading) {
     return <div>로딩 중...</div>;
@@ -64,25 +40,23 @@ export default function NoteDetailContent({ noteId }: NoteDetailContentProps) {
           updatedAt={formatDate(note.updatedAt)}
         />
       </header>
-      {shouldShowEmbed && (
-        <NoteEmbedView
-          url={embedUrl}
-          title={linkMetadata.title}
-          isYouTube={isYouTube}
-          canEmbed={canEmbed}
-          onClose={() => setShowEmbed(false)}
-        />
-      )}
       {linkMetadata && (
-        <div className="mt-6">
+        <div className="mt-5 flex flex-col gap-6">
+          {isEmbedOpen && (
+            <NoteEmbedView
+              url={linkMetadata.url}
+              title={linkMetadata.title}
+              onClose={() => setIsEmbedOpen(false)}
+            />
+          )}
           <NoteLinkPreview
             linkMetadata={linkMetadata}
-            onClick={() => setShowEmbed(true)}
+            onClick={() => setIsEmbedOpen(true)}
           />
         </div>
       )}
       <div className="flex-1">
-        <EditorContent editor={editor} />
+        <Editor content={note.content} />
       </div>
     </div>
   );
