@@ -8,6 +8,7 @@ import GoalProgressCard from "./GoalProgressCard";
 import GoalNotesCard from "./GoalNotesCard";
 import Goal from "./Goal";
 import { useAuthStore } from "@/store/useAuthStore";
+import { calcProgress } from "../_utils/calcProgress";
 
 type DataIdProps = {
   goalId: string;
@@ -26,10 +27,7 @@ export default function GoalContainer({ goalId }: DataIdProps) {
   const goal = goals.find((g) => g.id === Number(goalId));
 
   const goalTodos = todos.filter((goalTodo) => goalTodo.goal?.id === goal?.id);
-  const doneCount = goalTodos.filter((goalTodo) => goalTodo.checked).length;
-  const totalCount = goalTodos.length;
-  const progress =
-    totalCount > 0 ? Math.round((doneCount / totalCount) * 100) : 0;
+  const progress = calcProgress(goalTodos);
 
   const targetTodoId = goalTodos.length > 0 ? goalTodos[0].id : null;
   return (
