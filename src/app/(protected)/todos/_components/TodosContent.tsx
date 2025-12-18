@@ -70,7 +70,7 @@ export default function TodosContent({
   if (isGoalsError || isTodoError) return <div>🚨에러</div>;
 
   return (
-    <div className="flex flex-col rounded-2xl bg-white px-4 pt-4 pb-6 sm:h-160 lg:h-240">
+    <div className="flex h-160 flex-col overflow-auto rounded-2xl bg-white px-8 pt-8 pb-8 sm:max-h-screen">
       {filtered.length === 0 ? (
         <EmptyListContent tab={tab} />
       ) : (
@@ -89,6 +89,7 @@ export default function TodosContent({
             <ListItem
               items={filtered}
               onToggleChecked={onToggleChecked}
+              containerClassName="sm:h-120"
             />
           </div>
         </>
