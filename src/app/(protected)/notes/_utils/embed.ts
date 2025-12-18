@@ -1,13 +1,10 @@
 const EMBEDDABLE_DOMAINS = [
   "youtube.com",
   "youtu.be",
-  "vimeo.com",
-  "codepen.io",
   "codesandbox.io",
   "stackblitz.com",
   "jsfiddle.net",
   "wikipedia.org",
-  "w3schools.com",
 ];
 
 export function canEmbedUrl(url: string) {
