@@ -46,7 +46,9 @@ export function NoteLinkPreview({
           </button>
         )}
       </div>
-      <p className="text-xs font-normal text-gray-400">{linkMetadata.url}</p>
+      <p className="truncate text-xs font-normal text-gray-400">
+        {linkMetadata.url}
+      </p>
     </div>
   );
 }
