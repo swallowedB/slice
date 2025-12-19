@@ -1,7 +1,8 @@
 import clsx from "clsx";
 import Checkbox from "../../checkbox/Checkbox";
 import ListItemActions from "../list-item-actions/ListItemActions";
-import { ListActionType, ListTodoType, ListItemVariant } from "./types";
+import { ListTodoType } from "./types";
+import { ListActionType, ListItemVariant } from "../list-item-actions/types";
 
 type Props = {
   item: ListTodoType;

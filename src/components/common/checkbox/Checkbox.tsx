@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import { CheckIcon } from "@heroicons/react/24/outline";
-import { ListItemVariant } from "../list/list-item/types";
+import { ListItemVariant } from "../list/list-item-actions/types";
 
 type CheckboxProps = {
   id: number;
