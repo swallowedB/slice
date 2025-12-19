@@ -1,9 +1,4 @@
 import { Todo } from "@/api/types/todo";
-export type ListItemVariant = "default" | "white";
-
-export type ListActionType = {
-  type: "link" | "file" | "note" | "more";
-};
 
 export type ListTodoType = {
   id: number;

@@ -1,6 +1,7 @@
 "use client";
-import { ListTodoType, ListItemVariant } from "./types";
+import { ListTodoType } from "./types";
 import ListItemRow from "./ListItemRow";
+import { ListItemVariant } from "../list-item-actions/types";
 
 type ListItemProps = {
   items: ListTodoType[];
@@ -18,7 +19,8 @@ export default function ListItem({
   containerClassName = "",
 }: ListItemProps) {
   return (
-    <div className={`w-full overflow-y-auto ${containerClassName}`}>
+    <div
+      className={`w-full overflow-x-hidden overflow-y-auto ${containerClassName}`}>
       <ul className={className}>
         {items.map((item) => (
           <ListItemRow

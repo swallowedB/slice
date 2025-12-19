@@ -31,26 +31,24 @@ export default function GoalContainer({ goalId }: DataIdProps) {
 
   const targetTodoId = goalTodos.length > 0 ? goalTodos[0].id : null;
   return (
-    <>
+    <section>
       <PageHeader
         title={`${nickname} 목표`}
         desktopClassName="sm:mb-8.5"
       />
 
-      <section className="mb-7.5 w-full lg:mb-20">
-        <div className="block w-full sm:grid lg:grid-cols-1 lg:gap-x-0 xl:gap-x-8 2xl:grid-cols-2">
-          <GoalHeader goalId={goalId} />
+      <div className="mb-7.5 block w-full sm:grid lg:mb-20 lg:grid-cols-1 lg:gap-x-0 xl:gap-x-8 2xl:grid-cols-2">
+        <GoalHeader goalId={goalId} />
 
-          <div className="block sm:grid sm:grid-cols-2 sm:gap-x-5 lg:mt-5 lg:gap-x-5 xl:mt-5 xl:grid xl:grid-cols-2 2xl:mt-0">
-            <GoalProgressCard percent={progress} />
-            <GoalNotesCard
-              goalId={goalId}
-              todoId={`${targetTodoId}`}
-            />
-          </div>
+        <div className="block sm:grid sm:grid-cols-2 sm:gap-x-5 lg:mt-5 lg:gap-x-5 xl:mt-5 xl:grid xl:grid-cols-2 2xl:mt-0">
+          <GoalProgressCard percent={progress} />
+          <GoalNotesCard
+            goalId={goalId}
+            todoId={`${targetTodoId}`}
+          />
         </div>
-      </section>
+      </div>
       <Goal goalTodos={goalTodos} />
-    </>
+    </section>
   );
 }
