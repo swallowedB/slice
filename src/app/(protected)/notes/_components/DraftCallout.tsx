@@ -3,7 +3,7 @@ import { ChevronRightIcon, XMarkIcon } from "@heroicons/react/24/outline";
 
 export default function DraftCallout() {
   return (
-    <div className="mb-7.5 flex flex-col gap-2 rounded-2xl bg-orange-50 p-4">
+    <div className="relative mb-7.5 flex flex-col gap-2 rounded-2xl bg-orange-50 p-4 sm:mb-0 sm:before:absolute sm:before:-top-2 sm:before:right-12 sm:before:h-4 sm:before:w-4 sm:before:rotate-45 sm:before:rounded-sm sm:before:bg-orange-50 sm:before:content-['']">
       <div className="flex items-start justify-between">
         <div className="text-sm text-gray-600">
           <p>임시 저장된 노트가 있어요.</p>
@@ -20,7 +20,9 @@ export default function DraftCallout() {
           />
         </button>
       </div>
-      <TextButton onClick={() => {}}>
+      <TextButton
+        onClick={() => {}}
+        className="self-start">
         <div className="text-orange-250 flex items-center gap-1.5 text-sm font-medium">
           <span>불러오기</span>
           <ChevronRightIcon
