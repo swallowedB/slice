@@ -46,7 +46,7 @@ export default function GoalCard({
       {isOpenWithTodos && <EmptyState>{EMPTY_MESSAGES.TODO.ALL}</EmptyState>}
 
       {isOpenWithNoTodos && (
-        <div className="mt-6.5 grid grid-cols-1 overflow-hidden sm:grid-cols-2 sm:gap-2">
+        <div className="mt-6.5 grid grid-cols-1 overflow-hidden sm:gap-2 2xl:grid-cols-2">
           <GoalTodoBox
             title="TO DO"
             variant="todo">

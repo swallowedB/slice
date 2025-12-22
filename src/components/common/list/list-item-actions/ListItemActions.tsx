@@ -75,7 +75,7 @@ export default function ListItemActions({
 
   return (
     <>
-      <div className="relative ml-auto flex shrink-0 items-center justify-end">
+      <div className="relative ml-auto flex max-w-fit shrink-0 items-center justify-end">
         {/* 아이콘 액션 */}
         <ListItemIconActions
           todo={todo}

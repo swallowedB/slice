@@ -6,12 +6,13 @@ import { EMPTY_MESSAGES } from "@/constants/messages";
 import { useTodoList } from "../../../_hooks/useTodoList";
 import { useState } from "react";
 import { useGoalList } from "@/hooks/queries/goals";
+import GoalSkeletion from "./GoalSkeleton";
 
 const cardStyles =
   "relative mt-4 rounded-[28px] bg-white px-4 py-6.5 pb-11 shadow-[0_4px_4px_0_rgba(0,0,0,0.025)] transition-all sm:p-4 sm:pt-7.5 lg:rounded-[40px] lg:p-7.5 lg:hover:shadow-[0_4px_4px_0_rgba(0,0,0,0.025)]";
 
 export default function Goal() {
-  const { todos } = useTodoList();
+  const { todos, isLoading } = useTodoList();
   const { data } = useGoalList();
 
   const [openCards, setOpenCards] = useState<Record<number, boolean>>({});
@@ -38,6 +39,12 @@ export default function Goal() {
         />
         목표별 할 일
       </h3>
+
+      {isLoading && (
+        <div className={`animate-skeleton-fade ${cardStyles}`}>
+          <GoalSkeletion />
+        </div>
+      )}
 
       {hasNoGoals && (
         <div className="rounded-[28px] bg-white p-4 shadow">

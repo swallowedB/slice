@@ -1,6 +1,6 @@
 import TodoButton from "@/app/(protected)/_components/todo-button/TodoButton";
 import ProgressBar from "../todos/progress/ProgressBar";
-import { ChevronDownIcon, PlusIcon } from "@heroicons/react/24/outline";
+import { ChevronDownIcon } from "@heroicons/react/24/outline";
 
 type GoalHeaderProps = {
   title: string;
