@@ -11,9 +11,12 @@ import {
 } from "@/hooks/queries/notes";
 import { useTodoQuery } from "@/hooks/queries/todos";
 import { formatDate } from "@/utils/date";
+import ConfirmModal from "@/components/common/popup-modal/ConfirmModal";
 import NoteEditorForm from "./NoteEditorForm";
 import NoteMobileActions from "./NoteMobileActions";
 import NoteDesktopActions from "./NoteDesktopActions";
+import DraftCallout from "./DraftCallout";
+import { draftNoteStorage } from "../_utils/draft-note";
 
 interface NoteWriteContainerProps {
   mode: "create" | "edit";
@@ -26,10 +29,10 @@ export default function NoteWriteContainer({ mode }: NoteWriteContainerProps) {
 
   const isEditMode = mode === "edit";
 
-  const todoId = Number(searchParams.get("todoId"));
+  const queryTodoId = Number(searchParams.get("todoId"));
   const noteId = Number(params.noteId);
 
-  const { data: todo, error: todoError } = useTodoQuery(todoId);
+  const { data: todo, error: todoError } = useTodoQuery(queryTodoId);
   const { data: note, error: noteError } = useNoteQuery(noteId);
   const { mutate: createNoteMutation, isPending: isCreatePending } =
     useCreateNoteMutation();
@@ -38,9 +41,19 @@ export default function NoteWriteContainer({ mode }: NoteWriteContainerProps) {
 
   const isPending = isCreatePending || isUpdatePending;
 
+  const todoId = isEditMode ? note?.todo.id : queryTodoId;
+
   const [title, setTitle] = useState("");
   const [content, setContent] = useState<JSONContent | null>(null);
   const [linkUrl, setLinkUrl] = useState("");
+  const [hasDraftNote, setHasDraftNote] = useState(false);
+  const [isLoadModalOpen, setIsLoadModalOpen] = useState(false);
+
+  useEffect(() => {
+    if (todoId) {
+      setHasDraftNote(draftNoteStorage.has(todoId));
+    }
+  }, [todoId]);
 
   useEffect(() => {
     if (isEditMode && note) {
@@ -56,8 +69,8 @@ export default function NoteWriteContainer({ mode }: NoteWriteContainerProps) {
     setTitle(e.target.value);
   };
 
-  const handleContentChange = (content: JSONContent) => {
-    setContent(content);
+  const handleContentChange = (newContent: JSONContent) => {
+    setContent(newContent);
   };
 
   const handleLinkUrlChange = (url: string) => {
@@ -65,7 +78,52 @@ export default function NoteWriteContainer({ mode }: NoteWriteContainerProps) {
   };
 
   const handleDraft = () => {
-    // TODO: 노트 임시저장
+    if (!todoId) return;
+    if (!title.trim() && !content) return;
+
+    draftNoteStorage.save(todoId, {
+      title,
+      content: content || { type: "doc", content: [] },
+      linkUrl,
+    });
+
+    setHasDraftNote(true);
+    // TODO: 토스트
+    alert("임시 저장이 완료되었습니다.");
+  };
+
+  const handleLoadModalOpen = () => {
+    setIsLoadModalOpen(true);
+  };
+
+  const handleLoadModalClose = () => {
+    setIsLoadModalOpen(false);
+  };
+
+  const handleDraftCalloutClose = () => {
+    setHasDraftNote(false);
+  };
+
+  const handleConfirmLoadDraft = () => {
+    if (!todoId) return;
+
+    const draftNote = draftNoteStorage.get(todoId);
+    if (draftNote) {
+      setTitle(draftNote.title);
+      setContent(draftNote.content);
+      setLinkUrl(draftNote.linkUrl);
+    }
+
+    draftNoteStorage.remove(todoId);
+
+    setIsLoadModalOpen(false);
+    setHasDraftNote(false);
+  };
+
+  const getDraftTitle = () => {
+    if (!todoId) return "제목 없음";
+    const draftNote = draftNoteStorage.get(todoId);
+    return draftNote?.title.trim() || "제목 없음";
   };
 
   const handleSubmit = () => {
@@ -86,6 +144,9 @@ export default function NoteWriteContainer({ mode }: NoteWriteContainerProps) {
     };
 
     const onSuccess = (data: { goal: { id: number } }) => {
+      if (todoId) {
+        draftNoteStorage.remove(todoId);
+      }
       router.replace(`/notes?goalId=${data.goal.id}`);
     };
 
@@ -98,11 +159,13 @@ export default function NoteWriteContainer({ mode }: NoteWriteContainerProps) {
     if (isEditMode) {
       updateNoteMutation({ noteId, data: payload }, { onSuccess, onError });
     } else {
-      createNoteMutation({ todoId, ...payload }, { onSuccess, onError });
+      createNoteMutation(
+        { todoId: queryTodoId, ...payload },
+        { onSuccess, onError },
+      );
     }
   };
 
-  // TODO: ErrorBoundary?
   if (!isEditMode && todoError) {
     return <div>할일 정보를 불러올 수 없습니다.</div>;
   }
@@ -127,35 +190,56 @@ export default function NoteWriteContainer({ mode }: NoteWriteContainerProps) {
 
   return (
     <>
-      <PageHeader
-        title={isEditMode ? "노트 수정하기" : "노트 작성하기"}
-        desktopClassName="sm:mb-3 lg:mb-5.5"
-        mobileActions={
-          <NoteMobileActions
-            submitLabel={isEditMode ? "수정" : "등록"}
-            isDisabled={isDisabled}
-            onDraft={handleDraft}
-            onSubmit={handleSubmit}
-          />
-        }
-        desktopActions={
-          <NoteDesktopActions
-            submitLabel={isEditMode ? "수정하기" : "등록하기"}
-            isDisabled={isDisabled}
-            onDraft={handleDraft}
-            onSubmit={handleSubmit}
-          />
-        }
-      />
-      <NoteEditorForm
-        title={title}
-        content={content}
-        linkUrl={linkUrl}
-        onChangeTitle={handleTitleChange}
-        onChangeContent={handleContentChange}
-        onChangeLinkUrl={handleLinkUrlChange}
-        metaInfo={metaInfo}
-      />
+      <div className="relative">
+        <PageHeader
+          title={isEditMode ? "노트 수정하기" : "노트 작성하기"}
+          desktopClassName="sm:mb-3 lg:mb-5.5"
+          mobileActions={
+            <NoteMobileActions
+              submitLabel={isEditMode ? "수정" : "등록"}
+              isDisabled={isDisabled}
+              onDraft={handleDraft}
+              onSubmit={handleSubmit}
+            />
+          }
+          desktopActions={
+            <NoteDesktopActions
+              submitLabel={isEditMode ? "수정하기" : "등록하기"}
+              isDisabled={isDisabled}
+              onDraft={handleDraft}
+              onSubmit={handleSubmit}
+            />
+          }
+        />
+        {hasDraftNote && (
+          <div className="hidden sm:absolute sm:top-12 sm:right-22 sm:z-500 sm:block sm:w-70 lg:top-12">
+            <DraftCallout
+              onLoadDraft={handleLoadModalOpen}
+              onClose={handleDraftCalloutClose}
+            />
+          </div>
+        )}
+        <NoteEditorForm
+          title={title}
+          content={content}
+          linkUrl={linkUrl}
+          onChangeTitle={handleTitleChange}
+          onChangeContent={handleContentChange}
+          onChangeLinkUrl={handleLinkUrlChange}
+          metaInfo={metaInfo}
+          hasDraftNote={hasDraftNote}
+          onLoadDraft={handleLoadModalOpen}
+          onCloseDraftCallout={handleDraftCalloutClose}
+        />
+      </div>
+      {isLoadModalOpen && (
+        <ConfirmModal
+          isOpen={isLoadModalOpen}
+          title={`'${getDraftTitle()}'\n제목의 노트를 불러오시겠어요?`}
+          onClose={handleLoadModalClose}
+          onConfirm={handleConfirmLoadDraft}
+        />
+      )}
     </>
   );
 }
