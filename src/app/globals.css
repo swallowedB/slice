@@ -87,3 +87,18 @@
     @apply my-2 list-[square];
   }
 }
+
+[data-sonner-toaster] {
+  left: 50vw !important;
+  transform: translateX(-50%) !important;
+  width: 100% !important;
+  display: flex !important;
+  justify-content: center !important;
+}
+
+[data-sonner-toast] {
+  width: 60vw !important;
+  max-width: 60vw !important;
+  margin-right: auto !important;
+  margin-left: auto !important;
+}
