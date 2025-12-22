@@ -40,7 +40,7 @@ export default function DialogContent({
         )}>
         <h2
           className={clsx(
-            "text-xl font-semibold text-black",
+            "text-sm font-semibold whitespace-pre-line text-black sm:text-xl",
             titleAlign === "center" && "text-center",
             titleAlign === "left" && "text-left",
           )}>

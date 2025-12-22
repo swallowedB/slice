@@ -2,14 +2,15 @@
 
 import { EditorContent, JSONContent } from "@tiptap/react";
 import { useState, useEffect } from "react";
+import InputModal from "@/components/common/popup-modal/InputModal";
+import Button from "@/components/common/button/Button";
+import BaseInput from "@/components/common/input/base-input/BaseInput";
 import NoteMetaInfo from "./NoteMetaInfo";
 import NoteTitleInput from "./NoteTitleInput";
 import { useNoteEditor } from "./editor/hooks/useNoteEditor";
 import EditorToolbar from "./editor/EditorToolbar";
 import CharacterCount from "./CharacterCount";
-import InputModal from "@/components/common/popup-modal/InputModal";
-import Button from "@/components/common/button/Button";
-import BaseInput from "@/components/common/input/base-input/BaseInput";
+import DraftCallout from "./DraftCallout";
 
 interface NoteEditorFormProps {
   title: string;
@@ -24,6 +25,9 @@ interface NoteEditorFormProps {
     isTodoDone: boolean;
     updatedAt: string;
   };
+  hasDraftNote: boolean;
+  onLoadDraft: () => void;
+  onCloseDraftCallout: () => void;
 }
 
 export default function NoteEditorForm({
@@ -34,6 +38,9 @@ export default function NoteEditorForm({
   onChangeContent,
   onChangeLinkUrl,
   metaInfo,
+  hasDraftNote,
+  onLoadDraft,
+  onCloseDraftCallout,
 }: NoteEditorFormProps) {
   const editor = useNoteEditor(content, onChangeContent);
   const [isLinkModalOpen, setIsLinkModalOpen] = useState(false);
@@ -89,6 +96,14 @@ export default function NoteEditorForm({
             />
           </div>
           <header className="border-b border-gray-100 pb-4 sm:py-7.5">
+            {hasDraftNote && (
+              <div className="sm:hidden">
+                <DraftCallout
+                  onLoadDraft={onLoadDraft}
+                  onClose={onCloseDraftCallout}
+                />
+              </div>
+            )}
             <NoteTitleInput
               title={title}
               onChange={onChangeTitle}
