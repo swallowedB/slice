@@ -1,5 +1,7 @@
 "use client";
+
 import { ListTodoType, ListItemVariant } from "./types";
+import { motion } from "framer-motion";
 import ListItemRow from "./ListItemRow";
 
 type ListItemProps = {
@@ -18,15 +20,20 @@ export default function ListItem({
   containerClassName = "",
 }: ListItemProps) {
   return (
-    <div className={`w-full overflow-y-auto ${containerClassName}`}>
+    <div className={`w-full ${containerClassName}`}>
       <ul className={className}>
         {items.map((item) => (
-          <ListItemRow
+          <motion.li
             key={item.id}
-            item={item}
-            onToggleChecked={onToggleChecked}
-            variant={variant}
-          />
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.25, ease: "easeOut" }}>
+            <ListItemRow
+              item={item}
+              onToggleChecked={onToggleChecked}
+              variant={variant}
+            />
+          </motion.li>
         ))}
       </ul>
     </div>
