@@ -43,3 +43,9 @@ export interface EditTodo {
 export interface DeleteTodo {
   id: number;
 }
+
+export interface CursorTodoParams {
+  goalId?: number;
+  cursor?: number;
+  size?: number;
+}
