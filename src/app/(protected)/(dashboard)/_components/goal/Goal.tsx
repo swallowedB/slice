@@ -30,7 +30,14 @@ export default function Goal() {
   const hasNoGoals = !data || data.goals.length === 0;
   return (
     <section>
-      <h3 className="mb-3 pl-2 text-lg font-medium">목표별 할 일</h3>
+      <h3 className="mb-3 flex flex-wrap items-center pl-2 text-base font-medium sm:text-sm lg:text-lg xl:text-base">
+        <img
+          src="/icons/icon-goal.svg"
+          alt="진행 아이콘"
+          className="mr-2 h-8 w-8 lg:mr-3 lg:h-10 lg:w-10"
+        />
+        목표별 할 일
+      </h3>
 
       {hasNoGoals && (
         <div className="rounded-[28px] bg-white p-4 shadow">

@@ -15,5 +15,5 @@ export function useTodoList() {
       todo: t,
     })) ?? [];
 
-  return { todos, isLoading, isError };
+  return { todos, isLoading: true, isError };
 }

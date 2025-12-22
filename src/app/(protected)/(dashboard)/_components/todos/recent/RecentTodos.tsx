@@ -4,6 +4,7 @@ import { ChevronRightIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { useTodoList } from "../../../../_hooks/useTodoList";
 import { useToggleTodo } from "@/hooks/queries/todos";
+import { ListSkeleton } from "@/components/skeleton/ListSkeleton";
 
 export default function RecentTodos() {
   const { todos, isLoading, isError } = useTodoList();
@@ -35,14 +36,15 @@ export default function RecentTodos() {
 
       <div className="bg-orange-250 h-auto rounded-[28px] px-4 py-4.5 shadow-[0_10px_40px_0_rgba(255,158,89,0.4)] transition-all sm:h-53 sm:p-3.75 lg:h-64 lg:rounded-[40px] lg:p-7.5 lg:hover:shadow-[0_10px_40px_0_rgba(255,158,89,0.4)]">
         {isLoading && (
-          <p className="flex h-full w-full items-center justify-center text-base font-semibold text-white">
-            로딩 중입니다
-          </p>
+          <ListSkeleton
+            count={4}
+            rowClassName="h-10 lg:h-11 bg-white/40"
+          />
         )}
 
         {isError && (
           <p className="flex h-full w-full items-center justify-center text-base font-semibold text-white">
-            에러가 발생했습니다
+            데이터를 불러오지 못했습니다
           </p>
         )}
 

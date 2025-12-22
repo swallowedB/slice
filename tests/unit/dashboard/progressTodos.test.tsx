@@ -6,7 +6,7 @@ import { useProgressTodosQuery } from "@/hooks/queries/todos";
 jest.mock("@/hooks/queries/todos/useProgressTodosQuery");
 const mockedUseProgress = useProgressTodosQuery as jest.Mock;
 
-it("로딩 상태일 때 로딩 문구가 보인다", () => {
+it("로딩 상태일 때 스켈레톤이 렌더링된다", () => {
   mockedUseProgress.mockReturnValue({
     data: undefined,
     isLoading: true,
@@ -15,5 +15,5 @@ it("로딩 상태일 때 로딩 문구가 보인다", () => {
 
   renderWithQueryClient(<ProgressTodos />);
 
-  expect(screen.getByText("로딩 중입니다")).toBeInTheDocument();
+  expect(screen.getByRole("status")).toBeInTheDocument();
 });
