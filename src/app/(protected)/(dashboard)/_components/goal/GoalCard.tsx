@@ -54,17 +54,17 @@ export default function GoalCard({
               className="grid sm:gap-0.5 lg:gap-1"
               items={todoItems}
               onToggleChecked={handleToggle}
-              containerClassName="sm:h-48 lg:h-60"
+              containerClassName="sm:h-48 lg:h-60 overflow-y-auto"
             />
           </GoalTodoBox>
           <GoalTodoBox
             title="DONE"
             variant="done">
             <ListItem
-              className="grid sm:gap-0.5 lg:gap-1"
+              className="grid overflow-y-auto sm:gap-0.5 lg:gap-1"
               items={doneItems}
               onToggleChecked={handleToggle}
-              containerClassName="sm:h-48 lg:h-60"
+              containerClassName="sm:h-48 lg:h-60 overflow-y-auto"
             />
           </GoalTodoBox>
         </div>
