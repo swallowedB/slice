@@ -17,6 +17,7 @@ import NoteMobileActions from "./NoteMobileActions";
 import NoteDesktopActions from "./NoteDesktopActions";
 import DraftCallout from "./DraftCallout";
 import { draftNoteStorage } from "../_utils/draft-note";
+import { toast } from "@/lib/toast";
 
 interface NoteWriteContainerProps {
   mode: "create" | "edit";
@@ -88,8 +89,7 @@ export default function NoteWriteContainer({ mode }: NoteWriteContainerProps) {
     });
 
     setHasDraftNote(true);
-    // TODO: 토스트
-    alert("임시 저장이 완료되었습니다.");
+    toast.success("임시 저장이 완료되었습니다.");
   };
 
   const handleLoadModalOpen = () => {
