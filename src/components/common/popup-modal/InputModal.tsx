@@ -19,9 +19,7 @@ export default function InputModal({
   sizeClass,
 }: InputModalProps) {
   return (
-    <BaseLayout
-      onClose={onClose}
-      sizeClass={sizeClass}>
+    <BaseLayout sizeClass={sizeClass}>
       <DialogContent
         title={title}
         titleAlign="left"

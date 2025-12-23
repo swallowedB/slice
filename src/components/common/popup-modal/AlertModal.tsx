@@ -20,7 +20,7 @@ export default function AlertModal({
 }: AlertModalProps) {
   if (!isOpen) return null;
   return (
-    <BaseLayout onClose={onClose}>
+    <BaseLayout>
       <DialogContent
         title={title}
         titleAlign="center"
