@@ -38,8 +38,8 @@ export default function Rootlayout({
         <Providers>{children}</Providers>
         <Toaster
           position="bottom-center"
-          offset="160px"
-          mobileOffset="120px"
+          offset="200px"
+          mobileOffset="100px"
           duration={3000}
           visibleToasts={1}
         />
