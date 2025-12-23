@@ -7,7 +7,11 @@ import { Suspense } from "react";
 import ProgressContent from "./ProgressContent";
 
 export default function ProgressTodos() {
-  const nickname = useAuthStore((state) => state.user?.name ?? "");
+  const { user, hydrated } = useAuthStore();
+
+  if (!hydrated) return null;
+
+  const nickname = user?.name ?? "";
 
   return (
     <div className="mt-7.5 w-full sm:mt-0">

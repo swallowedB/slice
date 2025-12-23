@@ -1,4 +1,4 @@
-import ProgressTodos from "@/app/(protected)/(dashboard)/_components/todos/progress/ProgressTodos";
+import ProgressTodos from "@/app/(protected)/dashboard/_components/todos/progress/ProgressTodos";
 import { renderWithQueryClient } from "../../test-utils";
 import { screen } from "@testing-library/react";
 import { useProgressTodosQuery } from "@/hooks/queries/todos";

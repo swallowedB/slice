@@ -20,11 +20,11 @@ export const useAuthStore = create<AuthState>()(
       setHydrated: (value) => set({ hydrated: value }),
     }),
     {
-      name: "slice_auth", 
+      name: "slice_auth",
       partialize: (state) => ({ user: state.user }),
       onRehydrateStorage: () => (state) => {
         state?.setHydrated(true);
       },
-    }
-  )
+    },
+  ),
 );
