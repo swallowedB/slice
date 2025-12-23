@@ -16,6 +16,7 @@ import {
 
 interface TodoFormUIProps {
   isEdit: boolean;
+
   title: string;
   setTitle: (v: string) => void;
 
@@ -37,6 +38,8 @@ interface TodoFormUIProps {
 
   goals: Goal[];
 }
+
+const MAX_TITLE_LENGTH = 30;
 
 export default function TodoFormUI({
   isEdit,
@@ -86,7 +89,10 @@ export default function TodoFormUI({
         <BaseInput
           value={title}
           placeholder="할 일의 제목을 적어주세요"
-          onChange={(e) => setTitle(e.target.value)}
+          onChange={(e) => {
+            if (e.target.value.length > MAX_TITLE_LENGTH) return;
+            setTitle(e.target.value);
+          }}
           className="border border-gray-200 bg-white placeholder:text-gray-600"
         />
       </InputFieldSection>
