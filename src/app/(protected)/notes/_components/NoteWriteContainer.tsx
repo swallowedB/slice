@@ -89,7 +89,7 @@ export default function NoteWriteContainer({ mode }: NoteWriteContainerProps) {
     });
 
     setHasDraftNote(true);
-    toast.success("임시 저장이 완료되었습니다.");
+    toast.success("임시 저장이 완료되었습니다", { hasTime: true });
   };
 
   const handleLoadModalOpen = () => {

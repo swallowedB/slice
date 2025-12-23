@@ -40,6 +40,7 @@ export default function Rootlayout({
           position="bottom-center"
           offset="160px"
           mobileOffset="120px"
+          duration={3000}
         />
       </body>
     </html>
