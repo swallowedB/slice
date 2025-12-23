@@ -10,7 +10,7 @@ export interface TodoResponse {
   fileUrl: string;
   label: string;
   id: number;
-  goal?: {
+  goal: {
     id: number;
     title: string;
   };
@@ -26,7 +26,7 @@ export interface Todo {
   fileUrl: string;
   title: string;
   id: number;
-  goal?: {
+  goal: {
     id: number;
     title: string;
   };
