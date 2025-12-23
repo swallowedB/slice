@@ -17,7 +17,7 @@ export default function TodoButton({ className }: { className?: string }) {
   return (
     <>
       <Button
-        variant="outline-gray"
+        variant="outline-orange"
         size="compact"
         className="hidden sm:block"
         onClick={handleTodoOpen}>
