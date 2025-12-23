@@ -1,6 +1,6 @@
 "use client";
 
-import { useTodoList } from "@/app/(protected)/_hooks/useTodoList";
+// import { useTodoList } from "@/app/(protected)/_hooks/useTodoList";
 import PageHeader from "@/app/(protected)/_components/layout/PageHeader";
 import { useGoalList } from "@/hooks/queries/goals";
 import GoalHeader from "./GoalHeader";
@@ -9,6 +9,7 @@ import GoalNotesCard from "./GoalNotesCard";
 import Goal from "./Goal";
 import { useAuthStore } from "@/store/useAuthStore";
 import { calcProgress } from "../_utils/calcProgress";
+import { useTodosSuspense } from "@/hooks/queries/todos/useTodosSuspense";
 
 type DataIdProps = {
   goalId: string;
@@ -21,7 +22,8 @@ export default function GoalContainer({ goalId }: DataIdProps) {
     isLoading: isGoalsLoading,
     isError: isGoalsError,
   } = useGoalList();
-  const { todos, isLoading, isError } = useTodoList();
+  //   const { todos, isLoading, isError } = useTodoList();
+  const todos = useTodosSuspense();
 
   const goals = goalData?.goals || [];
   const goal = goals.find((g) => g.id === Number(goalId));
