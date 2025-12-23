@@ -1,7 +1,9 @@
 "use client";
+
 import { ListTodoType } from "./types";
-import ListItemRow from "./ListItemRow";
 import { ListItemVariant } from "../list-item-actions/types";
+import { motion } from "framer-motion";
+import ListItemRow from "./ListItemRow";
 
 type ListItemProps = {
   items: ListTodoType[];
@@ -19,16 +21,20 @@ export default function ListItem({
   containerClassName = "",
 }: ListItemProps) {
   return (
-    <div
-      className={`w-full overflow-x-hidden overflow-y-auto ${containerClassName}`}>
+    <div className={`w-full ${containerClassName}`}>
       <ul className={className}>
         {items.map((item) => (
-          <ListItemRow
+          <motion.li
             key={item.id}
-            item={item}
-            onToggleChecked={onToggleChecked}
-            variant={variant}
-          />
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.25, ease: "easeOut" }}>
+            <ListItemRow
+              item={item}
+              onToggleChecked={onToggleChecked}
+              variant={variant}
+            />
+          </motion.li>
         ))}
       </ul>
     </div>
