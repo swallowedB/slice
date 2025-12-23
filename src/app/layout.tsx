@@ -41,6 +41,7 @@ export default function Rootlayout({
           offset="160px"
           mobileOffset="120px"
           duration={3000}
+          visibleToasts={1}
         />
       </body>
     </html>
