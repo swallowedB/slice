@@ -1,6 +1,7 @@
 "use client";
 
-import { ListTodoType, ListItemVariant } from "./types";
+import { ListTodoType } from "./types";
+import { ListItemVariant } from "../list-item-actions/types";
 import { motion } from "framer-motion";
 import ListItemRow from "./ListItemRow";
 

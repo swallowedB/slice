@@ -84,6 +84,7 @@ export default function GoalHeader({ goalId }: GoalHeaderProps) {
       ) : (
         <div className="flex w-full gap-2">
           <input
+            type="text"
             className="w-[70%] rounded border p-2 sm:w-[80%]"
             value={editTitle}
             onChange={(e) => setEditTitle(e.target.value)}
@@ -105,7 +106,8 @@ export default function GoalHeader({ goalId }: GoalHeaderProps) {
       <button
         ref={triggerRef}
         className="ml-auto cursor-pointer"
-        onClick={toggleDropdown}>
+        onClick={toggleDropdown}
+        aria-label="goal-options">
         <EllipsisVerticalIcon className="h-6 w-6 text-gray-400" />
       </button>
 
