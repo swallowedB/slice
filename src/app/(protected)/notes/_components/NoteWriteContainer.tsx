@@ -8,11 +8,13 @@ import {
   useNoteQuery,
   useCreateNoteMutation,
   useUpdateNoteMutation,
+  useLinkMetadataMutation,
 } from "@/hooks/queries/notes";
 import { useTodoQuery } from "@/hooks/queries/todos";
 import { formatDate } from "@/utils/date";
 import ConfirmModal from "@/components/common/popup-modal/ConfirmModal";
 import { toast } from "@/lib/toast";
+import { LinkMetadata } from "@/api/types/note";
 import NoteEditorForm from "./NoteEditorForm";
 import NoteMobileActions from "./NoteMobileActions";
 import NoteDesktopActions from "./NoteDesktopActions";
@@ -39,6 +41,7 @@ export default function NoteWriteContainer({ mode }: NoteWriteContainerProps) {
     useCreateNoteMutation();
   const { mutate: updateNoteMutation, isPending: isUpdatePending } =
     useUpdateNoteMutation();
+  const { mutate: getLinkMetadataMutation } = useLinkMetadataMutation();
 
   const isPending = isCreatePending || isUpdatePending;
   const todoId = isEditMode ? note?.todo.id : queryTodoId;
@@ -46,6 +49,8 @@ export default function NoteWriteContainer({ mode }: NoteWriteContainerProps) {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState<JSONContent | null>(null);
   const [linkUrl, setLinkUrl] = useState("");
+  const [linkMetadata, setLinkMetadata] = useState<LinkMetadata | null>(null);
+  const [isEmbedOpen, setIsEmbedOpen] = useState(false);
   const [hasDraftNote, setHasDraftNote] = useState(false);
   const [isLoadModalOpen, setIsLoadModalOpen] = useState(false);
 
@@ -54,6 +59,7 @@ export default function NoteWriteContainer({ mode }: NoteWriteContainerProps) {
     title,
     content,
     linkUrl,
+    linkMetadata,
     isEditMode,
     onSave: () => setHasDraftNote(true),
   });
@@ -69,6 +75,7 @@ export default function NoteWriteContainer({ mode }: NoteWriteContainerProps) {
       setTitle(note.title);
       setContent(note.content);
       setLinkUrl(note.linkUrl ?? "");
+      setLinkMetadata(note.linkMetadata ?? null);
     }
   }, [isEditMode, note]);
 
@@ -82,6 +89,36 @@ export default function NoteWriteContainer({ mode }: NoteWriteContainerProps) {
 
   const handleLinkUrlChange = (url: string) => {
     setLinkUrl(url);
+
+    if (!url.trim()) {
+      setLinkMetadata(null);
+      setIsEmbedOpen(false);
+      return;
+    }
+
+    try {
+      new URL(url);
+
+      getLinkMetadataMutation(url, {
+        onSuccess: (data) => {
+          setLinkMetadata(data);
+        },
+        onError: (error) => {
+          console.error("링크 메타데이터 가져오기 실패:", error);
+          toast.error("링크 정보를 가져올 수 없습니다.");
+        },
+      });
+    } catch (error) {}
+  };
+
+  const handleToggleEmbed = () => {
+    setIsEmbedOpen(!isEmbedOpen);
+  };
+
+  const handleDeleteLinkPreview = () => {
+    setLinkUrl("");
+    setLinkMetadata(null);
+    setIsEmbedOpen(false);
   };
 
   const handleDraft = () => {
@@ -92,6 +129,7 @@ export default function NoteWriteContainer({ mode }: NoteWriteContainerProps) {
       title,
       content: content || { type: "doc", content: [] },
       linkUrl,
+      linkMetadata,
     });
 
     setHasDraftNote(true);
@@ -118,11 +156,18 @@ export default function NoteWriteContainer({ mode }: NoteWriteContainerProps) {
       setTitle(draftNote.title);
       setContent(draftNote.content);
       setLinkUrl(draftNote.linkUrl);
+      setLinkMetadata(draftNote.linkMetadata ?? null);
     }
 
     draftNoteStorage.remove(todoId);
     setIsLoadModalOpen(false);
     setHasDraftNote(false);
+  };
+
+  const getDraftTitle = () => {
+    if (!todoId) return "제목 없음";
+    const draftNote = draftNoteStorage.get(todoId);
+    return draftNote?.title.trim() || "제목 없음";
   };
 
   const handleSubmit = () => {
@@ -165,11 +210,13 @@ export default function NoteWriteContainer({ mode }: NoteWriteContainerProps) {
     }
   };
 
-  const getDraftTitle = () => {
-    if (!todoId) return "제목 없음";
-    const draftNote = draftNoteStorage.get(todoId);
-    return draftNote?.title.trim() || "제목 없음";
-  };
+  if (!isEditMode && todoError) {
+    return <div>할일 정보를 불러올 수 없습니다.</div>;
+  }
+
+  if (isEditMode && (noteError || !note)) {
+    return <div>노트를 찾을 수 없습니다.</div>;
+  }
 
   const isDisabled = !title.trim() || !content || isPending;
 
@@ -186,14 +233,6 @@ export default function NoteWriteContainer({ mode }: NoteWriteContainerProps) {
         isTodoDone: todo?.done ?? false,
         updatedAt: formatDate(todo?.updatedAt ?? new Date().toISOString()),
       };
-
-  if (!isEditMode && todoError) {
-    return <div>할일 정보를 불러올 수 없습니다.</div>;
-  }
-
-  if (isEditMode && (noteError || !note)) {
-    return <div>노트를 찾을 수 없습니다.</div>;
-  }
 
   return (
     <>
@@ -230,9 +269,13 @@ export default function NoteWriteContainer({ mode }: NoteWriteContainerProps) {
           title={title}
           content={content}
           linkUrl={linkUrl}
+          linkMetadata={linkMetadata}
+          isEmbedOpen={isEmbedOpen}
           onChangeTitle={handleTitleChange}
           onChangeContent={handleContentChange}
           onChangeLinkUrl={handleLinkUrlChange}
+          onToggleEmbed={handleToggleEmbed}
+          onDeleteLinkPreview={handleDeleteLinkPreview}
           metaInfo={metaInfo}
           hasDraftNote={hasDraftNote}
           onLoadDraft={handleLoadModalOpen}
