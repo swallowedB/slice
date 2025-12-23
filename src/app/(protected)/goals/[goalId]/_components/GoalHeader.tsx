@@ -7,7 +7,7 @@ import { useDropdown } from "@/hooks/useDropdown";
 import { EllipsisVerticalIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
 import TextButton from "@/components/common/button/TextButton";
-import { useDeleteGoalMutation } from "@/hooks/queries/goals/ussDeleteGoalMutation";
+import { useDeleteGoalMutation } from "@/hooks/queries/goals/useDeleteGoalMutation";
 import ConfirmModal from "@/components/common/popup-modal/ConfirmModal";
 import { useRouter } from "next/navigation";
 
