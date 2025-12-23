@@ -7,7 +7,7 @@ export function useTodoList() {
     data?.todos?.map((t) => ({
       id: t.id,
       label: t.title,
-      checked: t.done,
+      checked: t.checked,
       link: !!t.linkUrl,
       file: !!t.fileUrl,
       note: !!t.noteId,

@@ -2,12 +2,15 @@ import GoalTodoBox from "./GoalTodoBox";
 import { ListSkeleton } from "@/components/skeleton/ListSkeleton";
 
 export default function GoalSkeletion() {
+  const cardStyles =
+    "relative mt-4 rounded-[28px] bg-white px-4 py-6.5 pb-11 shadow-[0_4px_4px_0_rgba(0,0,0,0.025)] transition-all sm:p-4 sm:pt-7.5 lg:rounded-[40px] lg:p-7.5 lg:hover:shadow-[0_4px_4px_0_rgba(0,0,0,0.025)]";
+
   return (
-    <>
+    <div className={`animate-skeleton-fade ${cardStyles}`}>
       <div className="flex items-start justify-between sm:grid sm:grid-cols-2 sm:items-center lg:flex lg:flex-col lg:items-start xl:flex-row xl:items-center">
         <div className="w-full pl-2.5 sm:w-auto lg:grid lg:grid-rows-[auto_auto] lg:gap-1 lg:pl-3.5 2xl:grid 2xl:grid-cols-2 2xl:items-center">
-          <div className="animate-skeleton-fade mb-3 h-5 w-40 rounded bg-gray-200 pr-20 sm:mb-0 sm:h-4 sm:w-32 sm:pr-0 lg:h-5 lg:w-48 lg:pr-7.5" />
-          <div className="animate-skeleton-fade mt-2 h-2 w-full max-w-[220px] rounded bg-gray-200" />
+          <div className="animate-skeleton-fade mb-3 h-5 w-40 rounded bg-gray-200 pr-20 sm:mb-0 sm:h-4 sm:w-32 sm:pr-0 lg:h-5 lg:w-86 lg:pr-7.5" />
+          <div className="animate-skeleton-fade mt-2 h-2 w-full rounded bg-gray-200 lg:w-86" />
         </div>
 
         <div className="flex pr-2.5 sm:ml-auto lg:mt-4 xl:mt-0">
@@ -45,6 +48,7 @@ export default function GoalSkeletion() {
           />
         </GoalTodoBox>
       </div>
-    </>
+      <div />
+    </div>
   );
 }

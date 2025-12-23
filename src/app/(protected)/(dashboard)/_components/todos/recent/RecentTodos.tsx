@@ -1,20 +1,12 @@
 "use client";
-import ListItem from "@/components/common/list/list-item/ListItem";
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
-import { useTodoList } from "../../../../_hooks/useTodoList";
-import { useToggleTodo } from "@/hooks/queries/todos";
+import { Suspense } from "react";
 import { ListSkeleton } from "@/components/skeleton/ListSkeleton";
+import { ErrorBoundary } from "@/components/error-boundary";
+import RecentTodosContent from "./RecentTodosContent";
 
 export default function RecentTodos() {
-  const { todos, isLoading, isError } = useTodoList();
-
-  const recentTodos = [...todos]
-    .sort((a, b) => Number(b.id) - Number(a.id))
-    .slice(0, 4);
-
-  const { handleToggle } = useToggleTodo();
-
   return (
     <div className="w-full">
       <h3 className="mb-2.5 flex flex-wrap items-center justify-between pr-3.5 pl-2 text-base font-medium sm:text-sm lg:text-lg xl:text-base">
@@ -35,33 +27,17 @@ export default function RecentTodos() {
       </h3>
 
       <div className="bg-orange-250 h-auto rounded-[28px] px-4 py-4.5 shadow-[0_10px_40px_0_rgba(255,158,89,0.4)] transition-all sm:h-53 sm:p-3.75 lg:h-64 lg:rounded-[40px] lg:p-7.5 lg:hover:shadow-[0_10px_40px_0_rgba(255,158,89,0.4)]">
-        {isLoading && (
-          <ListSkeleton
-            count={4}
-            rowClassName="h-10 lg:h-11 bg-white/40"
-          />
-        )}
-
-        {isError && (
-          <p className="flex h-full w-full items-center justify-center text-base font-semibold text-white">
-            데이터를 불러오지 못했습니다
-          </p>
-        )}
-
-        {!isLoading && !isError && recentTodos.length === 0 && (
-          <p className="flex h-full w-full items-center justify-center text-base font-semibold text-white">
-            최근에 등록한 할 일이 없어요
-          </p>
-        )}
-
-        {!isLoading && !isError && recentTodos.length > 0 && (
-          <ListItem
-            className="grid gap-0.5 lg:gap-1.5"
-            items={recentTodos}
-            onToggleChecked={handleToggle}
-            variant="white"
-          />
-        )}
+        <ErrorBoundary>
+          <Suspense
+            fallback={
+              <ListSkeleton
+                count={4}
+                rowClassName="h-10 lg:h-11 bg-white/40"
+              />
+            }>
+            <RecentTodosContent />
+          </Suspense>
+        </ErrorBoundary>
       </div>
     </div>
   );
