@@ -1,11 +1,15 @@
+"use client";
+
 import { CheckCircleIcon, XCircleIcon } from "@heroicons/react/24/outline";
 import clsx from "clsx";
+import { useEffect, useState } from "react";
 import { toast as sonnerToast } from "sonner";
 
 interface ToastProps {
   id: string | number;
   message: string;
   variant: "success" | "error";
+  hasTime?: boolean;
 }
 
 const VARIANTS = {
@@ -31,8 +35,30 @@ const VARIANTS = {
   },
 } as const;
 
-function CustomToast({ message, variant }: ToastProps) {
+function CustomToast({ message, variant, hasTime }: ToastProps) {
   const config = VARIANTS[variant];
+  const [elapsedTime, setElapsedTime] = useState(0);
+
+  useEffect(() => {
+    if (!hasTime) return;
+
+    const startTime = Date.now();
+    const interval = setInterval(() => {
+      const seconds = Math.floor((Date.now() - startTime) / 1000);
+      setElapsedTime(seconds);
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [hasTime]);
+
+  const getTimeText = () => {
+    if (elapsedTime === 0) return "방금 전";
+    if (elapsedTime < 60) return `${elapsedTime}초 전`;
+
+    const minutes = Math.floor(elapsedTime / 60);
+
+    return `${minutes}분 전`;
+  };
 
   return (
     <div
@@ -44,27 +70,39 @@ function CustomToast({ message, variant }: ToastProps) {
       )}>
       {config.icon}
       <span>{message}</span>
+      {hasTime && (
+        <>
+          <span>ㆍ</span>
+          <span>{getTimeText()}</span>
+        </>
+      )}
     </div>
   );
 }
 
+interface ToastOptions {
+  hasTime?: boolean;
+}
+
 export const toast = {
-  success: (message: string) => {
+  success: (message: string, options?: ToastOptions) => {
     sonnerToast.custom((id) => (
       <CustomToast
         id={id}
         message={message}
         variant="success"
+        hasTime={options?.hasTime}
       />
     ));
   },
 
-  error: (message: string) => {
+  error: (message: string, options?: ToastOptions) => {
     sonnerToast.custom((id) => (
       <CustomToast
         id={id}
         message={message}
         variant="error"
+        hasTime={options?.hasTime}
       />
     ));
   },

@@ -12,11 +12,13 @@ import {
 import { useTodoQuery } from "@/hooks/queries/todos";
 import { formatDate } from "@/utils/date";
 import ConfirmModal from "@/components/common/popup-modal/ConfirmModal";
+import { toast } from "@/lib/toast";
 import NoteEditorForm from "./NoteEditorForm";
 import NoteMobileActions from "./NoteMobileActions";
 import NoteDesktopActions from "./NoteDesktopActions";
 import DraftCallout from "./DraftCallout";
 import { draftNoteStorage } from "../_utils/draft-note";
+import { useAutoSaveDraft } from "../_hooks/useAutoSaveDraft";
 
 interface NoteWriteContainerProps {
   mode: "create" | "edit";
@@ -28,7 +30,6 @@ export default function NoteWriteContainer({ mode }: NoteWriteContainerProps) {
   const searchParams = useSearchParams();
 
   const isEditMode = mode === "edit";
-
   const queryTodoId = Number(searchParams.get("todoId"));
   const noteId = Number(params.noteId);
 
@@ -40,7 +41,6 @@ export default function NoteWriteContainer({ mode }: NoteWriteContainerProps) {
     useUpdateNoteMutation();
 
   const isPending = isCreatePending || isUpdatePending;
-
   const todoId = isEditMode ? note?.todo.id : queryTodoId;
 
   const [title, setTitle] = useState("");
@@ -48,6 +48,15 @@ export default function NoteWriteContainer({ mode }: NoteWriteContainerProps) {
   const [linkUrl, setLinkUrl] = useState("");
   const [hasDraftNote, setHasDraftNote] = useState(false);
   const [isLoadModalOpen, setIsLoadModalOpen] = useState(false);
+
+  useAutoSaveDraft({
+    todoId,
+    title,
+    content,
+    linkUrl,
+    isEditMode,
+    onSave: () => setHasDraftNote(true),
+  });
 
   useEffect(() => {
     if (todoId) {
@@ -62,8 +71,6 @@ export default function NoteWriteContainer({ mode }: NoteWriteContainerProps) {
       setLinkUrl(note.linkUrl ?? "");
     }
   }, [isEditMode, note]);
-
-  const isDisabled = !title.trim() || !content || isPending;
 
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
@@ -88,8 +95,7 @@ export default function NoteWriteContainer({ mode }: NoteWriteContainerProps) {
     });
 
     setHasDraftNote(true);
-    // TODO: 토스트
-    alert("임시 저장이 완료되었습니다.");
+    toast.success("임시 저장이 완료되었습니다", { hasTime: true });
   };
 
   const handleLoadModalOpen = () => {
@@ -115,25 +121,18 @@ export default function NoteWriteContainer({ mode }: NoteWriteContainerProps) {
     }
 
     draftNoteStorage.remove(todoId);
-
     setIsLoadModalOpen(false);
     setHasDraftNote(false);
   };
 
-  const getDraftTitle = () => {
-    if (!todoId) return "제목 없음";
-    const draftNote = draftNoteStorage.get(todoId);
-    return draftNote?.title.trim() || "제목 없음";
-  };
-
   const handleSubmit = () => {
     if (!title.trim()) {
-      alert("제목을 입력해주세요.");
+      toast.error("제목을 입력해주세요.");
       return;
     }
 
     if (!content) {
-      alert("내용을 입력해주세요.");
+      toast.error("내용을 입력해주세요.");
       return;
     }
 
@@ -153,7 +152,7 @@ export default function NoteWriteContainer({ mode }: NoteWriteContainerProps) {
     const onError = (error: Error) => {
       const action = isEditMode ? "수정" : "등록";
       console.error(`노트 ${action} 실패:`, error);
-      alert(`노트 ${action}에 실패했습니다.`);
+      toast.error(`노트 ${action}에 실패했습니다.`);
     };
 
     if (isEditMode) {
@@ -166,13 +165,13 @@ export default function NoteWriteContainer({ mode }: NoteWriteContainerProps) {
     }
   };
 
-  if (!isEditMode && todoError) {
-    return <div>할일 정보를 불러올 수 없습니다.</div>;
-  }
+  const getDraftTitle = () => {
+    if (!todoId) return "제목 없음";
+    const draftNote = draftNoteStorage.get(todoId);
+    return draftNote?.title.trim() || "제목 없음";
+  };
 
-  if (isEditMode && (noteError || !note)) {
-    return <div>노트를 찾을 수 없습니다.</div>;
-  }
+  const isDisabled = !title.trim() || !content || isPending;
 
   const metaInfo = isEditMode
     ? {
@@ -187,6 +186,14 @@ export default function NoteWriteContainer({ mode }: NoteWriteContainerProps) {
         isTodoDone: todo?.done ?? false,
         updatedAt: formatDate(todo?.updatedAt ?? new Date().toISOString()),
       };
+
+  if (!isEditMode && todoError) {
+    return <div>할일 정보를 불러올 수 없습니다.</div>;
+  }
+
+  if (isEditMode && (noteError || !note)) {
+    return <div>노트를 찾을 수 없습니다.</div>;
+  }
 
   return (
     <>
