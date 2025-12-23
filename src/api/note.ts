@@ -4,6 +4,7 @@ import {
   NoteDetailResponse,
   CreateNoteRequest,
   UpdateNoteRequest,
+  LinkMetadata,
 } from "./types/note";
 
 export function getNotes(goalId: number) {
@@ -35,5 +36,12 @@ export function updateNote(noteId: number, data: UpdateNoteRequest) {
 export function deleteNote(noteId: number) {
   return fetcher(`/notes/${noteId}`, {
     method: "DELETE",
+  });
+}
+
+export function getLinkMetadata(url: string) {
+  return fetcher<LinkMetadata>("/notes/link-metadata", {
+    method: "POST",
+    body: JSON.stringify({ url }),
   });
 }

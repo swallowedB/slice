@@ -5,20 +5,27 @@ import { useState, useEffect } from "react";
 import InputModal from "@/components/common/popup-modal/InputModal";
 import Button from "@/components/common/button/Button";
 import BaseInput from "@/components/common/input/base-input/BaseInput";
+import { LinkMetadata } from "@/api/types/note";
 import NoteMetaInfo from "./NoteMetaInfo";
 import NoteTitleInput from "./NoteTitleInput";
 import { useNoteEditor } from "./editor/hooks/useNoteEditor";
 import EditorToolbar from "./editor/EditorToolbar";
 import CharacterCount from "./CharacterCount";
 import DraftCallout from "./DraftCallout";
+import { NoteEmbedView } from "./NoteEmbedView";
+import { NoteLinkPreview } from "./NoteLinkPreview";
 
 interface NoteEditorFormProps {
   title: string;
   content: JSONContent | null;
   linkUrl: string;
+  linkMetadata: LinkMetadata | null;
+  isEmbedOpen: boolean;
   onChangeTitle: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onChangeContent: (content: JSONContent) => void;
   onChangeLinkUrl: (url: string) => void;
+  onToggleEmbed: () => void;
+  onDeleteLinkPreview: () => void;
   metaInfo: {
     goalTitle: string;
     todoTitle: string;
@@ -34,9 +41,13 @@ export default function NoteEditorForm({
   title,
   content,
   linkUrl,
+  linkMetadata,
+  isEmbedOpen,
   onChangeTitle,
   onChangeContent,
   onChangeLinkUrl,
+  onToggleEmbed,
+  onDeleteLinkPreview,
   metaInfo,
   hasDraftNote,
   onLoadDraft,
@@ -115,6 +126,22 @@ export default function NoteEditorForm({
               updatedAt={metaInfo.updatedAt}
             />
           </header>
+          {linkMetadata && (
+            <div className="mt-5 flex flex-col gap-6">
+              {isEmbedOpen && linkMetadata.title && (
+                <NoteEmbedView
+                  url={linkMetadata.url}
+                  title={linkMetadata.title}
+                  onClose={onToggleEmbed}
+                />
+              )}
+              <NoteLinkPreview
+                linkMetadata={linkMetadata}
+                onClick={onToggleEmbed}
+                onDelete={onDeleteLinkPreview}
+              />
+            </div>
+          )}
           <div className="flex-1">
             <EditorContent editor={editor} />
           </div>

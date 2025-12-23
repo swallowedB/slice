@@ -1,3 +1,4 @@
+import { LinkMetadata } from "@/api/types/note";
 import { JSONContent } from "@tiptap/react";
 
 export interface DraftNote {
@@ -6,6 +7,7 @@ export interface DraftNote {
   content: JSONContent;
   linkUrl: string;
   savedAt: string;
+  linkMetadata?: LinkMetadata | null;
 }
 
 const DRAFT_PREFIX = "draft_note_";
