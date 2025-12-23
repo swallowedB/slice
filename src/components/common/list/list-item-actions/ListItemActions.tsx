@@ -6,11 +6,12 @@ import { useRouter } from "next/navigation";
 import { useDeleteMutation } from "@/hooks/queries/todos/useDeleteMutation";
 import { useDropdown } from "@/hooks/useDropdown";
 
-import Dropdown, { DropdownItem } from "../../dropdown/Dropdown";
+import { DropdownItem } from "../../dropdown/Dropdown";
 
 import { Todo } from "@/api/types/todo";
 import { ActionType, ListActionType, ListItemVariant } from "./types";
 import { KebabActionButton } from "./_components/kebabActionButton";
+import DropdownPortal from "../../dropdown/dropdown-portal/DropdownPortal";
 import { ListItemActionModals } from "./_components/ListItemActionModals";
 import { ListItemIconActions } from "./_components/ListItemActionIcons";
 
@@ -40,6 +41,7 @@ export default function ListItemActions({
 
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [editOpen, setEditOpen] = useState(false);
+  const [anchorRect, setAnchorRect] = useState<DOMRect | null>(null);
 
   if (!actions.length) return null;
 
@@ -73,9 +75,16 @@ export default function ListItemActions({
     },
   ];
 
+  const onClickMore = () => {
+    const rect = triggerRef.current?.getBoundingClientRect();
+    if (!rect) return;
+    setAnchorRect(rect);
+    toggleDropdown();
+  };
+
   return (
     <>
-      <div className="relative ml-auto flex shrink-0 items-center justify-end">
+      <div className="relative ml-auto flex max-w-fit shrink-0 items-center justify-end">
         {/* 아이콘 액션 */}
         <ListItemIconActions
           todo={todo}
@@ -87,18 +96,21 @@ export default function ListItemActions({
         {hasMore && (
           <KebabActionButton
             variant={variant}
-            toggleDropdown={toggleDropdown}
+            toggleDropdown={onClickMore}
             triggerRef={triggerRef}
           />
         )}
 
-        {/* 드롭다운 */}
-        {dropdownOpen && (
-          <div
-            ref={dropdownRef}
-            className="absolute top-full right-0 z-50 mt-2">
-            <Dropdown items={dropdownItems} />
-          </div>
+        {/* 드롭다운 포탈 */}
+        {dropdownOpen && anchorRect && (
+          <DropdownPortal
+            anchorRect={anchorRect}
+            items={dropdownItems}
+            onClose={() => {
+              setAnchorRect(null);
+              closeDropdown();
+            }}
+          />
         )}
       </div>
 

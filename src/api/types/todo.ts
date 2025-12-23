@@ -3,6 +3,22 @@ export interface Todos {
   nextCursor: number;
   todos: Todo[];
 }
+export interface TodoResponse {
+  noteId: number;
+  checked: boolean;
+  linkUrl: string;
+  fileUrl: string;
+  label: string;
+  id: number;
+  goal: {
+    id: number;
+    title: string;
+  };
+  userId: number;
+  teamId: string;
+  updatedAt: string;
+  createdAt: string;
+}
 export interface Todo {
   noteId: number;
   done: boolean;
@@ -42,4 +58,10 @@ export interface EditTodo {
 
 export interface DeleteTodo {
   id: number;
+}
+
+export interface CursorTodoParams {
+  goalId?: number;
+  cursor?: number;
+  size?: number;
 }

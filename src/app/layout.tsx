@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import localFont from "next/font/local";
+import { Toaster } from "sonner";
 import "./globals.css";
 import Providers from "./providers";
 
@@ -35,6 +36,13 @@ export default function Rootlayout({
       className={pretendard.variable}>
       <body>
         <Providers>{children}</Providers>
+        <Toaster
+          position="bottom-center"
+          offset="200px"
+          mobileOffset="100px"
+          duration={3000}
+          visibleToasts={1}
+        />
       </body>
     </html>
   );

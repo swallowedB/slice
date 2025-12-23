@@ -32,12 +32,12 @@ export default function ListItemRow({ item, onToggleChecked, variant }: Props) {
   const textColor = getTextColor(item.checked, variant);
 
   return (
-    <li className="group flex items-center justify-between rounded-2xl p-2.5 transition-all">
-      <div className="grid max-w-[calc(100%-8rem)] min-w-0 flex-1 items-center gap-2.5 overflow-hidden">
+    <li className="group grid grid-cols-[minmax(0,1fr)_auto] items-center rounded-2xl p-2.5">
+      <div className="min-w-0 flex-1 overflow-hidden">
         <div>
           <label
             htmlFor={`checkbox-${item.id}`}
-            className="flex min-w-0 flex-1 items-center gap-2.5">
+            className="flex min-w-0 items-center gap-2.5">
             <Checkbox
               id={item.id}
               checked={item.checked}

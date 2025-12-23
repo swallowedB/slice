@@ -1,5 +1,13 @@
 import { fetcher } from "@/lib/fetcher";
-import { Todo, Todos, UpdateTodo, CreateTodo, EditTodo } from "./types/todo";
+import { buildQuery } from "@/lib/buildQuery";
+import {
+  Todo,
+  Todos,
+  UpdateTodo,
+  CreateTodo,
+  EditTodo,
+  CursorTodoParams,
+} from "./types/todo";
 
 export function getTodos() {
   return fetcher<Todos>("/todos", {
@@ -37,5 +45,18 @@ export const editTodos = async (todoId: number, payload: EditTodo) => {
 export async function deleteTodos(id: number) {
   return fetcher(`/todos/${id}`, {
     method: "DELETE",
+  });
+}
+
+export async function cursorTodos(params: CursorTodoParams) {
+  const query = buildQuery({
+    goalId: params.goalId,
+    cursor: params.cursor,
+    size: params.size ?? 40,
+  });
+  const url = query ? `/todos?${query}` : `/todos`;
+
+  return fetcher<Todos>(url, {
+    method: "GET",
   });
 }

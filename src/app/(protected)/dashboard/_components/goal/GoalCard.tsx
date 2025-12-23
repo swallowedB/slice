@@ -46,7 +46,7 @@ export default function GoalCard({
       {isOpenWithTodos && <EmptyState>{EMPTY_MESSAGES.TODO.ALL}</EmptyState>}
 
       {isOpenWithNoTodos && (
-        <div className="mt-6.5 grid grid-cols-1 overflow-hidden sm:grid-cols-2 sm:gap-2">
+        <div className="mt-6.5 grid grid-cols-1 overflow-hidden sm:gap-2 2xl:grid-cols-2">
           <GoalTodoBox
             title="TO DO"
             variant="todo">
@@ -54,17 +54,17 @@ export default function GoalCard({
               className="grid overflow-hidden sm:gap-0.5 lg:gap-1"
               items={todoItems}
               onToggleChecked={handleToggle}
-              containerClassName="sm:h-48 lg:h-60"
+              containerClassName="sm:h-48 lg:h-60 overflow-y-auto"
             />
           </GoalTodoBox>
           <GoalTodoBox
             title="DONE"
             variant="done">
             <ListItem
-              className="grid sm:gap-0.5 lg:gap-1"
+              className="grid overflow-y-auto sm:gap-0.5 lg:gap-1"
               items={doneItems}
               onToggleChecked={handleToggle}
-              containerClassName="sm:h-48 lg:h-60"
+              containerClassName="sm:h-48 lg:h-60 overflow-y-auto"
             />
           </GoalTodoBox>
         </div>
