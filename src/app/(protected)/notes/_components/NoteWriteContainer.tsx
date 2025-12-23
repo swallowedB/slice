@@ -127,12 +127,12 @@ export default function NoteWriteContainer({ mode }: NoteWriteContainerProps) {
 
   const handleSubmit = () => {
     if (!title.trim()) {
-      alert("제목을 입력해주세요.");
+      toast.error("제목을 입력해주세요.");
       return;
     }
 
     if (!content) {
-      alert("내용을 입력해주세요.");
+      toast.error("내용을 입력해주세요.");
       return;
     }
 
@@ -152,7 +152,7 @@ export default function NoteWriteContainer({ mode }: NoteWriteContainerProps) {
     const onError = (error: Error) => {
       const action = isEditMode ? "수정" : "등록";
       console.error(`노트 ${action} 실패:`, error);
-      alert(`노트 ${action}에 실패했습니다.`);
+      toast.error(`노트 ${action}에 실패했습니다.`);
     };
 
     if (isEditMode) {
