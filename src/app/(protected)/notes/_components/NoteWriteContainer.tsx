@@ -181,12 +181,6 @@ export default function NoteWriteContainer({ mode }: NoteWriteContainerProps) {
       return;
     }
 
-    const payload = {
-      title: title.trim(),
-      content: JSON.stringify(content),
-      linkUrl: linkUrl.trim() || null,
-    };
-
     const onSuccess = (data: { goal: { id: number } }) => {
       if (todoId) {
         draftNoteStorage.remove(todoId);
@@ -201,10 +195,23 @@ export default function NoteWriteContainer({ mode }: NoteWriteContainerProps) {
     };
 
     if (isEditMode) {
-      updateNoteMutation({ noteId, data: payload }, { onSuccess, onError });
+      const updatePayload = {
+        title: title.trim(),
+        content: JSON.stringify(content),
+        linkUrl: linkUrl.trim() || null,
+      };
+      updateNoteMutation(
+        { noteId, data: updatePayload },
+        { onSuccess, onError },
+      );
     } else {
+      const createPayload = {
+        title: title.trim(),
+        content: JSON.stringify(content),
+        ...(linkUrl.trim() && { linkUrl: linkUrl.trim() }),
+      };
       createNoteMutation(
-        { todoId: queryTodoId, ...payload },
+        { todoId: queryTodoId, ...createPayload },
         { onSuccess, onError },
       );
     }
