@@ -35,7 +35,7 @@ export interface CreateNoteRequest {
   todoId: number;
   title: string;
   content: string;
-  linkUrl?: string;
+  linkUrl?: string | null;
 }
 
 export type UpdateNoteRequest = Omit<CreateNoteRequest, "todoId">;

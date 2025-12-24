@@ -184,7 +184,7 @@ export default function NoteWriteContainer({ mode }: NoteWriteContainerProps) {
     const payload = {
       title: title.trim(),
       content: JSON.stringify(content),
-      linkUrl: linkUrl.trim() || undefined,
+      linkUrl: linkUrl.trim() || null,
     };
 
     const onSuccess = (data: { goal: { id: number } }) => {
