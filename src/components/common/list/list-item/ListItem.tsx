@@ -2,7 +2,6 @@
 
 import { ListTodoType } from "./types";
 import { ListItemVariant } from "../list-item-actions/types";
-import { motion } from "framer-motion";
 import ListItemRow from "./ListItemRow";
 
 type ListItemProps = {
@@ -24,17 +23,12 @@ export default function ListItem({
     <div className={`w-full ${containerClassName}`}>
       <ul className={className}>
         {items.map((item) => (
-          <motion.li
+          <ListItemRow
             key={item.id}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.25, ease: "easeOut" }}>
-            <ListItemRow
-              item={item}
-              onToggleChecked={onToggleChecked}
-              variant={variant}
-            />
-          </motion.li>
+            item={item}
+            onToggleChecked={onToggleChecked}
+            variant={variant}
+          />
         ))}
       </ul>
     </div>
