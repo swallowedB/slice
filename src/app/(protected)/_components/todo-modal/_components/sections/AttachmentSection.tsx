@@ -22,6 +22,20 @@ export default function AttachmentSection({
 }: AttachmentSectionProps) {
   const ATTACHMENT_CLASS =
     "h-14 w-full rounded-xl border border-dashed border-gray-200 bg-[#FAFAFA] pl-10 pr-4 text-base";
+
+  const MAX_FILE_SIZE = 3 * 1024 * 1024;
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0] ?? null;
+    if (!file) return;
+
+    if (file.size > MAX_FILE_SIZE) {
+      alert("3MB 이하의 파일만 업로드 할 수 있습니다.");
+      e.target.value = "";
+    } else {
+      onChange?.(file);
+    }
+  };
+
   return (
     <div className="relative w-full">
       <div className="pointer-events-none absolute top-1/2 left-4 z-10 -translate-y-1/2 text-gray-500">
@@ -34,7 +48,7 @@ export default function AttachmentSection({
             type="file"
             id="attachment-file"
             className="hidden"
-            onChange={(e) => onChange?.(e.target.files?.[0] ?? null)}
+            onChange={handleFileChange}
           />
 
           <label

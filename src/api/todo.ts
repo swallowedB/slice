@@ -35,12 +35,12 @@ export async function createTodos(payload: CreateTodo) {
   });
 }
 
-export const editTodos = async (todoId: number, payload: EditTodo) => {
+export async function editTodos(todoId: number, payload: EditTodo) {
   return fetcher(`/todos/${todoId}`, {
     method: "PATCH",
     body: JSON.stringify(payload),
   });
-};
+}
 
 export async function deleteTodos(id: number) {
   return fetcher(`/todos/${id}`, {

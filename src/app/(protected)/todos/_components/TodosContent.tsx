@@ -81,7 +81,7 @@ export default function TodosContent({
   if (filtered.length === 0)
     return (
       <div className="flex flex-col rounded-2xl bg-white px-8 pt-8 pb-8">
-        <EmptyListContent tab={tab} />;
+        <EmptyListContent tab={tab} />
       </div>
     );
 

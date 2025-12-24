@@ -23,7 +23,7 @@ export default function ConfirmModal({
 }: ConfirModalProps) {
   if (!isOpen) return null;
   return (
-    <BaseLayout onClose={onClose}>
+    <BaseLayout>
       <DialogContent
         title={title}
         message={message}
