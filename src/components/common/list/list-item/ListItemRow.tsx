@@ -3,6 +3,7 @@ import Checkbox from "../../checkbox/Checkbox";
 import ListItemActions from "../list-item-actions/ListItemActions";
 import { ListTodoType } from "./types";
 import { ListActionType, ListItemVariant } from "../list-item-actions/types";
+import { motion } from "framer-motion";
 
 type Props = {
   item: ListTodoType;
@@ -32,7 +33,11 @@ export default function ListItemRow({ item, onToggleChecked, variant }: Props) {
   const textColor = getTextColor(item.checked, variant);
 
   return (
-    <li className="group grid grid-cols-[minmax(0,1fr)_auto] items-center rounded-2xl p-2.5">
+    <motion.li
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.25, ease: "easeOut" }}
+      className="group grid grid-cols-[minmax(0,1fr)_auto] items-center rounded-2xl p-2.5">
       <div className="min-w-0 flex-1 overflow-hidden">
         <div>
           <label
@@ -63,6 +68,6 @@ export default function ListItemRow({ item, onToggleChecked, variant }: Props) {
         variant={variant}
         actions={getActionsFromItem(item)}
       />
-    </li>
+    </motion.li>
   );
 }

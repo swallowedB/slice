@@ -13,14 +13,14 @@ export default function DashboardClient() {
   const user = useAuthStore((s) => s.user);
 
   useEffect(() => {
-    if (!hydrated) return; // ⭐ 핵심
+    if (!hydrated) return;
 
     if (!user) {
       router.replace("/login");
     }
   }, [hydrated, user, router]);
 
-  if (!hydrated) return null; // 로딩 중
+  if (!hydrated) return null;
 
   return (
     <section>

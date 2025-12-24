@@ -12,6 +12,11 @@ export function NoteLinkPreview({
   onClick,
   onDelete,
 }: NoteLinkPreviewProps) {
+  const cleanTitle = (title: string | null) => {
+    if (!title) return "";
+    return title.replace(/^-\s*/, "").replace(/\s*-$/, "").trim();
+  };
+
   return (
     <div
       className="bg-gray-25 flex cursor-pointer flex-col gap-1 rounded-xl px-4 py-3.5"
@@ -27,7 +32,7 @@ export function NoteLinkPreview({
             className="h-6 w-6"
           />
           <h5 className="text-sm font-medium text-gray-700">
-            {linkMetadata.title}
+            {cleanTitle(linkMetadata.title)}
           </h5>
         </div>
         {onDelete && (
