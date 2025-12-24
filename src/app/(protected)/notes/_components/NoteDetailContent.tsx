@@ -18,6 +18,10 @@ export default function NoteDetailContent({ noteId }: NoteDetailContentProps) {
   const [isEmbedOpen, setIsEmbedOpen] = useState(false);
   const linkMetadata = note?.linkMetadata;
 
+  const handleToggleEmbed = () => {
+    setIsEmbedOpen(!isEmbedOpen);
+  };
+
   if (isLoading) {
     return <div>로딩 중...</div>;
   }
@@ -46,12 +50,12 @@ export default function NoteDetailContent({ noteId }: NoteDetailContentProps) {
             <NoteEmbedView
               url={linkMetadata.url}
               title={linkMetadata.title}
-              onClose={() => setIsEmbedOpen(false)}
+              onClose={handleToggleEmbed}
             />
           )}
           <NoteLinkPreview
             linkMetadata={linkMetadata}
-            onClick={() => setIsEmbedOpen(true)}
+            onClick={handleToggleEmbed}
           />
         </div>
       )}
