@@ -5,16 +5,14 @@ import { XMarkIcon } from "@heroicons/react/24/outline";
 import { useEffect, useState } from "react";
 import { useDeviceSize } from "@/hooks/useDeviceSize";
 import clsx from "clsx";
+import { useRouter } from "next/navigation";
 
 interface NoteDetailModalProps {
   children: React.ReactNode;
-  onClose: () => void;
 }
 
-export default function NoteDetailModal({
-  children,
-  onClose,
-}: NoteDetailModalProps) {
+export default function NoteDetailModal({ children }: NoteDetailModalProps) {
+  const router = useRouter();
   const [isAnimating, setIsAnimating] = useState(false);
   const { isDesktop } = useDeviceSize();
 
@@ -22,10 +20,10 @@ export default function NoteDetailModal({
     setIsAnimating(false);
 
     if (!isDesktop) {
-      return onClose();
+      return router.back();
     }
 
-    setTimeout(onClose, 300);
+    setTimeout(() => router.back(), 300);
   };
 
   useEffect(() => {
