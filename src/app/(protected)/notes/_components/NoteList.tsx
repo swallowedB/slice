@@ -23,7 +23,7 @@ export default function NoteList({
 
   return (
     <section
-      className="grid grid-cols-1 gap-2 sm:gap-4 lg:grid-cols-2 lg:gap-x-6 lg:gap-y-5"
+      className="grid grid-cols-1 gap-2 pb-12 sm:gap-4 lg:grid-cols-2 lg:gap-x-6 lg:gap-y-5 lg:pb-20"
       aria-label="노트 목록">
       {sortedNotes.map((note) => (
         <NoteItem
