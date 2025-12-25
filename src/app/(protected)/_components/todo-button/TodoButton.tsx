@@ -11,7 +11,6 @@ export default function TodoButton({ className }: { className?: string }) {
   };
 
   const handleConfirm = () => {
-    console.log("제출 데이터:");
     setIsOpenTodoModal(false);
   };
   return (

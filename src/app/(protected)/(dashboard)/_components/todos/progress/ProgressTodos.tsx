@@ -1,6 +1,5 @@
 "use client";
 import { ErrorBoundary } from "@/components/error-boundary";
-import Progress from "@/components/progress/Progress";
 import ProgressCardSkeleton from "@/components/skeleton/ProgressCardSkeleton";
 import { useAuthStore } from "@/store/useAuthStore";
 import { Suspense } from "react";

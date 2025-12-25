@@ -119,7 +119,6 @@ export default function GoalHeader({ goalId }: GoalHeaderProps) {
         </div>
       )}
 
-      {/* 삭제 모달 */}
       <div className="z-1000">
         <ConfirmModal
           isOpen={confirmOpen}
