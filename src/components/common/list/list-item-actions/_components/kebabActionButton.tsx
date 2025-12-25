@@ -1,4 +1,3 @@
-import { EllipsisVerticalIcon } from "@heroicons/react/24/outline";
 import { ListItemVariant } from "../types";
 import ListItemButton from "../../list-button/ListItemButton";
 import { ACTION_ICON_MAP } from "../constants/listItemActions";

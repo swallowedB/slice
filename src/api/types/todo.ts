@@ -1,31 +1,22 @@
-export interface Todos {
+export interface TodosResponse {
   totalCount: number;
-  nextCursor: number;
-  todos: Todo[];
+  nextCursor: number | null;
+  todos: TodoResponse[];
 }
+
 export interface TodoResponse {
-  noteId: number;
-  checked: boolean;
-  linkUrl: string;
-  fileUrl: string;
-  label: string;
   id: number;
-  goal: {
-    id: number;
-    title: string;
-  };
-  userId: number;
-  teamId: string;
-  updatedAt: string;
-  createdAt: string;
-}
-export interface Todo {
   noteId: number;
   done: boolean;
-  linkUrl: string;
-  fileUrl: string;
   title: string;
-  id: number;
+  linkUrl: string;
+  linkMetadata?: {
+    title: string;
+    description: string;
+    image: string;
+    url: string;
+  };
+  fileUrl: string;
   goal: {
     id: number;
     title: string;
@@ -34,6 +25,26 @@ export interface Todo {
   teamId: string;
   updatedAt: string;
   createdAt: string;
+}
+
+export interface Todos {
+  totalCount: number;
+  nextCursor: number | null;
+  todos: Todo[];
+}
+
+export interface Todo {
+  id: number;
+  noteId: number;
+  done: boolean;
+  title: string;
+  linkUrl: string;
+  fileUrl: string;
+  goal: {
+    id: number;
+    title: string;
+  };
+  updatedAt: string;
 }
 
 export interface UpdateTodo {

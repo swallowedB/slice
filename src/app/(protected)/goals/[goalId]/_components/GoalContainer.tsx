@@ -26,7 +26,7 @@ export default function GoalContainer({ goalId }: DataIdProps) {
   const todos = useTodosSuspense();
 
   const goals = goalData?.goals || [];
-  const goal = goals.find((g) => g.id === Number(goalId));
+  const goal = goals.find((goal) => goal.id === Number(goalId));
 
   const goalTodos = todos.filter((goalTodo) => goalTodo.goal?.id === goal?.id);
   const progress = calcProgress(goalTodos);

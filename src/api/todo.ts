@@ -1,22 +1,23 @@
 import { fetcher } from "@/lib/fetcher";
 import { buildQuery } from "@/lib/buildQuery";
 import {
-  Todo,
   Todos,
   UpdateTodo,
   CreateTodo,
   EditTodo,
   CursorTodoParams,
+  TodosResponse,
+  TodoResponse,
 } from "./types/todo";
 
 export function getTodos() {
-  return fetcher<Todos>("/todos", {
+  return fetcher<TodosResponse>("/todos", {
     method: "GET",
   });
 }
 
 export function getTodo(id: number) {
-  return fetcher<Todo>(`/todos/${id}`, {
+  return fetcher<TodoResponse>(`/todos/${id}`, {
     method: "GET",
   });
 }
