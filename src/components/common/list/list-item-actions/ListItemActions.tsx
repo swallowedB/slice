@@ -56,7 +56,7 @@ export default function ListItemActions({
       text: "노트 작성하기",
       onClick: () => {
         closeDropdown();
-        router.push(`/notes/new?todoId=${id}`);
+        window.location.href = `/notes/new?todoId=${id}`;
       },
     },
     {
