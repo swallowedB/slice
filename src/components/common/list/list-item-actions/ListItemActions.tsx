@@ -1,13 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
-
 import { useDeleteMutation } from "@/hooks/queries/todos/useDeleteMutation";
 import { useDropdown } from "@/hooks/useDropdown";
-
 import { DropdownItem } from "../../dropdown/Dropdown";
-
 import { Todo } from "@/api/types/todo";
 import { ActionType, ListActionType, ListItemVariant } from "./types";
 import { KebabActionButton } from "./_components/kebabActionButton";
@@ -32,11 +28,9 @@ export default function ListItemActions({
     open: dropdownOpen,
     toggle: toggleDropdown,
     close: closeDropdown,
-    dropdownRef,
     triggerRef,
   } = useDropdown<HTMLDivElement>();
 
-  const router = useRouter();
   const deleteTodo = useDeleteMutation();
 
   const [confirmOpen, setConfirmOpen] = useState(false);
@@ -46,10 +40,10 @@ export default function ListItemActions({
   if (!actions.length) return null;
 
   const iconActions = actions.filter(
-    (a): a is { type: ActionType } => a.type !== "more",
+    (action): action is { type: ActionType } => action.type !== "more",
   );
 
-  const hasMore = actions.some((a) => a.type === "more");
+  const hasMore = actions.some((action) => action.type === "more");
 
   const dropdownItems: DropdownItem[] = [
     {
@@ -85,14 +79,12 @@ export default function ListItemActions({
   return (
     <>
       <div className="relative ml-auto flex max-w-fit shrink-0 items-center justify-end">
-        {/* 아이콘 액션 */}
         <ListItemIconActions
           todo={todo}
           actions={iconActions}
           variant={variant}
         />
 
-        {/* 케밥 버튼 */}
         {hasMore && (
           <KebabActionButton
             variant={variant}
@@ -101,7 +93,6 @@ export default function ListItemActions({
           />
         )}
 
-        {/* 드롭다운 포탈 */}
         {dropdownOpen && anchorRect && (
           <DropdownPortal
             anchorRect={anchorRect}
@@ -114,7 +105,6 @@ export default function ListItemActions({
         )}
       </div>
 
-      {/* 모달들 */}
       <ListItemActionModals
         todo={todo}
         editOpen={editOpen}

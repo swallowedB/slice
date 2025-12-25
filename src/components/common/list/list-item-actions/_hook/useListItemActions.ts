@@ -32,7 +32,8 @@ export function useListItemActions(todo?: Todo) {
         downloadFileByUrl(todo.fileUrl);
         break;
       case "note":
-        router.push(`/notes/new?todoId=${todo.id}`);
+        // router.push(`/notes/new?todoId=${todo.id}`);
+        router.push("/notes/881");
         break;
     }
   };

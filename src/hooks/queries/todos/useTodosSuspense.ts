@@ -17,6 +17,7 @@ export function useTodosSuspense() {
         file: !!todo.fileUrl,
         goal: todo.goal,
         note: Boolean(todo.noteId),
+        todo,
       })),
   });
 

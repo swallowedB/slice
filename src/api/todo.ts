@@ -1,7 +1,6 @@
 import { fetcher } from "@/lib/fetcher";
 import { buildQuery } from "@/lib/buildQuery";
 import {
-  // Todo,
   Todos,
   UpdateTodo,
   CreateTodo,

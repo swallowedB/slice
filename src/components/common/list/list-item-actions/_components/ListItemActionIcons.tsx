@@ -2,7 +2,7 @@ import { Todo } from "@/api/types/todo";
 import ListItemButton from "../../list-button/ListItemButton";
 import { ACTION_ICON_MAP } from "../constants/listItemActions";
 import { ACTION_ARIA_LABEL, ActionType, ListItemVariant } from "../types";
-import { useRouter } from "next/navigation";
+import { useListItemActions } from "../_hook/useListItemActions";
 
 type Props = {
   todo?: Todo;
@@ -11,41 +11,7 @@ type Props = {
 };
 
 export function ListItemIconActions({ todo, actions, variant }: Props) {
-  const router = useRouter();
-
-  const openLink = (linkUrl?: string) => {
-    if (!linkUrl) return;
-    const url = /^https?:\/\//i.test(linkUrl) ? linkUrl : `https://${linkUrl}`;
-    window.open(url, "_blank", "noopener,noreferrer");
-  };
-
-  const downloadFileByUrl = (fileUrl?: string) => {
-    if (!fileUrl) return;
-    const a = document.createElement("a");
-    a.href = fileUrl;
-    a.download = "";
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-  };
-
-  const handleAction = (type: ActionType) => {
-    if (!todo) return;
-
-    switch (type) {
-      case "link":
-        openLink(todo.linkUrl);
-        break;
-      case "file":
-        downloadFileByUrl(todo.fileUrl);
-        break;
-      case "note":
-        // router.push(`/notes/${note.id}`);
-        router.push("/notes/881");
-        break;
-    }
-  };
-
+  const { handleAction } = useListItemActions(todo);
   return (
     <div className="mr-2 hidden gap-2 md:flex">
       {actions.map(({ type }) => {
@@ -57,7 +23,9 @@ export function ListItemIconActions({ todo, actions, variant }: Props) {
             icon={action.icon}
             variant={variant}
             ariaLabel={ACTION_ARIA_LABEL[type]}
-            onClick={() => handleAction(type)}
+            onClick={() => {
+              handleAction(type);
+            }}
           />
         );
       })}
