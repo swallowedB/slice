@@ -10,6 +10,7 @@ import TextButton from "@/components/common/button/TextButton";
 import { useDeleteGoalMutation } from "@/hooks/queries/goals/useDeleteGoalMutation";
 import ConfirmModal from "@/components/common/popup-modal/ConfirmModal";
 import { useRouter } from "next/navigation";
+import { toast } from "@/lib/toast";
 
 type GoalHeaderProps = {
   goalId: string;
@@ -59,6 +60,7 @@ export default function GoalHeader({ goalId }: GoalHeaderProps) {
       {
         onSuccess: () => {
           setIsEditing(false);
+          toast.success("수정되었습니다");
         },
       },
     );
@@ -68,6 +70,7 @@ export default function GoalHeader({ goalId }: GoalHeaderProps) {
     deleteGoal(numericGoalId, {
       onSuccess: () => {
         setConfirmOpen(false);
+        toast.success("삭제되었습니다");
         router.push("/");
       },
     });

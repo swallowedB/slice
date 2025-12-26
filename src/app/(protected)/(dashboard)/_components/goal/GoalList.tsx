@@ -1,7 +1,6 @@
 "use client";
 import EmptyState from "@/components/common/empty-state/EmptyState";
 import { EMPTY_MESSAGES } from "@/constants/messages";
-// import { useGoalsSuspense } from "@/hooks/queries/goals/useGoalsSuspense";
 import { useTodosSuspense } from "@/hooks/queries/todos/useTodosSuspense";
 import { useGoalsInfiniteQuery } from "@/hooks/queries/goals/useGoalsInfiniteQuery";
 import { useInView } from "react-intersection-observer";
