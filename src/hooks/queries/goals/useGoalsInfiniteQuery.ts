@@ -1,4 +1,3 @@
-// hooks/queries/goals/useGoalsInfiniteQuery.ts
 import { useSuspenseInfiniteQuery } from "@tanstack/react-query";
 import goalsQueryKeys from "./queryKeys";
 import { cursorGoals } from "@/api/goal";
