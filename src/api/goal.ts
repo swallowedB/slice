@@ -1,5 +1,6 @@
 import { fetcher } from "@/lib/fetcher";
 import { Goal, GoalResponse, UpdateGoal } from "./types/goal";
+import { buildQuery } from "@/lib/buildQuery";
 
 export function getGoals() {
   return fetcher<GoalResponse>("/goals", {
@@ -33,5 +34,18 @@ export async function postGoal(payload: { title: string }): Promise<Goal> {
 export async function deleteGoal(goalId: number) {
   return fetcher(`/goals/${goalId}`, {
     method: "DELETE",
+  });
+}
+
+export async function cursorGoals(params: { cursor?: number; size?: number }) {
+  const query = buildQuery({
+    cursor: params.cursor,
+    size: params.size ?? 2,
+  });
+
+  const url = query ? `/goals?${query}` : `/goals`;
+
+  return fetcher<GoalResponse>(url, {
+    method: "GET",
   });
 }

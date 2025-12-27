@@ -1,15 +1,20 @@
 "use client";
 import EmptyState from "@/components/common/empty-state/EmptyState";
 import { EMPTY_MESSAGES } from "@/constants/messages";
-import { useGoalsSuspense } from "@/hooks/queries/goals/useGoalsSuspense";
 import { useTodosSuspense } from "@/hooks/queries/todos/useTodosSuspense";
-import { useState } from "react";
+import { useGoalsInfiniteQuery } from "@/hooks/queries/goals/useGoalsInfiniteQuery";
+import { useInView } from "react-intersection-observer";
+import { useState, useEffect } from "react";
 import GoalCard from "./GoalCard";
 import { cardStyles } from "./Goal";
 
 export default function GoalList() {
   const todos = useTodosSuspense();
-  const data = useGoalsSuspense();
+
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
+    useGoalsInfiniteQuery();
+
+  const { ref, inView } = useInView();
 
   const [openCards, setOpenCards] = useState<Record<number, boolean>>({});
 
@@ -20,17 +25,24 @@ export default function GoalList() {
     }));
   };
 
-  if (data.goals.length === 0) {
+  useEffect(() => {
+    if (inView && hasNextPage && !isFetchingNextPage) {
+      fetchNextPage();
+    }
+  }, [inView, hasNextPage, isFetchingNextPage]);
+
+  const goals = data?.pages.flatMap((page) => page.goals) ?? [];
+
+  if (goals.length === 0) {
     return (
       <div className="rounded-[28px] bg-white p-4 shadow">
         <EmptyState>{EMPTY_MESSAGES.GOAL.RECENT}</EmptyState>
       </div>
     );
   }
-
   return (
     <>
-      {data.goals.map((goal) => {
+      {goals.map((goal) => {
         const goalTodos = todos.filter((todo) => todo.goal?.id === goal.id);
 
         const todoItems = goalTodos.filter((t) => !t.checked);
@@ -54,6 +66,22 @@ export default function GoalList() {
           />
         );
       })}
+
+      {!isFetchingNextPage && hasNextPage && (
+        <div
+          ref={ref}
+          style={{ height: "1px" }}
+        />
+      )}
+
+      {isFetchingNextPage && (
+        <p className="py-2 text-center text-gray-500">불러오는 중…</p>
+      )}
+      {!hasNextPage && (
+        <p className="py-2 text-center text-gray-500">
+          모든 목표를 불러왔습니다
+        </p>
+      )}
     </>
   );
 }
