@@ -74,8 +74,14 @@ export default function GoalList() {
         />
       )}
 
-      {isFetchingNextPage && <p>불러오는 중…</p>}
-      {!hasNextPage && <p>모든 목표를 불러왔습니다</p>}
+      {isFetchingNextPage && (
+        <p className="py-2 text-center text-gray-500">불러오는 중…</p>
+      )}
+      {!hasNextPage && (
+        <p className="py-2 text-center text-gray-500">
+          모든 목표를 불러왔습니다
+        </p>
+      )}
     </>
   );
 }
