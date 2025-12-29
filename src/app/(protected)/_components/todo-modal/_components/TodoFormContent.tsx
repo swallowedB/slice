@@ -69,6 +69,10 @@ export default function TodoFormContent({
     setGoal(matchedGoal);
   }, [isEdit, todo, goals]);
 
+  const fileNameFromUrl = todo?.fileUrl
+    ? decodeURIComponent(todo.fileUrl.split("/").pop()!)
+    : null;
+
   const handleConfirm = async () => {
     if (!goal) return;
 
@@ -129,7 +133,7 @@ export default function TodoFormContent({
         isGoalOpen={isGoalOpen}
         setIsGoalOpen={setIsGoalOpen}
         goals={goals}
-        existingFileName={todo?.fileUrl ?? null}
+        existingFileName={fileNameFromUrl}
       />
     </TodoFormLayout>
   );
