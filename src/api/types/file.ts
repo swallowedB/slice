@@ -1,3 +1,3 @@
 export interface FileUploadTodo {
-  fileUrl: string;
+  url: string;
 }

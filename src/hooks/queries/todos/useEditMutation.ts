@@ -2,6 +2,7 @@ import { editTodos } from "@/api/todo";
 import { EditTodo } from "@/api/types/todo";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import todosQueryKeys from "./queryKeys";
+import { toast } from "@/lib/toast";
 
 interface EditTodoVariables {
   todoId: number;
@@ -22,10 +23,11 @@ export function useEditMutation() {
       queryClient.invalidateQueries({
         queryKey: todosQueryKeys.list(),
       });
+      toast.success("할 일이 수정되었습니다.");
     },
 
-    onError: (error) => {
-      console.error("🚨 에러 🚨", error);
+    onError: () => {
+      toast.error("할 일 수정에 실패했습니다.");
     },
   });
 }

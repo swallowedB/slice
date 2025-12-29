@@ -49,7 +49,7 @@ export default function ListItemRow({ item, onToggleChecked, variant }: Props) {
             <span
               id={`checkbox-${item.id}`}
               className={clsx(
-                "min-w-0 flex-1 truncate overflow-hidden text-sm whitespace-nowrap transition-colors group-hover:font-semibold group-hover:text-orange-400 sm:text-base",
+                "min-w-0 flex-1 cursor-pointer truncate overflow-hidden text-sm whitespace-nowrap transition-colors group-hover:font-semibold group-hover:text-orange-400 sm:text-base",
                 textColor,
               )}>
               {item.label}
