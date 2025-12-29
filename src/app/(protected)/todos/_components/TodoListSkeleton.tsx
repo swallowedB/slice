@@ -1,4 +1,3 @@
-// src/app/(protected)/todos/_components/TodosSkeleton.tsx
 import { ListSkeleton } from "@/components/skeleton/ListSkeleton";
 
 export default function TodosSkeleton() {

@@ -83,13 +83,13 @@ export default function TodosContent({
 
   if (filtered.length === 0)
     return (
-      <div className="flex flex-col rounded-2xl bg-white px-8 pt-8 pb-8">
+      <div className="flex flex-col rounded-2xl bg-white p-8">
         <EmptyListContent tab={tab} />
       </div>
     );
 
   return (
-    <div className="flex flex-col rounded-2xl bg-white px-4 py-4 sm:px-8 sm:py-8">
+    <section className="flex flex-col rounded-2xl bg-white p-4 pb-12 sm:p-8 sm:pb-12">
       <GoalSelect
         goals={goals.map((g) => g.title)}
         title="목표를 선택하세요."
@@ -116,6 +116,6 @@ export default function TodosContent({
       )}
 
       {isFetchingNextPage && <div>할 일을 불러오는 중입니다 . . .</div>}
-    </div>
+    </section>
   );
 }
