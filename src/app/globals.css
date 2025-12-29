@@ -89,19 +89,9 @@
   }
 }
 
-[data-sonner-toaster] {
-  left: 50vw !important;
-  transform: translateX(-50%) !important;
-  width: 100% !important;
-  display: flex !important;
-  justify-content: center !important;
-}
-
 [data-sonner-toast] {
-  width: 75vw !important;
-  max-width: 75vw !important;
-  margin-right: auto !important;
-  margin-left: auto !important;
+  min-width: 400px !important;
+  max-width: 90vw !important;
 }
 
 @keyframes skeleton-shimmer {
