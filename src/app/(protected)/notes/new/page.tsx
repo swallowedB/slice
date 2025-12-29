@@ -1,10 +1,16 @@
-import { Suspense } from "react";
-import NoteWriteContainer from "../_components/NoteWriteContainer";
+import NoteCreateContainer from "../_components/NoteCreateContainer";
+import { AsyncBoundary } from "../../_components/AsyncBoundary";
 
-export default function NoteNewPage() {
+interface NoteNewPageProps {
+  searchParams: Promise<{ todoId: string }>;
+}
+
+export default async function NoteNewPage({ searchParams }: NoteNewPageProps) {
+  const { todoId } = await searchParams;
+
   return (
-    <Suspense fallback={<div>로딩 중...</div>}>
-      <NoteWriteContainer mode="create" />
-    </Suspense>
+    <AsyncBoundary loadingFallback={<div>로딩 중...</div>}>
+      <NoteCreateContainer todoId={Number(todoId)} />
+    </AsyncBoundary>
   );
 }
