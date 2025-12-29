@@ -16,7 +16,7 @@ interface NoteListContainerProps {
 export default function NoteListContainer({ goalId }: NoteListContainerProps) {
   const router = useRouter();
 
-  const { data, isLoading, error } = useNotesQuery(goalId);
+  const { data } = useNotesQuery(goalId);
   const { mutate: deleteNoteMutation } = useDeleteNoteMutation();
 
   const [deleteNoteId, setDeleteNoteId] = useState<number | null>(null);
@@ -50,9 +50,7 @@ export default function NoteListContainer({ goalId }: NoteListContainerProps) {
     );
   };
 
-  if (isLoading) return <div>로딩 중...</div>;
-  if (error) return <div>에러가 발생했어요!</div>;
-  if (!data || data.notes.length === 0) {
+  if (data.notes.length === 0) {
     return <EmptyState>{EMPTY_MESSAGES.NOTE.LIST}</EmptyState>;
   }
 
