@@ -14,21 +14,14 @@ interface NoteDetailContentProps {
 }
 
 export default function NoteDetailContent({ noteId }: NoteDetailContentProps) {
-  const { data: note, isLoading, error } = useNoteQuery(noteId);
+  const { data: note } = useNoteQuery(noteId);
   const [isEmbedOpen, setIsEmbedOpen] = useState(false);
+
   const linkMetadata = note?.linkMetadata;
 
   const handleToggleEmbed = () => {
     setIsEmbedOpen(!isEmbedOpen);
   };
-
-  if (isLoading) {
-    return <div>로딩 중...</div>;
-  }
-
-  if (error || !note) {
-    return <div>노트를 불러올 수 없습니다.</div>;
-  }
 
   return (
     <div className="flex flex-col">

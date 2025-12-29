@@ -1,3 +1,5 @@
+import { AsyncBoundary } from "@/app/(protected)/_components/AsyncBoundary";
+import NoteDetailSkeleton from "@/app/(protected)/notes/_components/NoteDetailSkeleton";
 import NoteDetailModal from "../../../notes/_components/NoteDetailModal";
 import NoteDetailContent from "../../../notes/_components/NoteDetailContent";
 
@@ -14,7 +16,9 @@ export default async function NoteDetailModalPage({
 
   return (
     <NoteDetailModal>
-      <NoteDetailContent noteId={Number(noteId)} />
+      <AsyncBoundary loadingFallback={<NoteDetailSkeleton />}>
+        <NoteDetailContent noteId={Number(noteId)} />
+      </AsyncBoundary>
     </NoteDetailModal>
   );
 }
