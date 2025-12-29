@@ -65,10 +65,10 @@ export async function fetcher<T>(
 
   const doRequest = async (): Promise<Response> => {
     const accessToken = getAccessToken();
-
+    const isFormdata = options.body instanceof FormData;
     return fetch(url, {
       headers: {
-        "Content-Type": "application/json",
+        ...(isFormdata ? {} : { "Content-Type": "application/json" }),
         ...(accessToken ? { Authorization: `Bearer ${accessToken}` } : {}),
         ...(options.headers || {}),
       },

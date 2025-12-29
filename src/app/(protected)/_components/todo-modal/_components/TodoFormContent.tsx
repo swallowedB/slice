@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { useCreateMutation } from "@/hooks/queries/todos/useCreateMutation";
 import { useEditMutation } from "@/hooks/queries/todos/useEditMutation";
 import { useDeviceSize } from "@/hooks/useDeviceSize";
+import { useFileUploadMutation } from "@/hooks/queries/files/useFileUploadMutation";
 
 import { useGoalList } from "@/hooks/queries/goals/useGoalList";
 import { Todo, EditTodo } from "@/api/types/todo";
@@ -42,6 +43,7 @@ export default function TodoFormContent({
 
   const createTodoMutation = useCreateMutation();
   const editTodoMutation = useEditMutation();
+  const fileUploadMutation = useFileUploadMutation();
 
   const { data: goalData } = useGoalList();
   const goals: Goal[] = goalData?.goals ?? [];
@@ -67,15 +69,22 @@ export default function TodoFormContent({
     setGoal(matchedGoal);
   }, [isEdit, todo, goals]);
 
-  const handleConfirm = () => {
+  const handleConfirm = async () => {
     if (!goal) return;
+
+    let fileUrl: string | undefined;
+
+    if (file) {
+      const res = await fileUploadMutation.mutateAsync(file);
+      fileUrl = res.url;
+    }
 
     const payload: EditTodo = {
       title,
       goalId: goal.id,
       done: status === "DONE",
       ...(link && { linkUrl: link }),
-      ...(file && { fileUrl: file.name }),
+      ...(fileUrl && { fileUrl }),
     };
 
     if (mode === "edit" && todoId) {
