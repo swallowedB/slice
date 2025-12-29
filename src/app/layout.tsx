@@ -37,9 +37,7 @@ export default function Rootlayout({
       <body>
         <Providers>{children}</Providers>
         <Toaster
-          position="bottom-center"
-          offset="200px"
-          mobileOffset="100px"
+          position="bottom-right"
           duration={3000}
           visibleToasts={1}
         />
