@@ -1,10 +1,16 @@
-import { Suspense } from "react";
-import NoteWriteContainer from "../../_components/NoteWriteContainer";
+import { AsyncBoundary } from "@/app/(protected)/_components/AsyncBoundary";
+import NoteEditContainer from "../../_components/NoteEditContainer";
 
-export default function NoteEditPage() {
+interface NoteEditPageProps {
+  params: Promise<{ noteId: string }>;
+}
+
+export default async function NoteEditPage({ params }: NoteEditPageProps) {
+  const { noteId } = await params;
+
   return (
-    <Suspense fallback={<div>로딩 중...</div>}>
-      <NoteWriteContainer mode="edit" />
-    </Suspense>
+    <AsyncBoundary loadingFallback={<div>로딩 중...</div>}>
+      <NoteEditContainer noteId={Number(noteId)} />
+    </AsyncBoundary>
   );
 }
