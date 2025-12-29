@@ -27,7 +27,7 @@ export default function TodoFormLayout({
   const title = mode === "create" ? "할 일 생성" : "할 일 수정";
   const [confirmOpen, setConfirmOpen] = useState(false);
 
-  const handleConfim = () => {
+  const handleConfirm = () => {
     onClose();
     setConfirmOpen(false);
   };
@@ -53,7 +53,7 @@ export default function TodoFormLayout({
         title="작성을 그만하시겠어요?"
         message="작성 중인 내용이 모두 삭제됩니다."
         onClose={() => setConfirmOpen(false)}
-        onConfirm={handleConfim}
+        onConfirm={handleConfirm}
       />
     </div>
   );

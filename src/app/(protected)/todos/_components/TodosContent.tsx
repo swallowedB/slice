@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import GoalSelect from "./GoalSelect";
 import ListItem from "@/components/common/list/list-item/ListItem";
 import EmptyListContent from "./EmptyListContent";
+import TodoListSkeleton from "./TodoListSkeleton";
 
 import { useListItems } from "@/hooks/useListItems";
 import { useGoalList } from "@/hooks/queries/goals/useGoalList";
@@ -28,20 +29,21 @@ export default function TodosContent({
 
   const [goal, setGoal] = useState<Goal | null>(null);
 
-  const {
-    data: goalData,
-    isLoading: isGoalsLoading,
-    isError: isGoalsError,
-  } = useGoalList();
+  const { data: goalData, isLoading: isGoalsLoading } = useGoalList();
 
   const goals: Goal[] = goalData?.goals ?? [];
 
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
-    useInfiniteTodos(goalId);
+  // 무한스크롤
+  const {
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    isLoading: isTodosLoading,
+  } = useInfiniteTodos(goalId);
 
   const todos: Todo[] = data?.pages.flatMap((page) => page.todos) ?? [];
 
-  // 무한스크롤
   // react-intersection-observer로 감지
   const { ref, inView } = useInView({
     threshold: 0.9,
@@ -66,6 +68,10 @@ export default function TodosContent({
 
   const { items, onToggleChecked } = useListItems(initialItems);
 
+  if (isGoalsLoading || isTodosLoading) {
+    return <TodoListSkeleton />;
+  }
+
   let filtered = items;
 
   if (tab === "TODO") {
@@ -74,9 +80,6 @@ export default function TodosContent({
   if (tab === "DONE") {
     filtered = items.filter((i) => i.checked);
   }
-
-  // if (isGoalsLoading || isTodosLoading) return <div>로딩 중..</div>;
-  // if (isGoalsError || isTodosError) return <div>🚨 에러</div>;
 
   if (filtered.length === 0)
     return (
