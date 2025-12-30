@@ -61,6 +61,11 @@ export default function ListItemActions({
         closeDropdown();
       },
     },
+
+    // 노트가 있을 때 없을 때
+    // 노트가 있으면 노트 수정하기 => noteId 필요 /notes/noteId/edit => note.id boolean 으로 되어있음.
+    // 수정하기 router.push()
+
     {
       text: "수정하기",
       onClick: () => {

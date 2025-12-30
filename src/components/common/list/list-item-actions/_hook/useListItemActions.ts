@@ -34,7 +34,6 @@ export function useListItemActions(todo?: Todo) {
         break;
       case "note":
         router.push(`/notes/${noteId}`);
-        break;
     }
   };
 
