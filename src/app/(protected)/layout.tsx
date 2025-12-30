@@ -3,12 +3,20 @@ import { redirect } from "next/navigation";
 import NavigationDesktop from "./_components/navigation/NavigationDesktop";
 import { backendFetch } from "@/lib/backend";
 
+interface ProtectedLayoutProps {
+  children: React.ReactNode;
+  modal: React.ReactNode;
+}
+
 type MeResponse = { id: string; name: string; email: string };
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
-export default async function ProtectedLayout({ children }: { children: ReactNode }) {
+export default async function ProtectedLayout({
+  children,
+  modal,
+}: ProtectedLayoutProps) {
   try {
     await backendFetch<MeResponse>("/user", { auth: "access" });
   } catch {
