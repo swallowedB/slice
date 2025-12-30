@@ -1,8 +1,6 @@
 "use client";
 
-// import { useTodoList } from "@/app/(protected)/_hooks/useTodoList";
 import PageHeader from "@/app/(protected)/_components/layout/PageHeader";
-import { useGoalList } from "@/hooks/queries/goals";
 import GoalHeader from "./GoalHeader";
 import GoalProgressCard from "./GoalProgressCard";
 import GoalNotesCard from "./GoalNotesCard";
@@ -10,6 +8,8 @@ import Goal from "./Goal";
 import { useAuthStore } from "@/store/useAuthStore";
 import { calcProgress } from "../_utils/calcProgress";
 import { useTodosSuspense } from "@/hooks/queries/todos/useTodosSuspense";
+import { useGoalListSuspense } from "@/hooks/queries/goals/useGoalListSuspense";
+import { AsyncBoundary } from "@/app/(protected)/_components/AsyncBoundary";
 
 type DataIdProps = {
   goalId: string;
@@ -17,15 +17,10 @@ type DataIdProps = {
 
 export default function GoalContainer({ goalId }: DataIdProps) {
   const nickname = useAuthStore((state) => state.user?.name ?? "");
-  const {
-    data: goalData,
-    isLoading: isGoalsLoading,
-    isError: isGoalsError,
-  } = useGoalList();
-  //   const { todos, isLoading, isError } = useTodoList();
+  const goalList = useGoalListSuspense();
   const todos = useTodosSuspense();
 
-  const goals = goalData?.goals || [];
+  const goals = goalList?.data.goals || [];
   const goal = goals.find((goal) => goal.id === Number(goalId));
 
   const goalTodos = todos.filter((goalTodo) => goalTodo.goal?.id === goal?.id);
@@ -40,17 +35,22 @@ export default function GoalContainer({ goalId }: DataIdProps) {
       />
 
       <div className="mb-7.5 block w-full sm:grid lg:mb-20 lg:grid-cols-1 lg:gap-x-0 xl:gap-x-8 2xl:grid-cols-2">
-        <GoalHeader goalId={goalId} />
-
+        <AsyncBoundary loadingFallback={<div> 로딩중 </div>}>
+          <GoalHeader goalId={goalId} />
+        </AsyncBoundary>
         <div className="block sm:grid sm:grid-cols-2 sm:gap-x-5 lg:mt-5 lg:gap-x-5 xl:mt-5 xl:grid xl:grid-cols-2 2xl:mt-0">
-          <GoalProgressCard percent={progress} />
+          <AsyncBoundary loadingFallback={<div> 로딩중 </div>}>
+            <GoalProgressCard percent={progress} />
+          </AsyncBoundary>
           <GoalNotesCard
             goalId={goalId}
             todoId={`${targetTodoId}`}
           />
         </div>
       </div>
-      <Goal goalTodos={goalTodos} />
+      <AsyncBoundary loadingFallback={<div> 로딩중 </div>}>
+        <Goal goalTodos={goalTodos} />
+      </AsyncBoundary>
     </section>
   );
 }
