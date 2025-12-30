@@ -1,14 +1,28 @@
+import { ReactNode } from "react";
+import { redirect } from "next/navigation";
 import NavigationDesktop from "./_components/navigation/NavigationDesktop";
+import { backendFetch } from "@/lib/backend";
 
 interface ProtectedLayoutProps {
   children: React.ReactNode;
   modal: React.ReactNode;
 }
 
-export default function ProtectedLayout({
+type MeResponse = { id: string; name: string; email: string };
+
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
+export default async function ProtectedLayout({
   children,
   modal,
 }: ProtectedLayoutProps) {
+  try {
+    await backendFetch<MeResponse>("/user", { auth: "access" });
+  } catch {
+    redirect("/login");
+  }
+
   return (
     <main className="flex min-h-screen overflow-hidden sm:h-screen sm:gap-12 lg:gap-20">
       <div className="hidden sm:block">
