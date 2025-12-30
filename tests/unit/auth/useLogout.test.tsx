@@ -1,5 +1,4 @@
 import { useLogout } from "@/hooks/queries/auth";
-import { clearTokens } from "@/lib/tokenStorage";
 import { act, renderHook } from "@testing-library/react";
 import { createQueryClientWrapper } from "tests/test-utils";
 
@@ -12,10 +11,6 @@ jest.mock("next/navigation", () => ({
   useRouter: () => ({ replace: replaceMock }),
 }));
 
-jest.mock("@/lib/tokenStorage", () => ({
-  clearTokens: jest.fn(),
-}));
-
 const clearUserMock = jest.fn();
 jest.mock("@/store/useAuthStore", () => ({
   useAuthStore: function <T>(selector: (state: AuthStoreState) => T): T {
@@ -26,18 +21,34 @@ jest.mock("@/store/useAuthStore", () => ({
 describe("useLogout", () => {
   beforeEach(() => {
     jest.clearAllMocks();
+
+    global.fetch = jest.fn().mockResolvedValue({
+      ok: true,
+      json: async () => ({ ok: true }),
+    }  as unknown as Response);
   });
 
-  it("로그아웃 시 토큰/유저를 정리하고 auth 쿼리를 제거한 뒤 /login으로 이동한다", () => {
+  afterEach(() => {
+    (global.fetch as jest.Mock | undefined)?.mockRestore?.();
+  });
+
+  it("로그아웃 시 토큰/유저를 정리하고 auth 쿼리를 제거한 뒤 /login으로 이동한다", async () => {
     const wrapper = createQueryClientWrapper();
 
     const { result } = renderHook(() => useLogout(), { wrapper });
 
-    act(() => {
-      result.current();
+    await act(async () => {
+      await result.current();
     });
 
-    expect(clearTokens).toHaveBeenCalledTimes(1);
+    expect(global.fetch).toHaveBeenCalledTimes(1);
+    expect(global.fetch).toHaveBeenCalledWith(
+      "/api/auth/logout",
+      expect.objectContaining({
+        method: "POST",
+        credentials: "include",
+      })
+    );
     expect(clearUserMock).toHaveBeenCalledTimes(1);
     expect(replaceMock).toHaveBeenCalledTimes(1);
     expect(replaceMock).toHaveBeenCalledWith("/login");
