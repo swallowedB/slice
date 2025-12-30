@@ -1,31 +1,52 @@
 "use client";
 
-import { useState, Suspense } from "react";
+import { useState } from "react";
+import { AsyncBoundary } from "../_components/AsyncBoundary";
+
 import TodoHeader from "./_components/TodoHeader";
 import TodosContent from "./_components/TodosContent";
 import TodosLayout from "./_components/TodosLayout";
 
 import { useTodosQuery } from "@/hooks/queries/todos";
 
-export default function TodosPage() {
-  const [tab, setTab] = useState<"ALL" | "TODO" | "DONE">("ALL");
+type TabType = "ALL" | "TODO" | "DONE";
 
+function TodosSection({
+  tab,
+  onTabChange,
+}: {
+  tab: TabType;
+  onTabChange: (tab: TabType) => void;
+}) {
   const { data } = useTodosQuery();
+
   const todosCount = data?.totalCount ?? 0;
+
+  return (
+    <>
+      <TodoHeader
+        tab={tab}
+        onTabChange={onTabChange}
+        count={todosCount}
+        onAdd={() => console.log("할 일 추가")}
+      />
+      <TodosContent tab={tab} />
+    </>
+  );
+}
+
+export default function TodosPage() {
+  const [tab, setTab] = useState<TabType>("ALL");
 
   return (
     <section className="h-screen">
       <TodosLayout>
-        <TodoHeader
-          tab={tab}
-          onTabChange={setTab}
-          count={todosCount}
-          onAdd={() => console.log("할 일 추가")}
-        />
-
-        <Suspense>
-          <TodosContent tab={tab} />
-        </Suspense>
+        <AsyncBoundary loadingFallback={<div>로딩 중...</div>}>
+          <TodosSection
+            tab={tab}
+            onTabChange={setTab}
+          />
+        </AsyncBoundary>
       </TodosLayout>
     </section>
   );
