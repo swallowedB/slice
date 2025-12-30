@@ -28,7 +28,7 @@ async function callBackend(
   req: Request,
   url: string,
   accessToken: string | null,
-  bodyBuf?: ArrayBuffer
+  bodyBuf?: ArrayBuffer,
 ) {
   const method = req.method.toUpperCase();
   const hasBody = !["GET", "HEAD"].includes(method);
@@ -44,14 +44,25 @@ async function callBackend(
 }
 
 function passThrough(res: Response) {
+  //   return new NextResponse(res.body, {
+  //     status: res.status,
+  //     headers: new Headers(res.headers),
+  //   });
+  const headers = new Headers(res.headers);
+
+  // 🔧 압축 관련 헤더 제거
+  headers.delete("content-encoding");
+  headers.delete("content-length");
+  headers.delete("transfer-encoding");
+
   return new NextResponse(res.body, {
     status: res.status,
-    headers: new Headers(res.headers),
+    headers,
   });
 }
 
 async function handler(req: Request, ctx: Ctx) {
-  const { path } = await ctx.params; 
+  const { path } = await ctx.params;
   const backendUrl = buildBackendUrl(req, path);
 
   const method = req.method.toUpperCase();
@@ -70,7 +81,10 @@ async function handler(req: Request, ctx: Ctx) {
   });
 
   if (!refreshRes.ok) {
-    return NextResponse.json({ ok: false, message: "Unauthenticated" }, { status: 401 });
+    return NextResponse.json(
+      { ok: false, message: "Unauthenticated" },
+      { status: 401 },
+    );
   }
 
   const access2 = await getAccessTokenFromCookies();
