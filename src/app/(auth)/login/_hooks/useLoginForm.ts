@@ -41,7 +41,7 @@ export function useLoginForm() {
       { email: form.email, password: form.password },
       {
         onSuccess: () => {
-          router.replace("/");
+          router.replace("/dashboard");
         },
         onError: (error) => {
           setServerError(error.message);
