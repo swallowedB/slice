@@ -6,7 +6,7 @@ export default function GoalSkeleton() {
     "relative mt-4 rounded-[28px] bg-white px-4 py-6.5 pb-11 shadow-[0_4px_4px_0_rgba(0,0,0,0.025)] sm:p-4 sm:pt-7.5 lg:rounded-[40px] lg:p-7.5";
 
   return (
-    <div className={`animate-skeleton-fade relative ${cardStyles}`}>
+    <div className={`relative animate-pulse ${cardStyles}`}>
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex flex-col gap-2">
           <div className="h-5 w-40 rounded bg-gray-200" />
