@@ -93,30 +93,3 @@
   min-width: 400px !important;
   max-width: 90vw !important;
 }
-
-@keyframes skeleton-shimmer {
-  0% {
-    transform: translate3d(-50%, 0, 0);
-  }
-  100% {
-    transform: translate3d(50%, 0, 0);
-  }
-}
-
-.animate-skeleton-shimmer {
-  animation: skeleton-shimmer 1.6s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-}
-
-@keyframes skeleton-fade {
-  0%,
-  100% {
-    opacity: 0.7;
-  }
-  50% {
-    opacity: 1;
-  }
-}
-
-.animate-skeleton-fade {
-  animation: skeleton-fade 2.4s ease-in-out infinite;
-}
