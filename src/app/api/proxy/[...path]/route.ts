@@ -44,13 +44,8 @@ async function callBackend(
 }
 
 function passThrough(res: Response) {
-  //   return new NextResponse(res.body, {
-  //     status: res.status,
-  //     headers: new Headers(res.headers),
-  //   });
   const headers = new Headers(res.headers);
 
-  // 🔧 압축 관련 헤더 제거
   headers.delete("content-encoding");
   headers.delete("content-length");
   headers.delete("transfer-encoding");
