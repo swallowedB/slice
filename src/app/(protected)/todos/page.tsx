@@ -11,11 +11,6 @@ import { useTodosQuery } from "@/hooks/queries/todos";
 
 type TabType = "ALL" | "TODO" | "DONE";
 
-/**
- * ✅ Suspense 대상 컴포넌트
- * - useTodosQuery를 여기서 호출
- * - 반드시 AsyncBoundary 안에서 렌더링됨
- */
 function TodosSection({
   tab,
   onTabChange,
