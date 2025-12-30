@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useDeleteMutation } from "@/hooks/queries/todos/useDeleteMutation";
 import { useDropdown } from "@/hooks/useDropdown";
+import { useRouter } from "next/navigation";
 import { DropdownItem } from "../../dropdown/Dropdown";
 import { Todo } from "@/api/types/todo";
 import { ActionType, ListActionType, ListItemVariant } from "./types";
@@ -32,6 +33,7 @@ export default function ListItemActions({
   } = useDropdown<HTMLDivElement>();
 
   const deleteTodo = useDeleteMutation();
+  const router = useRouter();
 
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [editOpen, setEditOpen] = useState(false);
@@ -45,12 +47,18 @@ export default function ListItemActions({
 
   const hasMore = actions.some((action) => action.type === "more");
 
+  const noteId = todo?.noteId;
   const dropdownItems: DropdownItem[] = [
     {
-      text: "노트 작성하기",
+      text: noteId ? "노트 수정하기" : "노트 작성하기",
       onClick: () => {
-        closeDropdown();
+        console.log("todo:", todo);
+        if (noteId) {
+          router.push(`/notes/${noteId}/edit`);
+          return;
+        }
         window.location.href = `/notes/new?todoId=${id}`;
+        closeDropdown();
       },
     },
     {

@@ -23,6 +23,7 @@ export function useListItemActions(todo?: Todo) {
 
   const handleAction = (type: ActionType) => {
     if (!todo) return;
+    const noteId = todo?.noteId;
 
     switch (type) {
       case "link":
@@ -32,8 +33,7 @@ export function useListItemActions(todo?: Todo) {
         downloadFileByUrl(todo.fileUrl);
         break;
       case "note":
-        // router.push(`/notes/new?todoId=${todo.id}`);
-        router.push("/notes/881");
+        router.push(`/notes/${noteId}`);
         break;
     }
   };
