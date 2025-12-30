@@ -20,7 +20,7 @@ function TodosSection({
 }) {
   const { data } = useTodosQuery();
 
-  const todosCount = data!.totalCount;
+  const todosCount = data?.totalCount ?? 0;
 
   return (
     <>
