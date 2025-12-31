@@ -7,7 +7,6 @@ export default function Page() {
   const [open, setOpen] = useState(false);
 
   const handleConfirm = () => {
-    console.log("제출 데이터:");
     setOpen(false);
   };
 

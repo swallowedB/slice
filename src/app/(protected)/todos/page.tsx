@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { AsyncBoundary } from "../_components/AsyncBoundary";
 
 import TodoHeader from "./_components/TodoHeader";
@@ -37,6 +37,14 @@ function TodosSection({
 
 export default function TodosPage() {
   const [tab, setTab] = useState<TabType>("ALL");
+
+  // 바깥 스크롤 제거
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, []);
 
   return (
     <section className="h-screen">
