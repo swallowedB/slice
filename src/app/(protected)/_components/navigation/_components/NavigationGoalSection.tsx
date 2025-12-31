@@ -3,6 +3,7 @@
 import { useActiveGoalId } from "@/app/(protected)/_components/navigation/hooks/useActiveGoalId";
 import { useNewGoalInput } from "@/app/(protected)/_components/navigation/hooks/useNewGoalInput";
 import { useGoalList } from "@/hooks/queries/goals";
+import { useEffect } from "react";
 import NavigationGoalListItem from "./NavigationGoalListItem";
 
 interface Props {
@@ -25,6 +26,14 @@ export default function NavigationGoalSection({ newGoalInputSignal }: Props) {
     onKeyDown,
     onBlur,
   } = useNewGoalInput({ newGoalInputSignal });
+
+  useEffect(() => {
+    if (isCreating) {
+      requestAnimationFrame(() => {
+        inputRef.current?.focus();
+      });
+    }
+  }, [isCreating, inputRef]);
 
   return (
     <section>

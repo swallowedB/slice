@@ -21,7 +21,7 @@ export async function POST() {
 
     return NextResponse.json({ ok: true });
   } catch {
-    clearAuthCookies();
+    await clearAuthCookies();
     return NextResponse.json({ ok: false }, { status: 401 });
   }
 }
