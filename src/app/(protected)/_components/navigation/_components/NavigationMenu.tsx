@@ -19,7 +19,7 @@ export default function NavigationMenu({ newGoalInputSignal }: NavigationMenuPro
     <nav className="mb-1 flex w-full flex-col gap-2">
       <NavigationLink
         title="대시보드"
-        href="/"
+        href="/dashboard"
         icon={<Squares2X2Icon className="h-6 w-6" />}
         isActive={isDashboardActive}
       />
