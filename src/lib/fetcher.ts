@@ -8,13 +8,16 @@ interface ApiErrorResponse {
 export async function fetcher<T>(path: string, options: RequestInit = {}) {
   const url = `/api/proxy${path.startsWith("/") ? path : `/${path}`}`;
 
+  const isFormData = options.body instanceof FormData;
+
+  const headers: HeadersInit = isFormData
+    ? { ...(options.headers || {}) }
+    : { "Content-Type": "application/json", ...(options.headers || {}) };
+
   const res = await fetch(url, {
     ...options,
     credentials: "include",
-    headers: {
-      "Content-Type": "application/json",
-      ...(options.headers || {}),
-    },
+    headers,
   });
 
   if (!res.ok) {
