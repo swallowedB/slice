@@ -1,10 +1,9 @@
 "use client";
-import { ChevronRightIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
-import { Suspense } from "react";
+import { ChevronRightIcon } from "@heroicons/react/24/outline";
 import { ListSkeleton } from "@/components/skeleton/ListSkeleton";
-import { ErrorBoundary } from "@/components/error-boundary";
 import RecentTodosContent from "./RecentTodosContent";
+import { AsyncBoundary } from "@/app/(protected)/_components/AsyncBoundary";
 
 export default function RecentTodos() {
   return (
@@ -27,17 +26,15 @@ export default function RecentTodos() {
       </h3>
 
       <div className="bg-orange-250 h-auto rounded-[28px] px-4 py-4.5 shadow-[0_10px_40px_0_rgba(255,158,89,0.4)] transition-all sm:h-53 sm:p-3.75 lg:h-64 lg:rounded-[40px] lg:p-7.5 lg:hover:shadow-[0_10px_40px_0_rgba(255,158,89,0.4)]">
-        <ErrorBoundary>
-          <Suspense
-            fallback={
-              <ListSkeleton
-                count={4}
-                rowClassName="h-10 lg:h-11 bg-white/40"
-              />
-            }>
-            <RecentTodosContent />
-          </Suspense>
-        </ErrorBoundary>
+        <AsyncBoundary
+          loadingFallback={
+            <ListSkeleton
+              count={4}
+              rowClassName="h-10 lg:h-11 bg-white/40"
+            />
+          }>
+          <RecentTodosContent />
+        </AsyncBoundary>
       </div>
     </div>
   );

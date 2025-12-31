@@ -12,11 +12,6 @@ const BASE_BG = {
   dark: "bg-white/20",
 };
 
-const SHIMMER = {
-  light: "via-gray-200",
-  dark: "via-white/40",
-};
-
 export function ListBlockSkeleton({
   className = "",
   style,
@@ -25,10 +20,7 @@ export function ListBlockSkeleton({
   return (
     <div
       style={style}
-      className={`relative overflow-hidden rounded-md ${BASE_BG[variant]} ${className}`}>
-      <div
-        className={`absolute inset-0 w-[200%] -translate-x-1/2 bg-linear-to-r from-transparent ${SHIMMER[variant]} animate-skeleton-shimmer to-transparent will-change-transform`}
-      />
-    </div>
+      className={`animate-pulse rounded-md ${BASE_BG[variant]} ${className} `}
+    />
   );
 }

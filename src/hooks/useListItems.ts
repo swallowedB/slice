@@ -6,8 +6,7 @@ export function useListItems(initialItems: ListTodoType[]) {
 
   useEffect(() => {
     setItems(initialItems);
-  }, [JSON.stringify(initialItems)]); // 🔥 배열 내용 비교로 변경
-
+  }, [JSON.stringify(initialItems)]);
   const onToggleChecked = (id: number) => {
     setItems((prev) =>
       prev.map((item) =>
