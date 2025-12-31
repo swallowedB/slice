@@ -103,7 +103,7 @@ export default function TodoFormUI({
         <div className="relative w-full">
           <button
             onClick={() => setIsGoalOpen(!isGoalOpen)}
-            className={`flex h-14 w-full items-center justify-between rounded-xl border bg-white px-4 transition-colors ${
+            className={`flex h-14 w-full cursor-pointer items-center justify-between rounded-xl border bg-white px-4 transition-colors ${
               isGoalOpen ? "border-orange-300" : "border-gray-200"
             }`}>
             <span className={goal ? "text-gray-700" : "text-gray-600"}>
