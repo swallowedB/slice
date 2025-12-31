@@ -3,7 +3,7 @@
 import PageHeader from "@/app/(protected)/_components/layout/PageHeader";
 import { useAuthStore } from "@/store/useAuthStore";
 import { AsyncBoundary } from "@/app/(protected)/_components/AsyncBoundary";
-import { GoalDetailSkeleton } from "./GoalDetailSkeleton";
+import { GoalDetailSkeleton } from "./GoalContainerSkeleton";
 import GoalContainerData from "./GoalContainerData";
 
 type Props = {
