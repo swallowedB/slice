@@ -8,7 +8,7 @@ type SkeletonBlockProps = {
 };
 
 const BASE_BG = {
-  light: "bg-gray-100",
+  light: "bg-gray-80",
   dark: "bg-white/20",
 };
 
