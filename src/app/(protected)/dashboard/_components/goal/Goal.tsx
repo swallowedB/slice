@@ -1,8 +1,6 @@
 "use client";
-
-import { Suspense } from "react";
+import { AsyncBoundary } from "@/app/(protected)/_components/AsyncBoundary";
 import GoalSkeletion from "./GoalSkeleton";
-import { ErrorBoundary } from "@/components/error-boundary";
 import GoalList from "./GoalList";
 
 export const cardStyles =
@@ -20,11 +18,9 @@ export default function Goal() {
         목표별 할 일
       </h3>
 
-      <ErrorBoundary>
-        <Suspense fallback={<GoalSkeletion />}>
-          <GoalList />
-        </Suspense>
-      </ErrorBoundary>
+      <AsyncBoundary loadingFallback={<GoalSkeletion />}>
+        <GoalList />
+      </AsyncBoundary>
     </section>
   );
 }

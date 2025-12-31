@@ -8,6 +8,8 @@ import Todos from "./todos/Todos";
 import Goal from "./goal/Goal";
 
 export default function DashboardClient() {
+  // hooks/useAuthhenticated.ts
+  //  =>
   const router = useRouter();
   const hydrated = useAuthStore((s) => s.hydrated);
   const user = useAuthStore((s) => s.user);
