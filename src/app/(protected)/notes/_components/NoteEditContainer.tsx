@@ -58,6 +58,7 @@ export default function NoteEditContainer({ noteId }: NoteEditContainerProps) {
       {
         onSuccess: (data) => {
           draftNoteStorage.remove(todoId);
+          toast.success("노트가 수정되었습니다.");
           router.replace(`/notes?goalId=${data.goal.id}`);
         },
         onError: (error) => {
