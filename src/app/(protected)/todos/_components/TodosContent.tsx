@@ -103,13 +103,6 @@ export default function TodosContent({
     filtered = items.filter((i) => i.checked);
   }
 
-  if (filtered.length === 0)
-    return (
-      <div className="flex flex-col rounded-2xl bg-white p-8">
-        <EmptyListContent tab={tab} />
-      </div>
-    );
-
   return (
     <section className="flex flex-col rounded-2xl bg-white p-4 pb-12 sm:p-8 sm:pb-12">
       <GoalSelect
@@ -120,20 +113,30 @@ export default function TodosContent({
       />
 
       <div className="mt-4">
-        <ListItem
-          items={filtered}
-          onToggleChecked={onToggleChecked}
-        />
-      </div>
-      {/* 감지용 sentinel */}
-      {hasNextPage && !isFetchingNextPage && (
-        <div
-          ref={ref}
-          className="h-3"
-        />
-      )}
+        {filtered.length === 0 ? (
+          // 리스트 영역만 empty 처리
+          <div className="flex flex-col rounded-2xl bg-white p-8">
+            <EmptyListContent tab={tab} />
+          </div>
+        ) : (
+          <>
+            <ListItem
+              items={filtered}
+              onToggleChecked={onToggleChecked}
+            />
 
-      {isFetchingNextPage && <div>할 일을 불러오는 중입니다 . . .</div>}
+            {/* 감지용 sentinel */}
+            {hasNextPage && !isFetchingNextPage && (
+              <div
+                ref={ref}
+                className="h-3"
+              />
+            )}
+
+            {isFetchingNextPage && <div>할 일을 불러오는 중입니다 . . .</div>}
+          </>
+        )}
+      </div>
     </section>
   );
 }
