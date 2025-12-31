@@ -18,7 +18,7 @@ export function useNewGoalInput({ newGoalInputSignal }: UseNewGoalInputParams) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
   const submittedRef = useRef(false);
-  const didMountRef = useRef(false);
+  const prevSignalRef = useRef(newGoalInputSignal);
 
   const closingByOutsideRef = useRef(false);
 
@@ -26,21 +26,24 @@ export function useNewGoalInput({ newGoalInputSignal }: UseNewGoalInputParams) {
     setIsCreating(false);
     setTitle("");
     submittedRef.current = false;
+    closingByOutsideRef.current = false;
   };
 
   useEffect(() => {
-    if (!didMountRef.current) {
-      didMountRef.current = true;
-      return;
-    }
-    setIsCreating(true);
-    setTitle("");
-    submittedRef.current = false;
+  const prev = prevSignalRef.current;
+  prevSignalRef.current = newGoalInputSignal;
 
-    requestAnimationFrame(() => {
-      inputRef.current?.focus();
-    });
-  }, [newGoalInputSignal]);
+  if (newGoalInputSignal <= prev) return;
+
+  setIsCreating(true);
+  setTitle("");
+  submittedRef.current = false;
+  closingByOutsideRef.current = false;
+
+  requestAnimationFrame(() => {
+    inputRef.current?.focus();
+  });
+}, [newGoalInputSignal]);
 
   useEffect(() => {
     if (!isCreating) return;

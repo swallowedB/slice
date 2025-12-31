@@ -1,10 +1,30 @@
+import { backendFetch } from "@/lib/backend";
+import {
+  clearAuthCookies,
+  getAccessTokenFromCookies,
+  getRefreshTokenFromCookies,
+  setAuthCookies,
+} from "@/lib/cookies";
 import { NextResponse } from "next/server";
-import { getAccessTokenFromCookies } from "@/lib/cookies";
+
 
 const BASE = process.env.NEXT_PUBLIC_BASE_URL;
 if (!BASE) throw new Error("🚨 NEXT_PUBLIC_BASE_URL을 찾을 수 없습니다");
 
 type Ctx = { params: Promise<{ path: string[] }> };
+type RefreshResponse = { accessToken: string; refreshToken: string };
+
+const ACCESS_COOKIE = "access_token";
+const REFRESH_COOKIE = "refresh_token";
+function baseCookieOptions() {
+  const isProd = process.env.NODE_ENV === "production";
+  return {
+    httpOnly: true as const,
+    secure: isProd,
+    sameSite: "lax" as const,
+    path: "/" as const,
+  };
+}
 
 function buildBackendUrl(req: Request, pathArr: string[]) {
   const base = BASE!.endsWith("/") ? BASE!.slice(0, -1) : BASE!;
@@ -19,6 +39,7 @@ function buildForwardHeaders(req: Request, accessToken: string | null) {
   headers.delete("connection");
   headers.delete("content-length");
 
+  headers.delete("authorization");
   if (accessToken) headers.set("authorization", `Bearer ${accessToken}`);
 
   return headers;
@@ -56,7 +77,15 @@ function passThrough(res: Response) {
   });
 }
 
+function attachClearAuthCookies(res: NextResponse) {
+  const opt = baseCookieOptions();
+  res.cookies.set(ACCESS_COOKIE, "", { ...opt, maxAge: 0 });
+  res.cookies.set(REFRESH_COOKIE, "", { ...opt, maxAge: 0 });
+  return res;
+}
+
 async function handler(req: Request, ctx: Ctx) {
+  
   const { path } = await ctx.params;
   const backendUrl = buildBackendUrl(req, path);
 
@@ -67,25 +96,43 @@ async function handler(req: Request, ctx: Ctx) {
   const access1 = await getAccessTokenFromCookies();
   let res = await callBackend(req, backendUrl, access1, bodyBuf);
 
-  if (res.status !== 401) return passThrough(res);
+  if (res.status !== 401 && res.status !== 403) return passThrough(res);
 
-  const origin = new URL(req.url).origin;
-  const refreshRes = await fetch(`${origin}/api/auth/refresh`, {
-    method: "POST",
-    cache: "no-store",
-  });
-
-  if (!refreshRes.ok) {
-    return NextResponse.json(
-      { ok: false, message: "Unauthenticated" },
-      { status: 401 },
+  const refreshToken = await getRefreshTokenFromCookies();
+  if (!refreshToken) {
+    return attachClearAuthCookies(
+      NextResponse.json({ ok: false, message: "Unauthenticated" }, { status: 401 }),
     );
   }
 
-  const access2 = await getAccessTokenFromCookies();
-  res = await callBackend(req, backendUrl, access2, bodyBuf);
+  let refreshed: RefreshResponse;
+  try {
+    refreshed = await backendFetch<RefreshResponse>("/auth/refresh", {
+      method: "POST",
+      body: JSON.stringify({ refreshToken }),
+      auth: "none",
+    });
+  } catch {
+    return attachClearAuthCookies(
+      NextResponse.json({ ok: false, message: "Unauthenticated" }, { status: 401 }),
+    );
+  }
 
-  return passThrough(res);
+  res = await callBackend(req, backendUrl, refreshed.accessToken, bodyBuf);
+
+  const next = passThrough(res);
+
+  const opt = baseCookieOptions();
+  next.cookies.set(ACCESS_COOKIE, refreshed.accessToken, {
+    ...opt,
+    maxAge: 60 * 15,
+  });
+  next.cookies.set(REFRESH_COOKIE, refreshed.refreshToken, {
+    ...opt,
+    maxAge: 60 * 60 * 24 * 14,
+  });
+
+  return next;
 }
 
 export const GET = handler;
