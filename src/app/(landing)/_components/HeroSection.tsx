@@ -95,7 +95,7 @@ export default function HeroSection() {
             오늘의 할 일, Slice로 계획해요
           </h1>
           <motion.button
-            onClick={() => router.push("/login")}
+            onClick={() => router.push("/dashboard")}
             className="bg-orange-250 cursor-pointer rounded-full px-10 py-3.5 text-base font-semibold text-white shadow-lg transition-all duration-300 hover:bg-[#FF7043] sm:px-16 sm:py-4 sm:text-lg"
             whileHover={{
               scale: 1.05,
