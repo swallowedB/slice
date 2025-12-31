@@ -11,18 +11,7 @@ export default function DashboardClient() {
   // hooks/useAuthhenticated.ts
   //  =>
   const router = useRouter();
-  const hydrated = useAuthStore((s) => s.hydrated);
   const user = useAuthStore((s) => s.user);
-
-  useEffect(() => {
-    if (!hydrated) return;
-
-    if (!user) {
-      router.replace("/login");
-    }
-  }, [hydrated, user, router]);
-
-  if (!hydrated) return null;
 
   return (
     <section>
