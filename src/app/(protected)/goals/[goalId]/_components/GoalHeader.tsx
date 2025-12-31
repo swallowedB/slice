@@ -71,7 +71,7 @@ export default function GoalHeader({ goalId }: GoalHeaderProps) {
       onSuccess: () => {
         setConfirmOpen(false);
         toast.success("삭제되었습니다");
-        router.push("/");
+        router.replace("/dashboard");
       },
     });
   };
