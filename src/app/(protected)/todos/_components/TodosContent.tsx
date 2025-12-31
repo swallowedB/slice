@@ -33,6 +33,16 @@ export default function TodosContent({
 
   const goals: Goal[] = goalData?.goals ?? [];
 
+  // 선택한 목표 값 유지
+  useEffect(() => {
+    if (goalId && goals.length > 0 && !goal) {
+      const found = goals.find((g) => g.id === goalId);
+      if (found) {
+        setGoal(found);
+      }
+    }
+  }, [goalId, goals, goal]);
+
   // 무한스크롤
   const {
     data,
@@ -72,6 +82,18 @@ export default function TodosContent({
     return <TodoListSkeleton />;
   }
 
+  // 드롭다운에 모든 할 일 조회용 '전체' 추가
+  const handleGoalSelect = (title: string) => {
+    if (title === "전체") {
+      setGoal(null);
+      router.push("/todos");
+    } else {
+      const found = goals.find((g) => g.title === title) ?? null;
+      setGoal(found);
+      router.push(found ? `/todos?goal=${found.id}` : "/todos");
+    }
+  };
+
   let filtered = items;
 
   if (tab === "TODO") {
@@ -91,14 +113,10 @@ export default function TodosContent({
   return (
     <section className="flex flex-col rounded-2xl bg-white p-4 pb-12 sm:p-8 sm:pb-12">
       <GoalSelect
-        goals={goals.map((g) => g.title)}
-        title="목표를 선택하세요."
-        value={goal?.title ?? ""}
-        onSelect={(title) => {
-          const found = goals.find((g) => g.title === title) ?? null;
-          setGoal(found);
-          router.push(found ? `/todos?goal=${found.id}` : "/todos");
-        }}
+        goals={["전체", ...goals.map((g) => g.title)]}
+        title="전체"
+        value={goal?.title ?? "전체"}
+        onSelect={handleGoalSelect}
       />
 
       <div className="mt-4">
