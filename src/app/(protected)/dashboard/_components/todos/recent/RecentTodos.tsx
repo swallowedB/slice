@@ -4,6 +4,8 @@ import { ChevronRightIcon } from "@heroicons/react/24/outline";
 import { ListSkeleton } from "@/components/skeleton/ListSkeleton";
 import RecentTodosContent from "./RecentTodosContent";
 import { AsyncBoundary } from "@/app/(protected)/_components/AsyncBoundary";
+import { FallbackProps } from "react-error-boundary";
+import Button from "@/components/common/button/Button";
 
 export default function RecentTodos() {
   return (
@@ -30,9 +32,22 @@ export default function RecentTodos() {
           loadingFallback={
             <ListSkeleton
               count={4}
-              rowClassName="h-10 lg:h-11 bg-white/40"
+              rowClassName="h-10 lg:h-11"
             />
-          }>
+          }
+          errorFallback={({ error, resetErrorBoundary }: FallbackProps) => (
+            <div className="flex h-full flex-col items-center justify-center">
+              <p className="mb-8 text-sm font-medium text-gray-600 sm:text-base">
+                {error.message}
+              </p>
+              <Button
+                size="compact"
+                onClick={resetErrorBoundary}
+                className={"bg-white text-black hover:text-white"}>
+                다시 시도
+              </Button>
+            </div>
+          )}>
           <RecentTodosContent />
         </AsyncBoundary>
       </div>
