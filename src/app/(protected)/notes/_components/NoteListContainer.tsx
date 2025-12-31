@@ -45,7 +45,8 @@ export default function NoteListContainer({ goalId }: NoteListContainerProps) {
         },
 
         onError: (error) => {
-          toast.error(error.message);
+          console.error("삭제 실패:", error);
+          toast.error("노트 삭제에 실패했습니다.");
         },
       },
     );
