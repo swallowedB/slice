@@ -1,24 +1,21 @@
 "use client";
 
-import { useEffect, ReactNode } from "react";
-import { useAuthStore } from "@/store/useAuthStore";
 import { AuthUser } from "@/hooks/queries/auth/queryKeys";
-
-interface ProtectedContentProps {
-  children: ReactNode;
-  user: AuthUser;
-}
+import { useAuthStore } from "@/store/useAuthStore";
+import { useEffect } from "react";
 
 export default function ProtectedContent({
-  children,
   user,
-}: ProtectedContentProps) {
-  const { setUser, setHydrated } = useAuthStore();
+  children,
+}: {
+  user: AuthUser;
+  children: React.ReactNode;
+}) {
+  const setUser = useAuthStore((s) => s.setUser);
 
   useEffect(() => {
     setUser(user);
-    setHydrated(true);
-  }, [user, setUser, setHydrated]);
+  }, [user, setUser]);
 
   return <>{children}</>;
 }
