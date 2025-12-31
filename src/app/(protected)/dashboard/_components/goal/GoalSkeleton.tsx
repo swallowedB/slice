@@ -9,13 +9,13 @@ export default function GoalSkeleton() {
     <div className={`relative animate-pulse ${cardStyles}`}>
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex flex-col gap-2">
-          <div className="h-5 w-40 rounded bg-gray-200" />
-          <div className="h-2 w-56 rounded bg-gray-200" />
+          <div className="bg-gray-80 h-5 w-40 rounded" />
+          <div className="bg-gray-80 h-2 w-56 rounded" />
         </div>
 
         <div className="flex items-center gap-2 sm:static">
-          <div className="absolute top-7.5 right-5 h-6 w-15 rounded-full bg-gray-200 sm:h-8 sm:w-20" />
-          <div className="absolute bottom-0 left-1/2 h-8 w-8 -translate-x-1/2 rounded-full bg-gray-200 sm:static" />
+          <div className="bg-gray-80 absolute top-7.5 right-5 h-6 w-15 rounded-full sm:relative sm:top-0 sm:h-8 sm:w-20" />
+          <div className="bg-gray-80 absolute bottom-0 left-1/2 h-8 w-8 -translate-x-1/2 rounded-full sm:static" />
         </div>
       </div>
 
@@ -33,7 +33,6 @@ export default function GoalSkeleton() {
           title="DONE"
           variant="done">
           <ListSkeleton
-            variant="light"
             count={2}
             rowClassName="h-10 bg-white/40"
           />

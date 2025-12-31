@@ -11,6 +11,7 @@ import { useDeleteGoalMutation } from "@/hooks/queries/goals/useDeleteGoalMutati
 import ConfirmModal from "@/components/common/popup-modal/ConfirmModal";
 import { useRouter } from "next/navigation";
 import { toast } from "@/lib/toast";
+import BaseInput from "@/components/common/input/base-input/BaseInput";
 
 type GoalHeaderProps = {
   goalId: string;
@@ -41,7 +42,7 @@ export default function GoalHeader({ goalId }: GoalHeaderProps) {
       text: "수정하기",
       onClick: () => {
         closeDropdown();
-        setEditTitle(goal?.title ?? "");
+        setEditTitle("");
         setIsEditing(true);
       },
     },
@@ -66,6 +67,11 @@ export default function GoalHeader({ goalId }: GoalHeaderProps) {
     );
   };
 
+  const handleCancelEdit = () => {
+    setEditTitle("");
+    setIsEditing(false);
+  };
+
   const handleConfim = () => {
     deleteGoal(numericGoalId, {
       onSuccess: () => {
@@ -86,11 +92,13 @@ export default function GoalHeader({ goalId }: GoalHeaderProps) {
         <h3 className="truncate text-base font-semibold">{goal?.title}</h3>
       ) : (
         <div className="flex w-full gap-2">
-          <input
-            type="text"
-            className="w-[70%] rounded border p-2 sm:w-[80%]"
+          <BaseInput
+            id="goal-title-edit"
+            className="w-[70%] sm:w-[80%]"
             value={editTitle}
+            type="text"
             onChange={(e) => setEditTitle(e.target.value)}
+            placeholder="수정할 목표를 적어주세요."
             onKeyDown={(e) => {
               if (e.key === "Enter") {
                 e.preventDefault();
@@ -98,10 +106,16 @@ export default function GoalHeader({ goalId }: GoalHeaderProps) {
               }
             }}
           />
+
           <TextButton
             onClick={handleSave}
             className="w-[20%] sm:w-[10%]">
-            수정 완료
+            수정
+          </TextButton>
+          <TextButton
+            onClick={handleCancelEdit}
+            className="w-[20%] text-black sm:w-[10%]">
+            취소
           </TextButton>
         </div>
       )}

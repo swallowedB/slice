@@ -9,6 +9,7 @@ export interface BaseInputProps {
   id?: string;
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
   placeholder?: string;
   type?: InputType;
   className?: string;
@@ -20,6 +21,7 @@ export default function BaseInput({
   id,
   value,
   onChange,
+  onKeyDown,
   placeholder = "",
   type = "text",
   className,
@@ -46,6 +48,7 @@ export default function BaseInput({
         value={value}
         placeholder={placeholder}
         onChange={onChange}
+        onKeyDown={onKeyDown}
         className={inputClassName}
       />
       {rightIcon}

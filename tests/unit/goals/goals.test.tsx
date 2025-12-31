@@ -34,6 +34,26 @@ describe("목표 영역", () => {
       expect(screen.getByText("수정하기")).toBeInTheDocument();
       expect(screen.getByText("삭제하기")).toBeInTheDocument();
     });
+    it("목표 수정 중 취소를 누르면 수정 모드가 종료된다", async () => {
+      const user = userEvent.setup();
+
+      renderWithQueryClient(<GoalHeader goalId="1" />);
+
+      await user.click(screen.getByLabelText("goal-options"));
+      await user.click(screen.getByText("수정하기"));
+
+      const input = screen.getByRole("textbox");
+      expect(input).toBeInTheDocument();
+
+      await user.type(input, "할일");
+
+      await user.click(screen.getByText("취소"));
+
+      expect(screen.queryByRole("textbox")).not.toBeInTheDocument();
+
+      expect(updateGoal).not.toHaveBeenCalled();
+    });
+
     it("목표를 수정하면 입력한 값으로 변경된다", async () => {
       const user = userEvent.setup();
       (updateGoal as jest.Mock).mockResolvedValueOnce({
@@ -53,7 +73,7 @@ describe("목표 영역", () => {
       await user.clear(input);
       await user.type(input, "새 목표");
 
-      await user.click(screen.getByText("수정 완료"));
+      await user.click(screen.getByText("수정"));
 
       expect(await screen.findByText("새 목표")).toBeInTheDocument();
 
