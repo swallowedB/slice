@@ -5,7 +5,7 @@ import { useAuthStore } from "@/store/useAuthStore";
 import { AsyncBoundary } from "@/app/(protected)/_components/AsyncBoundary";
 
 export default function ProgressTodos() {
-  const { user } = useAuthStore();
+  const user = useAuthStore((state) => state.user);
 
   const nickname = user?.name ?? "";
 
