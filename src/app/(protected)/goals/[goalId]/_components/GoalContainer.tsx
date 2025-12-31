@@ -3,7 +3,7 @@
 import PageHeader from "@/app/(protected)/_components/layout/PageHeader";
 import { useAuthStore } from "@/store/useAuthStore";
 import { AsyncBoundary } from "@/app/(protected)/_components/AsyncBoundary";
-import { GoalDetailSkeleton } from "./GoalContainerSkeleton";
+import GoalContainerSkeleton from "./GoalContainerSkeleton";
 import GoalContainerData from "./GoalContainerData";
 
 type Props = {
@@ -20,7 +20,7 @@ export default function GoalContainer({ goalId }: Props) {
         desktopClassName="sm:mb-8.5"
       />
 
-      <AsyncBoundary loadingFallback={<GoalDetailSkeleton />}>
+      <AsyncBoundary loadingFallback={<GoalContainerSkeleton />}>
         <GoalContainerData goalId={goalId} />
       </AsyncBoundary>
     </section>
