@@ -7,6 +7,7 @@ import Goal from "./Goal";
 import { calcProgress } from "../_utils/calcProgress";
 import { useTodosSuspense } from "@/hooks/queries/todos/useTodosSuspense";
 import { useGoalListSuspense } from "@/hooks/queries/goals/useGoalListSuspense";
+import { useEffect } from "react";
 
 type DataIdProps = {
   goalId: string;
@@ -23,6 +24,24 @@ export default function GoalContainerData({ goalId }: DataIdProps) {
   const progress = calcProgress(goalTodos);
 
   const targetTodoId = goalTodos.length > 0 ? goalTodos[0].id : null;
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 640) {
+        document.body.style.overflow = "hidden";
+      } else {
+        document.body.style.overflow = "";
+      }
+    };
+
+    handleResize();
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      document.body.style.overflow = "";
+    };
+  }, []);
   return (
     <>
       <div className="mb-7.5 block w-full sm:grid lg:mb-20 lg:grid-cols-1 lg:gap-x-0 xl:gap-x-8 2xl:grid-cols-2">

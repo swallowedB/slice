@@ -9,6 +9,7 @@ export default function Goal({ goalTodos }: { goalTodos: ListTodoType[] }) {
 
   const goalTodoChecked = goalTodos.filter((goalTodo) => !goalTodo.checked);
   const goalTodoCheckedDone = goalTodos.filter((goalTodo) => goalTodo.checked);
+
   return (
     <section className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-2">
       <GoalSection
