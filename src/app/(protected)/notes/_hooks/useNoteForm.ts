@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { JSONContent } from "@tiptap/react";
 import { useLinkMetadataMutation } from "@/hooks/queries/notes";
 import { LinkMetadata } from "@/api/types/note";
@@ -22,6 +22,7 @@ export function useNoteForm({
   initialData,
 }: UseNoteFormOptions) {
   const { mutate: getLinkMetadataMutation } = useLinkMetadataMutation();
+  const isInitialized = useRef(false);
 
   const [title, setTitle] = useState("");
   const [content, setContent] = useState<JSONContent | null>(null);
@@ -32,11 +33,12 @@ export function useNoteForm({
   const [isLoadModalOpen, setIsLoadModalOpen] = useState(false);
 
   useEffect(() => {
-    if (initialData) {
+    if (initialData && !isInitialized.current) {
       setTitle(initialData.title);
       setContent(initialData.content);
       setLinkUrl(initialData.linkUrl ?? "");
       setLinkMetadata(initialData.linkMetadata ?? null);
+      isInitialized.current = true;
     }
   }, [initialData]);
 
