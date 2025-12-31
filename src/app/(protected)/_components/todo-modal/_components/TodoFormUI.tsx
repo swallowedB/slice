@@ -1,6 +1,8 @@
 "use client";
 
 import { Goal } from "@/api/types/goal";
+import { useParams } from "next/navigation";
+import { useEffect } from "react";
 
 import BaseInput from "@/components/common/input/base-input/BaseInput";
 import AttachmentSection from "./sections/AttachmentSection";
@@ -58,6 +60,19 @@ export default function TodoFormUI({
   setIsGoalOpen,
   goals,
 }: TodoFormUIProps) {
+  const params = useParams();
+  const goalId = params?.goalId as string | undefined;
+
+  // goalId가 URL에 있고, goal이 아직 선택되지 않았으면 자동 선택
+  useEffect(() => {
+    if (goalId && !goal && goals.length > 0) {
+      const foundGoal = goals.find((g) => g.id === Number(goalId));
+      if (foundGoal) {
+        setGoal(foundGoal);
+      }
+    }
+  }, [goalId, goal, goals, setGoal]);
+
   return (
     <div className="flex flex-col gap-2.5 px-2 pb-4">
       {/* 상태 (edit 전용) */}

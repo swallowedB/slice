@@ -57,18 +57,20 @@ export default function TodoFormContent({
 
   const isConfirmDisabled = !title.trim() || !goal;
 
+  // edit값 채워넣는 용
   useEffect(() => {
     if (!isEdit || !todo) return;
 
     setTitle(todo.title);
     setStatus(todo.done ? "DONE" : "TODO");
     setLink(todo.linkUrl ?? "");
-    setFile(null);
+    //setFile(null);
 
     const matchedGoal = goals.find((goal) => goal.id === todo.goal.id) ?? null;
     setGoal(matchedGoal);
   }, [isEdit, todo, goals]);
 
+  // s3 URL 자른것
   const fileNameFromUrl = todo?.fileUrl
     ? decodeURIComponent(todo.fileUrl.split("/").pop()!)
     : null;
