@@ -17,7 +17,7 @@ export default function HeroSection() {
   }, []);
 
   return (
-    <section className="relative w-full overflow-hidden bg-linear-to-b from-[#FFF9E5] to-[#D4FFFE]">
+    <section className="relative w-full bg-linear-to-b from-[#FFF9E5] to-[#D4FFFE]">
       <div className="pointer-events-none absolute inset-0">
         <svg
           className="absolute top-8 right-4 h-20 w-20 sm:top-12 sm:right-12 sm:h-28 sm:w-28 lg:top-16 lg:right-24 lg:h-40 lg:w-40"
