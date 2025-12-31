@@ -1,14 +1,14 @@
-import { Spinner } from "@/assets/icons";
-import { AsyncBoundary } from "@/app/(protected)/_components/AsyncBoundary";
-import NoteEditContainer from "@/app/(protected)/notes/_components/NoteEditContainer";
 import {
   dehydrate,
   HydrationBoundary,
   QueryClient,
 } from "@tanstack/react-query";
-import notesQueryKeys from "@/hooks/queries/notes/queryKeys";
+import { Spinner } from "@/assets/icons";
 import { backendFetch } from "@/lib/backend";
 import { NoteDetailResponse } from "@/api/types/note";
+import notesQueryKeys from "@/hooks/queries/notes/queryKeys";
+import { AsyncBoundary } from "@/app/(protected)/_components/AsyncBoundary";
+import NoteEditContainer from "@/app/(protected)/notes/_components/NoteEditContainer";
 
 interface NoteEditPageProps {
   params: Promise<{ noteId: string }>;
