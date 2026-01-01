@@ -8,7 +8,7 @@ export async function POST() {
   try {
     const refreshToken = await requireRefreshToken();
 
-    const data = await backendFetch<RefreshResponse>("/auth/refresh", {
+    const data = await backendFetch<RefreshResponse>("/auth/tokens", {
       method: "POST",
       body: JSON.stringify({ refreshToken }),
       auth: "none",
