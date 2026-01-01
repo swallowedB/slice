@@ -16,9 +16,7 @@ export default function NoteTitleView({
         alt="노트 아이콘"
         className="h-8 w-8 lg:h-10 lg:w-10"
       />
-      <span className={clsx("flex-1 truncate font-semibold", className)}>
-        {title}
-      </span>
+      <span className={clsx("flex-1 font-semibold", className)}>{title}</span>
     </h3>
   );
 }
