@@ -29,13 +29,6 @@ export default async function GoalsPage({ params }: GoalsPageProps) {
           auth: "access",
         }),
     }),
-    queryClient.prefetchQuery({
-      queryKey: goalsQueryKeys.list(),
-      queryFn: () =>
-        backendFetch<GoalResponse>("/goals", {
-          auth: "access",
-        }),
-    }),
   ]);
 
   return (
