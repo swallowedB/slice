@@ -18,7 +18,7 @@ import { NoteLinkPreview } from "./NoteLinkPreview";
 interface NoteEditorFormProps {
   title: string;
   content: JSONContent | null;
-  linkUrl: string;
+  linkUrl: string | null;
   linkMetadata: LinkMetadata | null;
   isEmbedOpen: boolean;
   onChangeTitle: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -72,12 +72,12 @@ export default function NoteEditorForm({
   const countWithoutSpace = text.replace(/\s+/g, "").length;
 
   const handleOpenLinkModal = () => {
-    setTempLinkUrl(linkUrl);
+    setTempLinkUrl(linkUrl ?? "");
     setIsLinkModalOpen(true);
   };
 
   const handleCloseLinkModal = () => {
-    setTempLinkUrl(linkUrl);
+    setTempLinkUrl(linkUrl ?? "");
     setIsLinkModalOpen(false);
   };
 

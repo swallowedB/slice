@@ -5,7 +5,7 @@ export interface DraftNote {
   todoId: number;
   title: string;
   content: JSONContent;
-  linkUrl: string;
+  linkUrl: string | null;
   savedAt: string;
   linkMetadata?: LinkMetadata | null;
 }

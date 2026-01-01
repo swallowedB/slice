@@ -25,9 +25,15 @@ export default function NoteCreateContainer({
   const { data: todo } = useTodoQuery(todoId);
   const { mutate: createNoteMutation, isPending } = useCreateNoteMutation();
 
-  const form = useNoteForm({
-    todoId,
-  });
+  const {
+    form,
+    embed,
+    draft,
+    loadModal,
+    changeTitle,
+    changeContent,
+    changeLinkUrl,
+  } = useNoteForm({ todoId });
 
   const handleSubmit = () => {
     if (!form.title.trim()) {
@@ -40,16 +46,19 @@ export default function NoteCreateContainer({
       return;
     }
 
+    const trimmedLinkUrl = form.linkUrl?.trim();
+
     createNoteMutation(
       {
         todoId,
         title: form.title.trim(),
         content: JSON.stringify(form.content),
-        ...(form.linkUrl.trim() && { linkUrl: form.linkUrl.trim() }),
+        ...(trimmedLinkUrl && { linkUrl: trimmedLinkUrl }),
       },
       {
         onSuccess: (data) => {
           draftNoteStorage.remove(todoId);
+          toast.success("노트가 작성되었습니다.");
           router.replace(`/notes?goalId=${data.goal.id}`);
         },
         onError: (error) => {
@@ -79,7 +88,7 @@ export default function NoteCreateContainer({
             <NoteMobileActions
               submitLabel="등록"
               isDisabled={isDisabled}
-              onDraft={form.handleDraft}
+              onDraft={draft.save}
               onSubmit={handleSubmit}
             />
           }
@@ -87,16 +96,16 @@ export default function NoteCreateContainer({
             <NoteDesktopActions
               submitLabel="등록하기"
               isDisabled={isDisabled}
-              onDraft={form.handleDraft}
+              onDraft={draft.save}
               onSubmit={handleSubmit}
             />
           }
         />
-        {form.hasDraftNote && (
+        {draft.hasNote && (
           <div className="hidden sm:absolute sm:top-12 sm:right-22 sm:z-500 sm:block sm:w-70 lg:top-12">
             <DraftCallout
-              onLoadDraft={form.handleLoadModalOpen}
-              onClose={form.handleDraftCalloutClose}
+              onLoadDraft={loadModal.open}
+              onClose={draft.closeCallout}
             />
           </div>
         )}
@@ -105,24 +114,24 @@ export default function NoteCreateContainer({
           content={form.content}
           linkUrl={form.linkUrl}
           linkMetadata={form.linkMetadata}
-          isEmbedOpen={form.isEmbedOpen}
-          onChangeTitle={form.handleTitleChange}
-          onChangeContent={form.handleContentChange}
-          onChangeLinkUrl={form.handleLinkUrlChange}
-          onToggleEmbed={form.handleToggleEmbed}
-          onDeleteLinkPreview={form.handleDeleteLinkPreview}
+          isEmbedOpen={embed.isOpen}
+          onChangeTitle={changeTitle}
+          onChangeContent={changeContent}
+          onChangeLinkUrl={changeLinkUrl}
+          onToggleEmbed={embed.toggle}
+          onDeleteLinkPreview={embed.deletePreview}
           metaInfo={metaInfo}
-          hasDraftNote={form.hasDraftNote}
-          onLoadDraft={form.handleLoadModalOpen}
-          onCloseDraftCallout={form.handleDraftCalloutClose}
+          hasDraftNote={draft.hasNote}
+          onLoadDraft={loadModal.open}
+          onCloseDraftCallout={draft.closeCallout}
         />
       </div>
-      {form.isLoadModalOpen && (
+      {loadModal.isOpen && (
         <ConfirmModal
-          isOpen={form.isLoadModalOpen}
-          title={`'${form.getDraftTitle()}'\n제목의 노트를 불러오시겠어요?`}
-          onClose={form.handleLoadModalClose}
-          onConfirm={form.handleConfirmLoadDraft}
+          isOpen={loadModal.isOpen}
+          title={`'${draft.getTitle()}'\n제목의 노트를 불러오시겠어요?`}
+          onClose={loadModal.close}
+          onConfirm={draft.load}
         />
       )}
     </>

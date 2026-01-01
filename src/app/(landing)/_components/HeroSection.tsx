@@ -17,7 +17,7 @@ export default function HeroSection() {
   }, []);
 
   return (
-    <section className="relative w-full overflow-hidden bg-linear-to-b from-[#FFF9E5] to-[#D4FFFE]">
+    <section className="relative w-full bg-linear-to-b from-[#FFF9E5] to-[#D4FFFE]">
       <div className="pointer-events-none absolute inset-0">
         <svg
           className="absolute top-8 right-4 h-20 w-20 sm:top-12 sm:right-12 sm:h-28 sm:w-28 lg:top-16 lg:right-24 lg:h-40 lg:w-40"
@@ -95,7 +95,7 @@ export default function HeroSection() {
             오늘의 할 일, Slice로 계획해요
           </h1>
           <motion.button
-            onClick={() => router.push("/login")}
+            onClick={() => router.push("/dashboard")}
             className="bg-orange-250 cursor-pointer rounded-full px-10 py-3.5 text-base font-semibold text-white shadow-lg transition-all duration-300 hover:bg-[#FF7043] sm:px-16 sm:py-4 sm:text-lg"
             whileHover={{
               scale: 1.05,
