@@ -10,7 +10,7 @@ export default function GoalBanner({ title }: GoalBannerProps) {
         alt="목표 아이콘"
         className="h-8 w-8 lg:h-10 lg:w-10"
       />
-      <p className="text-gray-750 min-w-0 flex-1 truncate text-base font-semibold sm:text-xl lg:text-2xl">
+      <p className="text-gray-750 min-w-0 flex-1 text-base font-semibold sm:text-xl lg:text-2xl">
         {title}
       </p>
     </div>
