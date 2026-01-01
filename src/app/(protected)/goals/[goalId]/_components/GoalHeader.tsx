@@ -42,7 +42,7 @@ export default function GoalHeader({ goalId }: GoalHeaderProps) {
       text: "수정하기",
       onClick: () => {
         closeDropdown();
-        setEditTitle("");
+        setEditTitle(goal?.title ?? "");
         setIsEditing(true);
       },
     },
