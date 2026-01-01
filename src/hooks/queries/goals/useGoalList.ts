@@ -5,7 +5,7 @@ import goalsQueryKeys from "./queryKeys";
 
 export function useGoalList() {
   return useQuery<GoalResponse>({
-    queryKey: goalsQueryKeys.lists(),
+    queryKey: goalsQueryKeys.list(),
     queryFn: getGoals,
     staleTime: 1000 * 60 * 5,
   });

@@ -4,18 +4,23 @@ import TodoFormContent from "@/app/(protected)/_components/todo-modal/_component
 import ModalBackground from "@/components/common/popup-modal/ModalBackground";
 import { useDeviceSize } from "@/hooks/useDeviceSize";
 import { ChevronDoubleLeftIcon } from "@heroicons/react/24/outline";
-import { useEffect, useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
 import NavigationActions from "./_components/NavigationActions";
 import NavigationLogout from "./_components/NavigationLogout";
 import NavigationMenu from "./_components/NavigationMenu";
 import NavigationProfile from "./_components/NavigationProfile";
 
 export default function NavigationDesktop() {
+  const router = useRouter();
   const { isTablet } = useDeviceSize();
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [newGoalInputSignal, setNewGoalInputSignal] = useState(0);
   const [isTodoModalOpen, setIsTodoModalOpen] = useState(false);
+
+  const pathname = usePathname();
+  const prevPathnameRef = useRef(pathname);
 
   useEffect(() => {
     if (isTablet) {
@@ -26,6 +31,17 @@ export default function NavigationDesktop() {
       setIsCollapsed(false);
     }
   }, [isTablet]);
+
+  useEffect(() => {
+    const prev = prevPathnameRef.current;
+
+    if (prev !== pathname) {
+      if (isTablet && isModalOpen) {
+        closeModal();
+      }
+      prevPathnameRef.current = pathname;
+    }
+  }, [pathname, isTablet, isModalOpen]);
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -69,7 +85,10 @@ export default function NavigationDesktop() {
           />
         </button>
         {/*로고*/}
-        <div className="my-10 flex items-center gap-4 pl-1 transition-all duration-300">
+        <button
+          type="button"
+          onClick={() => router.push("/dashboard")}
+          className="my-10 flex cursor-pointer items-center gap-4 pl-1 transition-all duration-300">
           <img
             src="/logo.svg"
             alt="Slice"
@@ -81,7 +100,7 @@ export default function NavigationDesktop() {
             }`}>
             SLICE
           </p>
-        </div>
+        </button>
 
         {!isCollapsed && (
           <NavigationMenu newGoalInputSignal={newGoalInputSignal} />

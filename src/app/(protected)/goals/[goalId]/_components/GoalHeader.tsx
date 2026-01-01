@@ -7,9 +7,11 @@ import { useDropdown } from "@/hooks/useDropdown";
 import { EllipsisVerticalIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
 import TextButton from "@/components/common/button/TextButton";
-import { useDeleteGoalMutation } from "@/hooks/queries/goals/ussDeleteGoalMutation";
+import { useDeleteGoalMutation } from "@/hooks/queries/goals/useDeleteGoalMutation";
 import ConfirmModal from "@/components/common/popup-modal/ConfirmModal";
 import { useRouter } from "next/navigation";
+import { toast } from "@/lib/toast";
+import BaseInput from "@/components/common/input/base-input/BaseInput";
 
 type GoalHeaderProps = {
   goalId: string;
@@ -40,7 +42,7 @@ export default function GoalHeader({ goalId }: GoalHeaderProps) {
       text: "수정하기",
       onClick: () => {
         closeDropdown();
-        setEditTitle(goal?.title ?? "");
+        setEditTitle("");
         setIsEditing(true);
       },
     },
@@ -59,16 +61,23 @@ export default function GoalHeader({ goalId }: GoalHeaderProps) {
       {
         onSuccess: () => {
           setIsEditing(false);
+          toast.success("수정되었습니다");
         },
       },
     );
+  };
+
+  const handleCancelEdit = () => {
+    setEditTitle("");
+    setIsEditing(false);
   };
 
   const handleConfim = () => {
     deleteGoal(numericGoalId, {
       onSuccess: () => {
         setConfirmOpen(false);
-        router.push("/");
+        toast.success("삭제되었습니다");
+        router.replace("/dashboard");
       },
     });
   };
@@ -83,10 +92,13 @@ export default function GoalHeader({ goalId }: GoalHeaderProps) {
         <h3 className="truncate text-base font-semibold">{goal?.title}</h3>
       ) : (
         <div className="flex w-full gap-2">
-          <input
-            className="w-[70%] rounded border p-2 sm:w-[80%]"
+          <BaseInput
+            id="goal-title-edit"
+            className="w-[70%] sm:w-[80%]"
             value={editTitle}
+            type="text"
             onChange={(e) => setEditTitle(e.target.value)}
+            placeholder="수정할 목표를 적어주세요."
             onKeyDown={(e) => {
               if (e.key === "Enter") {
                 e.preventDefault();
@@ -94,10 +106,16 @@ export default function GoalHeader({ goalId }: GoalHeaderProps) {
               }
             }}
           />
+
           <TextButton
             onClick={handleSave}
             className="w-[20%] sm:w-[10%]">
-            수정 완료
+            수정
+          </TextButton>
+          <TextButton
+            onClick={handleCancelEdit}
+            className="w-[20%] text-black sm:w-[10%]">
+            취소
           </TextButton>
         </div>
       )}
@@ -105,7 +123,8 @@ export default function GoalHeader({ goalId }: GoalHeaderProps) {
       <button
         ref={triggerRef}
         className="ml-auto cursor-pointer"
-        onClick={toggleDropdown}>
+        onClick={toggleDropdown}
+        aria-label="goal-options">
         <EllipsisVerticalIcon className="h-6 w-6 text-gray-400" />
       </button>
 
@@ -117,7 +136,6 @@ export default function GoalHeader({ goalId }: GoalHeaderProps) {
         </div>
       )}
 
-      {/* 삭제 모달 */}
       <div className="z-1000">
         <ConfirmModal
           isOpen={confirmOpen}

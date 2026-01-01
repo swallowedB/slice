@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import EmptyState from "@/components/common/empty-state/EmptyState";
 import { EMPTY_MESSAGES } from "@/constants/messages";
 import ConfirmModal from "@/components/common/popup-modal/ConfirmModal";
+import { toast } from "@/lib/toast";
 import GoalBanner from "./GoalBanner";
 import NoteList from "./NoteList";
 
@@ -16,7 +17,7 @@ interface NoteListContainerProps {
 export default function NoteListContainer({ goalId }: NoteListContainerProps) {
   const router = useRouter();
 
-  const { data, isLoading, error } = useNotesQuery(goalId);
+  const { data } = useNotesQuery(goalId);
   const { mutate: deleteNoteMutation } = useDeleteNoteMutation();
 
   const [deleteNoteId, setDeleteNoteId] = useState<number | null>(null);
@@ -40,19 +41,18 @@ export default function NoteListContainer({ goalId }: NoteListContainerProps) {
         onSuccess: () => {
           setDeleteNoteId(null);
           setIsDeleteModalOpen(false);
+          toast.success("노트가 삭제되었습니다.");
         },
 
         onError: (error) => {
           console.error("삭제 실패:", error);
-          alert("노트 삭제에 실패했습니다.");
+          toast.error("노트 삭제에 실패했습니다.");
         },
       },
     );
   };
 
-  if (isLoading) return <div>로딩 중...</div>;
-  if (error) return <div>에러가 발생했어요!</div>;
-  if (!data || data.notes.length === 0) {
+  if (data.notes.length === 0) {
     return <EmptyState>{EMPTY_MESSAGES.NOTE.LIST}</EmptyState>;
   }
 

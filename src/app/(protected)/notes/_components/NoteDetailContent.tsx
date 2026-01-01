@@ -1,35 +1,27 @@
 "use client";
 
 import { useNoteQuery } from "@/hooks/queries/notes";
-import { EditorContent } from "@tiptap/react";
-import { useEffect } from "react";
+import { useState } from "react";
 import { formatDate } from "@/utils/date";
 import NoteTitleView from "./NoteTitleView";
 import NoteMetaInfo from "./NoteMetaInfo";
-import { useNoteEditor } from "./editor/hooks/useNoteEditor";
+import { NoteLinkPreview } from "./NoteLinkPreview";
+import { NoteEmbedView } from "./NoteEmbedView";
+import { Editor } from "./editor/Editor";
 
 interface NoteDetailContentProps {
   noteId: number;
 }
 
 export default function NoteDetailContent({ noteId }: NoteDetailContentProps) {
-  const { data: note, isLoading, error } = useNoteQuery(noteId);
+  const { data: note } = useNoteQuery(noteId);
+  const [isEmbedOpen, setIsEmbedOpen] = useState(false);
 
-  const editor = useNoteEditor(null);
+  const linkMetadata = note?.linkMetadata;
 
-  useEffect(() => {
-    if (note?.content && editor) {
-      editor.commands.setContent(note.content);
-    }
-  }, [note?.content, editor]);
-
-  if (isLoading) {
-    return <div>로딩 중...</div>;
-  }
-
-  if (error || !note) {
-    return <div>노트를 불러올 수 없습니다.</div>;
-  }
+  const handleToggleEmbed = () => {
+    setIsEmbedOpen(!isEmbedOpen);
+  };
 
   return (
     <div className="flex flex-col">
@@ -45,8 +37,23 @@ export default function NoteDetailContent({ noteId }: NoteDetailContentProps) {
           updatedAt={formatDate(note.updatedAt)}
         />
       </header>
+      {linkMetadata && (
+        <div className="mt-5 flex flex-col gap-6">
+          {isEmbedOpen && (
+            <NoteEmbedView
+              url={linkMetadata.url}
+              title={linkMetadata.title}
+              onClose={handleToggleEmbed}
+            />
+          )}
+          <NoteLinkPreview
+            linkMetadata={linkMetadata}
+            onClick={handleToggleEmbed}
+          />
+        </div>
+      )}
       <div className="flex-1">
-        <EditorContent editor={editor} />
+        <Editor content={note.content} />
       </div>
     </div>
   );

@@ -1,20 +1,18 @@
-import { login } from "@/api/auth";
-import { setTokens } from "@/lib/tokenStorage";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { LoginRequest, LoginResponse } from "../../../api/types/auth";
-import { AUTH_USER_KEY, authQueryKeys, AuthUser } from "./queryKeys";
+import { login, me } from "@/api/auth";
 import { useAuthStore } from "@/store/useAuthStore";
-
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { LoginRequest } from "../../../api/types/auth";
+import { authQueryKeys } from "./queryKeys";
 
 export function useLoginMutation() {
   const queryClient = useQueryClient();
   const setUser = useAuthStore((state) => state.setUser);
 
-  return useMutation<LoginResponse, Error, LoginRequest>({
+  return useMutation<{ ok: true }, Error, LoginRequest>({
     mutationFn: (payload) => login(payload),
-    onSuccess: (data) => {
-      setTokens(data.accessToken, data.refreshToken);
-      setUser(data.user);
+    onSuccess: async () => {
+      const user = await me();
+      setUser(user);
       queryClient.invalidateQueries({ queryKey: authQueryKeys.me() });
     },
     onError: (error) => {

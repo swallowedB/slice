@@ -1,7 +1,8 @@
 import clsx from "clsx";
 import Checkbox from "../../checkbox/Checkbox";
 import ListItemActions from "../list-item-actions/ListItemActions";
-import { ListActionType, ListTodoType, ListItemVariant } from "./types";
+import { ListTodoType } from "./types";
+import { ListActionType, ListItemVariant } from "../list-item-actions/types";
 
 type Props = {
   item: ListTodoType;
@@ -31,35 +32,37 @@ export default function ListItemRow({ item, onToggleChecked, variant }: Props) {
   const textColor = getTextColor(item.checked, variant);
 
   return (
-    <li className="group flex items-center justify-between rounded-2xl p-2.5 transition-all">
-      <div className="grid max-w-fit min-w-0 flex-1 items-center gap-2.5 overflow-hidden">
-        <div className="flex min-w-0 flex-1 items-center gap-2.5 pr-2 sm:pr-0 md:pr-10">
-          <Checkbox
-            id={item.id}
-            checked={item.checked}
-            onToggleChecked={(checked) => {
-              onToggleChecked(item.id, checked);
-            }}
-            variant={variant}
-          />
-          <span
-            id={`item-label-${item.id}`}
-            className={clsx(
-              "min-w-0 flex-1 truncate overflow-hidden text-sm whitespace-nowrap transition-colors group-hover:font-semibold group-hover:text-orange-400 sm:text-base",
-              textColor,
-            )}>
-            {item.label}
-          </span>
+    <li className="group grid grid-cols-[minmax(0,1fr)_auto] items-center rounded-2xl p-2.5">
+      <div className="min-w-0 flex-1 overflow-hidden">
+        <div>
+          <label
+            htmlFor={`checkbox-${item.id}`}
+            className="flex min-w-0 items-center gap-2.5">
+            <Checkbox
+              id={item.id}
+              checked={item.checked}
+              onToggleChecked={(checked) => {
+                onToggleChecked(item.id, checked);
+              }}
+              variant={variant}
+            />
+            <span
+              id={`checkbox-${item.id}`}
+              className={clsx(
+                "min-w-0 flex-1 cursor-pointer truncate overflow-hidden text-sm whitespace-nowrap transition-colors group-hover:font-semibold group-hover:text-orange-400 sm:text-base",
+                textColor,
+              )}>
+              {item.label}
+            </span>
+          </label>
         </div>
       </div>
-      <div className="flex max-w-fit shrink-0 items-center gap-2">
-        <ListItemActions
-          id={item.id}
-          todo={item.todo}
-          variant={variant}
-          actions={getActionsFromItem(item)}
-        />
-      </div>
+      <ListItemActions
+        id={item.id}
+        todo={item.todo}
+        variant={variant}
+        actions={getActionsFromItem(item)}
+      />
     </li>
   );
 }

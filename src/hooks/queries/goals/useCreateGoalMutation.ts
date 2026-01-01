@@ -17,7 +17,7 @@ export function useCreateGoalMutation() {
 
     onSuccess: (created) => {
       queryClient.setQueriesData<GoalsCache>(
-        { queryKey: goalsQueryKeys.lists() },
+        { queryKey: goalsQueryKeys.list() },
         (old) => {
           const base = old ?? { nextCursor: null, totalCount: 0, goals: [] };
           return {
@@ -30,6 +30,6 @@ export function useCreateGoalMutation() {
     },
 
     onSettled: () =>
-      queryClient.invalidateQueries({ queryKey: goalsQueryKeys.lists() }),
+      queryClient.invalidateQueries({ queryKey: goalsQueryKeys.list() }),
   });
 }

@@ -1,10 +1,10 @@
-import { useQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { getNotes } from "@/api/note";
 import notesQueryKeys from "./queryKeys";
 import { Note, Notes } from "./types";
 
 export function useNotesQuery(goalId: number) {
-  return useQuery({
+  return useSuspenseQuery({
     queryKey: notesQueryKeys.list(goalId),
     queryFn: () => getNotes(goalId),
     select: (data): Notes => {
@@ -24,7 +24,6 @@ export function useNotesQuery(goalId: number) {
         ),
       };
     },
-    enabled: !!goalId,
     staleTime: 1000 * 60 * 3,
   });
 }

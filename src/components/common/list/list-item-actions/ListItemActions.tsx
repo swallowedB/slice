@@ -1,23 +1,22 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { useDeleteMutation } from "@/hooks/queries/todos/useDeleteMutation";
-import ListItemButton from "../list-button/ListItemButton";
-import Dropdown, { DropdownItem } from "../../dropdown/Dropdown";
-import { ListActionType, ListItemVariant } from "../list-item/types";
-import ConfirmModal from "../../popup-modal/ConfirmModal";
-import { Todo } from "@/api/types/todo";
-import TodoFormContent from "@/app/(protected)/_components/todo-modal/_components/TodoFormContent";
-import { ACTION_ICON_MAP } from "./constants/listItemActions";
 import { useDropdown } from "@/hooks/useDropdown";
+import { useRouter } from "next/navigation";
+import { DropdownItem } from "../../dropdown/Dropdown";
+import { Todo } from "@/api/types/todo";
+import { ActionType, ListActionType, ListItemVariant } from "./types";
+import { KebabActionButton } from "./_components/kebabActionButton";
+import DropdownPortal from "../../dropdown/dropdown-portal/DropdownPortal";
+import { ListItemActionModals } from "./_components/ListItemActionModals";
+import { ListItemIconActions } from "./_components/ListItemActionIcons";
 
 type ListItemActionsProps = {
   id: number;
   todo?: Todo;
   variant?: ListItemVariant;
   actions?: ListActionType[];
-  onDeleteTodo?: (id: number) => void;
 };
 
 export default function ListItemActions({
@@ -30,26 +29,36 @@ export default function ListItemActions({
     open: dropdownOpen,
     toggle: toggleDropdown,
     close: closeDropdown,
-    dropdownRef,
     triggerRef,
   } = useDropdown<HTMLDivElement>();
 
+  const deleteTodo = useDeleteMutation();
   const router = useRouter();
+
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [editOpen, setEditOpen] = useState(false);
-  const deleteTodo = useDeleteMutation();
+  const [anchorRect, setAnchorRect] = useState<DOMRect | null>(null);
 
   if (!actions.length) return null;
 
-  const iconActions = actions.filter((a) => a.type !== "more");
-  const hasMore = actions.some((a) => a.type === "more");
+  const iconActions = actions.filter(
+    (action): action is { type: ActionType } => action.type !== "more",
+  );
 
+  const hasMore = actions.some((action) => action.type === "more");
+
+  const noteId = todo?.noteId;
   const dropdownItems: DropdownItem[] = [
     {
-      text: "노트 작성하기",
+      text: noteId ? "노트 수정하기" : "노트 작성하기",
       onClick: () => {
+        console.log("todo:", todo);
+        if (noteId) {
+          router.push(`/notes/${noteId}/edit`);
+          return;
+        }
+        window.location.href = `/notes/new?todoId=${id}`;
         closeDropdown();
-        router.push(`/notes/new?todoId=${id}`);
       },
     },
     {
@@ -62,71 +71,56 @@ export default function ListItemActions({
     {
       text: "삭제하기",
       onClick: () => {
-        toggleDropdown();
+        closeDropdown();
         setConfirmOpen(true);
       },
     },
   ];
 
+  const onClickMore = () => {
+    const rect = triggerRef.current?.getBoundingClientRect();
+    if (!rect) return;
+    setAnchorRect(rect);
+    toggleDropdown();
+  };
+
   return (
     <>
-      <div className="relative flex items-center gap-2">
-        {/* Desktop 아이콘 */}
-        <div className="hidden gap-2 md:flex">
-          {iconActions.map(({ type }) => {
-            const config = ACTION_ICON_MAP[type];
-            return (
-              <ListItemButton
-                key={type}
-                icon={config.icon}
-                className={config.buttonClassName}
-                variant={variant}
-              />
-            );
-          })}
-        </div>
+      <div className="relative ml-auto flex max-w-fit shrink-0 items-center justify-end">
+        <ListItemIconActions
+          todo={todo}
+          actions={iconActions}
+          variant={variant}
+        />
 
-        {/* Kebab 버튼 */}
         {hasMore && (
-          <div ref={triggerRef}>
-            <ListItemButton
-              icon={ACTION_ICON_MAP.more.icon}
-              className={ACTION_ICON_MAP.more.buttonClassName}
-              variant={variant}
-              onClick={toggleDropdown}
-            />
-          </div>
-        )}
-
-        {dropdownOpen && (
-          <div
-            ref={dropdownRef}
-            className="absolute top-full right-0 z-50 mt-2">
-            <Dropdown items={dropdownItems} />
-          </div>
-        )}
-      </div>
-      <div className="z-1000">
-        {editOpen && (
-          <TodoFormContent
-            mode="edit"
-            todoId={todo?.id}
-            todo={todo}
-            onClose={() => setEditOpen(false)}
+          <KebabActionButton
+            variant={variant}
+            toggleDropdown={onClickMore}
+            triggerRef={triggerRef}
           />
         )}
-        {/* 삭제 모달 */}
-        <ConfirmModal
-          isOpen={confirmOpen}
-          title="정말 삭제하시겠어요?"
-          message="삭제된 목표는 복구할 수 없습니다."
-          onClose={() => setConfirmOpen(false)}
-          onConfirm={() => {
-            setConfirmOpen(false);
-            deleteTodo.mutate({ id });
-          }}
-        />
+
+        {dropdownOpen && anchorRect && (
+          <DropdownPortal
+            anchorRect={anchorRect}
+            items={dropdownItems}
+            onClose={() => {
+              setAnchorRect(null);
+              closeDropdown();
+            }}
+          />
+        )}
       </div>
+
+      <ListItemActionModals
+        todo={todo}
+        editOpen={editOpen}
+        confirmOpen={confirmOpen}
+        onCloseEdit={() => setEditOpen(false)}
+        onCloseConfirm={() => setConfirmOpen(false)}
+        onConfirmDelete={() => deleteTodo.mutate({ id })}
+      />
     </>
   );
 }

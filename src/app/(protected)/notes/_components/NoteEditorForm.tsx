@@ -2,38 +2,56 @@
 
 import { EditorContent, JSONContent } from "@tiptap/react";
 import { useState, useEffect } from "react";
+import InputModal from "@/components/common/popup-modal/InputModal";
+import Button from "@/components/common/button/Button";
+import BaseInput from "@/components/common/input/base-input/BaseInput";
+import { LinkMetadata } from "@/api/types/note";
 import NoteMetaInfo from "./NoteMetaInfo";
 import NoteTitleInput from "./NoteTitleInput";
 import { useNoteEditor } from "./editor/hooks/useNoteEditor";
 import EditorToolbar from "./editor/EditorToolbar";
 import CharacterCount from "./CharacterCount";
-import InputModal from "@/components/common/popup-modal/InputModal";
-import Button from "@/components/common/button/Button";
-import BaseInput from "@/components/common/input/base-input/BaseInput";
+import DraftCallout from "./DraftCallout";
+import { NoteEmbedView } from "./NoteEmbedView";
+import { NoteLinkPreview } from "./NoteLinkPreview";
 
 interface NoteEditorFormProps {
   title: string;
   content: JSONContent | null;
-  linkUrl: string;
+  linkUrl: string | null;
+  linkMetadata: LinkMetadata | null;
+  isEmbedOpen: boolean;
   onChangeTitle: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onChangeContent: (content: JSONContent) => void;
   onChangeLinkUrl: (url: string) => void;
+  onToggleEmbed: () => void;
+  onDeleteLinkPreview: () => void;
   metaInfo: {
     goalTitle: string;
     todoTitle: string;
     isTodoDone: boolean;
     updatedAt: string;
   };
+  hasDraftNote: boolean;
+  onLoadDraft: () => void;
+  onCloseDraftCallout: () => void;
 }
 
 export default function NoteEditorForm({
   title,
   content,
   linkUrl,
+  linkMetadata,
+  isEmbedOpen,
   onChangeTitle,
   onChangeContent,
   onChangeLinkUrl,
+  onToggleEmbed,
+  onDeleteLinkPreview,
   metaInfo,
+  hasDraftNote,
+  onLoadDraft,
+  onCloseDraftCallout,
 }: NoteEditorFormProps) {
   const editor = useNoteEditor(content, onChangeContent);
   const [isLinkModalOpen, setIsLinkModalOpen] = useState(false);
@@ -54,12 +72,12 @@ export default function NoteEditorForm({
   const countWithoutSpace = text.replace(/\s+/g, "").length;
 
   const handleOpenLinkModal = () => {
-    setTempLinkUrl(linkUrl);
+    setTempLinkUrl(linkUrl ?? "");
     setIsLinkModalOpen(true);
   };
 
   const handleCloseLinkModal = () => {
-    setTempLinkUrl(linkUrl);
+    setTempLinkUrl(linkUrl ?? "");
     setIsLinkModalOpen(false);
   };
 
@@ -89,6 +107,14 @@ export default function NoteEditorForm({
             />
           </div>
           <header className="border-b border-gray-100 pb-4 sm:py-7.5">
+            {hasDraftNote && (
+              <div className="sm:hidden">
+                <DraftCallout
+                  onLoadDraft={onLoadDraft}
+                  onClose={onCloseDraftCallout}
+                />
+              </div>
+            )}
             <NoteTitleInput
               title={title}
               onChange={onChangeTitle}
@@ -100,6 +126,22 @@ export default function NoteEditorForm({
               updatedAt={metaInfo.updatedAt}
             />
           </header>
+          {linkMetadata && (
+            <div className="mt-5 flex flex-col gap-6">
+              {isEmbedOpen && linkMetadata.title && (
+                <NoteEmbedView
+                  url={linkMetadata.url}
+                  title={linkMetadata.title}
+                  onClose={onToggleEmbed}
+                />
+              )}
+              <NoteLinkPreview
+                linkMetadata={linkMetadata}
+                onClick={onToggleEmbed}
+                onDelete={onDeleteLinkPreview}
+              />
+            </div>
+          )}
           <div className="flex-1">
             <EditorContent editor={editor} />
           </div>

@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import { CheckIcon } from "@heroicons/react/24/outline";
-import { ListItemVariant } from "../list/list-item/types";
+import { ListItemVariant } from "../list/list-item-actions/types";
 
 type CheckboxProps = {
   id: number;
@@ -24,9 +24,7 @@ export default function Checkbox({
   };
 
   return (
-    <label
-      htmlFor={`checkbox-${id}`}
-      className="inline-flex h-4.5 w-4.5 items-center justify-center">
+    <div className="inline-flex h-4.5 w-4.5 items-center justify-center">
       <input
         id={`checkbox-${id}`}
         type="checkbox"
@@ -45,6 +43,6 @@ export default function Checkbox({
           />
         )}
       </span>
-    </label>
+    </div>
   );
 }

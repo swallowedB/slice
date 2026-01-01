@@ -1,6 +1,8 @@
 "use client";
 
 import { Goal } from "@/api/types/goal";
+import { useParams } from "next/navigation";
+import { useEffect } from "react";
 
 import BaseInput from "@/components/common/input/base-input/BaseInput";
 import AttachmentSection from "./sections/AttachmentSection";
@@ -16,6 +18,7 @@ import {
 
 interface TodoFormUIProps {
   isEdit: boolean;
+
   title: string;
   setTitle: (v: string) => void;
 
@@ -38,6 +41,8 @@ interface TodoFormUIProps {
   goals: Goal[];
 }
 
+const MAX_TITLE_LENGTH = 30;
+
 export default function TodoFormUI({
   isEdit,
   title,
@@ -55,6 +60,19 @@ export default function TodoFormUI({
   setIsGoalOpen,
   goals,
 }: TodoFormUIProps) {
+  const params = useParams();
+  const goalId = params?.goalId as string | undefined;
+
+  // goalId가 URL에 있고, goal이 아직 선택되지 않았으면 자동 선택
+  useEffect(() => {
+    if (goalId && !goal && goals.length > 0) {
+      const foundGoal = goals.find((g) => g.id === Number(goalId));
+      if (foundGoal) {
+        setGoal(foundGoal);
+      }
+    }
+  }, [goalId, goal, goals, setGoal]);
+
   return (
     <div className="flex flex-col gap-2.5 px-2 pb-4">
       {/* 상태 (edit 전용) */}
@@ -86,7 +104,10 @@ export default function TodoFormUI({
         <BaseInput
           value={title}
           placeholder="할 일의 제목을 적어주세요"
-          onChange={(e) => setTitle(e.target.value)}
+          onChange={(e) => {
+            if (e.target.value.length > MAX_TITLE_LENGTH) return;
+            setTitle(e.target.value);
+          }}
           className="border border-gray-200 bg-white placeholder:text-gray-600"
         />
       </InputFieldSection>
@@ -97,7 +118,7 @@ export default function TodoFormUI({
         <div className="relative w-full">
           <button
             onClick={() => setIsGoalOpen(!isGoalOpen)}
-            className={`flex h-14 w-full items-center justify-between rounded-xl border bg-white px-4 transition-colors ${
+            className={`flex h-14 w-full cursor-pointer items-center justify-between rounded-xl border bg-white px-4 transition-colors ${
               isGoalOpen ? "border-orange-300" : "border-gray-200"
             }`}>
             <span className={goal ? "text-gray-700" : "text-gray-600"}>

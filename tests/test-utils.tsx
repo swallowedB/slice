@@ -8,3 +8,29 @@ export function renderWithQueryClient(ui: ReactElement) {
     <QueryClientProvider client={queryClient}>{ui}</QueryClientProvider>,
   );
 }
+
+export function createQueryClient() {
+  return new QueryClient({
+    defaultOptions: {
+      queries: { retry: false },
+    },
+  });
+}
+
+export function createQueryClientWrapper(
+  queryClient = createQueryClient(),
+) {
+  function QueryClientWrapper({
+    children,
+  }: {
+    children: React.ReactNode;
+  }) {
+    return (
+      <QueryClientProvider client={queryClient}>
+        {children}
+      </QueryClientProvider>
+    );
+  }
+
+  return QueryClientWrapper;
+}

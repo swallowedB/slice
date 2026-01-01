@@ -47,10 +47,17 @@ export function useSignupForm() {
       },
       {
         onSuccess: () => {
-          loginMutate({
-            email: form.email,
-            password: form.password,
-          });
+          loginMutate(
+            {
+              email: form.email,
+              password: form.password,
+            },
+            {
+              onSuccess: () => {
+                router.replace("/dashboard");
+              },
+            },
+          );
         },
         onError: (error) => {
           alert(error.message);

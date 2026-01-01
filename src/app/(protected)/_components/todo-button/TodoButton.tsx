@@ -11,19 +11,18 @@ export default function TodoButton({ className }: { className?: string }) {
   };
 
   const handleConfirm = () => {
-    console.log("제출 데이터:");
     setIsOpenTodoModal(false);
   };
   return (
     <>
       <Button
-        variant="outline-gray"
+        variant="outline-orange"
         size="compact"
         className="hidden sm:block"
         onClick={handleTodoOpen}>
         <p className="absolute top-7.25 right-5 flex w-18.5 items-center justify-center font-semibold sm:static sm:w-full">
-          <PlusIcon className="mr-1 h-4 w-4 sm:mr-1.5 sm:h-4.5 sm:w-4.5" />
-          할일추가
+          <PlusIcon className="mr-1 h-4 w-4 sm:mr-1.5 sm:h-4.5 sm:w-4.5" />할 일
+          추가
         </p>
       </Button>
 
@@ -32,9 +31,9 @@ export default function TodoButton({ className }: { className?: string }) {
         className="block sm:hidden"
         onClick={handleTodoOpen}>
         <p
-          className={`${className} absolute right-5 flex w-18.5 items-center justify-center font-semibold sm:static sm:w-full`}>
-          <PlusIcon className="mr-1 h-4 w-4 sm:mr-1.5 sm:h-4.5 sm:w-4.5" />
-          할일추가
+          className={`${className} right-5 flex w-18.5 items-center justify-center font-semibold sm:static sm:w-full`}>
+          <PlusIcon className="mr-1 h-4 w-4 sm:mr-1.5 sm:h-4.5 sm:w-4.5" />할 일
+          추가
         </p>
       </TextButton>
 

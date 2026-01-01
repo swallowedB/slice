@@ -38,7 +38,11 @@ export interface CreateNoteRequest {
   linkUrl?: string;
 }
 
-export type UpdateNoteRequest = Omit<CreateNoteRequest, "todoId">;
+export interface UpdateNoteRequest {
+  title: string;
+  content: string;
+  linkUrl?: string | null;
+}
 
 export interface NoteDetailResponse {
   id: number;

@@ -1,43 +1,60 @@
 "use client";
 
-import { useState, Suspense } from "react";
+import { useState, useEffect } from "react";
+import { AsyncBoundary } from "../_components/AsyncBoundary";
+
 import TodoHeader from "./_components/TodoHeader";
-import PageHeader from "../_components/layout/PageHeader";
-import MobileHeader from "../_components/layout/MobileHeader";
 import TodosContent from "./_components/TodosContent";
 import TodosLayout from "./_components/TodosLayout";
 
 import { useTodosQuery } from "@/hooks/queries/todos";
 
-export default function TodosPage() {
-  const [tab, setTab] = useState<"ALL" | "TODO" | "DONE">("ALL");
+type TabType = "ALL" | "TODO" | "DONE";
 
+function TodosSection({
+  tab,
+  onTabChange,
+}: {
+  tab: TabType;
+  onTabChange: (tab: TabType) => void;
+}) {
   const { data } = useTodosQuery();
+
   const todosCount = data?.totalCount ?? 0;
 
   return (
-    <section className="h-screen">
-      <h2 className="color-black hidden sm:block sm:pl-4 sm:text-2xl sm:font-semibold">
-        <PageHeader
-          title={`모든 할 일`}
-          count={todosCount}
-          desktopClassName="sm:mb-2"
-        />
-      </h2>
-      <MobileHeader
-        title={`모든 할 일`}
-        count={todosCount}></MobileHeader>
-      <TodosLayout>
-        <TodoHeader
-          tab={tab}
-          onTabChange={(t) => setTab(t)}
-          onAdd={() => console.log("할 일 추가")}
-          className="mb-3"
-        />
+    <>
+      <TodoHeader
+        tab={tab}
+        onTabChange={onTabChange}
+        count={todosCount}
+        onAdd={() => console.log("할 일 추가")}
+      />
+      <TodosContent tab={tab} />
+    </>
+  );
+}
 
-        <Suspense>
-          <TodosContent tab={tab} />
-        </Suspense>
+export default function TodosPage() {
+  const [tab, setTab] = useState<TabType>("ALL");
+
+  // 바깥 스크롤 제거
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, []);
+
+  return (
+    <section className="h-screen">
+      <TodosLayout>
+        <AsyncBoundary loadingFallback={<div>로딩 중...</div>}>
+          <TodosSection
+            tab={tab}
+            onTabChange={setTab}
+          />
+        </AsyncBoundary>
       </TodosLayout>
     </section>
   );

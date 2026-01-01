@@ -1,15 +1,17 @@
 "use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import GoalSelect from "./GoalSelect";
 import ListItem from "@/components/common/list/list-item/ListItem";
 import EmptyListContent from "./EmptyListContent";
+import TodoListSkeleton from "./TodoListSkeleton";
 
 import { useListItems } from "@/hooks/useListItems";
 import { useGoalList } from "@/hooks/queries/goals/useGoalList";
-import { useTodosQuery } from "@/hooks/queries/todos";
+import { useInfiniteTodos } from "@/hooks/queries/todos/useInfiniteQuery";
+import { useInView } from "react-intersection-observer";
 
 import { Goal } from "@/api/types/goal";
 import { Todo } from "@/api/types/todo";
@@ -19,33 +21,52 @@ export default function TodosContent({
 }: {
   tab: "ALL" | "TODO" | "DONE";
 }) {
-  const [goal, setGoal] = useState<Goal | null>(null);
-
   const router = useRouter();
   const searchParams = useSearchParams();
+
   const selectedGoalId = searchParams.get("goal");
-  const goalId = selectedGoalId ? Number(selectedGoalId) : null;
+  const goalId = selectedGoalId ? Number(selectedGoalId) : undefined;
 
-  const {
-    data: goalData,
-    isLoading: isGoalsLoading,
-    isError: isGoalsError,
-  } = useGoalList();
+  const [goal, setGoal] = useState<Goal | null>(null);
 
-  const {
-    data: todoData,
-    isLoading: isTodoLoading,
-    isError: isTodoError,
-  } = useTodosQuery();
+  const { data: goalData, isLoading: isGoalsLoading } = useGoalList();
 
   const goals: Goal[] = goalData?.goals ?? [];
-  const todos: Todo[] = todoData?.todos ?? [];
 
-  const filteredTodos = goalId
-    ? todos.filter((todo) => todo.goal?.id === goalId)
-    : todos;
+  // 선택한 목표 값 유지
+  useEffect(() => {
+    if (goalId && goals.length > 0 && !goal) {
+      const found = goals.find((g) => g.id === goalId);
+      if (found) {
+        setGoal(found);
+      }
+    }
+  }, [goalId, goals, goal]);
 
-  const initialItems = filteredTodos.map((todo) => ({
+  // 무한스크롤
+  const {
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    isLoading: isTodosLoading,
+  } = useInfiniteTodos(goalId);
+
+  const todos: Todo[] = data?.pages.flatMap((page) => page.todos) ?? [];
+
+  // react-intersection-observer로 감지
+  const { ref, inView } = useInView({
+    threshold: 0.9,
+  });
+
+  useEffect(() => {
+    if (inView && hasNextPage && !isFetchingNextPage) {
+      fetchNextPage();
+    }
+  }, [inView, hasNextPage, isFetchingNextPage, fetchNextPage]);
+
+  // 할 일 목록
+  const initialItems = todos.map((todo) => ({
     id: todo.id,
     label: todo.title,
     checked: todo.done,
@@ -57,6 +78,22 @@ export default function TodosContent({
 
   const { items, onToggleChecked } = useListItems(initialItems);
 
+  if (isGoalsLoading || isTodosLoading) {
+    return <TodoListSkeleton />;
+  }
+
+  // 드롭다운에 모든 할 일 조회용 '전체' 추가
+  const handleGoalSelect = (title: string) => {
+    if (title === "전체") {
+      setGoal(null);
+      router.push("/todos");
+    } else {
+      const found = goals.find((g) => g.title === title) ?? null;
+      setGoal(found);
+      router.push(found ? `/todos?goal=${found.id}` : "/todos");
+    }
+  };
+
   let filtered = items;
 
   if (tab === "TODO") {
@@ -66,33 +103,40 @@ export default function TodosContent({
     filtered = items.filter((i) => i.checked);
   }
 
-  if (isGoalsLoading || isTodoLoading) return <div>로딩 중..</div>;
-  if (isGoalsError || isTodoError) return <div>🚨에러</div>;
-
   return (
-    <div className="flex flex-col rounded-2xl bg-white px-4 pt-4 pb-6 sm:h-160 lg:h-240">
-      {filtered.length === 0 ? (
-        <EmptyListContent tab={tab} />
-      ) : (
-        <>
-          <GoalSelect
-            goals={goals.map((goal) => goal.title)}
-            title="목표를 선택하세요."
-            value={goal?.title ?? ""}
-            onSelect={(title) => {
-              const found = goals.find((goal) => goal.title === title) || null;
-              setGoal(found);
-              router.push(`/todos?goal=${found?.id}`);
-            }}
-          />
-          <div className="mt-4">
+    <section className="flex flex-col rounded-2xl bg-white p-4 pb-12 sm:p-8 sm:pb-12">
+      <GoalSelect
+        goals={["전체", ...goals.map((g) => g.title)]}
+        title="전체"
+        value={goal?.title ?? "전체"}
+        onSelect={handleGoalSelect}
+      />
+
+      <div className="mt-4">
+        {filtered.length === 0 ? (
+          // 리스트 영역만 empty 처리
+          <div className="flex flex-col rounded-2xl bg-white p-8">
+            <EmptyListContent tab={tab} />
+          </div>
+        ) : (
+          <>
             <ListItem
               items={filtered}
               onToggleChecked={onToggleChecked}
             />
-          </div>
-        </>
-      )}
-    </div>
+
+            {/* 감지용 sentinel */}
+            {hasNextPage && !isFetchingNextPage && (
+              <div
+                ref={ref}
+                className="h-3"
+              />
+            )}
+
+            {isFetchingNextPage && <div>할 일을 불러오는 중입니다 . . .</div>}
+          </>
+        )}
+      </div>
+    </section>
   );
 }
