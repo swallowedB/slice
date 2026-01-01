@@ -5,7 +5,7 @@ import { useUpdateGoalMutation } from "@/hooks/queries/goals/useUpdateGoalMutati
 import { useGoalDetail } from "@/hooks/queries/goals/useGoalDetail";
 import { useDropdown } from "@/hooks/useDropdown";
 import { EllipsisVerticalIcon } from "@heroicons/react/24/outline";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import TextButton from "@/components/common/button/TextButton";
 import { useDeleteGoalMutation } from "@/hooks/queries/goals/useDeleteGoalMutation";
 import ConfirmModal from "@/components/common/popup-modal/ConfirmModal";
@@ -19,12 +19,18 @@ type GoalHeaderProps = {
 
 export default function GoalHeader({ goalId }: GoalHeaderProps) {
   const numericGoalId = Number(goalId);
+  const inputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
 
   const { data: goal } = useGoalDetail(numericGoalId);
   const [confirmOpen, setConfirmOpen] = useState(false);
 
   const [isEditing, setIsEditing] = useState(false);
+  useEffect(() => {
+    if (isEditing && inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [isEditing]);
   const [editTitle, setEditTitle] = useState("");
 
   const { mutate: updateGoal } = useUpdateGoalMutation(numericGoalId);
@@ -92,21 +98,24 @@ export default function GoalHeader({ goalId }: GoalHeaderProps) {
         <h3 className="truncate text-base font-semibold">{goal?.title}</h3>
       ) : (
         <div className="flex w-full gap-2">
-          <BaseInput
-            id="goal-title-edit"
-            className="w-[70%] sm:w-[80%]"
-            value={editTitle}
-            type="text"
-            onChange={(e) => setEditTitle(e.target.value)}
-            placeholder="수정할 목표를 적어주세요."
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                e.preventDefault();
-                handleSave();
-              }
-            }}
-          />
-
+          <div className="relative w-full">
+            <input
+              ref={inputRef}
+              name="goal-title-edit"
+              id="goal-title-edit"
+              className="focus-visible:ring-none w-[70%] outline-none focus:outline-none sm:w-[80%]"
+              value={editTitle}
+              type="text"
+              onChange={(e) => setEditTitle(e.target.value)}
+              placeholder="수정할 목표를 적어주세요."
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  e.preventDefault();
+                  handleSave();
+                }
+              }}
+            />
+          </div>
           <TextButton
             onClick={handleSave}
             className="w-[20%] sm:w-[10%]">
