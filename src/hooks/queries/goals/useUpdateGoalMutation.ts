@@ -14,6 +14,7 @@ export function useUpdateGoalMutation(goalId: number) {
     onSuccess: (data) => {
       queryClient.setQueryData(goalsQueryKeys.detail(goalId), data);
 
+      queryClient.invalidateQueries({ queryKey: goalsQueryKeys.list() });
       queryClient.invalidateQueries({
         queryKey: goalsQueryKeys.detail(goalId),
       });
