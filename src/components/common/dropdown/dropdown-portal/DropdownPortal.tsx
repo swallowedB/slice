@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useDeviceSize } from "@/hooks/useDeviceSize";
 
-import Portal from "../../../../components/common/dropdown/dropdown-portal/Portal";
+import Portal from "@/components/common/dropdown/dropdown-portal/Portal";
 import Dropdown, { DropdownItem } from "@/components/common/dropdown";
 
 interface DropdownPortalProps {
@@ -22,8 +22,8 @@ export default function DropdownPortal({
 
     if (isMobile) {
       setStyle({
-        position: "fixed",
-        top: anchorRect.bottom + window.scrollY + 4,
+        position: "absolute",
+        top: anchorRect.bottom + window.scrollY + 5,
         left: anchorRect.right + window.scrollX - 90,
         zIndex: 1000,
       });
