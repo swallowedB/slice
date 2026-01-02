@@ -15,27 +15,27 @@ export default function DropdownPortal({
   onClose,
 }: DropdownPortalProps) {
   const [style, setStyle] = useState<React.CSSProperties>({});
-  const { isMobile } = useDeviceSize();
+  const { isDesktop } = useDeviceSize();
 
   useEffect(() => {
     if (!anchorRect) return;
 
-    if (isMobile) {
+    if (isDesktop) {
+      setStyle({
+        position: "absolute",
+        top: anchorRect.bottom + window.scrollY + 5,
+        left: anchorRect.right + window.scrollX - 20,
+        zIndex: 1000,
+      });
+    } else {
       setStyle({
         position: "absolute",
         top: anchorRect.bottom + window.scrollY + 5,
         left: anchorRect.right + window.scrollX - 90,
         zIndex: 1000,
       });
-    } else {
-      setStyle({
-        position: "absolute",
-        top: anchorRect.bottom + window.scrollY + 4,
-        left: anchorRect.right + window.scrollX - 20,
-        zIndex: 1000,
-      });
     }
-  }, [anchorRect, isMobile]);
+  }, [anchorRect, isDesktop]);
 
   return (
     <Portal>
