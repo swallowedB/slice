@@ -29,6 +29,19 @@ export default async function GoalsPage({ params }: GoalsPageProps) {
           auth: "access",
         }),
     }),
+    queryClient.prefetchQuery({
+      queryKey: goalsQueryKeys.detail(Number(goalId)),
+      queryFn: async () => {
+        try {
+          return await backendFetch<GoalResponse>(`/goals/${goalId}`, {
+            auth: "access",
+          });
+        } catch (error) {
+          console.warn(`Goal ${goalId} not found, skipping prefetch`);
+          return null;
+        }
+      },
+    }),
   ]);
 
   return (
