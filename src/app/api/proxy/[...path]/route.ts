@@ -1,12 +1,8 @@
-import { backendFetch } from "@/lib/backend";
 import {
-  clearAuthCookies,
   getAccessTokenFromCookies,
   getRefreshTokenFromCookies,
-  setAuthCookies,
 } from "@/lib/cookies";
 import { NextResponse } from "next/server";
-
 
 const BASE = process.env.NEXT_PUBLIC_BASE_URL;
 if (!BASE) throw new Error("🚨 NEXT_PUBLIC_BASE_URL을 찾을 수 없습니다");
@@ -33,14 +29,13 @@ function buildBackendUrl(req: Request, pathArr: string[]) {
   return `${base}${path}${search}`;
 }
 
-function buildForwardHeaders(req: Request, accessToken: string | null) {
+function buildForwardHeaders(req: Request) {
   const headers = new Headers(req.headers);
   headers.delete("host");
   headers.delete("connection");
   headers.delete("content-length");
 
   headers.delete("authorization");
-  if (accessToken) headers.set("authorization", `Bearer ${accessToken}`);
 
   return headers;
 }
@@ -54,7 +49,9 @@ async function callBackend(
   const method = req.method.toUpperCase();
   const hasBody = !["GET", "HEAD"].includes(method);
 
-  const headers = buildForwardHeaders(req, accessToken);
+  const headers = buildForwardHeaders(req);
+
+  if (accessToken) headers.set("authorization", `Bearer ${accessToken}`);
 
   return fetch(url, {
     method,
@@ -84,8 +81,28 @@ function attachClearAuthCookies(res: NextResponse) {
   return res;
 }
 
+async function refreshTokensByHeader(req: Request): Promise<RefreshResponse> {
+  const refreshToken = await getRefreshTokenFromCookies();
+  if (!refreshToken) throw new Error("no refresh token");
+
+  const refreshUrl = `${BASE}${"/auth/tokens"}`;
+
+  const headers = buildForwardHeaders(req);
+  headers.set("accept", "application/json");
+  headers.set("authorization", `Bearer ${refreshToken}`);
+
+  const res = await fetch(refreshUrl, {
+    method: "POST",
+    headers,
+    cache: "no-store",
+  });
+
+  if (!res.ok) throw new Error("refresh failed");
+
+  return (await res.json()) as RefreshResponse;
+}
+
 async function handler(req: Request, ctx: Ctx) {
-  
   const { path } = await ctx.params;
   const backendUrl = buildBackendUrl(req, path);
 
@@ -96,28 +113,21 @@ async function handler(req: Request, ctx: Ctx) {
   const access1 = await getAccessTokenFromCookies();
   let res = await callBackend(req, backendUrl, access1, bodyBuf);
 
-  if (res.status !== 401 && res.status !== 403) return passThrough(res);
-
-  const refreshToken = await getRefreshTokenFromCookies();
-  if (!refreshToken) {
-    return attachClearAuthCookies(
-      NextResponse.json({ ok: false, message: "Unauthenticated" }, { status: 401 }),
-    );
+  if (res.status !== 401 && res.status !== 403) {
+    return passThrough(res);
   }
 
   let refreshed: RefreshResponse;
   try {
-    refreshed = await backendFetch<RefreshResponse>("/auth/refresh", {
-      method: "POST",
-      body: JSON.stringify({ refreshToken }),
-      auth: "none",
-    });
+    refreshed = await refreshTokensByHeader(req);
   } catch {
     return attachClearAuthCookies(
-      NextResponse.json({ ok: false, message: "Unauthenticated" }, { status: 401 }),
+      NextResponse.json(
+        { ok: false, message: "Unauthenticated" },
+        { status: 401 },
+      ),
     );
   }
-
   res = await callBackend(req, backendUrl, refreshed.accessToken, bodyBuf);
 
   const next = passThrough(res);

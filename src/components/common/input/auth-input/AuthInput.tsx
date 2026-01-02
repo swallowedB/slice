@@ -1,6 +1,8 @@
 "use client";
 
-import BaseInput, { InputType as BaseInputType } from "../base-input/BaseInput";
+import BaseInput, {
+  InputType as BaseInputType,
+} from "@/components/common/input/base-input/BaseInput";
 import clsx from "clsx";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
 
@@ -41,7 +43,6 @@ export default function AuthInput({
   onChangeInput,
   onClickTogglePassword,
 }: InputProps) {
-
   const isPasswordField = type === "password";
 
   let inputType: BaseInputType;
@@ -60,23 +61,30 @@ export default function AuthInput({
       "border-gray-100": status === "default",
       "border-gray-200": status === "filled",
       "border-red-500": status === "error",
-    }
-  )
+    },
+  );
 
   const rightIcon = isPasswordField && (
-    <button 
-    className="pt-1.5 cursor-pointer"
-    type="button" onClick={onClickTogglePassword}>
+    <button
+      className="cursor-pointer pt-1.5"
+      type="button"
+      onClick={onClickTogglePassword}>
       {isPasswordVisible ? (
-        <EyeIcon className=" w-5 h-5 text-gray-400" strokeWidth={2} />
+        <EyeIcon
+          className="h-5 w-5 text-gray-400"
+          strokeWidth={2}
+        />
       ) : (
-        <EyeSlashIcon className="w-5 h-5 text-gray-400" strokeWidth={2} />
+        <EyeSlashIcon
+          className="h-5 w-5 text-gray-400"
+          strokeWidth={2}
+        />
       )}
     </button>
-  )
+  );
 
   return (
-    <div className="flex flex-col gap-1 w-full">
+    <div className="flex w-full flex-col gap-1">
       <BaseInput
         id={id}
         name={name}
