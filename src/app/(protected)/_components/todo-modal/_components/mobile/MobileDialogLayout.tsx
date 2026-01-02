@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
 
 interface MobileDialogLayoutProps {
   children: ReactNode;
@@ -11,6 +11,13 @@ export default function MobileDialogLayout({
   children,
   onClose,
 }: MobileDialogLayoutProps) {
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, []);
   return (
     <div
       className="fixed inset-0 flex flex-col justify-end bg-black/40"
