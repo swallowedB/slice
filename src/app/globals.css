@@ -90,6 +90,5 @@
 }
 
 [data-sonner-toast] {
-  min-width: 400px !important;
-  max-width: 90vw !important;
+  width: min(400px, 90vw);
 }

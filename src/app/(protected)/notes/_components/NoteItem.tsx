@@ -60,7 +60,7 @@ export default function NoteItem({
         <header className="mb-2 flex items-center justify-between border-b border-b-gray-100 pb-2 sm:mb-3.5 sm:pb-4 lg:mb-4 lg:pb-5">
           <NoteTitleView
             title={title}
-            className="text-sm sm:text-lg lg:text-xl"
+            className="truncate text-sm sm:text-lg lg:text-xl"
           />
           <button
             type="button"
