@@ -19,7 +19,7 @@ const steps = [
   {
     icon: NoteIcon,
     title: "학습하고 기록하기",
-    description: "할 일을 완료하며 학습하고,\n노트로 기록하세요",
+    description: "할 일을 완료하며 학습하고\n노트로 기록하세요",
   },
 ];
 

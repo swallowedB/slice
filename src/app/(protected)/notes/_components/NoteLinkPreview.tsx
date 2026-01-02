@@ -21,7 +21,7 @@ export function NoteLinkPreview({
     <div
       className="bg-gray-25 flex cursor-pointer flex-col gap-1 rounded-xl px-4 py-3.5"
       onClick={onClick}>
-      <div className="flex justify-between">
+      <div className="flex items-start justify-between">
         <div className="flex items-start gap-1">
           <img
             src={`https://www.google.com/s2/favicons?domain=${new URL(linkMetadata.url).hostname}&sz=32`}
