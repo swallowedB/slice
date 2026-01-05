@@ -75,11 +75,11 @@ export default function GoalList() {
       )}
 
       {isFetchingNextPage && (
-        <p className="py-2 text-center text-gray-500">불러오는 중…</p>
+        <p className="py-5 text-center text-gray-500">불러오는 중…</p>
       )}
       {!hasNextPage && (
-        <p className="py-2 text-center text-gray-500">
-          모든 목표를 불러왔습니다
+        <p className="py-5 text-center text-gray-500">
+          모든 목표를 불러왔습니다.
         </p>
       )}
     </>

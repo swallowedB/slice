@@ -49,7 +49,7 @@ export default function CTASection() {
           <p className="mb-3 text-sm font-medium text-[#FF8A50] sm:mb-4 sm:text-base lg:text-lg">
             슬라이스 하나로 정리부터 실행까지
           </p>
-          <h2 className="mb-8 text-3xl leading-tight font-bold text-gray-900 sm:mb-10 sm:text-4xl lg:mb-12 lg:text-6xl">
+          <h2 className="mb-8 text-2xl leading-tight font-bold text-gray-900 sm:mb-10 sm:text-4xl lg:mb-12 lg:text-5xl">
             오늘의 할 일, Slice로 계획해요
           </h2>
           <motion.button

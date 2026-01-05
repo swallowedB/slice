@@ -16,7 +16,7 @@ export default function GoalContainer({ goalId }: Props) {
   return (
     <section>
       <PageHeader
-        title={`${nickname} 목표`}
+        title={`${nickname}님의 목표`}
         desktopClassName="sm:mb-8.5"
       />
 

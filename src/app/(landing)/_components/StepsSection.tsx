@@ -40,7 +40,7 @@ export default function StepsSection() {
           <p className="mb-3 text-sm font-medium text-[#FF8A50] sm:mb-4 sm:text-base lg:text-lg">
             목표 설정부터 기록까지
           </p>
-          <h2 className="text-foreground text-2xl font-bold text-balance sm:text-3xl lg:text-4xl">
+          <h2 className="text-foreground text-2xl font-bold text-balance sm:text-4xl lg:text-5xl">
             쉽고 빠르게 할 일을 시작해요
           </h2>
         </motion.div>

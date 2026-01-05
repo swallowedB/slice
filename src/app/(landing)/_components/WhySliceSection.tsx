@@ -32,7 +32,7 @@ export default function WhySliceSection() {
           <p className="mb-3 text-sm font-medium sm:mb-4 sm:text-base lg:text-lg">
             더 똑똑한 할 일 관리
           </p>
-          <h2 className="text-3xl font-bold sm:text-4xl lg:text-5xl">
+          <h2 className="text-2xl font-bold sm:text-4xl lg:text-5xl">
             슬라이스가 특별한 이유
           </h2>
         </motion.div>
