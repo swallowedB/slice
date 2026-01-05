@@ -67,7 +67,7 @@ export default function GoalHeader({ goalId }: GoalHeaderProps) {
       {
         onSuccess: () => {
           setIsEditing(false);
-          toast.success("수정되었습니다");
+          toast.success("목표가 수정되었습니다.");
         },
       },
     );
@@ -82,7 +82,7 @@ export default function GoalHeader({ goalId }: GoalHeaderProps) {
     deleteGoal(numericGoalId, {
       onSuccess: () => {
         setConfirmOpen(false);
-        toast.success("삭제되었습니다");
+        toast.success("목표가 삭제되었습니다.");
         router.replace("/dashboard");
       },
     });
