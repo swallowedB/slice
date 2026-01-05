@@ -21,7 +21,7 @@ export default function CommunicationSection() {
           <p className="mb-3 text-sm font-medium text-[#FF8A50] sm:text-base">
             목표를 공유하고 응원받기
           </p>
-          <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl lg:text-5xl">
+          <h2 className="text-2xl font-bold text-gray-900 sm:text-4xl lg:text-5xl">
             다양한 사람들과
             <br />
             서로의 목표를 응원해요
