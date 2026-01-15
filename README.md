@@ -26,7 +26,7 @@
 
 | 랜딩 페이지 (<a href="https://github.com/jjinheeWorld">이진희</a>) |
 | :----------------------------------------------------------------: |
-|      <img src="https://placehold.co/1200x700" width="700" />       |
+|      <img width="1435" height="770" alt="랜딩 페이지" src="https://github.com/user-attachments/assets/949a0d85-a91b-4b8f-ad72-7a7f3a253ab1" />       |
 
 ### 로그인 / 회원가입
 
@@ -35,7 +35,7 @@
 
 | 로그인 / 회원가입 (<a href="https://github.com/swallowedB">최보아</a>) |
 | :--------------------------------------------------------------------: |
-|        <img src="https://placehold.co/1200x700" width="700" />         |
+|        <img width="1435" height="770" alt="로그인 : 회원가입" src="https://github.com/user-attachments/assets/5c1c00ac-e0d4-4c1c-a5df-09b2ba786fe6" />         |
 
 ### 네비게이션 사이드바
 
@@ -44,7 +44,7 @@
 
 | 네비게이션 사이드바 (<a href="https://github.com/swallowedB">최보아</a>) |
 | :----------------------------------------------------------------------: |
-|         <img src="https://placehold.co/1200x700" width="700" />          |
+|         <img width="1435" height="770" alt="네비게이션 사이드바" src="https://github.com/user-attachments/assets/e4cf242a-8b6d-4515-bf81-94f6920b0e23" />          |
 
 ### 대시보드
 
@@ -54,7 +54,7 @@
 
 | 대시보드 (<a href="https://github.com/goodaseul">정다슬</a>) |
 | :----------------------------------------------------------: |
-|   <img src="https://placehold.co/1200x700" width="700" />    |
+|   <img width="1435" height="770" alt="대시보드" src="https://github.com/user-attachments/assets/cf964508-3278-4e9d-8e33-c781fe592e90" />    |
 
 ### 목표 상세
 
@@ -64,7 +64,7 @@
 
 | 목표 상세 (<a href="https://github.com/goodaseul">정다슬</a>) |
 | :-----------------------------------------------------------: |
-|    <img src="https://placehold.co/1200x700" width="700" />    |
+|    <img width="1435" height="770" alt="목표 상세" src="https://github.com/user-attachments/assets/6e033d38-b017-495c-98fa-7b139fbf29e4" />    |
 
 ### 모든 할 일
 
@@ -74,7 +74,7 @@
 
 | 모든 할 일 (<a href="https://github.com/iyxxnjin">나윤진</a>) |
 | :-----------------------------------------------------------: |
-|    <img src="https://placehold.co/1200x700" width="700" />    |
+|    <img width="1435" height="770" alt="모든 할 일" src="https://github.com/user-attachments/assets/1180a0ef-3e07-4f17-b228-b511861a4155" />    |
 
 ### 할 일 생성 및 수정 모달
 
@@ -83,7 +83,7 @@
 
 | 할 일 생성 및 수정 모달 (<a href="https://github.com/iyxxnjin">나윤진</a>) |
 | :------------------------------------------------------------------------: |
-|          <img src="https://placehold.co/1200x700" width="700" />           |
+|          <img width="1435" height="770" alt="할 일 작성 및 수정" src="https://github.com/user-attachments/assets/6c32b357-98ba-4e95-a6cb-73086601277d" />           |
 
 ### 노트 모아보기
 
@@ -93,7 +93,7 @@
 
 | 노트 모아보기 (<a href="https://github.com/jjinheeWorld">이진희</a>) |
 | :------------------------------------------------------------------: |
-|       <img src="https://placehold.co/1200x700" width="700" />        |
+|       <img width="1435" height="770" alt="노트 모아보기" src="https://github.com/user-attachments/assets/420c1c3c-252f-460b-a3a3-9aa9d4dc0aba" />        |
 
 ### 노트 작성 및 수정
 
@@ -103,7 +103,7 @@
 
 | 노트 작성 및 수정 (<a href="https://github.com/jjinheeWorld">이진희</a>) |
 | :----------------------------------------------------------------------: |
-|         <img src="https://placehold.co/1200x700" width="700" />          |
+|         <img width="1435" height="770" alt="노트 작성 및 수정" src="https://github.com/user-attachments/assets/703afeca-472c-49a7-8846-d11959507f15" />          |
 
 ### 노트 상세
 
@@ -114,7 +114,7 @@
 
 | 노트 상세 (<a href="https://github.com/jjinheeWorld">이진희</a>) |
 | :--------------------------------------------------------------: |
-|     <img src="https://placehold.co/1200x700" width="700" />      |
+|     <img width="1435" height="770" alt="노트 상세" src="https://github.com/user-attachments/assets/ea5143ca-efe0-4b0b-b799-30330ea4e2e7" />      |
 
 ## 팀원 소개
 
