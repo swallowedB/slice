@@ -1,6 +1,7 @@
-import { render, screen } from "@testing-library/react";
-import NoteListContainer from "@/app/(protected)/notes/_components/NoteListContainer";
+import { screen } from "@testing-library/react";
 import { useNotesQuery, useDeleteNoteMutation } from "@/hooks/queries/notes";
+import NoteListContainer from "@/app/(protected)/notes/_components/NoteListContainer";
+import { renderWithQueryClient } from "tests/test-utils";
 
 jest.mock("@/hooks/queries/notes");
 
@@ -10,28 +11,20 @@ jest.mock("next/navigation", () => ({
   }),
 }));
 
-const mockUseNotesQuery = useNotesQuery as jest.MockedFunction<
-  typeof useNotesQuery
->;
-
-const mockUseDeleteNoteMutation = useDeleteNoteMutation as jest.MockedFunction<
-  typeof useDeleteNoteMutation
->;
-
 describe("NoteListContainer", () => {
   const goalId = 1;
 
   beforeEach(() => {
     jest.clearAllMocks();
 
-    mockUseDeleteNoteMutation.mockReturnValue({
+    jest.mocked(useDeleteNoteMutation).mockReturnValue({
       mutate: jest.fn(),
     } as unknown as ReturnType<typeof useDeleteNoteMutation>);
   });
 
   describe("노트가 없을 때", () => {
-    it("노트가 없으면 EmptyState를 렌더링된다", () => {
-      mockUseNotesQuery.mockReturnValue({
+    it("노트가 없으면 EmptyState를 렌더링한다", () => {
+      jest.mocked(useNotesQuery).mockReturnValue({
         data: {
           totalCount: 0,
           nextCursor: null,
@@ -40,7 +33,7 @@ describe("NoteListContainer", () => {
         },
       } as unknown as ReturnType<typeof useNotesQuery>);
 
-      render(<NoteListContainer goalId={goalId} />);
+      renderWithQueryClient(<NoteListContainer goalId={goalId} />);
 
       expect(screen.getByText("아직 등록된 노트가 없어요")).toBeInTheDocument();
     });
@@ -48,7 +41,7 @@ describe("NoteListContainer", () => {
 
   describe("노트가 있을 때", () => {
     it("GoalBanner와 NoteList를 렌더링한다", () => {
-      mockUseNotesQuery.mockReturnValue({
+      jest.mocked(useNotesQuery).mockReturnValue({
         data: {
           totalCount: 1,
           nextCursor: null,
@@ -64,7 +57,7 @@ describe("NoteListContainer", () => {
         },
       } as unknown as ReturnType<typeof useNotesQuery>);
 
-      render(<NoteListContainer goalId={goalId} />);
+      renderWithQueryClient(<NoteListContainer goalId={goalId} />);
 
       expect(screen.getByText("목표 1")).toBeInTheDocument();
       expect(screen.getByText("첫 번째 노트")).toBeInTheDocument();
